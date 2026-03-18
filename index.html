@@ -3,96 +3,106 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Adheesha Sooriyaarachchi portfolio featuring UI/UX, frontend craft, branding work, and a suite of custom web tools.">
+    <meta name="description" content="Adheesha Sooriyaarachchi portfolio featuring elegant digital design, frontend craft, and a premium suite of custom tools.">
     <title>Adheesha Sooriyaarachchi | Portfolio</title>
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Sora:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>document.documentElement.classList.add('js')</script>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="page-noise"></div>
-    <div class="ambient ambient-one"></div>
-    <div class="ambient ambient-two"></div>
+    <div class="page-noise" aria-hidden="true"></div>
+    <div class="page-ambient ambient-a" aria-hidden="true"></div>
+    <div class="page-ambient ambient-b" aria-hidden="true"></div>
+    <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
 
-    <header class="site-header" id="top">
-        <nav class="navbar" id="navbar">
-            <a href="#top" class="brand-mark">Adheesha Sooriyaarachchi</a>
-            <button class="menu-toggle" id="menuToggle" aria-label="Open navigation">
+    <header class="site-header">
+        <nav class="nav shell" id="nav">
+            <a href="#top" class="brand">Adheesha Sooriyaarachchi</a>
+
+            <button class="nav-toggle" id="navToggle" type="button" aria-label="Toggle menu" aria-expanded="false">
                 <span></span>
                 <span></span>
             </button>
-            <div class="nav-panel" id="navPanel">
+
+            <div class="nav-menu" id="navMenu">
                 <a href="#about" class="nav-link">About</a>
                 <a href="#tools" class="nav-link">Tools</a>
                 <a href="#projects" class="nav-link">Projects</a>
                 <a href="#contact" class="nav-link">Contact</a>
+                <a href="mailto:adeesha.73x@gmail.com" class="nav-cta">Let’s Talk</a>
             </div>
         </nav>
     </header>
 
-    <main>
-        <section class="hero-section">
-            <div class="shell hero-grid">
+    <main id="top">
+        <section class="hero">
+            <div class="shell hero-layout">
                 <div class="hero-copy reveal">
-                    <span class="eyebrow">Creative Developer • UI/UX Designer</span>
-                    <h1 class="hero-title">Building a bold digital identity with thoughtful design, modern interfaces, and useful web tools.</h1>
-                    <p class="hero-text">
-                        I am Adheesha Sooriyaarachchi, a Sri Lankan creative focused on premium visual systems,
-                        responsive frontends, and polished experiences that feel intentional from the first scroll.
+                    <span class="eyebrow">Portfolio • UI/UX • Frontend Craft</span>
+                    <h1 class="hero-title">Elegant digital experiences with a sharper visual identity and a calmer, premium feel.</h1>
+                    <p class="hero-description">
+                        I am Adheesha Sooriyaarachchi. I design and build refined interfaces, brand-forward visuals,
+                        and useful web tools that feel intentional on both desktop and mobile.
                     </p>
 
                     <div class="hero-actions">
-                        <a href="#projects" class="btn btn-primary">View Projects</a>
-                        <a href="#tools" class="btn btn-secondary">Explore Tools</a>
+                        <a href="#projects" class="btn btn-primary">Selected Projects</a>
+                        <a href="#tools" class="btn btn-secondary">Explore My Tools</a>
                     </div>
 
-                    <div class="hero-metrics">
+                    <div class="hero-stats">
                         <article>
                             <strong>07</strong>
-                            <span>Custom tools built</span>
+                            <span>Tools designed</span>
                         </article>
                         <article>
                             <strong>50+</strong>
-                            <span>Design-focused projects</span>
+                            <span>Creative works</span>
                         </article>
                         <article>
                             <strong>03+</strong>
-                            <span>Years of creative growth</span>
+                            <span>Years evolving</span>
                         </article>
                     </div>
                 </div>
 
-                <div class="hero-visual reveal">
-                    <div class="visual-card">
-                        <div class="visual-badge badge-top">
+                <div class="hero-stage reveal" id="heroStage">
+                    <div class="stage-card stage-card-main">
+                        <div class="stage-badge stage-badge-top">
                             <i class="fa-solid fa-star"></i>
-                            Premium yellow identity
+                            Signature yellow identity
                         </div>
-                        <div class="visual-badge badge-bottom">
-                            <i class="fa-solid fa-code"></i>
-                            Design + build mindset
+
+                        <div class="stage-portrait-wrap">
+                            <div class="stage-glow"></div>
+                            <img src="ppimage.png" alt="Adheesha Sooriyaarachchi portrait" class="stage-portrait">
                         </div>
-                        <div class="portrait-wrap">
-                            <div class="portrait-glow"></div>
-                            <img src="ppimage.png" alt="Adheesha Sooriyaarachchi portrait" class="portrait-image">
+
+                        <div class="stage-badge stage-badge-bottom">
+                            <i class="fa-solid fa-layer-group"></i>
+                            Design systems + modern interfaces
                         </div>
                     </div>
+
+                    <div class="floating-chip chip-one">Responsive Thinking</div>
+                    <div class="floating-chip chip-two">Frontend Precision</div>
+                    <div class="floating-chip chip-three">Tool Ecosystem</div>
                 </div>
             </div>
         </section>
 
-        <section class="section section-intro reveal">
-            <div class="shell intro-banner">
+        <section class="section section-intro">
+            <div class="shell intro-panel reveal">
                 <div>
-                    <span class="eyebrow">What I Do</span>
-                    <h2>One portfolio. Multiple creative layers.</h2>
+                    <span class="eyebrow">Creative Direction</span>
+                    <h2>Not just a portfolio page. A polished personal product.</h2>
                 </div>
                 <p>
-                    From interfaces and branding to frontend implementation and productivity tools, this portfolio is meant
-                    to feel like a curated digital studio instead of a generic personal website.
+                    The goal is to make the whole experience feel composed, elegant, and memorable,
+                    while still presenting real tools, real craft, and real frontend capability.
                 </p>
             </div>
         </section>
@@ -100,36 +110,40 @@
         <section class="section" id="about">
             <div class="shell">
                 <div class="section-heading reveal">
-                    <span class="eyebrow">About Me</span>
-                    <h2>Designing with clarity, emotion, and structure.</h2>
-                    <p>I care about visual hierarchy, meaningful motion, and products that solve problems without losing personality.</p>
+                    <span class="eyebrow">About</span>
+                    <h2>Designing interfaces that feel premium before a single word is read.</h2>
+                    <p>
+                        I care about typography, rhythm, motion, and structure. The visual language has to feel
+                        effortless, but the system behind it should still be strong and scalable.
+                    </p>
                 </div>
 
                 <div class="about-grid">
-                    <article class="about-card about-main reveal">
-                        <h3>Creative direction with technical execution</h3>
+                    <article class="about-card about-feature reveal">
+                        <span class="card-kicker">Approach</span>
+                        <h3>Calm layouts, expressive highlights, and better visual discipline.</h3>
                         <p>
-                            I enjoy shaping a concept from mood and typography all the way to the final responsive interface.
-                            My work blends UI thinking, brand sensitivity, and practical frontend knowledge.
+                            My preferred direction blends minimal structure with warmth, using controlled accents,
+                            large typography, generous spacing, and subtle motion instead of noisy decoration.
                         </p>
                     </article>
 
                     <article class="about-card reveal">
-                        <span class="stat">BSc (Hons)</span>
-                        <h3>Computing Undergraduate</h3>
-                        <p>Currently growing my software background while sharpening design and product instincts.</p>
+                        <span class="metric">BSc (Hons)</span>
+                        <h3>Computing undergraduate</h3>
+                        <p>Growing technical depth while keeping design quality central to every build.</p>
                     </article>
 
                     <article class="about-card reveal">
-                        <span class="stat">Freelance</span>
-                        <h3>Visual & Digital Work</h3>
-                        <p>Creating brand-ready assets, layouts, UI concepts, and polished client-facing visuals.</p>
+                        <span class="metric">Freelance</span>
+                        <h3>Creative visual work</h3>
+                        <p>Branding, layout systems, UI direction, and polished presentation design.</p>
                     </article>
 
                     <article class="about-card reveal">
-                        <span class="stat">Focus</span>
-                        <h3>Clean systems</h3>
-                        <p>UI/UX, branding, frontend implementation, and curated utility tools with strong visual consistency.</p>
+                        <span class="metric">Focus</span>
+                        <h3>Useful products</h3>
+                        <p>Clean tools, responsive websites, and interfaces that solve without clutter.</p>
                     </article>
                 </div>
             </div>
@@ -139,66 +153,89 @@
             <div class="shell">
                 <div class="section-heading reveal">
                     <span class="eyebrow">Tool Suite</span>
-                    <h2>Seven tools, presented as part of the brand.</h2>
-                    <p>These utilities are part of the portfolio story, not a separate dashboard replacing the homepage.</p>
+                    <h2>My tools should feel like part of the portfolio, not a separate world.</h2>
+                    <p>
+                        This collection shows the practical side of my work. Each tool is presented with the same
+                        design language so the entire site feels coherent and intentional.
+                    </p>
                 </div>
 
                 <div class="tools-layout">
-                    <div class="tools-feature reveal">
-                        <span class="feature-label">Featured Collection</span>
-                        <h3>Utility design with the same visual DNA as the portfolio.</h3>
+                    <aside class="tools-spotlight reveal">
+                        <span class="card-kicker">Featured Collection</span>
+                        <h3>A utility ecosystem with a premium visual layer.</h3>
                         <p>
-                            Each tool is crafted around speed, clean interfaces, and the signature yellow accent that makes the
-                            whole experience feel connected.
+                            Instead of throwing links into a grid, I wanted the tools area to feel like a carefully
+                            framed product lineup with better hierarchy, better motion, and better overall presence.
                         </p>
-                        <div class="feature-pills">
-                            <span>Responsive layouts</span>
-                            <span>Fast interactions</span>
-                            <span>Signature yellow</span>
+
+                        <div class="spotlight-pills">
+                            <span>Responsive</span>
+                            <span>Elegant</span>
+                            <span>Fast</span>
                         </div>
-                    </div>
+
+                        <div class="spotlight-panel">
+                            <div class="spotlight-top">
+                                <strong>07 Tools</strong>
+                                <span>Yellow Theme System</span>
+                            </div>
+                            <div class="spotlight-lines">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
+                        </div>
+                    </aside>
 
                     <div class="tools-grid">
-                        <article class="tool-card reveal">
+                        <article class="tool-card reveal" style="--delay: 0ms;">
+                            <span class="tool-number">01</span>
                             <div class="tool-icon"><i class="fa-solid fa-qrcode"></i></div>
                             <h3>QR Master</h3>
-                            <p>Generate clean QR codes for links, text, and instant sharing.</p>
+                            <p>Generate clean QR outputs for quick sharing, links, and text-based workflows.</p>
                         </article>
 
-                        <article class="tool-card reveal">
+                        <article class="tool-card reveal" style="--delay: 80ms;">
+                            <span class="tool-number">02</span>
                             <div class="tool-icon"><i class="fa-solid fa-id-card"></i></div>
                             <h3>NIC Finder</h3>
-                            <p>Decode Sri Lankan NIC details through a simple lookup flow.</p>
+                            <p>Decode Sri Lankan NIC information through a clear and focused lookup flow.</p>
                         </article>
 
-                        <article class="tool-card reveal">
+                        <article class="tool-card reveal" style="--delay: 160ms;">
+                            <span class="tool-number">03</span>
                             <div class="tool-icon"><i class="fa-solid fa-shield-halved"></i></div>
                             <h3>SecurePass Pro</h3>
-                            <p>Manage credentials locally in a premium vault-inspired interface.</p>
+                            <p>Store and manage credentials with a cleaner vault-inspired visual style.</p>
                         </article>
 
-                        <article class="tool-card reveal">
+                        <article class="tool-card reveal" style="--delay: 240ms;">
+                            <span class="tool-number">04</span>
                             <div class="tool-icon"><i class="fa-solid fa-location-dot"></i></div>
                             <h3>Postal Finder</h3>
-                            <p>Search Sri Lankan post offices and postal code matches quickly.</p>
+                            <p>Search Sri Lankan postal code data in a compact, usable utility interface.</p>
                         </article>
 
-                        <article class="tool-card reveal">
+                        <article class="tool-card reveal" style="--delay: 320ms;">
+                            <span class="tool-number">05</span>
                             <div class="tool-icon"><i class="fa-solid fa-font"></i></div>
                             <h3>Text Transformer</h3>
-                            <p>Convert, clean, and analyze text while keeping live writing stats visible.</p>
+                            <p>Transform text, copy outputs, and monitor writing stats without friction.</p>
                         </article>
 
-                        <article class="tool-card reveal">
+                        <article class="tool-card reveal" style="--delay: 400ms;">
+                            <span class="tool-number">06</span>
                             <div class="tool-icon"><i class="fa-solid fa-palette"></i></div>
                             <h3>ChromaCraft</h3>
-                            <p>Experiment with colors, conversions, and quick palette checks.</p>
+                            <p>Preview and convert colors in a designer-friendly space with live values.</p>
                         </article>
 
-                        <article class="tool-card reveal">
+                        <article class="tool-card reveal tool-card-wide" style="--delay: 480ms;">
+                            <span class="tool-number">07</span>
                             <div class="tool-icon"><i class="fa-solid fa-calculator"></i></div>
                             <h3>InterestCalc</h3>
-                            <p>Calculate simple and compound interest with a clean finance utility flow.</p>
+                            <p>Simple and compound interest calculations presented with a more readable and modern financial utility feel.</p>
                         </article>
                     </div>
                 </div>
@@ -208,68 +245,67 @@
         <section class="section" id="projects">
             <div class="shell">
                 <div class="section-heading reveal">
-                    <span class="eyebrow">Selected Work</span>
-                    <h2>Projects shaped by layout, storytelling, and usability.</h2>
-                    <p>A mix of product thinking, visual design, and strong presentation choices.</p>
+                    <span class="eyebrow">Projects</span>
+                    <h2>Selected work shaped with clarity, composition, and visual restraint.</h2>
+                    <p>These pieces reflect my interest in clean product presentation, branding depth, and interface polish.</p>
                 </div>
 
-                <div class="project-grid">
+                <div class="projects-grid">
                     <article class="project-card reveal">
-                        <div class="project-media">
-                            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1600&auto=format&fit=crop" alt="Analytics dashboard interface">
+                        <div class="project-image">
+                            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1800&auto=format&fit=crop" alt="Dashboard interface concept">
                         </div>
                         <div class="project-body">
                             <span class="project-tag">UI/UX • Web App</span>
                             <h3>NIBM GPA Calculator</h3>
-                            <p>A clean academic tool concept designed for clarity, speed, and reduced friction.</p>
+                            <p>A cleaner student utility concept focused on low friction, readability, and fast interaction.</p>
                         </div>
                     </article>
 
                     <article class="project-card reveal">
-                        <div class="project-media">
-                            <img src="https://images.unsplash.com/photo-1600132806370-bf17e65e942f?q=80&w=1600&auto=format&fit=crop" alt="Brand identity visuals">
+                        <div class="project-image">
+                            <img src="https://images.unsplash.com/photo-1600132806370-bf17e65e942f?q=80&w=1800&auto=format&fit=crop" alt="Brand identity and packaging concept">
                         </div>
                         <div class="project-body">
                             <span class="project-tag">Branding • Identity</span>
                             <h3>Eco Friendly Identity</h3>
-                            <p>A visual identity system balancing modernity, trust, and environmental values.</p>
+                            <p>A brand direction built to feel modern, trustworthy, and visually consistent across touchpoints.</p>
                         </div>
                     </article>
 
                     <article class="project-card reveal">
-                        <div class="project-media">
-                            <img src="https://images.unsplash.com/photo-1526506169974-9ae38d6df7bc?q=80&w=1600&auto=format&fit=crop" alt="Mobile product design concept">
+                        <div class="project-image">
+                            <img src="https://images.unsplash.com/photo-1526506169974-9ae38d6df7bc?q=80&w=1800&auto=format&fit=crop" alt="Mobile app presentation">
                         </div>
                         <div class="project-body">
-                            <span class="project-tag">Mobile App • Prototype</span>
+                            <span class="project-tag">Mobile • Prototype</span>
                             <h3>Fitness Tracker App</h3>
-                            <p>A mobile experience focused on motivation, clean dashboards, and intuitive flow.</p>
+                            <p>A mobile product concept with cleaner hierarchy, softer depth, and more structured information flow.</p>
                         </div>
                     </article>
                 </div>
             </div>
         </section>
 
-        <section class="section" id="contact">
+        <section class="section contact-section" id="contact">
             <div class="shell">
-                <div class="contact-panel reveal">
+                <div class="contact-card reveal">
                     <div class="contact-copy">
                         <span class="eyebrow">Contact</span>
-                        <h2>Let’s make your next idea feel polished, modern, and memorable.</h2>
+                        <h2>If you want a portfolio or product that feels more premium, composed, and modern, let’s build it properly.</h2>
                         <p>
-                            If you need a portfolio, interface, brand treatment, or a custom web tool with a strong
-                            visual presence, I am ready to collaborate.
+                            I am available for freelance work, interface design, branding support, and visually polished frontend implementation.
                         </p>
                     </div>
 
-                    <div class="contact-actions">
-                        <a href="mailto:adeesha.73x@gmail.com" class="contact-chip">
+                    <div class="contact-stack">
+                        <a href="mailto:adeesha.73x@gmail.com" class="contact-link">
                             <i class="fa-solid fa-paper-plane"></i>
-                            adeesha.73x@gmail.com
+                            <span>adeesha.73x@gmail.com</span>
                         </a>
-                        <a href="tel:+94713407686" class="contact-chip">
+                        <a href="tel:+94713407686" class="contact-link">
                             <i class="fa-solid fa-phone"></i>
-                            +94 71 340 7686
+                            <span>+94 71 340 7686</span>
                         </a>
                         <a href="#top" class="btn btn-primary">Back To Top</a>
                     </div>
@@ -278,10 +314,10 @@
         </section>
     </main>
 
-    <footer class="site-footer">
+    <footer class="footer">
         <div class="shell footer-row">
             <p>&copy; 2026 Adheesha Sooriyaarachchi. Crafted with intention.</p>
-            <div class="social-links">
+            <div class="footer-socials">
                 <a href="#"><i class="fa-brands fa-instagram"></i></a>
                 <a href="#"><i class="fa-brands fa-behance"></i></a>
                 <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
@@ -290,25 +326,49 @@
     </footer>
 
     <script>
-        const navbar = document.getElementById('navbar');
-        const menuToggle = document.getElementById('menuToggle');
-        const navPanel = document.getElementById('navPanel');
+        const root = document.documentElement;
+        const nav = document.getElementById('nav');
+        const navToggle = document.getElementById('navToggle');
+        const navMenu = document.getElementById('navMenu');
+        const scrollProgress = document.getElementById('scrollProgress');
+        const heroStage = document.getElementById('heroStage');
 
-        window.addEventListener('scroll', () => {
-            navbar.classList.toggle('is-scrolled', window.scrollY > 24);
-        });
+        const closeMenu = () => {
+            navMenu.classList.remove('is-open');
+            navToggle.classList.remove('is-open');
+            navToggle.setAttribute('aria-expanded', 'false');
+        };
 
-        menuToggle.addEventListener('click', () => {
-            navPanel.classList.toggle('is-open');
-            menuToggle.classList.toggle('is-open');
+        navToggle.addEventListener('click', () => {
+            const isOpen = navMenu.classList.toggle('is-open');
+            navToggle.classList.toggle('is-open', isOpen);
+            navToggle.setAttribute('aria-expanded', String(isOpen));
         });
 
         document.querySelectorAll('.nav-link').forEach((link) => {
-            link.addEventListener('click', () => {
-                navPanel.classList.remove('is-open');
-                menuToggle.classList.remove('is-open');
-            });
+            link.addEventListener('click', closeMenu);
         });
+
+        const updateScrollState = () => {
+            const scrollTop = window.scrollY;
+            const scrollHeight = document.body.scrollHeight - window.innerHeight;
+            const progress = scrollHeight > 0 ? scrollTop / scrollHeight : 0;
+
+            nav.classList.toggle('is-scrolled', scrollTop > 18);
+            scrollProgress.style.transform = `scaleX(${progress})`;
+        };
+
+        window.addEventListener('scroll', updateScrollState, { passive: true });
+        updateScrollState();
+
+        if (heroStage) {
+            window.addEventListener('pointermove', (event) => {
+                const x = ((event.clientX / window.innerWidth) - 0.5) * 20;
+                const y = ((event.clientY / window.innerHeight) - 0.5) * 20;
+                root.style.setProperty('--pointer-x', `${x}px`);
+                root.style.setProperty('--pointer-y', `${y}px`);
+            });
+        }
 
         const observer = new IntersectionObserver((entries) => {
             entries.forEach((entry) => {
@@ -316,9 +376,9 @@
                     entry.target.classList.add('is-visible');
                 }
             });
-        }, { threshold: 0.12 });
+        }, { threshold: 0.14 });
 
-        document.querySelectorAll('.reveal').forEach((element) => observer.observe(element));
+        document.querySelectorAll('.reveal').forEach((item) => observer.observe(item));
     </script>
 </body>
 </html>
