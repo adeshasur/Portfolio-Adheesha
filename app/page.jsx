@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { AnimatePresence, motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { ArrowUpRight, BriefcaseBusiness, GraduationCap, Sparkles, WandSparkles } from "lucide-react";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   bookshelfItems,
   contactContent,
@@ -74,6 +74,39 @@ function SectionReveal({ children, className = "", delay = 0, id }) {
   );
 }
 
+function RoleRoller({ roles, reduceMotion }) {
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  useEffect(() => {
+    if (reduceMotion || roles.length <= 1) return undefined;
+
+    const timer = window.setInterval(() => {
+      setActiveIndex((current) => (current + 1) % roles.length);
+    }, 2200);
+
+    return () => window.clearInterval(timer);
+  }, [reduceMotion, roles]);
+
+  return (
+    <div className="mt-5 flex items-center gap-4">
+      <span className="hidden h-px w-12 bg-gold/60 md:block" />
+      <div className="relative h-[4.5rem] overflow-hidden md:h-[5.25rem]">
+        <AnimatePresence mode="wait">
+          <motion.p
+            key={roles[activeIndex]}
+            initial={reduceMotion ? { opacity: 1 } : { y: 42, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={reduceMotion ? { opacity: 0 } : { y: -42, opacity: 0 }}
+            transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+            className="font-display text-balance text-[clamp(1.45rem,3vw,2.6rem)] font-semibold leading-[1.05] tracking-[-0.07em] text-zinc-700"
+          >
+            {roles[activeIndex]}
+          </motion.p>
+        </AnimatePresence>
+      </div>
+    </div>
+  );
+}
 function ToolkitCard({ item, index }) {
   return (
     <motion.a
@@ -346,15 +379,23 @@ export default function HomePage() {
                 initial={reduceMotion ? false : { opacity: 0, y: 30 }}
                 animate={reduceMotion ? {} : { opacity: 1, y: 0 }}
                 transition={{ duration: 0.85, delay: 0.06, ease: [0.22, 1, 0.36, 1] }}
-                className="font-display text-balance mt-8 max-w-[9.2ch] text-[clamp(3.6rem,9vw,7.8rem)] font-semibold leading-[0.9] tracking-[-0.1em] text-ink"
+                className="font-display text-balance mt-8 max-w-[8.5ch] text-[clamp(3.4rem,8vw,6.8rem)] font-semibold leading-[0.92] tracking-[-0.1em] text-ink"
               >
-                {heroContent.title}
+                {heroContent.headline}
               </motion.h1>
+
+              <motion.div
+                initial={reduceMotion ? false : { opacity: 0, y: 26 }}
+                animate={reduceMotion ? {} : { opacity: 1, y: 0 }}
+                transition={{ duration: 0.82, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+              >
+                <RoleRoller roles={heroContent.roles} reduceMotion={reduceMotion} />
+              </motion.div>
 
               <motion.div
                 initial={reduceMotion ? false : { opacity: 0, y: 28 }}
                 animate={reduceMotion ? {} : { opacity: 1, y: 0 }}
-                transition={{ duration: 0.82, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
+                transition={{ duration: 0.82, delay: 0.14, ease: [0.22, 1, 0.36, 1] }}
                 className="mt-7 flex flex-wrap gap-3"
               >
                 <button
@@ -638,3 +679,6 @@ export default function HomePage() {
     </main>
   );
 }
+
+
+
