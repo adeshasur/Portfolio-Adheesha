@@ -10,7 +10,6 @@ import {
   Wrench,
 } from "lucide-react";
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
-import { Link } from "react-router-dom";
 import { useRef } from "react";
 import LandingScrollLink from "../components/LandingScrollLink";
 import ProjectCard from "../components/ProjectCard";
@@ -265,16 +264,8 @@ export default function HomePage() {
         <SectionHeading
           label="Projects"
           title="Live tools and utility products linked directly from the landing page."
-          text="The scroll flow stays seamless, but a dedicated projects route still exists whenever you want a deeper page later."
+          text="The scroll flow stays seamless, and project browsing now stays fully inside the landing page experience."
         />
-        <div className="mt-5 flex flex-wrap gap-3">
-          <Link
-            to="/projects"
-            className="inline-flex min-h-11 items-center justify-center bg-white/50 px-5 text-sm font-extrabold text-ink backdrop-blur-xl transition duration-300 hover:-translate-y-0.5 hover:text-gold"
-          >
-            Open Dedicated Projects Page
-          </Link>
-        </div>
         <div className="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
           {projectLinks.map((project, index) => (
             <ProjectCard key={project.name} project={project} featured={index === 0} />
@@ -314,16 +305,8 @@ export default function HomePage() {
         <SectionHeading
           label="Contact"
           title="Smooth landing flow, then a clear handoff for the next conversation."
-          text="You can scroll here directly from the hero navigation, or still open the dedicated contact page if a separate route is needed later."
+          text="You can glide here directly from the hero navigation without leaving the single landing-page experience."
         />
-        <div className="mt-5 flex flex-wrap gap-3">
-          <Link
-            to="/contact"
-            className="inline-flex min-h-11 items-center justify-center bg-white/50 px-5 text-sm font-extrabold text-ink backdrop-blur-xl transition duration-300 hover:-translate-y-0.5 hover:text-gold"
-          >
-            Open Dedicated Contact Page
-          </Link>
-        </div>
         <div className="mt-8 grid gap-5 md:grid-cols-3">
           {contactCards.map((item) => (
             <article key={item.title} className="glass-card lift-card p-6">
@@ -338,3 +321,4 @@ export default function HomePage() {
     </main>
   );
 }
+
