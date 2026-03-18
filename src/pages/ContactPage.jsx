@@ -1,10 +1,18 @@
+import PageIntro from "../components/PageIntro";
 import SectionHeading from "../components/SectionHeading";
 import { contactCards } from "../data/siteData";
 
 export default function ContactPage() {
   return (
     <main className="page-frame pb-8 pt-4 md:pb-12 md:pt-6">
-      <section className="glass-panel px-6 py-8 md:px-10 md:py-12">
+      <PageIntro
+        label="Contact"
+        title="Let's build a premium-looking digital experience."
+        text="For portfolio websites, landing pages, or useful web tools, I prefer clean structure, modern visuals, and frontend output that feels finished."
+        sideNote="The contact page now follows the same broad intro structure as the other routes, so nothing feels isolated or designed differently."
+      />
+
+      <section className="mt-14 glass-panel px-6 py-8 md:px-10 md:py-12">
         <SectionHeading
           label="Contact"
           title="Let's build a premium-looking digital experience."

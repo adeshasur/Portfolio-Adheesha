@@ -1,5 +1,6 @@
 import { ArrowUpRight, Layers3, Sparkles, Zap } from "lucide-react";
 import { Link } from "react-router-dom";
+import PageIntro from "../components/PageIntro";
 import ProjectCard from "../components/ProjectCard";
 import SectionHeading from "../components/SectionHeading";
 import {
@@ -13,8 +14,8 @@ export default function HomePage() {
   return (
     <main className="page-frame pb-8 pt-4 md:pb-12 md:pt-6">
       <section className="glass-panel overflow-hidden px-6 py-8 md:px-10 md:py-12">
-        <div className="grid gap-10 xl:grid-cols-[1.05fr_0.95fr] xl:items-center">
-          <div className="max-w-3xl">
+        <div className="grid gap-10 xl:grid-cols-[1.08fr_0.92fr] xl:items-center">
+          <div className="max-w-4xl">
             <div className="eyebrow-pill">
               <span className="h-2.5 w-2.5 bg-emerald-500" />
               Available for selected creative and product projects
@@ -50,7 +51,7 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="glass-scene relative mx-auto w-full max-w-[560px]">
+          <div className="glass-scene relative mx-auto w-full max-w-[720px]">
             <div className="pointer-events-none absolute inset-x-12 bottom-10 top-12 bg-gradient-to-br from-gold/20 to-white/20 blur-3xl" />
             <div className="glass-stack relative aspect-[0.88]">
               <div className="glass-layer glass-layer-back absolute inset-0 glass-card" />
@@ -109,6 +110,15 @@ export default function HomePage() {
         </div>
       </section>
 
+      <div className="mt-16">
+        <PageIntro
+          label="Linked Pages"
+          title="The landing page leads into dedicated deeper pages with the same visual system."
+          text="About Me, Projects, and Contact are separated as their own routes, but still designed to feel like one product experience."
+          sideNote="This keeps the hero flow clean while still giving room for richer content on dedicated pages."
+        />
+      </div>
+
       <section className="mt-16">
         <SectionHeading
           label="Projects Preview"
@@ -146,4 +156,3 @@ export default function HomePage() {
     </main>
   );
 }
-

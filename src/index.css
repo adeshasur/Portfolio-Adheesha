@@ -47,7 +47,7 @@
   }
 
   .page-frame {
-    @apply mx-auto w-[min(1440px,calc(100vw-32px))];
+    @apply mx-auto w-[min(1680px,calc(100vw-32px))];
   }
 
   .headline-balance {
@@ -102,4 +102,5 @@
     transform: translateY(-6px) rotateX(4deg) rotateY(-4deg);
   }
 }
+
 

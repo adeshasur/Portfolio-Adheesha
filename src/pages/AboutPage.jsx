@@ -1,16 +1,16 @@
+import PageIntro from "../components/PageIntro";
 import SectionHeading from "../components/SectionHeading";
 import { educationItems, workItems } from "../data/siteData";
 
 export default function AboutPage() {
   return (
     <main className="page-frame pb-8 pt-4 md:pb-12 md:pt-6">
-      <section className="glass-panel px-6 py-8 md:px-10 md:py-12">
-        <SectionHeading
-          label="About Me"
-          title="A UI-focused creative developer with equal respect for clarity and presentation."
-          text="This page brings together my work experience, education, books, visual direction, and the wider thinking behind the products I build."
-        />
-      </section>
+      <PageIntro
+        label="About Me"
+        title="A UI-focused creative developer with equal respect for clarity and presentation."
+        text="This page brings together my work experience, education, books, visual direction, and the wider thinking behind the products I build."
+        sideNote="The goal is not just to show projects, but to show the taste, learning path, and creative decisions behind them."
+      />
 
       <section className="mt-14 grid gap-6 xl:grid-cols-2">
         <div className="glass-panel p-6 md:p-8">
@@ -72,4 +72,3 @@ export default function AboutPage() {
     </main>
   );
 }
-
