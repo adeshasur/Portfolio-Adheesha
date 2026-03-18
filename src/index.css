@@ -1,0 +1,104 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply box-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply min-h-screen bg-cloud font-sans text-ink antialiased;
+    background-image:
+      radial-gradient(circle at top left, rgba(255, 255, 255, 0.95), transparent 28%),
+      radial-gradient(circle at 78% 16%, rgba(197, 162, 77, 0.16), transparent 22%),
+      radial-gradient(circle at 68% 60%, rgba(255, 255, 255, 0.75), transparent 28%),
+      linear-gradient(180deg, #fcfbf7 0%, #f0eee7 100%);
+  }
+
+  ::selection {
+    background: rgba(197, 162, 77, 0.22);
+  }
+}
+
+@layer components {
+  .glass-panel {
+    @apply border border-white/60 bg-white/45 shadow-glass backdrop-blur-2xl;
+  }
+
+  .glass-card {
+    @apply border border-white/70 bg-white/55 shadow-float backdrop-blur-xl;
+  }
+
+  .nav-link {
+    @apply text-sm font-semibold tracking-[0.02em] text-zinc-700 transition duration-200 hover:text-gold;
+  }
+
+  .eyebrow-pill {
+    @apply inline-flex items-center gap-3 border border-white/70 bg-white/50 px-4 py-3 text-sm font-medium text-zinc-600 backdrop-blur-xl;
+  }
+
+  .section-chip {
+    @apply inline-flex items-center border border-gold/20 bg-white/35 px-3 py-2 text-[11px] font-extrabold uppercase tracking-[0.18em] text-gold backdrop-blur-xl;
+  }
+
+  .page-frame {
+    @apply mx-auto w-[min(1440px,calc(100vw-32px))];
+  }
+
+  .headline-balance {
+    font-size: clamp(3.25rem, 6vw, 6.5rem);
+    line-height: 0.92;
+    letter-spacing: -0.08em;
+  }
+
+  .subheadline-balance {
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    line-height: 0.98;
+    letter-spacing: -0.05em;
+  }
+
+  .glass-scene {
+    perspective: 1400px;
+    transform-style: preserve-3d;
+  }
+
+  .glass-stack {
+    transform: rotateY(-16deg) rotateX(10deg);
+    transform-style: preserve-3d;
+    transition: transform 0.5s ease;
+  }
+
+  .glass-scene:hover .glass-stack {
+    transform: rotateY(-10deg) rotateX(4deg) translateY(-6px);
+  }
+
+  .glass-layer {
+    transform-style: preserve-3d;
+  }
+
+  .glass-layer-back {
+    transform: translateZ(-80px) translateX(30px) translateY(28px);
+  }
+
+  .glass-layer-mid {
+    transform: translateZ(-35px) translateY(12px);
+  }
+
+  .glass-layer-front {
+    transform: translateZ(0);
+  }
+
+  .tilt-card {
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
+    transform-style: preserve-3d;
+  }
+
+  .tilt-card:hover {
+    transform: translateY(-6px) rotateX(4deg) rotateY(-4deg);
+  }
+}
