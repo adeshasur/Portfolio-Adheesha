@@ -22,38 +22,47 @@ export default function AboutPage() {
     <main className="page-frame pb-16 pt-4 md:pb-20 md:pt-6">
       <PageIntro
         label="About"
-        title="Education, working experience, books, designs, photographs, and achievements in one story."
-        text="This page keeps only the parts that belong to your actual portfolio and removes unrelated template content."
-        sideNote="The focus here is your real background, creative direction, and growth, not generic filler sections."
+        title="Education, working experience, books, designs, photographs, and achievements in one portfolio story."
+        text="This page keeps only the parts that belong to your actual profile. The structure is simplified so your background reads more like a personal portfolio and less like a template."
+        sideNote="The goal here is clarity and personality: real education, real work exposure, and the creative interests that shape how you design and build."
       />
 
-      <RevealSection className="mt-16 grid gap-6 xl:grid-cols-2">
-        {workItems.map((item) => (
-          <article key={item.name} className="editorial-card p-6 md:p-8">
-            <div className="flex items-start justify-between gap-4">
-              <img src={item.image} alt={`${item.name} logo`} className="h-16 w-16 object-contain" />
-              <span className="section-chip">{item.period}</span>
-            </div>
-            <h3 className="mt-6 text-[2rem] font-semibold tracking-[-0.05em] text-ink">{item.name}</h3>
-            <p className="mt-2 text-xs font-semibold uppercase tracking-[0.18em] text-zinc-500">{item.role}</p>
-            <p className="mt-4 text-[15px] leading-7 text-zinc-600">{item.description}</p>
-          </article>
-        ))}
+      <RevealSection className="mt-16">
+        <SectionHeading
+          label="Working Experience"
+          title="Professional experience that shaped the way you approach digital output, presentation, and delivery."
+          text="These are the work environments that influenced your creative and product-facing execution."
+        />
+        <div className="story-list mt-10">
+          {workItems.map((item) => (
+            <article key={item.name} className="story-row">
+              <div className="story-row-head">
+                <img src={item.image} alt={`${item.name} logo`} className="story-logo" />
+                <div>
+                  <p className="story-kicker">{item.period}</p>
+                  <h3 className="story-title">{item.name}</h3>
+                  <p className="story-role">{item.role}</p>
+                </div>
+              </div>
+              <p className="story-text">{item.description}</p>
+            </article>
+          ))}
+        </div>
       </RevealSection>
 
       <RevealSection className="mt-16" delay={0.05}>
         <SectionHeading
           label="Education"
-          title="Institutions and learning foundations that shaped the technical and creative direction."
-          text="Education remains part of the portfolio narrative rather than hidden away as plain list content."
+          title="Learning foundations that support the technical side, visual thinking, and creative growth."
+          text="Education is shown as part of the overall story, with simple presentation instead of box-heavy cards."
         />
-        <div className="mt-10 grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
+        <div className="logo-wall mt-10">
           {educationItems.map((item) => (
-            <article key={item.name} className="editorial-card flex min-h-[220px] flex-col justify-between p-6">
-              <img src={item.image} alt={`${item.name} logo`} className="h-20 w-full object-contain" />
-              <div className="pt-8">
-                <h3 className="text-[1.6rem] font-semibold tracking-[-0.04em] text-ink">{item.name}</h3>
-                <p className="mt-3 text-[15px] leading-7 text-zinc-600">{item.focus}</p>
+            <article key={item.name} className="logo-entry">
+              <img src={item.image} alt={`${item.name} logo`} className="logo-entry-image" />
+              <div>
+                <h3 className="logo-entry-title">{item.name}</h3>
+                <p className="logo-entry-text">{item.focus}</p>
               </div>
             </article>
           ))}
@@ -63,18 +72,18 @@ export default function AboutPage() {
       <RevealSection className="mt-16" delay={0.1}>
         <SectionHeading
           label="Creative Profile"
-          title="Books, graphic designs, photographs, and achievements complete the wider portfolio story."
-          text="These sections show taste, discipline, and visual curiosity behind the software work."
+          title="Books, graphic designs, photographs, and achievements complete the wider creative profile."
+          text="These sections show the interests and disciplines behind the frontend and software work."
         />
-        <div className="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+        <div className="category-columns mt-10">
           {collections.map((collection) => (
-            <article key={collection.title} className="editorial-card p-6">
-              <h3 className="text-[2rem] font-semibold tracking-[-0.05em] text-ink">{collection.title}</h3>
-              <div className="mt-6 space-y-3">
+            <article key={collection.title} className="category-column">
+              <h3 className="category-column-title">{collection.title}</h3>
+              <div className="category-list">
                 {collection.items.map((item) => (
-                  <div key={item.title} className="subtle-stack-card px-4 py-4">
-                    <p className="text-sm font-semibold text-ink">{item.title}</p>
-                    <p className="mt-1 text-sm leading-6 text-zinc-600">{item.note}</p>
+                  <div key={item.title} className="category-line">
+                    <p className="category-line-title">{item.title}</p>
+                    <p className="category-line-text">{item.note}</p>
                   </div>
                 ))}
               </div>
