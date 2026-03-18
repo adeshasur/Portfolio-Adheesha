@@ -88,7 +88,7 @@ function RoleRoller({ roles, reduceMotion }) {
   }, [reduceMotion, roles]);
 
   return (
-    <div className="mt-5 flex items-center gap-4">
+    <div className="mt-2 flex items-center gap-4">
       <span className="hidden h-px w-12 bg-gold/60 md:block" />
       <div className="relative h-[4.5rem] overflow-hidden md:h-[5.25rem]">
         <AnimatePresence mode="wait">
@@ -379,7 +379,7 @@ export default function HomePage() {
                 initial={reduceMotion ? false : { opacity: 0, y: 30 }}
                 animate={reduceMotion ? {} : { opacity: 1, y: 0 }}
                 transition={{ duration: 0.85, delay: 0.06, ease: [0.22, 1, 0.36, 1] }}
-                className="font-display text-balance mt-8 max-w-[8.5ch] text-[clamp(3.4rem,8vw,6.8rem)] font-semibold leading-[0.92] tracking-[-0.1em] text-ink"
+                className="font-display text-balance mt-4 max-w-[8.5ch] text-[clamp(3.4rem,8vw,6.8rem)] font-semibold leading-[0.92] tracking-[-0.1em] text-ink"
               >
                 {heroContent.headline}
               </motion.h1>
@@ -679,6 +679,7 @@ export default function HomePage() {
     </main>
   );
 }
+
 
 
 
