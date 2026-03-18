@@ -18,46 +18,74 @@ export const navLinks = [
 ];
 
 export const heroHighlights = [
-  "Single white landing page",
-  "Glassy depth with clean spacing",
-  "React + Tailwind responsive build",
+  "Framer-inspired editorial layout",
+  "Smooth motion and layered depth",
+  "Responsive React + Tailwind build",
 ];
 
 export const projectLinks = [
   {
     name: "NIC Decoder",
     url: "https://adheesha-nic-finder.vercel.app/",
-    blurb: "Decode Sri Lankan NIC details through a cleaner, utility-first interface.",
+    blurb: "Decode Sri Lankan NIC details through a clearer, utility-first interface.",
+    category: "Utility Tool",
+    format: "Web App",
+    year: "2026",
+    accent: "linear-gradient(135deg, rgba(244,239,227,1) 0%, rgba(223,216,194,1) 100%)",
   },
   {
     name: "QR Studio",
     url: "https://adheesha-qr-generator.vercel.app/",
-    blurb: "Generate QR outputs with a sharper product presentation.",
+    blurb: "Generate QR outputs with a sharper product presentation and cleaner controls.",
+    category: "Generator",
+    format: "Product UI",
+    year: "2026",
+    accent: "linear-gradient(135deg, rgba(248,248,248,1) 0%, rgba(217,223,230,1) 100%)",
   },
   {
     name: "Vault Guard",
     url: "https://adheesha-secure-password-generator.vercel.app/",
-    blurb: "Password generation experience designed to feel clear and secure.",
+    blurb: "Password generation experience designed to feel secure, calm, and easy to use.",
+    category: "Security Tool",
+    format: "Web Utility",
+    year: "2026",
+    accent: "linear-gradient(135deg, rgba(245,241,236,1) 0%, rgba(214,208,221,1) 100%)",
   },
   {
     name: "Postal Code Finder",
     url: "https://adheesha-sl-postal-code-finder.vercel.app/",
-    blurb: "Fast postal lookup flow focused on practical use and clarity.",
+    blurb: "Fast postal lookup flow focused on practical use, speed, and clarity.",
+    category: "Lookup Tool",
+    format: "Web Utility",
+    year: "2026",
+    accent: "linear-gradient(135deg, rgba(249,245,236,1) 0%, rgba(225,217,196,1) 100%)",
   },
   {
     name: "Text Transformer Pro",
     url: "https://adheesha-text-transformer.vercel.app/",
     blurb: "Quick text formatting and transformation utility for daily workflows.",
+    category: "Productivity",
+    format: "Tool",
+    year: "2026",
+    accent: "linear-gradient(135deg, rgba(248,248,248,1) 0%, rgba(218,224,220,1) 100%)",
   },
   {
     name: "Chroma Craft",
     url: "https://adheesha-chroma-craft.vercel.app/",
-    blurb: "Color exploration tool with a more visual, modern interface.",
+    blurb: "Color exploration tool with a more visual, modern interface language.",
+    category: "Creative Tool",
+    format: "Color System",
+    year: "2026",
+    accent: "linear-gradient(135deg, rgba(249,244,238,1) 0%, rgba(234,212,190,1) 100%)",
   },
   {
     name: "Interest Calc Pro",
     url: "https://adheesha-interest-calc.vercel.app/",
     blurb: "Clean calculator interface for interest checks and financial estimates.",
+    category: "Finance Tool",
+    format: "Calculator",
+    year: "2026",
+    accent: "linear-gradient(135deg, rgba(247,247,247,1) 0%, rgba(220,220,220,1) 100%)",
   },
 ];
 
@@ -218,4 +246,3 @@ export const contactCards = [
     value: "Open for selected creative and product collaborations",
   },
 ];
-
