@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Adheesha Sooriyaarachchi portfolio featuring modern UI/UX design, frontend growth, academic qualifications, and practical web tools.">
+    <meta name="description" content="Adheesha Sooriyaarachchi portfolio featuring UI/UX design, frontend growth, education, experience, and practical tool building.">
     <title>Adheesha Sooriyaarachchi | Portfolio</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="bg-orb orb-a" aria-hidden="true"></div>
-    <div class="bg-orb orb-b" aria-hidden="true"></div>
-    <div class="bg-grid" aria-hidden="true"></div>
+    <div class="page-lines" aria-hidden="true"></div>
+    <div class="page-glow glow-left" aria-hidden="true"></div>
+    <div class="page-glow glow-right" aria-hidden="true"></div>
     <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
 
     <header class="site-header">
@@ -36,7 +36,7 @@
                 <a href="#tools" class="nav-link">Tools</a>
                 <a href="#projects" class="nav-link">Projects</a>
                 <a href="#contact" class="nav-link">Contact</a>
-                <a href="mailto:adeesha.73x@gmail.com" class="nav-cta">Hire Me</a>
+                <a href="mailto:adeesha.73x@gmail.com" class="nav-cta">Let&apos;s Talk</a>
             </div>
         </nav>
     </header>
@@ -44,82 +44,77 @@
     <main id="top">
         <section class="hero">
             <div class="shell hero-grid">
-                <div class="hero-copy reveal">
-                    <span class="eyebrow">Modern Portfolio / 2026</span>
+                <div class="hero-main card reveal">
+                    <span class="eyebrow">Soft Brutalist Portfolio</span>
+                    <p class="hero-kicker">UI/UX DESIGNER / FRONTEND LEARNING / TOOL BUILDING</p>
                     <h1>
-                        Design.
-                        <span>Build.</span>
-                        Present everything properly.
+                        A portfolio
+                        <span>with more edge,</span>
+                        better order,
+                        and a stronger story.
                     </h1>
-                    <p class="hero-text">
-                        I am Adheesha Sooriyaarachchi, a UI/UX focused creative building cleaner digital experiences,
-                        stronger frontend skills, and practical products that feel modern instead of outdated.
+                    <p class="hero-copy">
+                        I&apos;m Adheesha Sooriyaarachchi. I build cleaner interfaces, sharper presentations,
+                        practical web tools, and portfolio systems that feel current instead of outdated.
                     </p>
 
                     <div class="hero-actions">
                         <a href="#projects" class="btn btn-primary">View selected work</a>
                         <a href="#education" class="btn btn-secondary">See qualifications</a>
                     </div>
+                </div>
 
-                    <div class="hero-metrics">
-                        <article>
-                            <strong>09</strong>
-                            <span>Tools launched</span>
-                        </article>
-                        <article>
-                            <strong>03+</strong>
-                            <span>Years evolving</span>
-                        </article>
-                        <article>
-                            <strong>BSc</strong>
-                            <span>Computing path</span>
-                        </article>
+                <article class="hero-portrait card reveal" style="--delay: 70ms;">
+                    <div class="portrait-badge">AVAILABLE FOR FREELANCE</div>
+                    <div class="portrait-frame">
+                        <img src="ppimage.png" alt="Adheesha Sooriyaarachchi portrait" class="portrait-image">
                     </div>
-                </div>
-
-                <div class="hero-stage reveal">
-                    <article class="visual-panel">
-                        <div class="visual-panel-top">
-                            <span class="live-pill"><span></span> Open for freelance</span>
-                            <span class="panel-chip">UI/UX + Frontend</span>
+                    <div class="portrait-meta">
+                        <div>
+                            <span class="meta-label">Focus</span>
+                            <p>UI/UX, visuals, frontend growth</p>
                         </div>
-
-                        <div class="portrait-shell">
-                            <img src="ppimage.png" alt="Adheesha Sooriyaarachchi portrait" class="portrait-image">
+                        <div>
+                            <span class="meta-label">Based In</span>
+                            <p>Sri Lanka</p>
                         </div>
+                    </div>
+                </article>
 
-                        <div class="panel-footer">
-                            <div>
-                                <span class="label">Focus</span>
-                                <p>Modern interfaces, visuals, tools</p>
-                            </div>
-                            <div>
-                                <span class="label">Location</span>
-                                <p>Sri Lanka</p>
-                            </div>
-                        </div>
-                    </article>
+                <article class="hero-stat card accent-card reveal" style="--delay: 120ms;">
+                    <span class="mini-label">TOOLS</span>
+                    <strong>09</strong>
+                    <p>Utility projects connected into one cleaner ecosystem.</p>
+                </article>
 
-                    <article class="float-card float-tools reveal" style="--delay: 90ms;">
-                        <span class="float-label">Tool Ecosystem</span>
-                        <h3>One dashboard, multiple focused utilities.</h3>
-                    </article>
+                <article class="hero-stat card reveal" style="--delay: 170ms;">
+                    <span class="mini-label">EXPERIENCE</span>
+                    <strong>03+</strong>
+                    <p>Years of evolving through freelance visuals and real client work.</p>
+                </article>
 
-                    <article class="float-card float-edu reveal" style="--delay: 150ms;">
-                        <span class="float-label">Education</span>
-                        <h3>Real qualifications finally shown with structure.</h3>
-                    </article>
-                </div>
+                <article class="hero-note card reveal" style="--delay: 220ms;">
+                    <span class="mini-label">CURRENT TRACK</span>
+                    <h3>BSc (Hons) Computing</h3>
+                    <p>Academic growth now sits properly beside the work, not buried inside the page.</p>
+                </article>
             </div>
         </section>
 
-        <section class="signal-strip">
-            <div class="shell signal-row">
-                <span>UI/UX Design</span>
-                <span>Frontend Learning</span>
-                <span>Brand Visuals</span>
-                <span>Tool Building</span>
-                <span>Portfolio Systems</span>
+        <section class="marquee-strip" aria-label="Portfolio highlights">
+            <div class="marquee-track">
+                <span>UI/UX DESIGN</span>
+                <span>FRONTEND LEARNING</span>
+                <span>YELLOW VISUAL IDENTITY</span>
+                <span>TOOL BUILDING</span>
+                <span>PORTFOLIO SYSTEMS</span>
+                <span>ACADEMIC GROWTH</span>
+                <span>UI/UX DESIGN</span>
+                <span>FRONTEND LEARNING</span>
+                <span>YELLOW VISUAL IDENTITY</span>
+                <span>TOOL BUILDING</span>
+                <span>PORTFOLIO SYSTEMS</span>
+                <span>ACADEMIC GROWTH</span>
             </div>
         </section>
 
@@ -127,150 +122,149 @@
             <div class="shell">
                 <div class="section-heading reveal">
                     <span class="eyebrow">About</span>
-                    <h2>A cleaner, sharper, more current version of the portfolio.</h2>
+                    <h2>A completely different style, built to feel modern without looking like every other template.</h2>
                     <p>
-                        This redesign is built to feel more modern from the first screen. Bigger hierarchy, stronger cards,
-                        better spacing, and a layout that feels product-driven instead of random.
+                        This version leans into bento structure, stronger typography, visible card edges, and more intentional contrast.
+                        The goal is to make the portfolio feel memorable in the first few seconds.
                     </p>
                 </div>
 
                 <div class="about-grid">
-                    <article class="about-main reveal">
+                    <article class="about-main card reveal">
                         <span class="card-kicker">Creative Direction</span>
-                        <h3>I like interfaces that feel clear, intentional, and current without becoming noisy.</h3>
+                        <h3>I care about clarity, rhythm, and making digital work feel designed on purpose.</h3>
                         <p>
-                            My work focuses on visual balance, clean structure, better rhythm, and presentation that helps the user
-                            understand the work quickly. I care about the final feel as much as the final function.
+                            My preferred direction is clean but not flat, bold but still readable, and modern without turning into
+                            generic startup design. Structure comes first. Character comes after.
                         </p>
                     </article>
 
-                    <article class="mini-card reveal" style="--delay: 70ms;">
-                        <span class="mini-label">Design</span>
+                    <article class="mini-card card reveal" style="--delay: 70ms;">
+                        <span class="mini-label">DESIGN</span>
                         <h3>UI/UX and visual polish</h3>
-                        <p>Layouts and interfaces shaped to look stronger and communicate faster.</p>
+                        <p>Layouts and interfaces shaped to communicate faster and look stronger.</p>
                     </article>
 
-                    <article class="mini-card reveal" style="--delay: 140ms;">
-                        <span class="mini-label">Build</span>
+                    <article class="mini-card card reveal" style="--delay: 140ms;">
+                        <span class="mini-label">BUILD</span>
                         <h3>Frontend growth through real work</h3>
-                        <p>Learning by shipping tools, portfolio systems, and cleaner responsive interfaces.</p>
+                        <p>Learning by shipping tools, dashboards, and responsive portfolio systems.</p>
                     </article>
 
-                    <article class="mini-card reveal" style="--delay: 210ms;">
-                        <span class="mini-label">Goal</span>
-                        <h3>Useful work with modern presentation</h3>
-                        <p>Projects should solve something clearly and still feel visually elevated.</p>
+                    <article class="mini-card card reveal" style="--delay: 210ms;">
+                        <span class="mini-label">GOAL</span>
+                        <h3>Useful work with a better first impression</h3>
+                        <p>Projects should solve something clearly and still feel visually memorable.</p>
                     </article>
                 </div>
             </div>
         </section>
 
         <section class="section education-section" id="education">
-            <div class="shell education-wrap">
+            <div class="shell education-grid-layout">
                 <div class="education-copy reveal">
                     <span class="eyebrow">Education & Qualifications</span>
-                    <h2>Academic progress presented like it actually matters.</h2>
+                    <h2>Academic progress now has a proper visual presence.</h2>
                     <p>
-                        Instead of hiding education in a random block, this version gives it proper space.
-                        The logos, cards, and main qualification highlight make the portfolio feel complete.
+                        Instead of being a weak side-note, this section is treated like a real part of the portfolio.
+                        That makes the overall profile feel much more complete.
                     </p>
 
-                    <div class="education-feature">
+                    <article class="education-feature card accent-card">
                         <span class="card-kicker">Main Qualification</span>
                         <h3>BSc (Hons) Computing at NIBM</h3>
                         <p>
-                            This is the strongest academic track behind my current work, helping me build better software thinking,
-                            stronger frontend understanding, and a more practical product mindset.
+                            The strongest academic track behind my current work, supporting software thinking,
+                            product understanding, and stronger frontend direction.
                         </p>
-                    </div>
+                    </article>
                 </div>
 
-                <div class="education-grid">
-                    <article class="education-card reveal" style="--delay: 40ms;">
-                        <div class="edu-logo-box">
+                <div class="education-cards">
+                    <article class="education-card card reveal" style="--delay: 40ms;">
+                        <div class="edu-logo-wrap">
                             <img src="Education/nibm.jpg" alt="NIBM logo" class="edu-logo">
                         </div>
                         <span class="edu-type">Primary Qualification</span>
                         <h3>BSc (Hons) Computing</h3>
-                        <p>Undergraduate pathway focused on computing, digital systems, and stronger technical growth.</p>
+                        <p>Undergraduate pathway focused on computing, systems thinking, and stronger digital capability.</p>
                     </article>
 
-                    <article class="education-card reveal" style="--delay: 80ms;">
-                        <div class="edu-logo-box">
+                    <article class="education-card card reveal" style="--delay: 80ms;">
+                        <div class="edu-logo-wrap">
                             <img src="Education/ibms.png" alt="IBS Campus logo" class="edu-logo">
                         </div>
                         <span class="edu-type">Academic Progress</span>
                         <h3>IBS Campus</h3>
-                        <p>Part of the broader education journey contributing to structured learning and development.</p>
+                        <p>Part of the wider learning journey contributing to structured growth and development.</p>
                     </article>
 
-                    <article class="education-card reveal" style="--delay: 120ms;">
-                        <div class="edu-logo-box">
+                    <article class="education-card card reveal" style="--delay: 120ms;">
+                        <div class="edu-logo-wrap">
                             <img src="Education/ucsc.jpg" alt="UCSC logo" class="edu-logo">
                         </div>
                         <span class="edu-type">Computing Exposure</span>
                         <h3>UCSC</h3>
-                        <p>A computing-related learning touchpoint that helped strengthen technical interest and direction.</p>
+                        <p>A learning touchpoint that helped strengthen technical interest and direction.</p>
                     </article>
 
-                    <article class="education-card reveal" style="--delay: 160ms;">
-                        <div class="edu-logo-box">
+                    <article class="education-card card reveal" style="--delay: 160ms;">
+                        <div class="edu-logo-wrap">
                             <img src="Education/slega.jpg" alt="SLEGA logo" class="edu-logo">
                         </div>
                         <span class="edu-type">Professional Learning</span>
                         <h3>SLEGA</h3>
-                        <p>Supports broader progress through structured learning, communication, and discipline.</p>
+                        <p>Supports communication, structure, and broader professional development.</p>
                     </article>
 
-                    <article class="education-card reveal" style="--delay: 200ms;">
-                        <div class="edu-logo-box">
+                    <article class="education-card card reveal" style="--delay: 200ms;">
+                        <div class="edu-logo-wrap">
                             <img src="Education/earth.jpg" alt="Earth University College logo" class="edu-logo">
                         </div>
                         <span class="edu-type">Institutional Journey</span>
                         <h3>Earth University College</h3>
-                        <p>Included as part of the wider academic story and overall qualification path.</p>
+                        <p>Included as part of the wider academic story and overall study path.</p>
                     </article>
 
-                    <article class="education-card reveal" style="--delay: 240ms;">
-                        <div class="edu-logo-box">
-                            <img src="Education/acc.jpg" alt="School emblem" class="edu-logo">
+                    <article class="education-card card reveal" style="--delay: 240ms;">
+                        <div class="edu-logo-wrap">
+                            <img src="Education/acc.jpg" alt="School education emblem" class="edu-logo">
                         </div>
                         <span class="edu-type">Foundation</span>
                         <h3>School Education</h3>
-                        <p>The base level that built consistency, ambition, and the drive to keep improving.</p>
+                        <p>The base level that built discipline, consistency, and long-term ambition.</p>
                     </article>
                 </div>
             </div>
         </section>
 
-        <section class="section experience-section" id="experience">
+        <section class="section" id="experience">
             <div class="shell">
                 <div class="section-heading reveal">
                     <span class="eyebrow">Experience</span>
-                    <h2>Work experience arranged like proof, not filler.</h2>
+                    <h2>Real work, arranged like proof instead of filler.</h2>
                     <p>
-                        This section keeps the story straightforward: the type of work I do, where it happens,
-                        and how it connects to the portfolio you are seeing now.
+                        The experience side is kept direct: what I do, where I do it, and how it connects to the portfolio you are seeing now.
                     </p>
                 </div>
 
-                <div class="experience-grid">
-                    <article class="experience-visual reveal">
-                        <div class="experience-photo-box">
-                            <img src="Working Experience/kalana.jpg" alt="Adheesha Sooriyaarachchi at work" class="experience-photo">
+                <div class="experience-layout">
+                    <article class="experience-visual card reveal">
+                        <div class="experience-photo-wrap">
+                            <img src="Working Experience/kalana.jpg" alt="Adheesha Sooriyaarachchi working portrait" class="experience-photo">
                         </div>
-                        <div class="experience-note">
+                        <div class="experience-caption">
                             <span class="card-kicker">Working Style</span>
                             <h3>Design-led, presentation-aware, and increasingly product-minded.</h3>
                         </div>
                     </article>
 
-                    <div class="experience-list">
-                        <article class="experience-card reveal" style="--delay: 50ms;">
+                    <div class="experience-cards">
+                        <article class="experience-card card reveal" style="--delay: 50ms;">
                             <span class="experience-date">2023 - Present</span>
                             <h3>Creative Designer</h3>
                             <p class="experience-company">Olympus Educational Academy</p>
-                            <p>Creating academy-facing visuals, layouts, and communication materials with stronger structure and brand consistency.</p>
+                            <p>Creating academy-facing visuals, layouts, and communication materials with cleaner structure and stronger consistency.</p>
                             <div class="tag-row">
                                 <span>Campaign Visuals</span>
                                 <span>Brand Support</span>
@@ -278,11 +272,11 @@
                             </div>
                         </article>
 
-                        <article class="experience-card reveal" style="--delay: 110ms;">
+                        <article class="experience-card card reveal" style="--delay: 110ms;">
                             <span class="experience-date">2023 - Present</span>
                             <h3>Freelance Visual Artist</h3>
-                            <p class="experience-company">Independent Creative Practice</p>
-                            <p>Producing branded visuals, layout systems, and presentation-led work with a cleaner and more premium final look.</p>
+                            <p class="experience-company">Independent Practice</p>
+                            <p>Producing branded visuals, layout systems, and presentation-led work with a cleaner and more premium final feel.</p>
                             <div class="tag-row">
                                 <span>Branding</span>
                                 <span>Layout Systems</span>
@@ -290,11 +284,11 @@
                             </div>
                         </article>
 
-                        <article class="experience-card reveal" style="--delay: 170ms;">
+                        <article class="experience-card card reveal" style="--delay: 170ms;">
                             <span class="experience-date">Growth Track</span>
                             <h3>Frontend and software direction</h3>
                             <p class="experience-company">Continuous Learning</p>
-                            <p>Alongside visual work, I am growing through education, tool creation, and hands-on web product experiments.</p>
+                            <p>Growing through education, tool creation, and hands-on portfolio experiments that improve both design and implementation.</p>
                             <div class="tag-row">
                                 <span>Responsive UI</span>
                                 <span>Tools</span>
@@ -310,112 +304,98 @@
             <div class="shell">
                 <div class="section-heading reveal">
                     <span class="eyebrow">Tool Suite</span>
-                    <h2>Utility projects presented like a modern product collection.</h2>
+                    <h2>The practical side now feels like one proper product collection.</h2>
                     <p>
-                        Instead of feeling disconnected, the tool side of the portfolio now reads like one ecosystem.
-                        That makes the practical side of the work much easier to trust.
+                        This area shows the work beyond visuals. Instead of loose links, the tools are grouped and presented like a connected system.
                     </p>
                 </div>
 
-                <div class="tools-hero reveal">
-                    <div class="tools-hero-copy">
+                <div class="tools-grid">
+                    <article class="tools-feature card reveal">
                         <span class="card-kicker">Featured Platform</span>
                         <h3>Multi Tool Dashboard</h3>
-                        <p>A central dashboard built to organize the utility projects into one cleaner modern interface.</p>
+                        <p>A cleaner parent interface that organizes the utility projects into one more modern portfolio-facing platform.</p>
                         <a href="Tools/multi-tool-dashboard/index.html" class="inline-link">Open dashboard</a>
-                    </div>
-                    <div class="tools-hero-stats">
-                        <article>
-                            <strong>09</strong>
-                            <span>Connected tools</span>
-                        </article>
-                        <article>
-                            <strong>01</strong>
-                            <span>Shared product surface</span>
-                        </article>
-                    </div>
-                </div>
+                    </article>
 
-                <div class="tools-grid">
-                    <a href="Tools/qr-generator/index.html" class="tool-card reveal" style="--delay: 40ms;">
+                    <a href="Tools/qr-generator/index.html" class="tool-card card reveal" style="--delay: 40ms;">
                         <span class="tool-index">01</span>
                         <h3>QR Master</h3>
-                        <p>Fast QR generation for links, text, and shareable content.</p>
+                        <p>Fast QR generation for links, text, and quick sharing.</p>
                     </a>
-                    <a href="Tools/nic-finder/index.html" class="tool-card reveal" style="--delay: 80ms;">
+                    <a href="Tools/nic-finder/index.html" class="tool-card card reveal" style="--delay: 80ms;">
                         <span class="tool-index">02</span>
                         <h3>NIC Finder</h3>
-                        <p>Clear NIC information lookup with a focused user flow.</p>
+                        <p>Clear Sri Lankan NIC information lookup with focused flow.</p>
                     </a>
-                    <a href="Tools/secure-password-generator/index.html" class="tool-card reveal" style="--delay: 120ms;">
+                    <a href="Tools/secure-password-generator/index.html" class="tool-card card reveal" style="--delay: 120ms;">
                         <span class="tool-index">03</span>
                         <h3>SecurePass Pro</h3>
-                        <p>Password utility with stronger readability and cleaner presentation.</p>
+                        <p>Password generation and management with cleaner presentation.</p>
                     </a>
-                    <a href="Tools/vault-guard/index.html" class="tool-card reveal" style="--delay: 160ms;">
+                    <a href="Tools/vault-guard/index.html" class="tool-card card reveal" style="--delay: 160ms;">
                         <span class="tool-index">04</span>
                         <h3>Vault Guard</h3>
-                        <p>A more product-like password tool concept with a stronger visual feel.</p>
+                        <p>A more product-like password utility with stronger visual feel.</p>
                     </a>
-                    <a href="Tools/postal-code-finder/index.html" class="tool-card reveal" style="--delay: 200ms;">
+                    <a href="Tools/postal-code-finder/index.html" class="tool-card card reveal" style="--delay: 200ms;">
                         <span class="tool-index">05</span>
                         <h3>Postal Finder</h3>
-                        <p>Sri Lankan postal code search in a compact modern utility layout.</p>
+                        <p>Postal code search in a more compact and usable interface.</p>
                     </a>
-                    <a href="Tools/text-transformer-pro/index.html" class="tool-card reveal" style="--delay: 240ms;">
+                    <a href="Tools/text-transformer-pro/index.html" class="tool-card card reveal" style="--delay: 240ms;">
                         <span class="tool-index">06</span>
                         <h3>Text Transformer</h3>
-                        <p>Transform text quickly while keeping the UI clean and productive.</p>
+                        <p>Transform text quickly while keeping the UI clean and efficient.</p>
                     </a>
-                    <a href="Tools/chroma-craft/index.html" class="tool-card reveal" style="--delay: 280ms;">
+                    <a href="Tools/chroma-craft/index.html" class="tool-card card reveal" style="--delay: 280ms;">
                         <span class="tool-index">07</span>
                         <h3>ChromaCraft</h3>
-                        <p>A designer-friendly color utility with quick visual feedback.</p>
+                        <p>Designer-friendly color tooling with fast visual feedback.</p>
                     </a>
-                    <a href="Tools/interest-calc-pro/index.html" class="tool-card reveal" style="--delay: 320ms;">
+                    <a href="Tools/interest-calc-pro/index.html" class="tool-card card reveal" style="--delay: 320ms;">
                         <span class="tool-index">08</span>
                         <h3>InterestCalc</h3>
-                        <p>Interest calculations presented in a cleaner and more modern format.</p>
+                        <p>Interest calculations presented in a simpler and more modern way.</p>
                     </a>
-                    <a href="Tools/multi-tool-dashboard/index.html" class="tool-card reveal" style="--delay: 360ms;">
+                    <a href="Tools/multi-tool-dashboard/index.html" class="tool-card card reveal" style="--delay: 360ms;">
                         <span class="tool-index">09</span>
                         <h3>Dashboard Hub</h3>
-                        <p>The unified surface that ties the tool collection together.</p>
+                        <p>The shared surface that ties the whole tool collection together.</p>
                     </a>
                 </div>
             </div>
         </section>
 
-        <section class="section projects-section" id="projects">
+        <section class="section" id="projects">
             <div class="shell">
                 <div class="section-heading reveal">
                     <span class="eyebrow">Projects</span>
-                    <h2>Three focused highlights instead of random placeholder work.</h2>
+                    <h2>Focused highlights instead of random placeholder content.</h2>
                     <p>
-                        These cards point to the kind of work I am actually building now: systems, creative brand support,
-                        and the portfolio itself as a frontend project.
+                        These three cards point to the type of work I am actually shaping now: systems, creative support, and the portfolio itself.
                     </p>
                 </div>
 
                 <div class="projects-grid">
-                    <article class="project-card reveal">
+                    <article class="project-card card reveal">
                         <span class="project-type">System Design</span>
                         <h3>Multi Tool Dashboard</h3>
                         <p>A parent platform that organizes a growing suite of utilities into one more credible product experience.</p>
                         <a href="Tools/multi-tool-dashboard/index.html" class="inline-link">Open project</a>
                     </article>
 
-                    <article class="project-card reveal" style="--delay: 80ms;">
+                    <article class="project-card card reveal" style="--delay: 80ms;">
                         <span class="project-type">Brand Support</span>
                         <h3>Olympus Academy Visual Work</h3>
-                        <p>Real client-facing creative support built around cleaner visuals, stronger communication, and more consistent presentation.</p>
+                        <p>Client-facing creative support built around clearer communication, stronger visuals, and more consistent presentation.</p>
                         <a href="#experience" class="inline-link">See experience</a>
                     </article>
 
-                    <article class="project-card reveal" style="--delay: 160ms;">
+                    <article class="project-card card reveal" style="--delay: 160ms;">
                         <span class="project-type">Portfolio Rebuild</span>
                         <h3>Modern Personal Portfolio</h3>
-                        <p>This redesign itself is part of the work: modernizing the layout, hierarchy, visuals, and content flow from top to bottom.</p>
+                        <p>This redesign itself is part of the work: a new style system, stronger hierarchy, and a much better first impression.</p>
                         <a href="#top" class="inline-link">Back to top</a>
                     </article>
                 </div>
@@ -423,11 +403,11 @@
         </section>
 
         <section class="section contact-section" id="contact">
-            <div class="shell contact-panel reveal">
+            <div class="shell contact-panel card reveal">
                 <div class="contact-copy">
                     <span class="eyebrow">Contact</span>
-                    <h2>Need something that looks cleaner, sharper, and more current? Let&apos;s build it.</h2>
-                    <p>I am open to freelance design work, portfolio redesigns, visual support, and modern frontend collaboration.</p>
+                    <h2>Need a portfolio or interface that feels more current and more intentional?</h2>
+                    <p>I&apos;m open to freelance design work, visual support, portfolio redesigns, and frontend collaboration.</p>
                 </div>
 
                 <div class="contact-actions">
@@ -447,7 +427,7 @@
 
     <footer class="footer">
         <div class="shell footer-row">
-            <p>&copy; 2026 Adheesha Sooriyaarachchi. Modernized for a cleaner first impression.</p>
+            <p>&copy; 2026 Adheesha Sooriyaarachchi. Rebuilt with a new visual direction.</p>
             <div class="footer-links">
                 <a href="#about">About</a>
                 <a href="#education">Education</a>
