@@ -11,17 +11,17 @@ import olympusLogo from "../../Working Experience/olympus.jpg";
 export const portrait = portraitImage;
 
 export const navLinks = [
-  { label: "Home", href: "/#home", hash: "#home" },
-  { label: "About Me", href: "/#about", hash: "#about" },
-  { label: "Projects", href: "/#projects", hash: "#projects" },
-  { label: "Contact", href: "/#contact", hash: "#contact" },
+  { label: "Work", href: "/works" },
+  { label: "About", href: "/about" },
+  { label: "Contact", href: "/contact" },
 ];
 
-export const heroHighlights = [
-  "Framer-inspired editorial layout",
-  "Smooth motion and layered depth",
-  "Responsive React + Tailwind build",
-];
+export const heroMeta = "2 selected project slots available";
+
+export const heroTitle = "Adheesha is building clean portfolio experiences and useful digital products";
+
+export const heroSummary =
+  "As a UI-focused creative developer, I design and build polished websites, practical tools, and premium digital experiences with a strong sense of clarity and visual balance.";
 
 export const projectLinks = [
   {
@@ -31,7 +31,7 @@ export const projectLinks = [
     category: "Utility Tool",
     format: "Web App",
     year: "2026",
-    accent: "linear-gradient(135deg, rgba(244,239,227,1) 0%, rgba(223,216,194,1) 100%)",
+    accent: "linear-gradient(135deg, #d8dfc7 0%, #8f9d7d 100%)",
   },
   {
     name: "QR Studio",
@@ -40,7 +40,7 @@ export const projectLinks = [
     category: "Generator",
     format: "Product UI",
     year: "2026",
-    accent: "linear-gradient(135deg, rgba(248,248,248,1) 0%, rgba(217,223,230,1) 100%)",
+    accent: "linear-gradient(135deg, #ead9b8 0%, #c4aa6f 100%)",
   },
   {
     name: "Vault Guard",
@@ -49,7 +49,7 @@ export const projectLinks = [
     category: "Security Tool",
     format: "Web Utility",
     year: "2026",
-    accent: "linear-gradient(135deg, rgba(245,241,236,1) 0%, rgba(214,208,221,1) 100%)",
+    accent: "linear-gradient(135deg, #c9d2d9 0%, #768696 100%)",
   },
   {
     name: "Postal Code Finder",
@@ -58,7 +58,7 @@ export const projectLinks = [
     category: "Lookup Tool",
     format: "Web Utility",
     year: "2026",
-    accent: "linear-gradient(135deg, rgba(249,245,236,1) 0%, rgba(225,217,196,1) 100%)",
+    accent: "linear-gradient(135deg, #e8dcc9 0%, #b39a74 100%)",
   },
   {
     name: "Text Transformer Pro",
@@ -67,7 +67,7 @@ export const projectLinks = [
     category: "Productivity",
     format: "Tool",
     year: "2026",
-    accent: "linear-gradient(135deg, rgba(248,248,248,1) 0%, rgba(218,224,220,1) 100%)",
+    accent: "linear-gradient(135deg, #d7dfdf 0%, #91a1a1 100%)",
   },
   {
     name: "Chroma Craft",
@@ -76,7 +76,7 @@ export const projectLinks = [
     category: "Creative Tool",
     format: "Color System",
     year: "2026",
-    accent: "linear-gradient(135deg, rgba(249,244,238,1) 0%, rgba(234,212,190,1) 100%)",
+    accent: "linear-gradient(135deg, #ecd1c7 0%, #d47f65 100%)",
   },
   {
     name: "Interest Calc Pro",
@@ -85,7 +85,75 @@ export const projectLinks = [
     category: "Finance Tool",
     format: "Calculator",
     year: "2026",
-    accent: "linear-gradient(135deg, rgba(247,247,247,1) 0%, rgba(220,220,220,1) 100%)",
+    accent: "linear-gradient(135deg, #e4e4e4 0%, #9f9f9f 100%)",
+  },
+];
+
+export const serviceCards = [
+  {
+    title: "Graphic Design",
+    description: "High-contrast layouts, poster directions, and branded visuals with sharper hierarchy.",
+    tags: ["Posters", "Brand Layouts", "Social Creatives"],
+    tone: "light",
+  },
+  {
+    title: "Front-End Development",
+    description: "Responsive React interfaces, landing pages, and product-focused websites with polished motion.",
+    tags: ["React", "Tailwind CSS", "Motion UI"],
+    tone: "dark",
+  },
+  {
+    title: "UI/UX Design",
+    description: "Clean digital experiences built around clarity, stronger spacing, and premium presentation.",
+    tags: ["Product UI", "UX Flows", "Design Systems"],
+    tone: "light",
+  },
+];
+
+export const workflowSteps = [
+  {
+    step: "01",
+    title: "Brief & Direction",
+    text: "We align on goals, references, audience, and the visual tone of the project.",
+  },
+  {
+    step: "02",
+    title: "Structure",
+    text: "The content, hierarchy, and user flow are shaped into a clearer product story.",
+  },
+  {
+    step: "03",
+    title: "Design Pass",
+    text: "The interface gets refined with typography, spacing, contrast, and stronger composition.",
+  },
+  {
+    step: "04",
+    title: "Development",
+    text: "The selected direction is translated into responsive frontend output with motion and polish.",
+  },
+  {
+    step: "05",
+    title: "Launch & Support",
+    text: "Final improvements, deployment support, and cleanup for a finished result.",
+  },
+];
+
+export const faqItems = [
+  {
+    question: "What type of projects do you usually build?",
+    answer: "Portfolio websites, landing pages, practical tools, and modern frontend experiences with a premium feel.",
+  },
+  {
+    question: "Do you work with custom UI directions?",
+    answer: "Yes. If you have a style reference, I can adapt the layout, spacing, motion, and visual system around it.",
+  },
+  {
+    question: "Can you redesign an existing portfolio?",
+    answer: "Yes. I can keep the content and rebuild the structure, hierarchy, and visual presentation from scratch.",
+  },
+  {
+    question: "Do your project links open in the same tab?",
+    answer: "Yes. The live tool links can stay in the same tab for a smoother browsing flow.",
   },
 ];
 
@@ -198,37 +266,6 @@ export const achievementItems = [
   {
     title: "Creative Growth",
     note: "Turning self-learning into shipped work across code, design, and visuals.",
-  },
-];
-
-export const portfolioSections = [
-  {
-    title: "Education",
-    description: "Institutions and learning foundations that shaped the technical side.",
-  },
-  {
-    title: "Working Experience",
-    description: "Professional exposure focused on digital output and visual quality.",
-  },
-  {
-    title: "Books",
-    description: "Reading that influences design thinking, clarity, and discipline.",
-  },
-  {
-    title: "Graphic Designs",
-    description: "Poster, social, and brand-led work built with stronger hierarchy.",
-  },
-  {
-    title: "Software Projects",
-    description: "Live web tools presented as polished mini-products.",
-  },
-  {
-    title: "Photographs",
-    description: "A visual eye for portraits, frames, light, and mood.",
-  },
-  {
-    title: "Achievements",
-    description: "Growth milestones and shipped work translated into public output.",
   },
 ];
 

@@ -1,268 +1,107 @@
-import {
-  ArrowRight,
-  BookOpenText,
-  BriefcaseBusiness,
-  Camera,
-  GraduationCap,
-  Palette,
-  Sparkles,
-  Trophy,
-  Wrench,
-} from "lucide-react";
-import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
-import LandingScrollLink from "../components/LandingScrollLink";
+import { motion, useReducedMotion } from "framer-motion";
+import { ArrowRight, BriefcaseBusiness, GraduationCap } from "lucide-react";
+import { Link } from "react-router-dom";
 import ProjectCard from "../components/ProjectCard";
 import RevealSection from "../components/RevealSection";
 import SectionHeading from "../components/SectionHeading";
 import {
-  achievementItems,
-  bookItems,
-  contactCards,
-  designItems,
-  educationItems,
-  heroHighlights,
-  photographyItems,
+  faqItems,
+  heroMeta,
+  heroSummary,
+  heroTitle,
   portrait,
   projectLinks,
-  workItems,
+  serviceCards,
+  workflowSteps,
 } from "../data/siteData";
 
-const categoryCards = [
-  {
-    title: "Books",
-    icon: BookOpenText,
-    description: "Reading that sharpens design thinking, clarity, and creative discipline.",
-    items: bookItems,
-  },
-  {
-    title: "Graphic Designs",
-    icon: Palette,
-    description: "Poster, social, and brand explorations built with stronger hierarchy.",
-    items: designItems,
-  },
-  {
-    title: "Photographs",
-    icon: Camera,
-    description: "Portraits, framing, and atmosphere that influence the visual rhythm.",
-    items: photographyItems,
-  },
-  {
-    title: "Achievements",
-    icon: Trophy,
-    description: "Visible progress through shipped work and continuous portfolio growth.",
-    items: achievementItems,
-  },
-];
-
-const practiceCards = [
-  {
-    title: "Software Projects",
-    icon: Wrench,
-    text: "Live web tools presented as polished mini-products with a cleaner UI language.",
-  },
-  {
-    title: "Working Experience",
-    icon: BriefcaseBusiness,
-    text: "Real project exposure that shaped presentation quality, speed, and practical output.",
-  },
-  {
-    title: "Education",
-    icon: GraduationCap,
-    text: "Learning foundations that support both technical structure and creative confidence.",
-  },
-];
-
 export default function HomePage() {
-  const heroRef = useRef(null);
   const reduceMotion = useReducedMotion();
-  const { scrollYProgress } = useScroll({
-    target: heroRef,
-    offset: ["start start", "end start"],
-  });
-
-  const glowY = useTransform(scrollYProgress, [0, 1], [0, reduceMotion ? 0 : 110]);
-  const orbY = useTransform(scrollYProgress, [0, 1], [0, reduceMotion ? 0 : -70]);
-  const portraitY = useTransform(scrollYProgress, [0, 1], [0, reduceMotion ? 0 : -26]);
-  const copyY = useTransform(scrollYProgress, [0, 1], [0, reduceMotion ? 0 : 22]);
+  const featuredProjects = projectLinks.slice(0, 4);
 
   return (
-    <main className="page-frame pb-16 pt-4 md:pb-24 md:pt-6">
-      <section id="home" ref={heroRef} className="section-anchor hero-shell overflow-hidden px-5 py-6 md:px-8 md:py-8 xl:px-10">
-        <div className="grid gap-14 xl:grid-cols-[1.04fr_0.96fr] xl:items-end">
+    <main className="page-frame pb-16 pt-4 md:pb-20 md:pt-6">
+      <section className="home-hero-shell overflow-hidden px-8 pb-8 pt-5 md:px-10 md:pb-10 xl:px-12">
+        <div className="home-hero-grid">
           <motion.div
-            style={{ y: copyY }}
-            initial={reduceMotion ? false : { opacity: 0, y: 28 }}
+            className="hero-copy-left"
+            initial={reduceMotion ? false : { opacity: 0, y: 30 }}
             animate={reduceMotion ? {} : { opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-            className="max-w-[760px]"
+            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
           >
-            <div className="eyebrow-pill">
-              <span className="h-2.5 w-2.5 rounded-full bg-gold" />
-              Creative developer building premium digital experiences
+            <div className="availability-pill">
+              <span className="availability-dot" />
+              {heroMeta}
             </div>
-            <h1 className="hero-title mt-7 text-ink">
-              Modern portfolio design for polished products, clean visuals, and useful web tools.
-            </h1>
-            <p className="mt-6 max-w-[640px] text-[17px] leading-8 text-zinc-600 md:text-[18px]">
-              Inspired by premium Framer portfolio templates, this landing page brings together
-              software projects, working experience, education, books, graphic designs,
-              photographs, and achievements in one elegant flow.
-            </p>
-
-            <div className="mt-8 flex flex-col gap-4 sm:flex-row">
-              <LandingScrollLink href="/#projects" className="primary-action">
-                Selected Work
-              </LandingScrollLink>
-              <LandingScrollLink href="/#about" className="secondary-action">
-                About Me
-              </LandingScrollLink>
-            </div>
-
-            <div className="mt-10 grid gap-3 sm:grid-cols-3">
-              {heroHighlights.map((item) => (
-                <div key={item} className="mini-info-card">
-                  <span className="mini-info-dot" />
-                  <span>{item}</span>
-                </div>
-              ))}
-            </div>
+            <h1 className="home-hero-title mt-7">{heroTitle}</h1>
           </motion.div>
 
           <motion.div
-            initial={reduceMotion ? false : { opacity: 0, y: 40 }}
-            animate={reduceMotion ? {} : { opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
-            className="relative mx-auto flex w-full max-w-[720px] items-end justify-center"
+            className="hero-portrait-column"
+            initial={reduceMotion ? false : { opacity: 0, y: 24, scale: 0.98 }}
+            animate={reduceMotion ? {} : { opacity: 1, y: 0, scale: 1 }}
+            transition={{ duration: 1, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
           >
-            <motion.div style={{ y: glowY }} className="hero-blur hero-blur-left" />
-            <motion.div style={{ y: orbY }} className="hero-blur hero-blur-right" />
-            <motion.div style={{ y: glowY }} className="hero-sheet hero-sheet-back" />
-            <motion.div style={{ y: orbY }} className="hero-sheet hero-sheet-front" />
+            <div className="hero-portrait-glow" />
+            <img
+              src={portrait}
+              alt="Adheesha Sooriyaarachchi portrait"
+              className="hero-portrait-image"
+            />
+            <div className="hero-portrait-fade" />
+          </motion.div>
 
-            <motion.div style={{ y: portraitY }} className="portrait-stage">
-              <div className="portrait-caption top-6 left-6">
-                <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-zinc-500">
-                  Featured Profile
-                </span>
-                <p className="mt-3 text-sm leading-7 text-zinc-600">
-                  UI-focused frontend work with a taste for spacing, clarity, and visual calm.
-                </p>
-              </div>
-              <div className="portrait-caption bottom-6 right-6 max-w-[220px]">
-                <span className="section-chip">2026 Portfolio</span>
-                <p className="mt-3 text-sm leading-7 text-zinc-600">
-                  A cleaner image treatment with subtle depth instead of aggressive 3D tilt.
-                </p>
-              </div>
-              <img
-                src={portrait}
-                alt="Adheesha Sooriyaarachchi portrait"
-                className="relative z-10 h-full max-h-[760px] w-auto object-contain"
-              />
-            </motion.div>
+          <motion.div
+            className="hero-copy-right"
+            initial={reduceMotion ? false : { opacity: 0, y: 30 }}
+            animate={reduceMotion ? {} : { opacity: 1, y: 0 }}
+            transition={{ duration: 0.85, delay: 0.14, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <p className="hero-summary">{heroSummary}</p>
+            <Link to="/contact" className="hero-email-btn mt-8">
+              Email Me
+            </Link>
           </motion.div>
         </div>
       </section>
 
-      <RevealSection id="projects" className="section-anchor mt-24">
-        <SectionHeading
-          label="Selected Work"
-          title="Software projects presented with a cleaner editorial product feel."
-          text="The Framer reference has a strong project-first rhythm, so this portfolio now surfaces the work in larger, image-led cards instead of plain utility blocks."
-        />
+      <RevealSection className="mt-20">
+        <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
+          <SectionHeading
+            label="Featured Works"
+            title="Selected software projects presented in a cleaner portfolio system."
+            text="The first showcase section follows the same image-first rhythm as the Framer reference, but uses your own live tools and product links."
+          />
+          <Link to="/works" className="inline-flex items-center gap-2 text-sm font-semibold text-ink">
+            View All Works <ArrowRight className="h-4 w-4" />
+          </Link>
+        </div>
         <div className="mt-10 grid gap-6 md:grid-cols-2">
-          {projectLinks.map((project, index) => (
-            <ProjectCard key={project.name} project={project} featured={index === 0} />
+          {featuredProjects.map((project, index) => (
+            <ProjectCard key={project.name} project={project} featured={index < 2} />
           ))}
         </div>
       </RevealSection>
 
-      <RevealSection id="about" className="section-anchor mt-24" delay={0.04}>
-        <div className="grid gap-10 xl:grid-cols-[0.95fr_1.05fr] xl:items-start">
-          <div className="max-w-[620px]">
-            <SectionHeading
-              label="About Me"
-              title="A portfolio that balances interface quality, practical tools, and a wider creative eye."
-              text="My direction sits between polished frontend execution and visual storytelling. I like clean structure, deliberate motion, and interfaces that feel considered from the first glance."
-            />
-            <div className="mt-8 space-y-4">
-              {practiceCards.map((item) => (
-                <article key={item.title} className="editorial-card flex gap-4 p-5">
-                  <item.icon className="mt-1 h-5 w-5 text-gold" />
-                  <div>
-                    <h3 className="text-xl font-semibold tracking-[-0.04em] text-ink">{item.title}</h3>
-                    <p className="mt-2 text-[15px] leading-7 text-zinc-600">{item.text}</p>
-                  </div>
-                </article>
-              ))}
-            </div>
-          </div>
-
-          <div className="grid gap-6 xl:grid-cols-2">
-            {workItems.map((item) => (
-              <article key={item.name} className="editorial-card p-6">
-                <div className="flex items-start justify-between gap-4">
-                  <img src={item.image} alt={`${item.name} logo`} className="h-16 w-16 object-contain" />
-                  <span className="section-chip">{item.period}</span>
-                </div>
-                <h3 className="mt-6 text-[2rem] font-semibold tracking-[-0.05em] text-ink">
-                  {item.name}
-                </h3>
-                <p className="mt-2 text-sm font-semibold uppercase tracking-[0.16em] text-zinc-500">
-                  {item.role}
-                </p>
-                <p className="mt-4 text-[15px] leading-7 text-zinc-600">{item.description}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </RevealSection>
-
-      <RevealSection className="mt-24" delay={0.08}>
+      <RevealSection className="mt-20" delay={0.04}>
         <SectionHeading
-          label="Education"
-          title="Learning foundations that support both technical confidence and creative growth."
-          text="Education stays visible as part of the portfolio story rather than hidden under a separate page."
+          label="Services"
+          title="Creative direction and frontend delivery with a cleaner product feel."
+          text="A simple three-card section like the reference layout, centered around the strongest frontend offer."
         />
-        <div className="mt-10 grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
-          {educationItems.map((item) => (
-            <article key={item.name} className="editorial-card flex min-h-[220px] flex-col justify-between p-6">
-              <img src={item.image} alt={`${item.name} logo`} className="h-20 w-full object-contain" />
-              <div className="pt-8">
-                <h3 className="text-[1.6rem] font-semibold tracking-[-0.04em] text-ink">{item.name}</h3>
-                <p className="mt-3 text-[15px] leading-7 text-zinc-600">{item.focus}</p>
-              </div>
-            </article>
-          ))}
-        </div>
-      </RevealSection>
-
-      <RevealSection className="mt-24" delay={0.12}>
-        <SectionHeading
-          label="Creative Collections"
-          title="Books, design explorations, photographs, and achievements in the same premium system."
-          text="The portfolio stays broad, but every category follows the same calm visual language and spacing rules."
-        />
-        <div className="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
-          {categoryCards.map((collection) => (
-            <article key={collection.title} className="editorial-card flex h-full flex-col p-6">
+        <div className="mt-10 grid gap-5 lg:grid-cols-3">
+          {serviceCards.map((item) => (
+            <article key={item.title} className={`service-card ${item.tone === "dark" ? "service-card-dark" : ""}`}>
               <div className="flex items-center justify-between gap-4">
-                <collection.icon className="h-5 w-5 text-gold" />
-                <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-zinc-400">
-                  Portfolio Layer
-                </span>
+                <span className="text-sm font-semibold tracking-[-0.02em]">{item.title}</span>
+                <span className="text-xs uppercase tracking-[0.18em] opacity-60">2026</span>
               </div>
-              <h3 className="mt-6 text-[2rem] font-semibold tracking-[-0.05em] text-ink">
-                {collection.title}
-              </h3>
-              <p className="mt-3 text-[15px] leading-7 text-zinc-600">{collection.description}</p>
-              <div className="mt-6 space-y-3">
-                {collection.items.map((item) => (
-                  <div key={item.title} className="subtle-stack-card px-4 py-4">
-                    <p className="text-sm font-semibold text-ink">{item.title}</p>
-                    <p className="mt-1 text-sm leading-6 text-zinc-600">{item.note}</p>
-                  </div>
+              <p className="mt-4 text-sm leading-7 opacity-80">{item.description}</p>
+              <div className="mt-6 flex flex-wrap gap-2">
+                {item.tags.map((tag) => (
+                  <span key={tag} className="service-tag">
+                    {tag}
+                  </span>
                 ))}
               </div>
             </article>
@@ -270,37 +109,88 @@ export default function HomePage() {
         </div>
       </RevealSection>
 
-      <RevealSection id="contact" className="section-anchor mt-24" delay={0.16}>
-        <section className="contact-shell overflow-hidden px-6 py-8 md:px-8 md:py-10 xl:px-10">
-          <div className="grid gap-10 xl:grid-cols-[1fr_0.9fr] xl:items-end">
-            <div className="max-w-[720px]">
-              <span className="section-chip">Contact</span>
-              <h2 className="subheadline-balance mt-6 font-semibold text-ink">
-                Building portfolio websites, premium landing pages, and useful digital tools.
+      <RevealSection className="mt-20" delay={0.08}>
+        <section className="workflow-shell overflow-hidden px-6 py-8 md:px-8 md:py-10 xl:px-10">
+          <div className="grid gap-10 xl:grid-cols-[0.7fr_1.3fr] xl:items-start">
+            <div className="max-w-[420px]">
+              <span className="section-chip">Workflow</span>
+              <h2 className="section-title mt-5 text-white">
+                A simple and efficient process to bring your vision to life.
               </h2>
-              <p className="mt-5 max-w-[620px] text-[17px] leading-8 text-zinc-600">
-                If you want a cleaner presentation, stronger frontend polish, or a more
-                premium portfolio direction like this, let&apos;s build it properly.
+              <p className="mt-4 text-[15px] leading-7 text-zinc-400">
+                From the first call to final delivery, every step is designed for clarity and efficiency.
               </p>
-              <div className="mt-8">
-                <LandingScrollLink href="/#home" className="inline-flex items-center gap-2 text-sm font-semibold text-ink">
-                  Back to top <ArrowRight className="h-4 w-4" />
-                </LandingScrollLink>
-              </div>
             </div>
-
-            <div className="grid gap-4 sm:grid-cols-3 xl:grid-cols-1">
-              {contactCards.map((item) => (
-                <article key={item.title} className="subtle-stack-card px-5 py-5">
-                  <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-zinc-400">
-                    {item.title}
-                  </span>
-                  <p className="mt-3 text-base font-semibold leading-7 text-ink">{item.value}</p>
+            <div className="workflow-steps">
+              {workflowSteps.map((item, index) => (
+                <article
+                  key={item.step}
+                  className="workflow-step-card"
+                  style={{ marginLeft: `${index % 2 === 0 ? 0 : 56}px` }}
+                >
+                  <span className="workflow-step-number">{item.step}</span>
+                  <h3 className="mt-3 text-lg font-semibold text-white">{item.title}</h3>
+                  <p className="mt-3 text-sm leading-7 text-zinc-400">{item.text}</p>
                 </article>
               ))}
             </div>
           </div>
         </section>
+      </RevealSection>
+
+      <RevealSection className="mt-20 grid gap-10 xl:grid-cols-[0.82fr_1.18fr] xl:items-start" delay={0.12}>
+        <div className="max-w-[460px]">
+          <SectionHeading
+            label="FAQs"
+            title="Answers to common questions to help you understand the process and how we can work together."
+            text="This keeps the lower part of the landing page informative, like the sample reference."
+          />
+          <div className="mt-6 inline-flex items-center gap-3 rounded-full bg-zinc-950 px-4 py-3 text-sm font-semibold text-white">
+            <BriefcaseBusiness className="h-4 w-4" />
+            Project Flow
+          </div>
+        </div>
+        <div className="faq-list">
+          {faqItems.map((item, index) => (
+            <details key={item.question} className="faq-item" open={index === 0}>
+              <summary>{item.question}</summary>
+              <p>{item.answer}</p>
+            </details>
+          ))}
+        </div>
+      </RevealSection>
+
+      <RevealSection className="mt-20 grid gap-5 md:grid-cols-2 xl:grid-cols-3" delay={0.16}>
+        <article className="info-panel">
+          <GraduationCap className="h-5 w-5 text-gold" />
+          <h3 className="mt-5 text-[1.9rem] font-semibold tracking-[-0.05em] text-ink">Education</h3>
+          <p className="mt-3 text-[15px] leading-7 text-zinc-600">
+            Institutions and learning foundations that shaped the technical side of the work.
+          </p>
+          <Link to="/about" className="panel-link mt-6 inline-flex items-center gap-2">
+            Explore About <ArrowRight className="h-4 w-4" />
+          </Link>
+        </article>
+        <article className="info-panel">
+          <BriefcaseBusiness className="h-5 w-5 text-gold" />
+          <h3 className="mt-5 text-[1.9rem] font-semibold tracking-[-0.05em] text-ink">Experience</h3>
+          <p className="mt-3 text-[15px] leading-7 text-zinc-600">
+            Practical digital work that sharpened polish, speed, and delivery quality.
+          </p>
+          <Link to="/about" className="panel-link mt-6 inline-flex items-center gap-2">
+            View Story <ArrowRight className="h-4 w-4" />
+          </Link>
+        </article>
+        <article className="info-panel">
+          <ArrowRight className="h-5 w-5 text-gold" />
+          <h3 className="mt-5 text-[1.9rem] font-semibold tracking-[-0.05em] text-ink">Contact</h3>
+          <p className="mt-3 text-[15px] leading-7 text-zinc-600">
+            For portfolios, landing pages, or useful tools with stronger visual presentation.
+          </p>
+          <Link to="/contact" className="panel-link mt-6 inline-flex items-center gap-2">
+            Let&apos;s Talk <ArrowRight className="h-4 w-4" />
+          </Link>
+        </article>
       </RevealSection>
     </main>
   );

@@ -1,33 +1,29 @@
-import { useLocation } from "react-router-dom";
-import LandingScrollLink from "./LandingScrollLink";
+import { NavLink, Link } from "react-router-dom";
 import { navLinks } from "../data/siteData";
 
 export default function Header() {
-  const location = useLocation();
-  const activeHash = location.pathname === "/" ? location.hash || "#home" : "";
-
   return (
-    <header className="page-frame sticky top-0 z-30 pt-4 md:pt-6">
+    <header className="page-frame pt-4 md:pt-6">
       <div className="site-nav-shell">
-        <LandingScrollLink href="/#home" className="text-[1.35rem] font-semibold tracking-[-0.05em] text-ink">
+        <Link to="/" className="brand-link">
           Adheesha Sooriyaarachchi
-        </LandingScrollLink>
+        </Link>
 
-        <nav className="flex flex-wrap items-center justify-center gap-3 md:gap-6">
+        <nav className="nav-center">
           {navLinks.map((link) => (
-            <LandingScrollLink
+            <NavLink
               key={link.href}
-              href={link.href}
-              className={`nav-link ${activeHash === link.hash ? "text-ink" : ""}`}
+              to={link.href}
+              className={({ isActive }) => `nav-link ${isActive ? "nav-link-active" : ""}`}
             >
               {link.label}
-            </LandingScrollLink>
+            </NavLink>
           ))}
         </nav>
 
-        <LandingScrollLink href="/#contact" className="header-cta">
+        <Link to="/contact" className="header-cta">
           Let&apos;s Talk
-        </LandingScrollLink>
+        </Link>
       </div>
     </header>
   );
