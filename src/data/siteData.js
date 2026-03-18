@@ -18,9 +18,9 @@ export const navLinks = [
 ];
 
 export const heroHighlights = [
-  "Glassmorphism UI direction",
-  "3D-inspired depth and layered cards",
-  "Responsive React + Tailwind build",
+  "Single white landing page",
+  "Glassy depth with clean spacing",
+  "React + Tailwind responsive build",
 ];
 
 export const projectLinks = [
@@ -62,64 +62,159 @@ export const projectLinks = [
 ];
 
 export const educationItems = [
-  { name: "UCSC", image: ucscLogo },
-  { name: "NIBM", image: nibmLogo },
-  { name: "IBMS", image: ibmsLogo },
-  { name: "ACC", image: accLogo },
-  { name: "SLEGA", image: slegaLogo },
-  { name: "Earth", image: earthLogo },
+  {
+    name: "UCSC",
+    image: ucscLogo,
+    focus: "Computing-oriented academic exposure and digital problem solving.",
+  },
+  {
+    name: "NIBM",
+    image: nibmLogo,
+    focus: "Structured technology learning with practical software direction.",
+  },
+  {
+    name: "IBMS",
+    image: ibmsLogo,
+    focus: "Business and communication perspective that supports product thinking.",
+  },
+  {
+    name: "ACC",
+    image: accLogo,
+    focus: "Professional growth with discipline, process, and presentation quality.",
+  },
+  {
+    name: "SLEGA",
+    image: slegaLogo,
+    focus: "Creative and leadership-related learning that sharpened confidence.",
+  },
+  {
+    name: "Earth",
+    image: earthLogo,
+    focus: "A wider learning base that supports curiosity and creative range.",
+  },
 ];
 
 export const workItems = [
   {
     name: "Kalana",
     image: kalanaLogo,
+    role: "Creative / Digital Work",
+    period: "Professional Experience",
     description:
       "Worked on digital execution with attention to presentation, layout, and polished output.",
   },
   {
     name: "Olympus",
     image: olympusLogo,
+    role: "Product-facing Creative Support",
+    period: "Professional Experience",
     description:
-      "Contributed to product-facing creative work where clean interface quality mattered.",
+      "Contributed to product-facing creative work where clean interface quality and fast delivery mattered.",
   },
 ];
 
-export const insightCards = [
+export const bookItems = [
+  {
+    title: "Design Thinking",
+    note: "Reading around product thinking, visual systems, and cleaner decision-making.",
+  },
+  {
+    title: "Creative Discipline",
+    note: "Books and references that improve consistency, focus, and taste in output.",
+  },
+  {
+    title: "UI Writing & Clarity",
+    note: "Material that helps interfaces feel simpler, more useful, and more human.",
+  },
+];
+
+export const designItems = [
+  {
+    title: "Poster Design",
+    note: "High-contrast, hierarchy-led poster compositions with a premium mood.",
+  },
+  {
+    title: "Social Graphics",
+    note: "Clean promotional creatives built to feel clear, bold, and modern.",
+  },
+  {
+    title: "Brand Presentation",
+    note: "Layouts that make visual systems feel intentional instead of generic.",
+  },
+];
+
+export const photographyItems = [
+  {
+    title: "Portrait Frames",
+    note: "A composition-first photography direction shaped around presence and mood.",
+  },
+  {
+    title: "Light & Contrast",
+    note: "Using brightness, texture, and tonal separation to add atmosphere.",
+  },
+  {
+    title: "Storytelling Shots",
+    note: "Photographs that try to carry feeling, not just documentation.",
+  },
+];
+
+export const achievementItems = [
+  {
+    title: "Live Utility Tools",
+    note: "Built and published multiple practical tools as public projects.",
+  },
+  {
+    title: "Portfolio Evolution",
+    note: "Continuously refining frontend quality, responsiveness, and presentation.",
+  },
+  {
+    title: "Creative Growth",
+    note: "Turning self-learning into shipped work across code, design, and visuals.",
+  },
+];
+
+export const portfolioSections = [
+  {
+    title: "Education",
+    description: "Institutions and learning foundations that shaped the technical side.",
+  },
+  {
+    title: "Working Experience",
+    description: "Professional exposure focused on digital output and visual quality.",
+  },
   {
     title: "Books",
-    description:
-      "Reading influences behind how I think about design systems, product clarity, and creative discipline.",
+    description: "Reading that influences design thinking, clarity, and discipline.",
   },
   {
     title: "Graphic Designs",
-    description:
-      "Poster, social, and brand presentation ideas built around strong hierarchy and visual tone.",
+    description: "Poster, social, and brand-led work built with stronger hierarchy.",
+  },
+  {
+    title: "Software Projects",
+    description: "Live web tools presented as polished mini-products.",
   },
   {
     title: "Photographs",
-    description:
-      "A frame-first approach to portraits, light, detail, and atmospheric composition.",
+    description: "A visual eye for portraits, frames, light, and mood.",
   },
   {
     title: "Achievements",
-    description:
-      "Shipped tools, growth milestones, and practical learning translated into public work.",
+    description: "Growth milestones and shipped work translated into public output.",
   },
 ];
 
 export const contactCards = [
   {
-    title: "Email",
-    value: "adheesha@example.com",
-    href: "mailto:adheesha@example.com",
+    title: "Project Flow",
+    value: "Portfolio websites, landing pages, and practical web tools",
   },
   {
-    title: "Project Type",
-    value: "Portfolio sites, landing pages, utility products",
+    title: "Working Style",
+    value: "Clean structure, modern visuals, and polished frontend delivery",
   },
   {
-    title: "Preferred Flow",
-    value: "Discovery, design direction, polished frontend build",
+    title: "Availability",
+    value: "Open for selected creative and product collaborations",
   },
 ];
