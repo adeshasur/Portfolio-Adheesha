@@ -363,8 +363,8 @@ export default function HomePage() {
           <motion.div style={{ y: layerTwo }} className="absolute right-[8%] top-[18%] h-52 w-52 rounded-full bg-gold/15 blur-3xl" />
           <motion.div style={{ y: layerThree }} className="absolute bottom-0 right-[18%] h-56 w-56 rounded-full bg-sky-100/70 blur-3xl" />
 
-          <div className="relative z-10 grid min-h-[clamp(640px,78vh,820px)] items-center gap-8 lg:grid-cols-[1.02fr_0.98fr]">
-            <div className="max-w-[760px] pb-0 lg:-mt-8">
+          <div className="relative z-10 grid min-h-[clamp(600px,74vh,780px)] items-start gap-8 pt-4 lg:grid-cols-[1.02fr_0.98fr]">
+            <div className="max-w-[760px] pt-2 lg:-mt-10">
               <motion.span
                 initial={reduceMotion ? false : { opacity: 0, y: 16 }}
                 animate={reduceMotion ? {} : { opacity: 1, y: 0 }}
@@ -419,7 +419,7 @@ export default function HomePage() {
               </motion.div>
             </div>
 
-            <div className="grid gap-4 lg:-mt-10 lg:justify-items-end">
+            <div className="grid gap-4 lg:-mt-16 lg:justify-items-end">
               <motion.div
                 initial={reduceMotion ? false : { opacity: 0, y: 26 }}
                 animate={reduceMotion ? {} : { opacity: 1, y: 0 }}
@@ -683,6 +683,7 @@ export default function HomePage() {
     </main>
   );
 }
+
 
 
 
