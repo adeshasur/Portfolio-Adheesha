@@ -3,497 +3,322 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Official Website Of Adheesha Sooriyaarachchi - Freelancer | Undergraduate | Graphic Designer">
-    <title>Adheesha Sooriyaarachchi | Premium Portfolio</title>
-    
-    <!-- Google Fonts -->
+    <meta name="description" content="Adheesha Sooriyaarachchi portfolio featuring UI/UX, frontend craft, branding work, and a suite of custom web tools.">
+    <title>Adheesha Sooriyaarachchi | Portfolio</title>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-    
-    <!-- Font Awesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Sora:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- GSAP for Animations -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    
-    <!-- Custom Style -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Premium Atmosphere -->
-    <div class="atmosphere">
-        <div class="blob blob-1"></div>
-        <div class="blob blob-2"></div>
-    </div>
-    <div class="bg-noise"></div>
+    <div class="page-noise"></div>
+    <div class="ambient ambient-one"></div>
+    <div class="ambient ambient-two"></div>
 
-    <!-- Navigation Bar -->
-    <nav class="navbar" id="navbar">
-        <div class="nav-container">
-            <div class="logo">
-                <span class="logo-text">Adheesha Sooriyaarachchi</span>
+    <header class="site-header" id="top">
+        <nav class="navbar" id="navbar">
+            <a href="#top" class="brand-mark">Adheesha Sooriyaarachchi</a>
+            <button class="menu-toggle" id="menuToggle" aria-label="Open navigation">
+                <span></span>
+                <span></span>
+            </button>
+            <div class="nav-panel" id="navPanel">
+                <a href="#about" class="nav-link">About</a>
+                <a href="#tools" class="nav-link">Tools</a>
+                <a href="#projects" class="nav-link">Projects</a>
+                <a href="#contact" class="nav-link">Contact</a>
             </div>
-            
-            <ul class="nav-links">
-                <li><a href="#about" class="nav-link">About</a></li>
-                <li><a href="#tools" class="nav-link">Tools</a></li>
-                <li><a href="#projects" class="nav-link">Projects</a></li>
-                <li><a href="#contact" class="nav-link">Contacts</a></li>
-            </ul>
-        </div>
-    </nav>
+        </nav>
+    </header>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="hero-container">
-            <!-- Left Text Content -->
-            <div class="hero-info fade-up">
-                <span class="badge-label">UI/UX DESIGNER</span>
-                <h1 class="hero-title">Hello, my name<br>is Adheesha<br>Sooriyaarachchi</h1>
-                <p class="hero-subtitle">I bridge the gap between complex problems and elegant, human-centric solutions. Specialized in meaningful designs that evoke emotion and serve a purpose.</p>
-                
-                <div class="hero-btns">
-                    <a href="#projects" class="btn btn-primary">Projects</a>
-                    <a href="#tools" class="btn btn-outline">Tools</a>
-                    <a href="#" class="btn btn-outline">LinkedIn</a>
+    <main>
+        <section class="hero-section">
+            <div class="shell hero-grid">
+                <div class="hero-copy reveal">
+                    <span class="eyebrow">Creative Developer • UI/UX Designer</span>
+                    <h1 class="hero-title">Building a bold digital identity with thoughtful design, modern interfaces, and useful web tools.</h1>
+                    <p class="hero-text">
+                        I am Adheesha Sooriyaarachchi, a Sri Lankan creative focused on premium visual systems,
+                        responsive frontends, and polished experiences that feel intentional from the first scroll.
+                    </p>
+
+                    <div class="hero-actions">
+                        <a href="#projects" class="btn btn-primary">View Projects</a>
+                        <a href="#tools" class="btn btn-secondary">Explore Tools</a>
+                    </div>
+
+                    <div class="hero-metrics">
+                        <article>
+                            <strong>07</strong>
+                            <span>Custom tools built</span>
+                        </article>
+                        <article>
+                            <strong>50+</strong>
+                            <span>Design-focused projects</span>
+                        </article>
+                        <article>
+                            <strong>03+</strong>
+                            <span>Years of creative growth</span>
+                        </article>
+                    </div>
+                </div>
+
+                <div class="hero-visual reveal">
+                    <div class="visual-card">
+                        <div class="visual-badge badge-top">
+                            <i class="fa-solid fa-star"></i>
+                            Premium yellow identity
+                        </div>
+                        <div class="visual-badge badge-bottom">
+                            <i class="fa-solid fa-code"></i>
+                            Design + build mindset
+                        </div>
+                        <div class="portrait-wrap">
+                            <div class="portrait-glow"></div>
+                            <img src="ppimage.png" alt="Adheesha Sooriyaarachchi portrait" class="portrait-image">
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
+        </section>
 
-        <!-- Right Visual Splash -->
-        <div class="hero-visual fade-up">
-            <div class="hero-visual-inner">
-                <svg viewBox="0 0 500 1000" preserveAspectRatio="none" class="wave-svg">
-                    <path d="M500,0 L500,1000 L180,1000 
-                             C350,850 80,750 240,500 
-                             C400,300 120,150 220,0 Z" 
-                          fill="#FDC435"></path>
-                </svg>
-                <img class="profile-img" src="ppimage.png" alt="Adheesha Sooriyaarachchi" onerror="this.src='https://images.unsplash.com/photo-1549492423-40026a7605ee?q=80&w=600&auto=format&fit=crop';">
-            </div>
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section id="about" class="section">
-        <div class="container">
-            <div class="section-header">
-                <h2>Behind the Design</h2>
-                <div class="line"></div>
-            </div>
-            
-            <div class="about-bento">
-                <div class="bento-item about-main">
-                    <h3>Crafting Digital Products with Purpose</h3>
-                    <p>Based in Sri Lanka, I specialize in building modular, scalable design systems. Every pixel I place serves a specific user goal.</p>
-                </div>
-                <div class="bento-item">
-                    <span class="stat-num">03+</span>
-                    <span class="stat-label">Years Experience</span>
-                </div>
-                <div class="bento-item">
-                    <span class="stat-num">50+</span>
-                    <span class="stat-label">Projects</span>
-                </div>
-                <div class="bento-item">
-                    <h4 style="margin-bottom: 1rem;">Core Philosophies</h4>
-                    <p style="font-size: 0.95rem; color: var(--text-secondary);">Empathy-First, Scalable Architecture, Pixel-Perfect Precision.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Tools Section -->
-    <section id="tools" class="section tools-section">
-        <div class="container">
-            <div class="section-header fade-up">
-                <h2 class="title">Creative <span>Tool Suite</span></h2>
-                <p class="section-copy">A focused collection of utilities I designed to feel fast, premium, and genuinely useful inside my portfolio ecosystem.</p>
-                <div class="line"></div>
-            </div>
-
-            <div class="tools-grid">
-                <article class="tool-card glass-card fade-up">
-                    <div class="tool-icon"><i class="fa-solid fa-qrcode"></i></div>
-                    <h3>QR Master</h3>
-                    <p>Generate clean QR codes instantly for URLs, text, and shareable assets.</p>
-                </article>
-
-                <article class="tool-card glass-card fade-up" style="transition-delay: 0.05s;">
-                    <div class="tool-icon"><i class="fa-solid fa-id-card"></i></div>
-                    <h3>NIC Finder</h3>
-                    <p>Decode Sri Lankan NIC details with a simple, elegant lookup experience.</p>
-                </article>
-
-                <article class="tool-card glass-card fade-up" style="transition-delay: 0.1s;">
-                    <div class="tool-icon"><i class="fa-solid fa-shield-halved"></i></div>
-                    <h3>SecurePass Pro</h3>
-                    <p>Manage saved credentials locally through a modern vault-inspired interface.</p>
-                </article>
-
-                <article class="tool-card glass-card fade-up" style="transition-delay: 0.15s;">
-                    <div class="tool-icon"><i class="fa-solid fa-location-dot"></i></div>
-                    <h3>Postal Finder</h3>
-                    <p>Search Sri Lankan post office names and postal codes without friction.</p>
-                </article>
-
-                <article class="tool-card glass-card fade-up" style="transition-delay: 0.2s;">
-                    <div class="tool-icon"><i class="fa-solid fa-font"></i></div>
-                    <h3>Text Transformer</h3>
-                    <p>Refine text, track live writing stats, and copy polished output fast.</p>
-                </article>
-
-                <article class="tool-card glass-card fade-up" style="transition-delay: 0.25s;">
-                    <div class="tool-icon"><i class="fa-solid fa-palette"></i></div>
-                    <h3>ChromaCraft</h3>
-                    <p>Preview, convert, and experiment with colors in a designer-friendly canvas.</p>
-                </article>
-
-                <article class="tool-card glass-card fade-up" style="transition-delay: 0.3s;">
-                    <div class="tool-icon"><i class="fa-solid fa-calculator"></i></div>
-                    <h3>InterestCalc</h3>
-                    <p>Explore simple and compound interest with a clean, accessible workflow.</p>
-                </article>
-            </div>
-
-            <div class="tools-highlight glass-card fade-up">
+        <section class="section section-intro reveal">
+            <div class="shell intro-banner">
                 <div>
-                    <span class="badge-label">My Utility Collection</span>
-                    <h3>One premium portfolio, multiple purposeful tools.</h3>
-                    <p>Instead of replacing my portfolio with a dashboard, these tools now sit as a dedicated showcase inside the overall personal brand experience.</p>
+                    <span class="eyebrow">What I Do</span>
+                    <h2>One portfolio. Multiple creative layers.</h2>
                 </div>
-                <a href="#contact" class="btn btn-primary">Let’s Build Something</a>
+                <p>
+                    From interfaces and branding to frontend implementation and productivity tools, this portfolio is meant
+                    to feel like a curated digital studio instead of a generic personal website.
+                </p>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Experience / Education -->
-    <section id="experience" class="section">
-        <div class="container">
-            <div class="section-header">
-                <h2>Journey & Archive</h2>
-                <div class="line"></div>
-            </div>
-            
-            <div class="timeline">
-                <div class="timeline-item reveal-left">
-                    <div class="timeline-dot"></div>
-                    <span class="timeline-date">2023 - Present</span>
-                    <h3 class="timeline-title">Freelance Visual Artist</h3>
-                    <p class="timeline-subtitle">Independent Digital Creative</p>
-                    <p>Delivering high-end visual solutions for global brands. Focusing on emotional storytelling through pixel-perfect layouts and modern typography.</p>
+        <section class="section" id="about">
+            <div class="shell">
+                <div class="section-heading reveal">
+                    <span class="eyebrow">About Me</span>
+                    <h2>Designing with clarity, emotion, and structure.</h2>
+                    <p>I care about visual hierarchy, meaningful motion, and products that solve problems without losing personality.</p>
                 </div>
 
-                <div class="timeline-item reveal-left" style="transition-delay: 0.1s;">
-                    <div class="timeline-dot"></div>
-                    <span class="timeline-date">2021 - 2023</span>
-                    <h3 class="timeline-title">Higher National Diploma</h3>
-                    <p class="timeline-subtitle">Interactive Design Studio</p>
-                    <p>Specialized in deep UX research and design systems architecture. Mastered the balance between complex functionality and minimalistic aesthetics.</p>
-                </div>
-                <!-- Education Drop 1 -->
-                <div class="timeline-item glass-card fade-up">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <span class="timeline-date">2022 - Present</span>
-                        <h3 class="timeline-title">BSc (Hons) Computing (Undergraduate)</h3>
-                        <p class="timeline-subtitle">National Institute of Business Management (NIBM)</p>
-                        <p>Currently pursuing my higher education focusing on software development alongside my passion for graphic design and creating meaningful visual identities.</p>
-                    </div>
-                </div>
-                
-                <!-- Education Drop 2 -->
-                <div class="timeline-item glass-card fade-up" style="transition-delay: 0.1s;">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <span class="timeline-date">2018 - 2021</span>
-                        <h3 class="timeline-title">G.C.E. Advanced Level</h3>
-                        <p class="timeline-subtitle">High School (Gampaha)</p>
-                        <p>Successfully completed my A/L examination with a focus on analytical subjects, laying down the strategic mindset required for modern UI/UX problem solving.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+                <div class="about-grid">
+                    <article class="about-card about-main reveal">
+                        <h3>Creative direction with technical execution</h3>
+                        <p>
+                            I enjoy shaping a concept from mood and typography all the way to the final responsive interface.
+                            My work blends UI thinking, brand sensitivity, and practical frontend knowledge.
+                        </p>
+                    </article>
 
-    <!-- Projects Section -->
-    <section id="projects" class="section relative-sec">
-        <div class="pattern-bg pattern-2"></div>
-        <div class="container">
-            <div class="section-header fade-up">
-                <h2 class="title">Selected <span>Works</span></h2>
-                <div class="line"></div>
+                    <article class="about-card reveal">
+                        <span class="stat">BSc (Hons)</span>
+                        <h3>Computing Undergraduate</h3>
+                        <p>Currently growing my software background while sharpening design and product instincts.</p>
+                    </article>
+
+                    <article class="about-card reveal">
+                        <span class="stat">Freelance</span>
+                        <h3>Visual & Digital Work</h3>
+                        <p>Creating brand-ready assets, layouts, UI concepts, and polished client-facing visuals.</p>
+                    </article>
+
+                    <article class="about-card reveal">
+                        <span class="stat">Focus</span>
+                        <h3>Clean systems</h3>
+                        <p>UI/UX, branding, frontend implementation, and curated utility tools with strong visual consistency.</p>
+                    </article>
+                </div>
             </div>
-            
-            <div class="projects-grid">
-                <!-- Project 1 -->
-                <div class="project-card glass-card fade-up">
-                    <div class="project-image">
-                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop" alt="GPA Calculator UI">
-                        <div class="overlay-link"><i class="fa-solid fa-arrow-up-right-from-square"></i></div>
-                    </div>
-                    <div class="project-info">
-                        <div class="tags">
-                            <span>UI/UX</span>
-                            <span>Web App</span>
+        </section>
+
+        <section class="section tools-section" id="tools">
+            <div class="shell">
+                <div class="section-heading reveal">
+                    <span class="eyebrow">Tool Suite</span>
+                    <h2>Seven tools, presented as part of the brand.</h2>
+                    <p>These utilities are part of the portfolio story, not a separate dashboard replacing the homepage.</p>
+                </div>
+
+                <div class="tools-layout">
+                    <div class="tools-feature reveal">
+                        <span class="feature-label">Featured Collection</span>
+                        <h3>Utility design with the same visual DNA as the portfolio.</h3>
+                        <p>
+                            Each tool is crafted around speed, clean interfaces, and the signature yellow accent that makes the
+                            whole experience feel connected.
+                        </p>
+                        <div class="feature-pills">
+                            <span>Responsive layouts</span>
+                            <span>Fast interactions</span>
+                            <span>Signature yellow</span>
                         </div>
-                        <h3>NIBM GPA Calculator</h3>
-                        <p>A lightweight, beautiful, and user-friendly academic tracker with a clean interface.</p>
+                    </div>
+
+                    <div class="tools-grid">
+                        <article class="tool-card reveal">
+                            <div class="tool-icon"><i class="fa-solid fa-qrcode"></i></div>
+                            <h3>QR Master</h3>
+                            <p>Generate clean QR codes for links, text, and instant sharing.</p>
+                        </article>
+
+                        <article class="tool-card reveal">
+                            <div class="tool-icon"><i class="fa-solid fa-id-card"></i></div>
+                            <h3>NIC Finder</h3>
+                            <p>Decode Sri Lankan NIC details through a simple lookup flow.</p>
+                        </article>
+
+                        <article class="tool-card reveal">
+                            <div class="tool-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                            <h3>SecurePass Pro</h3>
+                            <p>Manage credentials locally in a premium vault-inspired interface.</p>
+                        </article>
+
+                        <article class="tool-card reveal">
+                            <div class="tool-icon"><i class="fa-solid fa-location-dot"></i></div>
+                            <h3>Postal Finder</h3>
+                            <p>Search Sri Lankan post offices and postal code matches quickly.</p>
+                        </article>
+
+                        <article class="tool-card reveal">
+                            <div class="tool-icon"><i class="fa-solid fa-font"></i></div>
+                            <h3>Text Transformer</h3>
+                            <p>Convert, clean, and analyze text while keeping live writing stats visible.</p>
+                        </article>
+
+                        <article class="tool-card reveal">
+                            <div class="tool-icon"><i class="fa-solid fa-palette"></i></div>
+                            <h3>ChromaCraft</h3>
+                            <p>Experiment with colors, conversions, and quick palette checks.</p>
+                        </article>
+
+                        <article class="tool-card reveal">
+                            <div class="tool-icon"><i class="fa-solid fa-calculator"></i></div>
+                            <h3>InterestCalc</h3>
+                            <p>Calculate simple and compound interest with a clean finance utility flow.</p>
+                        </article>
                     </div>
                 </div>
+            </div>
+        </section>
 
-                <!-- Project 2 -->
-                <div class="project-card glass-card fade-up" style="transition-delay: 0.1s;">
-                    <div class="project-image">
-                        <img src="https://images.unsplash.com/photo-1600132806370-bf17e65e942f?q=80&w=2000&auto=format&fit=crop" alt="Eco Brand">
-                        <div class="overlay-link"><i class="fa-solid fa-arrow-up-right-from-square"></i></div>
-                    </div>
-                    <div class="project-info">
-                        <div class="tags">
-                            <span>Branding</span>
-                            <span>Logo Design</span>
+        <section class="section" id="projects">
+            <div class="shell">
+                <div class="section-heading reveal">
+                    <span class="eyebrow">Selected Work</span>
+                    <h2>Projects shaped by layout, storytelling, and usability.</h2>
+                    <p>A mix of product thinking, visual design, and strong presentation choices.</p>
+                </div>
+
+                <div class="project-grid">
+                    <article class="project-card reveal">
+                        <div class="project-media">
+                            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1600&auto=format&fit=crop" alt="Analytics dashboard interface">
                         </div>
-                        <h3>Eco Friendly Identity</h3>
-                        <p>Complete branding solution for an eco-conscious startup, with comprehensive brand guidelines.</p>
-                    </div>
-                </div>
-
-                <!-- Project 3 -->
-                <div class="project-card glass-card fade-up" style="transition-delay: 0.2s;">
-                    <div class="project-image">
-                        <img src="https://images.unsplash.com/photo-1526506169974-9ae38d6df7bc?q=80&w=2070&auto=format&fit=crop" alt="App UI">
-                        <div class="overlay-link"><i class="fa-solid fa-arrow-up-right-from-square"></i></div>
-                    </div>
-                    <div class="project-info">
-                        <div class="tags">
-                            <span>Mobile App</span>
-                            <span>Prototyping</span>
+                        <div class="project-body">
+                            <span class="project-tag">UI/UX • Web App</span>
+                            <h3>NIBM GPA Calculator</h3>
+                            <p>A clean academic tool concept designed for clarity, speed, and reduced friction.</p>
                         </div>
-                        <h3>Fitness Tracker App</h3>
-                        <p>Mobile application design concept featuring intuitive user flows and complex data visualization.</p>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="center-btn fade-up" style="margin-top: 4rem;">
-                <a href="#" class="btn btn-outline">View All Case Studies</a>
-            </div>
-        </div>
-    </section>
+                    </article>
 
-    <!-- Skills Section -->
-    <section id="skills" class="section">
-        <div class="container">
-            <div class="section-header">
-                <h2>Technical Toolkit</h2>
-                <div class="line"></div>
-            </div>
-            
-            <div class="skills-bento">
-                <div class="skill-card">
-                    <i class="fa-solid fa-wand-sparkles"></i>
-                    <h3>UI/UX Design</h3>
-                    <p>I build modular, scalable 디자인 systems that bridge the gap between aesthetics and function.</p>
-                    <div class="skill-tags">
-                        <span>Figma</span>
-                        <span>Adobe XD</span>
-                        <span>Framer</span>
-                    </div>
-                </div>
+                    <article class="project-card reveal">
+                        <div class="project-media">
+                            <img src="https://images.unsplash.com/photo-1600132806370-bf17e65e942f?q=80&w=1600&auto=format&fit=crop" alt="Brand identity visuals">
+                        </div>
+                        <div class="project-body">
+                            <span class="project-tag">Branding • Identity</span>
+                            <h3>Eco Friendly Identity</h3>
+                            <p>A visual identity system balancing modernity, trust, and environmental values.</p>
+                        </div>
+                    </article>
 
-                <div class="skill-card">
-                    <i class="fa-solid fa-pen-nib"></i>
-                    <h3>Visual Graphics</h3>
-                    <p>Creating bold brand identities and high-quality marketing assets that convert.</p>
-                    <div class="skill-tags">
-                        <span>Photoshop</span>
-                        <span>Illustrator</span>
-                        <span>After FX</span>
-                    </div>
+                    <article class="project-card reveal">
+                        <div class="project-media">
+                            <img src="https://images.unsplash.com/photo-1526506169974-9ae38d6df7bc?q=80&w=1600&auto=format&fit=crop" alt="Mobile product design concept">
+                        </div>
+                        <div class="project-body">
+                            <span class="project-tag">Mobile App • Prototype</span>
+                            <h3>Fitness Tracker App</h3>
+                            <p>A mobile experience focused on motivation, clean dashboards, and intuitive flow.</p>
+                        </div>
+                    </article>
                 </div>
+            </div>
+        </section>
 
-                <div class="skill-card">
-                    <i class="fa-solid fa-code"></i>
-                    <h3>Frontend Development</h3>
-                    <p>Clean code, responsive layouts, and smooth animations using GSAP & React.</p>
-                    <div class="skill-tags">
-                        <span>HTML/CSS</span>
-                        <span>JavaScript</span>
-                        <span>GSAP</span>
+        <section class="section" id="contact">
+            <div class="shell">
+                <div class="contact-panel reveal">
+                    <div class="contact-copy">
+                        <span class="eyebrow">Contact</span>
+                        <h2>Let’s make your next idea feel polished, modern, and memorable.</h2>
+                        <p>
+                            If you need a portfolio, interface, brand treatment, or a custom web tool with a strong
+                            visual presence, I am ready to collaborate.
+                        </p>
                     </div>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- Books Section -->
-    <section id="books" class="section" style="padding-top: 2rem;">
-        <div class="container">
-            <div class="section-header fade-up">
-                <h2 class="title">My <span>Library</span></h2>
-                <p style="color: var(--text-secondary); margin-top: 1rem;">Books that shaped my mindset and design approach.</p>
-                <div class="line" style="margin-top: 1rem;"></div>
-            </div>
-            
-            <div class="books-grid">
-                <!-- Book 1 -->
-                <div class="book-card glass-card fade-up">
-                    <img src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?q=80&w=600&auto=format&fit=crop" alt="Book Cover">
-                    <div class="book-info">
-                        <h4>Steal Like an Artist</h4>
-                        <span>Austin Kleon</span>
-                    </div>
-                </div>
-                <!-- Book 2 -->
-                <div class="book-card glass-card fade-up" style="transition-delay: 0.1s;">
-                    <img src="https://images.unsplash.com/photo-1589829085413-56de8ae18c73?q=80&w=600&auto=format&fit=crop" alt="Book Cover">
-                    <div class="book-info">
-                        <h4>The Design of Everyday Things</h4>
-                        <span>Don Norman</span>
-                    </div>
-                </div>
-                <!-- Book 3 -->
-                <div class="book-card glass-card fade-up" style="transition-delay: 0.2s;">
-                    <img src="https://images.unsplash.com/photo-1629196914234-de5c0bb62da2?q=80&w=600&auto=format&fit=crop" alt="Book Cover">
-                    <div class="book-info">
-                        <h4>Don't Make Me Think</h4>
-                        <span>Steve Krug</span>
-                    </div>
-                </div>
-                <!-- Book 4 -->
-                <div class="book-card glass-card fade-up" style="transition-delay: 0.3s;">
-                    <img src="https://images.unsplash.com/photo-1531988042231-d39a9c92a90b?q=80&w=600&auto=format&fit=crop" alt="Book Cover">
-                    <div class="book-info">
-                        <h4>Show Your Work!</h4>
-                        <span>Austin Kleon</span>
+                    <div class="contact-actions">
+                        <a href="mailto:adeesha.73x@gmail.com" class="contact-chip">
+                            <i class="fa-solid fa-paper-plane"></i>
+                            adeesha.73x@gmail.com
+                        </a>
+                        <a href="tel:+94713407686" class="contact-chip">
+                            <i class="fa-solid fa-phone"></i>
+                            +94 71 340 7686
+                        </a>
+                        <a href="#top" class="btn btn-primary">Back To Top</a>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </main>
 
-    <!-- Contact & Footer -->
-    <footer id="contact" class="footer">
-        <div class="container">
-            <div class="footer-box glass-card fade-up">
-                <div class="footer-content">
-                    <h2>Ready to create something <span>extraordinary?</span></h2>
-                    <p>I'm currently available for freelance work. If you have a project that needs some creative magic, I'd love to hear from you!</p>
-                    
-                    <div class="contact-details">
-                        <a href="mailto:adeesha.73x@gmail.com" class="contact-pill"><i class="fa-solid fa-paper-plane"></i> adeesha.73x@gmail.com</a>
-                        <a href="tel:+94713407686" class="contact-pill"><i class="fa-solid fa-phone"></i> +94 71 340 7686</a>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="footer-bottom">
-                <div class="logo">
-                    <i class="fa-solid fa-pen-nib"></i> Adheesha.
-                </div>
-                <p>&copy; 2026 Adheesha Sooriyaarachchi. All rights reserved.</p>
-                <div class="social-icons">
-                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
-                    <a href="#"><i class="fa-brands fa-behance"></i></a>
-                    <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
-                </div>
+    <footer class="site-footer">
+        <div class="shell footer-row">
+            <p>&copy; 2026 Adheesha Sooriyaarachchi. Crafted with intention.</p>
+            <div class="social-links">
+                <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#"><i class="fa-brands fa-behance"></i></a>
+                <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
             </div>
         </div>
     </footer>
 
-    <!-- Floating Action Buttons -->
-    <div class="floating-container">
-        <!-- Resume -->
-        <a href="#" class="float-btn glass-btn tooltip" data-tip="Download Resume">
-            <i class="fa-solid fa-file-pdf" style="color: #ff4757;"></i>
-        </a>
-        <!-- Buy Me A Coffee -->
-        <a href="https://www.buymeacoffee.com/" target="_blank" class="float-btn glass-btn tooltip" data-tip="Buy me a coffee">
-            <img src="https://cdn.buymeacoffee.com/buttons/bmc-new-btn-logo.svg" alt="BMC" style="width: 20px;">
-        </a>
-    </div>
-
-    <!-- Chatway Script -->
-    <!-- Set chat widget position in your chatway dashboard -->
-    <script id="chatway" async="true" src="https://cdn.chatway.app/widget.js?id=dqkNTqEXV67t"></script>
-
-    <!-- Animation Script -->
     <script>
-        gsap.registerPlugin(ScrollTrigger);
-
-        // --- THE SIGNATURE BUBBLE EFFECT ---
-        // As we scroll into About, the yellow splash "bubbles out"
-        gsap.to(".wave-svg", {
-            scale: 0.1,
-            opacity: 0,
-            y: -100,
-            transformOrigin: "bottom right",
-            scrollTrigger: {
-                trigger: "#about",
-                start: "top 90%",
-                end: "top 30%",
-                scrub: 1.5,
-                markers: false
-            }
-        });
-
-        gsap.to(".hero-visual .profile-img", {
-            opacity: 0,
-            y: 50,
-            scrollTrigger: {
-                trigger: "#about",
-                start: "top 95%",
-                end: "top 50%",
-                scrub: 1
-            }
-        });
-
-        // Entrance Stagger (Hero)
-        gsap.from(".fade-up", {
-            y: 30,
-            opacity: 0,
-            duration: 1.2,
-            stagger: 0.15,
-            ease: "expo.out",
-            delay: 0.4
-        });
-
-        // Stagger Bento Items
-        gsap.utils.toArray('.bento-item, .skill-card').forEach((elem, i) => {
-            gsap.from(elem, {
-                scrollTrigger: elem,
-                y: 30,
-                opacity: 0,
-                duration: 1,
-                ease: "power2.out",
-                delay: i * 0.1
-            });
-        });
-
-        // Navbar blur on scroll
         const navbar = document.getElementById('navbar');
+        const menuToggle = document.getElementById('menuToggle');
+        const navPanel = document.getElementById('navPanel');
+
         window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
+            navbar.classList.toggle('is-scrolled', window.scrollY > 24);
         });
 
-        // Reveal Left/Right
-        gsap.utils.toArray('.reveal-left').forEach(elem => {
-            gsap.from(elem, {
-                scrollTrigger: { trigger: elem, start: "top 85%" },
-                x: -30, opacity: 0, duration: 1, ease: "power2.out"
+        menuToggle.addEventListener('click', () => {
+            navPanel.classList.toggle('is-open');
+            menuToggle.classList.toggle('is-open');
+        });
+
+        document.querySelectorAll('.nav-link').forEach((link) => {
+            link.addEventListener('click', () => {
+                navPanel.classList.remove('is-open');
+                menuToggle.classList.remove('is-open');
             });
         });
 
-        const pushChatwayLeft = `
-            <style> #chatwayRoot { left: 20px !important; right: auto !important; } </style>
-        `;
-        document.head.insertAdjacentHTML('beforeend', pushChatwayLeft);
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                }
+            });
+        }, { threshold: 0.12 });
+
+        document.querySelectorAll('.reveal').forEach((element) => observer.observe(element));
     </script>
 </body>
 </html>
