@@ -364,7 +364,7 @@ export default function HomePage() {
           <motion.div style={{ y: layerThree }} className="absolute bottom-0 right-[18%] h-56 w-56 rounded-full bg-sky-100/70 blur-3xl" />
 
           <div className="relative z-10 grid min-h-[clamp(560px,68vh,720px)] items-start gap-6 pt-1 lg:grid-cols-[1.02fr_0.98fr]">
-            <div className="max-w-[760px] pt-0 lg:-mt-16">
+            <div className="max-w-[760px] pt-10 lg:pt-12 lg:-mt-4">
               <motion.span
                 initial={reduceMotion ? false : { opacity: 0, y: 16 }}
                 animate={reduceMotion ? {} : { opacity: 1, y: 0 }}
@@ -400,7 +400,7 @@ export default function HomePage() {
                 initial={reduceMotion ? false : { opacity: 0, y: 28 }}
                 animate={reduceMotion ? {} : { opacity: 1, y: 0 }}
                 transition={{ duration: 0.82, delay: 0.14, ease: [0.22, 1, 0.36, 1] }}
-                className="mt-8 flex flex-wrap gap-3"
+                className="mt-10 flex flex-wrap gap-3"
               >
                 <button
                   type="button"
@@ -606,7 +606,7 @@ export default function HomePage() {
                 ))}
               </div>
 
-              <div className="mt-8 flex flex-wrap gap-3">
+              <div className="mt-10 flex flex-wrap gap-3">
                 <button
                   type="button"
                   onClick={() => smoothScrollTo("hero")}
@@ -683,6 +683,7 @@ export default function HomePage() {
     </main>
   );
 }
+
 
 
 
