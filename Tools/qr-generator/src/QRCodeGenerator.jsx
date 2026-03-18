@@ -13,6 +13,24 @@ const styles = `
     --bg-subtle: #F9FAFB;
   }
 
+  @keyframes shimmer {
+    0% { background-position: -1000px 0; }
+    100% { background-position: 1000px 0; }
+  }
+
+  .animate-shimmer {
+    animation: shimmer 2s infinite linear;
+    background: linear-gradient(to right, #f6f7f8 4%, #edeef1 25%, #f6f7f8 36%);
+    background-size: 1000px 100%;
+  }
+
+  .qr-container {
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .qr-container:hover {
+    transform: scale(1.02) translateY(-4px);
+    box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.1);
+  }
   body { 
     font-family: 'Inter', sans-serif;
     color: var(--text-main);
@@ -20,24 +38,28 @@ const styles = `
 
   .font-brand { font-family: 'Outfit', sans-serif; }
 
-  /* Clean Minimalist Card */
+  /* Clean Minimalist Card -> Glassmorphism */
   .clean-card {
-    background: var(--bg-surface);
-    border: 1px solid var(--border);
-    border-radius: 24px;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 32px;
+    box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.8);
   }
 
   /* Refined Input */
   .clean-input {
     background: var(--bg-surface);
-    border: 1px solid var(--border);
-    transition: all 0.2s ease;
+    border: 1.5px solid var(--border);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
   .clean-input:focus {
     border-color: var(--primary);
-    box-shadow: 0 0 0 3px rgba(255, 177, 27, 0.1);
+    background: rgba(255,255,255,0.9);
+    box-shadow: 0 0 0 4px rgba(255, 177, 27, 0.15), 0 4px 6px -1px rgba(0,0,0,0.05);
     outline: none;
+    transform: translateY(-1px);
   }
 
   /* Elegant Button */
@@ -75,37 +97,30 @@ const styles = `
     transform: none;
   }
   
+  /* Animations */
   .animate-float {
-    animation: float 6s ease-in-out infinite;
+    animation: float 8s ease-in-out infinite;
+  }
+  .animate-float-delayed {
+    animation: float 8s ease-in-out infinite;
+    animation-delay: -4s;
   }
   
   @keyframes float {
-    0% { transform: translateY(0px); }
-    50% { transform: translateY(-10px); }
-    100% { transform: translateY(0px); }
-  }
-
-  .title-glow {
-    color: var(--primary);
-    text-shadow: 0 0 20px rgba(255, 177, 27, 0.2);
-    animation: textGlow 3s ease-in-out infinite alternate;
-  }
-
-  @keyframes textGlow {
-    from {
-      text-shadow: 0 0 10px rgba(255, 177, 27, 0.2), 0 0 20px rgba(255, 177, 27, 0.1);
-      transform: translateY(0px);
-    }
-    to {
-      text-shadow: 0 0 20px rgba(255, 177, 27, 0.5), 0 0 30px rgba(255, 177, 27, 0.3);
-      transform: translateY(-2px);
-    }
+    0% { transform: translateY(0px) scale(1); }
+    50% { transform: translateY(-20px) scale(1.05); }
+    100% { transform: translateY(0px) scale(1); }
   }
 `;
 
-const QRCodeGenerator = () => {
+const QRCodeGenerator = ({ embedded = false }) => {
   const [text, setText] = useState("");
   const [qrSize, setQrSize] = useState(200);
+  const [isGenerating, setIsGenerating] = useState(false);
+  const [debouncedText, setDebouncedText] = useState("");
+  const wrapperClasses = embedded
+    ? "w-full max-w-5xl mx-auto flex flex-col justify-center px-2 sm:px-4 py-2 relative overflow-hidden"
+    : "w-full max-w-3xl mx-auto flex flex-col justify-center px-4 sm:px-6 pt-24 pb-20 animate-in fade-in duration-700 relative overflow-hidden";
 
   useEffect(() => {
     const handleResize = () => setQrSize(window.innerWidth < 768 ? 160 : 200);
@@ -114,9 +129,24 @@ const QRCodeGenerator = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  // Debounce the text input and show a generating animation
+  useEffect(() => {
+    setDebouncedText(""); // Clear immediate view
+    if (text) {
+      setIsGenerating(true);
+      const timer = setTimeout(() => {
+        setDebouncedText(text);
+        setIsGenerating(false);
+      }, 800);
+      return () => clearTimeout(timer);
+    } else {
+       setIsGenerating(false);
+    }
+  }, [text]);
+
   const downloadQR = () => {
     const canvas = document.getElementById('qr-canvas');
-    if (!canvas || !text) return;
+    if (!canvas || !debouncedText) return;
     const link = document.createElement("a");
     link.href = canvas.toDataURL("image/png");
     link.download = `QR-Code.png`;
@@ -124,30 +154,35 @@ const QRCodeGenerator = () => {
   };
 
   return (
-    <div className="w-full max-w-4xl mx-auto flex flex-col min-h-screen justify-center px-4 sm:px-6 pt-32 pb-20 animate-in fade-in duration-700 relative">
+    <div className={wrapperClasses}>
       <style>{styles}</style>
 
-      {/* Background Glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-yellow-400/10 rounded-full blur-[100px] -z-10 pointer-events-none animate-float"></div>
+      {/* Background Glow Elements */}
+      <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-[500px] h-[500px] bg-yellow-400/15 rounded-full blur-[120px] -z-10 pointer-events-none animate-float"></div>
+      <div className="absolute top-1/2 right-1/4 -translate-y-1/2 w-[400px] h-[400px] bg-orange-300/10 rounded-full blur-[100px] -z-10 pointer-events-none animate-float-delayed"></div>
 
-      {/* Clean Header - Fixed to Top */}
-      <div className="fixed top-8 left-0 w-full text-center z-10 hidden sm:block">
-        <h1 className="text-3xl sm:text-4xl font-bold font-brand tracking-tight mb-2 title-glow inline-block">
-          QR Studio
-        </h1>
-        <p className="text-sm text-gray-500 font-medium">Create clean, scannable QR codes instantly.</p>
-      </div>
-      
-      {/* Mobile Top Header (adjusts spacing for small screens) */}
-      <div className="text-center mb-8 sm:hidden">
-        <h1 className="text-3xl sm:text-4xl font-bold font-brand tracking-tight mb-2 title-glow inline-block">
-          QR Studio
-        </h1>
-        <p className="text-sm text-gray-500 font-medium">Create clean, scannable QR codes instantly.</p>
-      </div>
+      {!embedded ? (
+        <>
+          {/* Clean Header - Fixed to Top */}
+          <div className="fixed top-6 left-0 w-full text-center z-10 hidden sm:block">
+            <h1 className="text-2xl sm:text-3xl font-bold font-brand tracking-tight mb-1 text-transparent bg-clip-text bg-gradient-to-r from-yellow-600 to-yellow-400">
+              QR Studio
+            </h1>
+            <p className="text-xs text-gray-500 font-medium">Create clean, scannable QR codes instantly.</p>
+          </div>
+          
+          {/* Mobile Top Header */}
+          <div className="text-center mb-8 sm:hidden">
+            <h1 className="text-3xl sm:text-4xl font-bold font-brand tracking-tight mb-2 text-transparent bg-clip-text bg-gradient-to-r from-yellow-600 to-yellow-400">
+              QR Studio
+            </h1>
+            <p className="text-sm text-gray-500 font-medium">Create clean, scannable QR codes instantly.</p>
+          </div>
+        </>
+      ) : null}
 
       {/* Main Workspace - Centered Vertically */}
-      <div className="clean-card p-6 sm:p-10 grid grid-cols-1 md:grid-cols-2 gap-10 items-start w-full relative z-20 shadow-2xl shadow-gray-200/50 hover:shadow-yellow-100/50 transition-shadow duration-500">
+      <div className="clean-card p-6 sm:p-8 grid grid-cols-1 md:grid-cols-2 gap-8 items-start w-full relative z-20 shadow-2xl shadow-gray-200/50 hover:shadow-yellow-100/50 transition-shadow duration-500">
         
         {/* Left: Input Form */}
         <div className="flex flex-col space-y-6">
@@ -174,17 +209,23 @@ const QRCodeGenerator = () => {
           </button>
         </div>
 
-        {/* Right: Preview Area (Aligned with NIC Finder Dashed States) */}
-        <div className="flex flex-col md:border-l md:border-gray-100 md:pl-10 h-full justify-center min-h-[220px]">
-          {text ? (
-            <div className="bg-gray-50/50 p-6 rounded-2xl border border-gray-100 flex items-center justify-center w-full aspect-square max-w-[280px] mx-auto animate-in fade-in zoom-in-95 duration-300">
-               <QRCodeCanvas
-                   id="qr-canvas"
-                   value={text}
-                   size={qrSize}
-                   level="Q"
-                   includeMargin={false}
-               />
+        {/* Right: Preview Area */}
+        <div className="flex flex-col md:border-l md:border-gray-100 md:pl-8 h-full justify-center min-h-[220px]">
+          {isGenerating ? (
+              <div className="bg-gray-50/50 p-6 rounded-2xl border border-gray-100 flex items-center justify-center w-full aspect-square max-w-[280px] mx-auto">
+                 <div className="w-full h-full rounded-xl animate-shimmer scale-95 origin-center transition-all"></div>
+              </div>
+          ) : debouncedText ? (
+            <div className="bg-gray-50/50 p-6 rounded-2xl border border-gray-100 flex items-center justify-center w-full aspect-square max-w-[280px] mx-auto animate-in fade-in zoom-in-95 duration-500 qr-container">
+               <div className="animate-in fade-in zoom-in-50 duration-700">
+                 <QRCodeCanvas
+                     id="qr-canvas"
+                     value={debouncedText}
+                     size={qrSize}
+                     level="Q"
+                     includeMargin={false}
+                 />
+               </div>
             </div>
           ) : (
             <div className="bg-gray-50 rounded-2xl border border-dashed border-gray-200 flex flex-col items-center justify-center p-8 w-full max-w-[280px] aspect-square mx-auto">
@@ -198,15 +239,19 @@ const QRCodeGenerator = () => {
 
       </div>
 
-      {/* Subtle Footer - Fixed to Bottom */}
-      <div className="fixed bottom-6 left-0 w-full text-center text-gray-400 text-xs z-10 hidden sm:block">
-          Powered by Adheesha Sooriyaarachchi | 2026
-      </div>
-      
-      {/* Mobile Footer */}
-      <div className="mt-8 text-center text-gray-400 text-xs sm:hidden">
-          Powered by Adheesha Sooriyaarachchi | 2026
-      </div>
+      {!embedded ? (
+        <>
+          {/* Subtle Footer - Fixed to Bottom */}
+          <div className="fixed bottom-6 left-0 w-full text-center text-gray-400 text-xs z-10 hidden sm:block">
+              Powered by Adheesha Sooriyaarachchi | 2026
+          </div>
+          
+          {/* Mobile Footer */}
+          <div className="mt-8 text-center text-gray-400 text-xs sm:hidden">
+              Powered by Adheesha Sooriyaarachchi | 2026
+          </div>
+        </>
+      ) : null}
     </div>
   );
 };

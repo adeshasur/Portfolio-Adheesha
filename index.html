@@ -7,7 +7,7 @@
     <title>Adheesha Sooriyaarachchi | Portfolio</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script>document.documentElement.classList.add('js')</script>
     <link rel="stylesheet" href="style.css">
@@ -29,6 +29,7 @@
 
             <div class="nav-menu" id="navMenu">
                 <a href="#about" class="nav-link">About</a>
+                <a href="#experience" class="nav-link">Experience</a>
                 <a href="#tools" class="nav-link">Tools</a>
                 <a href="#projects" class="nav-link">Projects</a>
                 <a href="#contact" class="nav-link">Contact</a>
@@ -39,57 +40,88 @@
 
     <main id="top">
         <section class="hero">
-            <div class="shell hero-layout">
-                <div class="hero-copy reveal">
-                    <span class="eyebrow">Portfolio • UI/UX • Frontend Craft</span>
-                    <h1 class="hero-title">Elegant digital experiences with a sharper visual identity and a calmer, premium feel.</h1>
-                    <p class="hero-description">
-                        I am Adheesha Sooriyaarachchi. I design and build refined interfaces, brand-forward visuals,
-                        and useful web tools that feel intentional on both desktop and mobile.
-                    </p>
-
-                    <div class="hero-actions">
-                        <a href="#projects" class="btn btn-primary">Selected Projects</a>
-                        <a href="#tools" class="btn btn-secondary">Explore My Tools</a>
-                    </div>
-
-                    <div class="hero-stats">
-                        <article>
-                            <strong>07</strong>
-                            <span>Tools designed</span>
-                        </article>
-                        <article>
-                            <strong>50+</strong>
-                            <span>Creative works</span>
-                        </article>
-                        <article>
-                            <strong>03+</strong>
-                            <span>Years evolving</span>
-                        </article>
-                    </div>
+            <div class="shell hero-shell">
+                <div class="hero-heading reveal">
+                    <span class="hero-wordmark">adheesha</span>
+                    <p class="hero-heading-text">Modern interfaces, custom tools, and a portfolio system built around a stronger yellow signature.</p>
                 </div>
 
                 <div class="hero-stage reveal" id="heroStage">
-                    <div class="stage-card stage-card-main">
-                        <div class="stage-badge stage-badge-top">
-                            <i class="fa-solid fa-star"></i>
-                            Signature yellow identity
+                    <article class="hero-stack-card stack-card-left">
+                        <span class="mini-mark">AS</span>
+                        <p class="stack-label">Tool Suite</p>
+                        <h3>Seven focused utilities presented as part of one premium ecosystem.</h3>
+                        <span class="stack-link">Explore tools</span>
+                    </article>
+
+                    <article class="hero-stack-card stack-card-right">
+                        <span class="mini-mark">03+</span>
+                        <p class="stack-label">Creative Experience</p>
+                        <h3>Design-led frontend work with cleaner hierarchy and stronger presentation.</h3>
+                        <span class="stack-link">Selected work</span>
+                    </article>
+
+                    <article class="hero-feature-card">
+                        <div class="feature-copy">
+                            <div class="feature-topbar">
+                                <span class="feature-brand">AS</span>
+                                <span class="feature-meta">Portfolio 2026</span>
+                                <span class="feature-menu" aria-hidden="true">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </span>
+                            </div>
+
+                            <div class="feature-content">
+                                <p class="feature-role">UI/UX Designer</p>
+                                <h1 class="hero-title">Adheesha Sooriyaarachchi</h1>
+                                <p class="hero-description">
+                                    I create elegant digital experiences with thoughtful hierarchy, responsive structure,
+                                    and a premium yellow visual identity that makes the full portfolio feel intentional.
+                                </p>
+
+                                <div class="hero-actions">
+                                    <a href="#projects" class="btn btn-primary">View projects</a>
+                                    <a href="#tools" class="btn btn-secondary">Open tools</a>
+                                </div>
+
+                                <div class="hero-stats">
+                                    <article>
+                                        <strong>07</strong>
+                                        <span>Tools built</span>
+                                    </article>
+                                    <article>
+                                        <strong>50+</strong>
+                                        <span>Creative works</span>
+                                    </article>
+                                    <article>
+                                        <strong>03+</strong>
+                                        <span>Years evolving</span>
+                                    </article>
+                                </div>
+                            </div>
+
+                            <div class="feature-socials">
+                                <span>Follow</span>
+                                <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                                <a href="#"><i class="fa-brands fa-behance"></i></a>
+                                <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+                            </div>
                         </div>
 
-                        <div class="stage-portrait-wrap">
-                            <div class="stage-glow"></div>
+                        <div class="feature-visual">
+                            <div class="feature-visual-glow"></div>
                             <img src="ppimage.png" alt="Adheesha Sooriyaarachchi portrait" class="stage-portrait">
                         </div>
+                    </article>
 
-                        <div class="stage-badge stage-badge-bottom">
-                            <i class="fa-solid fa-layer-group"></i>
-                            Design systems + modern interfaces
-                        </div>
-                    </div>
-
-                    <div class="floating-chip chip-one">Responsive Thinking</div>
-                    <div class="floating-chip chip-two">Frontend Precision</div>
-                    <div class="floating-chip chip-three">Tool Ecosystem</div>
+                    <article class="hero-stack-card stack-card-bottom">
+                        <span class="mini-mark">Mobile</span>
+                        <p class="stack-label">Responsive Layouts</p>
+                        <h3>Built to stay clean on desktop, tablet, and phones without losing the look and feel.</h3>
+                        <span class="stack-link">Responsive by design</span>
+                    </article>
                 </div>
             </div>
         </section>
@@ -145,6 +177,102 @@
                         <h3>Useful products</h3>
                         <p>Clean tools, responsive websites, and interfaces that solve without clutter.</p>
                     </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="section experience-section" id="experience">
+            <div class="shell">
+                <div class="section-heading reveal">
+                    <span class="eyebrow">Working Experience</span>
+                    <h2>Practical design work shaped by real clients, collaboration, and continuous learning.</h2>
+                    <p>
+                        My experience combines freelance visual execution, brand presentation, and education-focused
+                        creative work. The goal is always the same: make the final output feel clear, polished, and useful.
+                    </p>
+                </div>
+
+                <div class="experience-layout">
+                    <aside class="experience-spotlight reveal">
+                        <div class="experience-portrait-frame">
+                            <img src="Working Experience/kalana.jpg" alt="Adheesha Sooriyaarachchi working portrait" class="experience-portrait">
+                            <div class="experience-badge">
+                                <strong>03+</strong>
+                                <span>Years of evolving creative practice</span>
+                            </div>
+                        </div>
+
+                        <div class="experience-copy">
+                            <span class="card-kicker">Professional Profile</span>
+                            <h3>Design-led work across freelance projects, academic growth, and visual storytelling.</h3>
+                            <p>
+                                I work across branding, layouts, promotional visuals, and product presentation while
+                                steadily expanding my software and frontend skills through higher education and personal builds.
+                            </p>
+
+                            <div class="experience-pills">
+                                <span>Visual Design</span>
+                                <span>Brand Support</span>
+                                <span>Frontend Growth</span>
+                            </div>
+                        </div>
+                    </aside>
+
+                    <div class="experience-list">
+                        <article class="experience-card reveal" style="--delay: 0ms;">
+                            <div class="experience-card-top">
+                                <div class="experience-logo">
+                                    <img src="Working Experience/olympus.jpg" alt="Olympus educational academy logo">
+                                </div>
+                                <div class="experience-meta">
+                                    <span class="experience-date">2023 - Present</span>
+                                    <h3>Creative Designer</h3>
+                                    <p class="experience-company">Olympus Educational Academy</p>
+                                </div>
+                            </div>
+
+                            <p class="experience-description">
+                                Supporting academy-facing creative work through promotional layouts, branded visuals,
+                                and presentation materials that communicate clearly across digital platforms.
+                            </p>
+
+                            <div class="experience-tags">
+                                <span>Social Media Design</span>
+                                <span>Campaign Visuals</span>
+                                <span>Brand Consistency</span>
+                            </div>
+                        </article>
+
+                        <article class="experience-card reveal" style="--delay: 80ms;">
+                            <div class="experience-card-top">
+                                <div class="experience-mark">AS</div>
+                                <div class="experience-meta">
+                                    <span class="experience-date">2023 - Present</span>
+                                    <h3>Freelance Visual Artist</h3>
+                                    <p class="experience-company">Independent Creative Practice</p>
+                                </div>
+                            </div>
+
+                            <p class="experience-description">
+                                Creating design work for digital promotions, layout systems, and presentation-driven
+                                content with a focus on balance, clarity, and a more premium overall feel.
+                            </p>
+
+                            <div class="experience-tags">
+                                <span>Branding</span>
+                                <span>Layout Design</span>
+                                <span>UI Direction</span>
+                            </div>
+                        </article>
+
+                        <article class="experience-note reveal" style="--delay: 160ms;">
+                            <span class="card-kicker">Growth Track</span>
+                            <p>
+                                Alongside client and creative work, I am continuing my <strong>BSc (Hons) Computing</strong>
+                                journey at NIBM, building stronger technical depth in software and interface development.
+                            </p>
+                        </article>
+                    </div>
                 </div>
             </div>
         </section>

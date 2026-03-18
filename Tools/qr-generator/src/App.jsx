@@ -1,15 +1,13 @@
-import QRCodeGenerator from './QRCodeGenerator.jsx'
+import React from 'react'
+import QRCodeGenerator from './QRCodeGenerator'
 
 function App() {
   return (
-    <div className="min-h-screen bg-[#FBFBFF] flex items-start justify-center p-6 pt-10 md:pt-16 lg:pt-20 relative overflow-hidden">
-      {/* Decorative Background Elements */}
-      <div className="absolute top-0 left-0 w-full h-full opacity-[0.03] pointer-events-none" 
-           style={{ backgroundImage: 'radial-gradient(#25282B 1px, transparent 1px)', backgroundSize: '40px 40px' }}></div>
-      
-      <div className="relative z-10 w-full">
-        <QRCodeGenerator />
-      </div>
+    <div className="min-h-screen bg-[#FBFBFF] flex flex-col p-6 overflow-hidden relative selection:bg-yellow-200">
+       <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:14px_24px] pointer-events-none -z-10"></div>
+       <div className="flex-1 flex items-center justify-center">
+         <QRCodeGenerator />
+       </div>
     </div>
   )
 }
