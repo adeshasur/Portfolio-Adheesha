@@ -93,14 +93,18 @@ function RoleRoller({ roles, reduceMotion }) {
       <div className="relative h-[5.25rem] overflow-hidden md:h-[6.25rem]">
         <AnimatePresence mode="wait">
           <motion.p
-            key={roles[activeIndex]}
+            key={roles[activeIndex].join("-")}
             initial={reduceMotion ? { opacity: 1 } : { y: 42, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             exit={reduceMotion ? { opacity: 0 } : { y: -42, opacity: 0 }}
             transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
             className="font-display text-balance text-[clamp(1.42rem,2.7vw,2.35rem)] font-semibold leading-[1.14] tracking-[-0.06em] text-zinc-700"
           >
-            {roles[activeIndex]}
+                        {roles[activeIndex].map((line) => (
+              <span key={line} className="block">
+                {line}
+              </span>
+            ))}
           </motion.p>
         </AnimatePresence>
       </div>
@@ -683,6 +687,8 @@ export default function HomePage() {
     </main>
   );
 }
+
+
 
 
 
