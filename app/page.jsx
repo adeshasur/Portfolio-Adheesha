@@ -419,7 +419,7 @@ export default function HomePage() {
               </motion.div>
             </div>
 
-            <div className="grid gap-3 lg:-mt-24 lg:justify-items-end">
+            <div className="grid gap-4 lg:justify-items-end">
               <motion.div
                 initial={reduceMotion ? false : { opacity: 0, y: 26 }}
                 animate={reduceMotion ? {} : { opacity: 1, y: 0 }}
@@ -433,7 +433,7 @@ export default function HomePage() {
                 initial={reduceMotion ? false : { opacity: 0, y: 30, scale: 0.985 }}
                 animate={reduceMotion ? {} : { opacity: 1, y: 0, scale: 1 }}
                 transition={{ duration: 1, delay: 0.04, ease: [0.22, 1, 0.36, 1] }}
-                className="relative min-h-[400px] w-full max-w-[620px] overflow-hidden rounded-[38px] md:min-h-[580px]"
+                className="relative min-h-[400px] w-full max-w-[620px] overflow-hidden rounded-[38px] md:min-h-[580px] lg:-mt-16"
               >
                 <motion.div style={{ y: layerOne }} className="absolute right-4 top-8 h-36 w-44 rounded-[28px] bg-white/52 glass-panel" />
                 <motion.div style={{ y: layerTwo }} className="absolute left-8 top-28 h-32 w-32 rounded-full bg-gold/15 blur-3xl" />
@@ -683,6 +683,7 @@ export default function HomePage() {
     </main>
   );
 }
+
 
 
 
