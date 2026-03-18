@@ -11,10 +11,10 @@ import olympusLogo from "../../Working Experience/olympus.jpg";
 export const portrait = portraitImage;
 
 export const navLinks = [
-  { label: "Home", href: "/" },
-  { label: "About Me", href: "/about" },
-  { label: "Projects", href: "/projects" },
-  { label: "Contact", href: "/contact" },
+  { label: "Home", href: "/#home", hash: "#home" },
+  { label: "About Me", href: "/#about", hash: "#about" },
+  { label: "Projects", href: "/#projects", hash: "#projects" },
+  { label: "Contact", href: "/#contact", hash: "#contact" },
 ];
 
 export const heroHighlights = [
@@ -218,3 +218,4 @@ export const contactCards = [
     value: "Open for selected creative and product collaborations",
   },
 ];
+

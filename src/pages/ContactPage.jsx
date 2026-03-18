@@ -21,7 +21,7 @@ export default function ContactPage() {
         <div className="mt-10 grid gap-5 md:grid-cols-3">
           {contactCards.map((item) => {
             const content = (
-              <article className="glass-card tilt-card h-full p-6">
+              <article className="glass-card lift-card h-full p-6">
                 <span className="section-chip">{item.title}</span>
                 <p className="mt-5 text-lg font-extrabold tracking-[-0.03em] text-ink">
                   {item.value}
@@ -42,3 +42,4 @@ export default function ContactPage() {
     </main>
   );
 }
+
