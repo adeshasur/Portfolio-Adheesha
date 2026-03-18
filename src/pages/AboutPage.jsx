@@ -22,9 +22,9 @@ export default function AboutPage() {
     <main className="page-frame pb-16 pt-4 md:pb-20 md:pt-6">
       <PageIntro
         label="About"
-        title="The wider story behind the portfolio: learning, experience, creativity, and growth."
-        text="This page follows the same minimal portfolio system as the homepage while giving more space to education, working experience, books, designs, photographs, and achievements."
-        sideNote="Instead of feeling like a separate product, the page keeps the same typography, spacing, card treatment, and overall visual tone."
+        title="Education, working experience, books, designs, photographs, and achievements in one story."
+        text="This page keeps only the parts that belong to your actual portfolio and removes unrelated template content."
+        sideNote="The focus here is your real background, creative direction, and growth, not generic filler sections."
       />
 
       <RevealSection className="mt-16 grid gap-6 xl:grid-cols-2">
@@ -63,7 +63,7 @@ export default function AboutPage() {
       <RevealSection className="mt-16" delay={0.1}>
         <SectionHeading
           label="Creative Profile"
-          title="Books, designs, photographs, and achievements complete the wider portfolio story."
+          title="Books, graphic designs, photographs, and achievements complete the wider portfolio story."
           text="These sections show taste, discipline, and visual curiosity behind the software work."
         />
         <div className="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-4">

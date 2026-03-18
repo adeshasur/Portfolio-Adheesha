@@ -16,12 +16,13 @@ export const navLinks = [
   { label: "Contact", href: "/contact" },
 ];
 
-export const heroMeta = "2 selected project slots available";
+export const heroMeta = "Selected freelance slots available";
 
-export const heroTitle = "Adheesha is building clean portfolio experiences and useful digital products";
+export const heroTitle =
+  "Adheesha builds modern portfolio experiences and practical digital products.";
 
 export const heroSummary =
-  "As a UI-focused creative developer, I design and build polished websites, practical tools, and premium digital experiences with a strong sense of clarity and visual balance.";
+  "UI-focused creative developer crafting polished websites, useful web tools, and premium digital presentation with a clean black, white, and subtle gold direction.";
 
 export const projectLinks = [
   {
@@ -86,74 +87,6 @@ export const projectLinks = [
     format: "Calculator",
     year: "2026",
     accent: "linear-gradient(135deg, #e4e4e4 0%, #9f9f9f 100%)",
-  },
-];
-
-export const serviceCards = [
-  {
-    title: "Graphic Design",
-    description: "High-contrast layouts, poster directions, and branded visuals with sharper hierarchy.",
-    tags: ["Posters", "Brand Layouts", "Social Creatives"],
-    tone: "light",
-  },
-  {
-    title: "Front-End Development",
-    description: "Responsive React interfaces, landing pages, and product-focused websites with polished motion.",
-    tags: ["React", "Tailwind CSS", "Motion UI"],
-    tone: "dark",
-  },
-  {
-    title: "UI/UX Design",
-    description: "Clean digital experiences built around clarity, stronger spacing, and premium presentation.",
-    tags: ["Product UI", "UX Flows", "Design Systems"],
-    tone: "light",
-  },
-];
-
-export const workflowSteps = [
-  {
-    step: "01",
-    title: "Brief & Direction",
-    text: "We align on goals, references, audience, and the visual tone of the project.",
-  },
-  {
-    step: "02",
-    title: "Structure",
-    text: "The content, hierarchy, and user flow are shaped into a clearer product story.",
-  },
-  {
-    step: "03",
-    title: "Design Pass",
-    text: "The interface gets refined with typography, spacing, contrast, and stronger composition.",
-  },
-  {
-    step: "04",
-    title: "Development",
-    text: "The selected direction is translated into responsive frontend output with motion and polish.",
-  },
-  {
-    step: "05",
-    title: "Launch & Support",
-    text: "Final improvements, deployment support, and cleanup for a finished result.",
-  },
-];
-
-export const faqItems = [
-  {
-    question: "What type of projects do you usually build?",
-    answer: "Portfolio websites, landing pages, practical tools, and modern frontend experiences with a premium feel.",
-  },
-  {
-    question: "Do you work with custom UI directions?",
-    answer: "Yes. If you have a style reference, I can adapt the layout, spacing, motion, and visual system around it.",
-  },
-  {
-    question: "Can you redesign an existing portfolio?",
-    answer: "Yes. I can keep the content and rebuild the structure, hierarchy, and visual presentation from scratch.",
-  },
-  {
-    question: "Do your project links open in the same tab?",
-    answer: "Yes. The live tool links can stay in the same tab for a smoother browsing flow.",
   },
 ];
 
@@ -266,6 +199,37 @@ export const achievementItems = [
   {
     title: "Creative Growth",
     note: "Turning self-learning into shipped work across code, design, and visuals.",
+  },
+];
+
+export const overviewCards = [
+  {
+    title: "Education",
+    description: "Institutions and learning foundations that shaped the technical side.",
+  },
+  {
+    title: "Working Experience",
+    description: "Professional exposure focused on digital output and visual quality.",
+  },
+  {
+    title: "Books",
+    description: "Reading that influences design thinking, clarity, and discipline.",
+  },
+  {
+    title: "Graphic Designs",
+    description: "Poster, social, and brand-led work built with stronger hierarchy.",
+  },
+  {
+    title: "Software Projects",
+    description: "Live web tools presented as polished mini-products.",
+  },
+  {
+    title: "Photographs",
+    description: "A visual eye for portraits, frames, light, and mood.",
+  },
+  {
+    title: "Achievements",
+    description: "Growth milestones and shipped work translated into public output.",
   },
 ];
 
