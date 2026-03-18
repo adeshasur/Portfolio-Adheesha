@@ -5,6 +5,7 @@ import Header from "./Header";
 
 export default function SiteShell() {
   const location = useLocation();
+  const isHome = location.pathname === "/";
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -13,7 +14,7 @@ export default function SiteShell() {
   return (
     <div className="relative overflow-hidden">
       <div className="relative z-10">
-        <Header />
+        {!isHome ? <Header /> : null}
         <Outlet />
         <Footer />
       </div>

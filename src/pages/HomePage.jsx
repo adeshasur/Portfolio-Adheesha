@@ -9,6 +9,7 @@ import {
   heroMeta,
   heroSummary,
   heroTitle,
+  navLinks,
   portrait,
   projectLinks,
   serviceCards,
@@ -22,10 +23,28 @@ export default function HomePage() {
   return (
     <main className="page-frame pb-16 pt-4 md:pb-20 md:pt-6">
       <section className="home-hero-shell overflow-hidden px-8 pb-8 pt-5 md:px-10 md:pb-10 xl:px-12">
+        <div className="hero-topbar">
+          <Link to="/" className="brand-link">
+            Adheesha Sooriyaarachchi
+          </Link>
+
+          <nav className="nav-center">
+            {navLinks.map((link) => (
+              <Link key={link.href} to={link.href} className="nav-link">
+                {link.label}
+              </Link>
+            ))}
+          </nav>
+
+          <Link to="/contact" className="header-cta">
+            Let&apos;s Talk
+          </Link>
+        </div>
+
         <div className="home-hero-grid">
           <motion.div
             className="hero-copy-left"
-            initial={reduceMotion ? false : { opacity: 0, y: 30 }}
+            initial={reduceMotion ? false : { opacity: 0, y: 24 }}
             animate={reduceMotion ? {} : { opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
           >
@@ -38,9 +57,9 @@ export default function HomePage() {
 
           <motion.div
             className="hero-portrait-column"
-            initial={reduceMotion ? false : { opacity: 0, y: 24, scale: 0.98 }}
+            initial={reduceMotion ? false : { opacity: 0, y: 24, scale: 0.985 }}
             animate={reduceMotion ? {} : { opacity: 1, y: 0, scale: 1 }}
-            transition={{ duration: 1, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 1, delay: 0.06, ease: [0.22, 1, 0.36, 1] }}
           >
             <div className="hero-portrait-glow" />
             <img
@@ -53,9 +72,9 @@ export default function HomePage() {
 
           <motion.div
             className="hero-copy-right"
-            initial={reduceMotion ? false : { opacity: 0, y: 30 }}
+            initial={reduceMotion ? false : { opacity: 0, y: 24 }}
             animate={reduceMotion ? {} : { opacity: 1, y: 0 }}
-            transition={{ duration: 0.85, delay: 0.14, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.85, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
           >
             <p className="hero-summary">{heroSummary}</p>
             <Link to="/contact" className="hero-email-btn mt-8">
@@ -70,7 +89,7 @@ export default function HomePage() {
           <SectionHeading
             label="Featured Works"
             title="Selected software projects presented in a cleaner portfolio system."
-            text="The first showcase section follows the same image-first rhythm as the Framer reference, but uses your own live tools and product links."
+            text="The first showcase section follows the same image-first rhythm as the reference, but uses your own live tools and product links."
           />
           <Link to="/works" className="inline-flex items-center gap-2 text-sm font-semibold text-ink">
             View All Works <ArrowRight className="h-4 w-4" />
@@ -195,3 +214,4 @@ export default function HomePage() {
     </main>
   );
 }
+
