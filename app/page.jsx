@@ -363,8 +363,8 @@ export default function HomePage() {
           <motion.div style={{ y: layerTwo }} className="absolute right-[8%] top-[18%] h-52 w-52 rounded-full bg-gold/15 blur-3xl" />
           <motion.div style={{ y: layerThree }} className="absolute bottom-0 right-[18%] h-56 w-56 rounded-full bg-sky-100/70 blur-3xl" />
 
-          <div className="relative z-10 grid min-h-[calc(100vh-9rem)] items-end gap-10 lg:grid-cols-[1.02fr_0.98fr]">
-            <div className="max-w-[760px] pb-2 lg:pb-10">
+          <div className="relative z-10 grid min-h-[clamp(640px,78vh,820px)] items-center gap-8 lg:grid-cols-[1.02fr_0.98fr]">
+            <div className="max-w-[760px] pb-0 lg:-mt-8">
               <motion.span
                 initial={reduceMotion ? false : { opacity: 0, y: 16 }}
                 animate={reduceMotion ? {} : { opacity: 1, y: 0 }}
@@ -419,7 +419,7 @@ export default function HomePage() {
               </motion.div>
             </div>
 
-            <div className="grid gap-5 lg:justify-items-end">
+            <div className="grid gap-4 lg:-mt-10 lg:justify-items-end">
               <motion.div
                 initial={reduceMotion ? false : { opacity: 0, y: 26 }}
                 animate={reduceMotion ? {} : { opacity: 1, y: 0 }}
@@ -433,7 +433,7 @@ export default function HomePage() {
                 initial={reduceMotion ? false : { opacity: 0, y: 30, scale: 0.985 }}
                 animate={reduceMotion ? {} : { opacity: 1, y: 0, scale: 1 }}
                 transition={{ duration: 1, delay: 0.04, ease: [0.22, 1, 0.36, 1] }}
-                className="relative min-h-[460px] w-full max-w-[620px] overflow-hidden rounded-[38px] md:min-h-[680px]"
+                className="relative min-h-[420px] w-full max-w-[620px] overflow-hidden rounded-[38px] md:min-h-[620px]"
               >
                 <motion.div style={{ y: layerOne }} className="absolute right-4 top-8 h-36 w-44 rounded-[28px] bg-white/52 glass-panel" />
                 <motion.div style={{ y: layerTwo }} className="absolute left-8 top-28 h-32 w-32 rounded-full bg-gold/15 blur-3xl" />
@@ -469,7 +469,7 @@ export default function HomePage() {
             initial={reduceMotion ? false : { opacity: 0, y: 20 }}
             animate={reduceMotion ? {} : { opacity: 1, y: 0 }}
             transition={{ duration: 0.75, delay: 0.16, ease: [0.22, 1, 0.36, 1] }}
-            className="relative z-10 mt-8 grid gap-4 md:grid-cols-3"
+            className="relative z-10 mt-6 grid gap-4 md:grid-cols-3"
           >
             {heroContent.stats.map((item) => (
               <div key={item.label} className="rounded-[24px] bg-white/55 px-5 py-4 glass-soft">
@@ -683,6 +683,7 @@ export default function HomePage() {
     </main>
   );
 }
+
 
 
 
