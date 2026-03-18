@@ -3,497 +3,161 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Adheesha Sooriyaarachchi portfolio featuring UI/UX design, frontend growth, education, experience, and practical tool building.">
-    <title>Adheesha Sooriyaarachchi | Portfolio</title>
+    <meta name="description" content="Adheesha Sooriyaarachchi - Creative Developer & Web Designer">
+    <title>Adheesha Sooriyaarachchi | Creative Developer</title>
+    
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom Style -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="page-lines" aria-hidden="true"></div>
-    <div class="page-glow glow-left" aria-hidden="true"></div>
-    <div class="page-glow glow-right" aria-hidden="true"></div>
-    <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+    <!-- Animated Background Elements -->
+    <div class="bg-elements">
+        <div class="element el1"></div>
+        <div class="element el2"></div>
+        <div class="element el3"></div>
+        <div class="element el4"></div>
+        <div class="element el5"></div>
+        <div class="element el6"></div>
+        <div class="element el7"></div>
+        <div class="element el8"></div>
+    </div>
 
-    <header class="site-header">
-        <nav class="nav shell" id="nav">
-            <a href="#top" class="brand">
-                <span class="brand-mark">AS</span>
-                <span class="brand-text">Adheesha Sooriyaarachchi</span>
-            </a>
-
-            <button class="nav-toggle" id="navToggle" type="button" aria-label="Toggle navigation" aria-expanded="false">
-                <span></span>
-                <span></span>
-            </button>
-
-            <div class="nav-menu" id="navMenu">
-                <a href="#about" class="nav-link">About</a>
-                <a href="#education" class="nav-link">Education</a>
-                <a href="#experience" class="nav-link">Experience</a>
-                <a href="#tools" class="nav-link">Tools</a>
-                <a href="#projects" class="nav-link">Projects</a>
-                <a href="#contact" class="nav-link">Contact</a>
-                <a href="mailto:adeesha.73x@gmail.com" class="nav-cta">Let&apos;s Talk</a>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-leaf"></i> ABAS TURABI
             </div>
-        </nav>
-    </header>
+            
+            <ul class="nav-links">
+                <li><a href="#about" class="nav-link">ABOUT</a></li>
+                <li><a href="#portfolio" class="nav-link">PORTFOLIO</a></li>
+                <li><a href="#contact" class="nav-link">CONTACT</a></li>
+            </ul>
+        </div>
+    </nav>
 
-    <main id="top">
-        <section class="hero">
-            <div class="shell hero-grid">
-                <div class="hero-main card reveal">
-                    <span class="eyebrow">Modern Design Studio</span>
-                    <p class="hero-kicker">UI/UX DESIGNER / CREATIVE DEVELOPER / DIGITAL ARCHITECT</p>
-                    <h1>
-                        Golden aesthetics,
-                        <span>3D experiences,</span>
-                        and interfaces
-                        that inspire.
-                    </h1>
-                    <p class="hero-copy">
-                        I'm Adheesha Sooriyaarachchi. I craft immersive digital experiences with modern 3D design, 
-                        premium aesthetics, and interfaces that transform how users interact with technology.
-                    </p>
-                    <div class="hero-band">
-                        <span>✨ 3D Visual Design</span>
-                        <span>🎨 Premium UI Systems</span>
-                        <span>⚡ Modern UX</span>
-                    </div>
-
-                    <div class="hero-actions">
-                        <a href="#projects" class="btn btn-primary">Explore My Work</a>
-                        <a href="#contact" class="btn btn-secondary">Get In Touch</a>
-                    </div>
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-wrapper">
+            <div class="hero-left">
+                <div class="hero-socials">
+                    <a href="#"><i class="fab fa-dribbble"></i></a>
+                    <a href="#"><i class="fab fa-behance"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
                 </div>
-
-                <article class="hero-portrait card reveal" style="--delay: 70ms;">
-                    <div class="portrait-badge">AVAILABLE FOR FREELANCE</div>
-                    <div class="portrait-frame">
-                        <img src="ppimage.png" alt="Adheesha Sooriyaarachchi portrait" class="portrait-image">
-                    </div>
-                    <div class="portrait-meta">
-                        <div>
-                            <span class="meta-label">Focus</span>
-                            <p>UI/UX, visuals, frontend growth</p>
-                        </div>
-                        <div>
-                            <span class="meta-label">Based In</span>
-                            <p>Sri Lanka</p>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="hero-stat card accent-card reveal" style="--delay: 120ms;">
-                    <span class="mini-label">TOOLS</span>
-                    <strong>09</strong>
-                    <p>Utility projects connected into one cleaner ecosystem.</p>
-                </article>
-
-                <article class="hero-stat card reveal" style="--delay: 170ms;">
-                    <span class="mini-label">EXPERIENCE</span>
-                    <strong>03+</strong>
-                    <p>Years of evolving through freelance visuals and real client work.</p>
-                </article>
-
-                <article class="hero-note card reveal" style="--delay: 220ms;">
-                    <span class="mini-label">CURRENT TRACK</span>
-                    <h3>BSc (Hons) Computing</h3>
-                    <p>Academic growth now sits properly beside the work, not buried inside the page.</p>
-                </article>
+                
+                <div class="hero-counter">01</div>
             </div>
-        </section>
 
-        <section class="marquee-strip" aria-label="Portfolio highlights">
-            <div class="marquee-track">
-                <span>3D Design</span>
-                <span>Golden Aesthetics</span>
-                <span>Modern UI/UX</span>
-                <span>Interactive Systems</span>
-                <span>Digital Innovation</span>
-                <span>Premium Design</span>
-                <span>3D Design</span>
-                <span>Golden Aesthetics</span>
-                <span>Modern UI/UX</span>
-                <span>Interactive Systems</span>
-                <span>Digital Innovation</span>
-                <span>Premium Design</span>
-            </div>
-        </section>
-
-        <section class="section" id="about">
-            <div class="shell">
-                <div class="section-heading reveal">
-                    <span class="eyebrow">About My Practice</span>
-                    <h2>Design meets innovation through modern 3D aesthetics and premium digital experiences.</h2>
-                    <p>
-                        I specialize in creating immersive digital environments that blend golden aesthetics with cutting-edge 3D design. 
-                        Every project is crafted to inspire, engage, and transform user expectations.
-                    </p>
-                </div>
-
-                <div class="about-grid">
-                    <article class="about-main card reveal">
-                        <span class="card-kicker">Design Philosophy</span>
-                        <h3>Creating 3D-first experiences with a golden visual language.</h3>
-                        <p>
-                            My approach combines modern 3D design principles with premium aesthetics, creating interfaces that feel 
-                            contemporary, luxurious, and intuitive. Every pixel serves a purpose, every animation has meaning.
-                        </p>
-                    </article>
-
-                    <article class="mini-card card reveal" style="--delay: 70ms;">
-                        <span class="mini-label">DESIGN</span>
-                        <h3>3D & Premium UI</h3>
-                        <p>Immersive interfaces with depth, dimension, and golden elegance.</p>
-                    </article>
-
-                    <article class="mini-card card reveal" style="--delay: 140ms;">
-                        <span class="mini-label">DEVELOPMENT</span>
-                        <h3>Modern Digital Systems</h3>
-                        <p>Bringing visionary designs to life with cutting-edge web technology.</p>
-                    </article>
-
-                    <article class="mini-card card reveal" style="--delay: 210ms;">
-                        <span class="mini-label">VISION</span>
-                        <h3>Timeless & Innovative</h3>
-                        <p>Digital experiences that feel both contemporary and enduring.</p>
-                    </article>
+            <div class="hero-center">
+                <div class="profile-circle">
+                    <img src="ppimage.png" alt="Adheesha Sooriyaarachchi" onerror="this.src='https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=800&auto=format&fit=crop&crop=faces';">
                 </div>
             </div>
-        </section>
 
-        <section class="section education-section" id="education">
-            <div class="shell education-grid-layout">
-                <div class="education-copy reveal">
-                    <span class="eyebrow">Education & Qualifications</span>
-                    <h2>Academic progress now has a proper visual presence.</h2>
-                    <p>
-                        Instead of being a weak side-note, this section is treated like a real part of the portfolio.
-                        That makes the overall profile feel much more complete.
-                    </p>
-
-                    <article class="education-feature card accent-card">
-                        <span class="card-kicker">Main Qualification</span>
-                        <h3>BSc (Hons) Computing at NIBM</h3>
-                        <p>
-                            The strongest academic track behind my current work, supporting software thinking,
-                            product understanding, and stronger frontend direction.
-                        </p>
-                    </article>
-                </div>
-
-                <div class="education-cards">
-                    <article class="education-card card reveal" style="--delay: 40ms;">
-                        <div class="edu-logo-wrap">
-                            <img src="Education/nibm.jpg" alt="NIBM logo" class="edu-logo">
-                        </div>
-                        <span class="edu-type">Primary Qualification</span>
-                        <h3>BSc (Hons) Computing</h3>
-                        <p>Undergraduate pathway focused on computing, systems thinking, and stronger digital capability.</p>
-                    </article>
-
-                    <article class="education-card card reveal" style="--delay: 80ms;">
-                        <div class="edu-logo-wrap">
-                            <img src="Education/ibms.png" alt="IBS Campus logo" class="edu-logo">
-                        </div>
-                        <span class="edu-type">Academic Progress</span>
-                        <h3>IBS Campus</h3>
-                        <p>Part of the wider learning journey contributing to structured growth and development.</p>
-                    </article>
-
-                    <article class="education-card card reveal" style="--delay: 120ms;">
-                        <div class="edu-logo-wrap">
-                            <img src="Education/ucsc.jpg" alt="UCSC logo" class="edu-logo">
-                        </div>
-                        <span class="edu-type">Computing Exposure</span>
-                        <h3>UCSC</h3>
-                        <p>A learning touchpoint that helped strengthen technical interest and direction.</p>
-                    </article>
-
-                    <article class="education-card card reveal" style="--delay: 160ms;">
-                        <div class="edu-logo-wrap">
-                            <img src="Education/slega.jpg" alt="SLEGA logo" class="edu-logo">
-                        </div>
-                        <span class="edu-type">Professional Learning</span>
-                        <h3>SLEGA</h3>
-                        <p>Supports communication, structure, and broader professional development.</p>
-                    </article>
-
-                    <article class="education-card card reveal" style="--delay: 200ms;">
-                        <div class="edu-logo-wrap">
-                            <img src="Education/earth.jpg" alt="Earth University College logo" class="edu-logo">
-                        </div>
-                        <span class="edu-type">Institutional Journey</span>
-                        <h3>Earth University College</h3>
-                        <p>Included as part of the wider academic story and overall study path.</p>
-                    </article>
-
-                    <article class="education-card card reveal" style="--delay: 240ms;">
-                        <div class="edu-logo-wrap">
-                            <img src="Education/acc.jpg" alt="School education emblem" class="edu-logo">
-                        </div>
-                        <span class="edu-type">Foundation</span>
-                        <h3>School Education</h3>
-                        <p>The base level that built discipline, consistency, and long-term ambition.</p>
-                    </article>
-                </div>
-            </div>
-        </section>
-
-        <section class="section" id="experience">
-            <div class="shell">
-                <div class="section-heading reveal">
-                    <span class="eyebrow">Experience</span>
-                    <h2>Real work, arranged like proof instead of filler.</h2>
-                    <p>
-                        The experience side is kept direct: what I do, where I do it, and how it connects to the portfolio you are seeing now.
-                    </p>
-                </div>
-
-                <div class="experience-layout">
-                    <article class="experience-visual card reveal">
-                        <div class="experience-photo-wrap">
-                            <img src="Working Experience/kalana.jpg" alt="Adheesha Sooriyaarachchi working portrait" class="experience-photo">
-                        </div>
-                        <div class="experience-caption">
-                            <span class="card-kicker">Working Style</span>
-                            <h3>Design-led, presentation-aware, and increasingly product-minded.</h3>
-                        </div>
-                    </article>
-
-                    <div class="experience-cards">
-                        <article class="experience-card card reveal" style="--delay: 50ms;">
-                            <span class="experience-date">2023 - Present</span>
-                            <h3>Creative Designer</h3>
-                            <p class="experience-company">Olympus Educational Academy</p>
-                            <p>Creating academy-facing visuals, layouts, and communication materials with cleaner structure and stronger consistency.</p>
-                            <div class="tag-row">
-                                <span>Campaign Visuals</span>
-                                <span>Brand Support</span>
-                                <span>Social Design</span>
-                            </div>
-                        </article>
-
-                        <article class="experience-card card reveal" style="--delay: 110ms;">
-                            <span class="experience-date">2023 - Present</span>
-                            <h3>Freelance Visual Artist</h3>
-                            <p class="experience-company">Independent Practice</p>
-                            <p>Producing branded visuals, layout systems, and presentation-led work with a cleaner and more premium final feel.</p>
-                            <div class="tag-row">
-                                <span>Branding</span>
-                                <span>Layout Systems</span>
-                                <span>UI Direction</span>
-                            </div>
-                        </article>
-
-                        <article class="experience-card card reveal" style="--delay: 170ms;">
-                            <span class="experience-date">Growth Track</span>
-                            <h3>Frontend and software direction</h3>
-                            <p class="experience-company">Continuous Learning</p>
-                            <p>Growing through education, tool creation, and hands-on portfolio experiments that improve both design and implementation.</p>
-                            <div class="tag-row">
-                                <span>Responsive UI</span>
-                                <span>Tools</span>
-                                <span>Continuous Growth</span>
-                            </div>
-                        </article>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="section tools-section" id="tools">
-            <div class="shell">
-                <div class="section-heading reveal">
-                    <span class="eyebrow">Digital Tools</span>
-                    <h2>Innovative utilities designed with premium aesthetics and modern 3D interactions.</h2>
-                    <p>
-                        A curated collection of digital tools, each crafted with attention to detail, golden accents, and immersive 3D design principles.
-                    </p>
-                </div>
-
-                <div class="tools-grid">
-                    <article class="tools-feature card reveal">
-                        <span class="card-kicker">Featured Experience</span>
-                        <h3>Dashboard Hub</h3>
-                        <p>A premium interface that organizes digital tools with 3D depth, golden accents, and modern interactions in one unified ecosystem.</p>
-                        <div class="feature-metrics">
-                            <div>
-                                <span class="float-label">Components</span>
-                                <strong>09 interactive tools</strong>
-                            </div>
-                            <div>
-                                <span class="float-label">Quality</span>
-                                <strong>3D-first, premium design</strong>
-                            </div>
-                        </div>
-                        <a href="Tools/multi-tool-dashboard/index.html" class="inline-link">Explore dashboard</a>
-                    </article>
-
-                    <a href="Tools/qr-generator/index.html" class="tool-card card reveal" style="--delay: 40ms;">
-                        <span class="tool-index">01</span>
-                        <h3>QR Master</h3>
-                        <p>Fast QR generation for links, text, and quick sharing.</p>
-                    </a>
-                    <a href="Tools/nic-finder/index.html" class="tool-card card reveal" style="--delay: 80ms;">
-                        <span class="tool-index">02</span>
-                        <h3>NIC Finder</h3>
-                        <p>Clear Sri Lankan NIC information lookup with focused flow.</p>
-                    </a>
-                    <a href="Tools/secure-password-generator/index.html" class="tool-card card reveal" style="--delay: 120ms;">
-                        <span class="tool-index">03</span>
-                        <h3>SecurePass Pro</h3>
-                        <p>Password generation and management with cleaner presentation.</p>
-                    </a>
-                    <a href="Tools/vault-guard/index.html" class="tool-card card reveal" style="--delay: 160ms;">
-                        <span class="tool-index">04</span>
-                        <h3>Vault Guard</h3>
-                        <p>A more product-like password utility with stronger visual feel.</p>
-                    </a>
-                    <a href="Tools/postal-code-finder/index.html" class="tool-card card reveal" style="--delay: 200ms;">
-                        <span class="tool-index">05</span>
-                        <h3>Postal Finder</h3>
-                        <p>Postal code search in a more compact and usable interface.</p>
-                    </a>
-                    <a href="Tools/text-transformer-pro/index.html" class="tool-card card reveal" style="--delay: 240ms;">
-                        <span class="tool-index">06</span>
-                        <h3>Text Transformer</h3>
-                        <p>Transform text quickly while keeping the UI clean and efficient.</p>
-                    </a>
-                    <a href="Tools/chroma-craft/index.html" class="tool-card card reveal" style="--delay: 280ms;">
-                        <span class="tool-index">07</span>
-                        <h3>ChromaCraft</h3>
-                        <p>Designer-friendly color tooling with fast visual feedback.</p>
-                    </a>
-                    <a href="Tools/interest-calc-pro/index.html" class="tool-card card reveal" style="--delay: 320ms;">
-                        <span class="tool-index">08</span>
-                        <h3>InterestCalc</h3>
-                        <p>Interest calculations presented in a simpler and more modern way.</p>
-                    </a>
-                    <a href="Tools/multi-tool-dashboard/index.html" class="tool-card card reveal" style="--delay: 360ms;">
-                        <span class="tool-index">09</span>
-                        <h3>Dashboard Hub</h3>
-                        <p>The shared surface that ties the whole tool collection together.</p>
-                    </a>
-                </div>
-            </div>
-        </section>
-
-        <section class="section" id="projects">
-            <div class="shell">
-                <div class="section-heading reveal">
-                    <span class="eyebrow">Featured Work</span>
-                    <h2>3D-first design systems and premium digital experiences.</h2>
-                    <p>
-                        Showcase of my recent work: modern 3D interfaces, golden aesthetic branding, and comprehensive digital systems that inspire and engage.
-                    </p>
-                </div>
-
-                <div class="projects-grid">
-                    <article class="project-card card reveal">
-                        <span class="project-type">System Design</span>
-                        <h3>Multi Tool Dashboard</h3>
-                        <p>A parent platform that organizes a growing suite of utilities into one more credible product experience.</p>
-                        <a href="Tools/multi-tool-dashboard/index.html" class="inline-link">Open project</a>
-                    </article>
-
-                    <article class="project-card card reveal" style="--delay: 80ms;">
-                        <span class="project-type">Brand Support</span>
-                        <h3>Olympus Academy Visual Work</h3>
-                        <p>Client-facing creative support built around clearer communication, stronger visuals, and more consistent presentation.</p>
-                        <a href="#experience" class="inline-link">See experience</a>
-                    </article>
-
-                    <article class="project-card card reveal" style="--delay: 160ms;">
-                        <span class="project-type">Portfolio Rebuild</span>
-                        <h3>Modern Personal Portfolio</h3>
-                        <p>This redesign itself is part of the work: a new style system, stronger hierarchy, and a much better first impression.</p>
-                        <a href="#top" class="inline-link">Back to top</a>
-                    </article>
-                </div>
-            </div>
-        </section>
-
-        <section class="section contact-section" id="contact">
-            <div class="shell contact-panel card reveal">
-                <div class="contact-copy">
-                    <span class="eyebrow">Let's Connect</span>
-                    <h2>Ready to bring your vision to life with premium design and modern 3D experiences?</h2>
-                    <p>I specialize in creating immersive digital experiences, redesigning portfolios, and building elegant visual systems.</p>
-                </div>
-
-                <div class="contact-actions">
-                    <a href="mailto:adeesha.73x@gmail.com" class="contact-link">
-                        <i class="fa-solid fa-paper-plane"></i>
-                        <span>adeesha.73x@gmail.com</span>
-                    </a>
-                    <a href="tel:+94713407686" class="contact-link">
-                        <i class="fa-solid fa-phone"></i>
-                        <span>+94 71 340 7686</span>
-                    </a>
-                    <a href="#tools" class="btn btn-primary">Explore My Tools</a>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <footer class="footer">
-        <div class="shell footer-row">
-            <p>&copy; 2026 Adheesha Sooriyaarachchi. Modern 3D design with golden aesthetics.</p>
-            <div class="footer-links">
-                <a href="#about">About</a>
-                <a href="#tools">Tools</a>
-                <a href="#projects">Work</a>
+            <div class="hero-right">
+                <h1 class="hero-title">
+                    CREATIVE<br>
+                    <span class="highlight">DEVELOPER</span>
+                </h1>
+                <p class="hero-subtitle">SENSIBLE TO FRONTEND</p>
+                <p class="hero-description">Crafting digital experiences with clean code and creative design. Specialized in building modern, responsive web solutions.</p>
+                
+                <a href="#portfolio" class="btn-cta">VIEW PORTFOLIO</a>
             </div>
         </div>
-    </footer>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="about-container">
+            <h2>About Me</h2>
+            <p>I'm a passionate web designer and developer creating beautiful digital experiences. With expertise in UI/UX design, frontend development, and digital branding, I help businesses establish their online presence.</p>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects">
+        <div class="projects-container">
+            <h2>Recent Projects</h2>
+            <div class="projects-grid">
+                <div class="project-item">
+                    <div class="project-placeholder">Project 1</div>
+                    <h3>ChromaCraft</h3>
+                    <p>Color manipulation tool</p>
+                </div>
+                <div class="project-item">
+                    <div class="project-placeholder">Project 2</div>
+                    <h3>Interest Calculator</h3>
+                    <p>Financial calculator</p>
+                </div>
+                <div class="project-item">
+                    <div class="project-placeholder">Project 3</div>
+                    <h3>QR Code Generator</h3>
+                    <p>QR code tool</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="contact-container">
+            <h2>Get In Touch</h2>
+            <p>Feel free to reach out for collaborations or inquiries</p>
+            <div class="contact-links">
+                <a href="mailto:adheesha@example.com">Email</a>
+                <a href="#">LinkedIn</a>
+                <a href="#">Twitter</a>
+            </div>
+        </div>
+    </section>
 
     <script>
-        const nav = document.getElementById('nav');
-        const navToggle = document.getElementById('navToggle');
-        const navMenu = document.getElementById('navMenu');
-        const scrollProgress = document.getElementById('scrollProgress');
-
-        const closeMenu = () => {
-            navMenu.classList.remove('is-open');
-            navToggle.classList.remove('is-open');
-            navToggle.setAttribute('aria-expanded', 'false');
-        };
-
-        navToggle.addEventListener('click', () => {
-            const isOpen = navMenu.classList.toggle('is-open');
-            navToggle.classList.toggle('is-open', isOpen);
-            navToggle.setAttribute('aria-expanded', String(isOpen));
-        });
-
-        document.querySelectorAll('.nav-link').forEach((link) => {
-            link.addEventListener('click', closeMenu);
-        });
-
-        const updateScrollState = () => {
-            const scrollTop = window.scrollY;
-            const scrollHeight = document.body.scrollHeight - window.innerHeight;
-            const progress = scrollHeight > 0 ? scrollTop / scrollHeight : 0;
-
-            nav.classList.toggle('is-scrolled', scrollTop > 12);
-            scrollProgress.style.transform = `scaleX(${progress})`;
-        };
-
-        window.addEventListener('scroll', updateScrollState, { passive: true });
-        updateScrollState();
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach((entry) => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('is-visible');
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
                 }
             });
-        }, { threshold: 0.12 });
+        });
 
-        document.querySelectorAll('.reveal').forEach((item) => observer.observe(item));
+        // Active nav link on scroll
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (scrollY >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').slice(1) === current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+
     </script>
 </body>
+</html></body>
 </html>
