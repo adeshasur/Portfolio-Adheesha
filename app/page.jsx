@@ -355,16 +355,16 @@ export default function HomePage() {
         </div>
       </header>
 
-      <section id="hero" ref={heroRef} className="scroll-mt-28 px-4 pt-8 md:px-6 md:pt-10">
-        <div className="relative mx-auto max-w-[1380px] overflow-hidden rounded-[42px] px-6 pb-8 pt-8 md:px-10 md:pb-12 md:pt-10">
+      <section id="hero" ref={heroRef} className="scroll-mt-28 px-4 pt-4 md:px-6 md:pt-6">
+        <div className="relative mx-auto max-w-[1380px] overflow-hidden rounded-[42px] px-6 pb-8 pt-5 md:px-10 md:pb-10 md:pt-6">
           <div className="absolute inset-0 rounded-[42px] bg-gradient-to-br from-white/80 via-white/58 to-gold/10" />
           <div className="noise-mask rounded-[42px]" />
           <motion.div style={{ y: layerOne }} className="absolute left-[4%] top-[10%] h-40 w-40 rounded-[36px] bg-white/55 blur-sm glass-panel" />
           <motion.div style={{ y: layerTwo }} className="absolute right-[8%] top-[18%] h-52 w-52 rounded-full bg-gold/15 blur-3xl" />
           <motion.div style={{ y: layerThree }} className="absolute bottom-0 right-[18%] h-56 w-56 rounded-full bg-sky-100/70 blur-3xl" />
 
-          <div className="relative z-10 grid min-h-[clamp(600px,74vh,780px)] items-start gap-8 pt-4 lg:grid-cols-[1.02fr_0.98fr]">
-            <div className="max-w-[760px] pt-2 lg:-mt-10">
+          <div className="relative z-10 grid min-h-[clamp(560px,68vh,720px)] items-start gap-6 pt-1 lg:grid-cols-[1.02fr_0.98fr]">
+            <div className="max-w-[760px] pt-0 lg:-mt-16">
               <motion.span
                 initial={reduceMotion ? false : { opacity: 0, y: 16 }}
                 animate={reduceMotion ? {} : { opacity: 1, y: 0 }}
@@ -419,12 +419,12 @@ export default function HomePage() {
               </motion.div>
             </div>
 
-            <div className="grid gap-4 lg:-mt-16 lg:justify-items-end">
+            <div className="grid gap-3 lg:-mt-24 lg:justify-items-end">
               <motion.div
                 initial={reduceMotion ? false : { opacity: 0, y: 26 }}
                 animate={reduceMotion ? {} : { opacity: 1, y: 0 }}
                 transition={{ duration: 0.9, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-                className="w-full max-w-[360px] justify-self-end rounded-[28px] bg-white/55 p-5 text-sm leading-8 text-zinc-600 glass-soft"
+                className="w-full max-w-[340px] justify-self-end rounded-[28px] bg-white/55 p-5 text-sm leading-8 text-zinc-600 glass-soft"
               >
                 {heroContent.summary}
               </motion.div>
@@ -433,7 +433,7 @@ export default function HomePage() {
                 initial={reduceMotion ? false : { opacity: 0, y: 30, scale: 0.985 }}
                 animate={reduceMotion ? {} : { opacity: 1, y: 0, scale: 1 }}
                 transition={{ duration: 1, delay: 0.04, ease: [0.22, 1, 0.36, 1] }}
-                className="relative min-h-[420px] w-full max-w-[620px] overflow-hidden rounded-[38px] md:min-h-[620px]"
+                className="relative min-h-[400px] w-full max-w-[620px] overflow-hidden rounded-[38px] md:min-h-[580px]"
               >
                 <motion.div style={{ y: layerOne }} className="absolute right-4 top-8 h-36 w-44 rounded-[28px] bg-white/52 glass-panel" />
                 <motion.div style={{ y: layerTwo }} className="absolute left-8 top-28 h-32 w-32 rounded-full bg-gold/15 blur-3xl" />
@@ -683,6 +683,7 @@ export default function HomePage() {
     </main>
   );
 }
+
 
 
 
