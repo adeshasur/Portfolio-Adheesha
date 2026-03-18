@@ -88,9 +88,9 @@ function RoleRoller({ roles, reduceMotion }) {
   }, [reduceMotion, roles]);
 
   return (
-    <div className="mt-1 flex items-center gap-4">
-      <span className="hidden h-px w-12 bg-gold/60 md:block" />
-      <div className="relative h-[4.5rem] overflow-hidden md:h-[5.25rem]">
+    <div className="mt-5 flex items-start gap-5">
+      <span className="mt-4 hidden h-px w-12 bg-gold/60 md:block" />
+      <div className="relative h-[5.25rem] overflow-hidden md:h-[6.25rem]">
         <AnimatePresence mode="wait">
           <motion.p
             key={roles[activeIndex]}
@@ -98,7 +98,7 @@ function RoleRoller({ roles, reduceMotion }) {
             animate={{ y: 0, opacity: 1 }}
             exit={reduceMotion ? { opacity: 0 } : { y: -42, opacity: 0 }}
             transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-            className="font-display text-balance text-[clamp(1.45rem,3vw,2.6rem)] font-semibold leading-[1.05] tracking-[-0.07em] text-zinc-700"
+            className="font-display text-balance text-[clamp(1.42rem,2.7vw,2.35rem)] font-semibold leading-[1.14] tracking-[-0.06em] text-zinc-700"
           >
             {roles[activeIndex]}
           </motion.p>
@@ -400,7 +400,7 @@ export default function HomePage() {
                 initial={reduceMotion ? false : { opacity: 0, y: 28 }}
                 animate={reduceMotion ? {} : { opacity: 1, y: 0 }}
                 transition={{ duration: 0.82, delay: 0.14, ease: [0.22, 1, 0.36, 1] }}
-                className="mt-7 flex flex-wrap gap-3"
+                className="mt-8 flex flex-wrap gap-3"
               >
                 <button
                   type="button"
@@ -683,6 +683,7 @@ export default function HomePage() {
     </main>
   );
 }
+
 
 
 
