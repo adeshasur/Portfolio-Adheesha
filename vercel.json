@@ -1,0 +1,6 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "installCommand": "cd \"Tools/multi-tool-dashboard\" && npm install",
+  "buildCommand": "cd \"Tools/multi-tool-dashboard\" && npm run build",
+  "outputDirectory": "Tools/multi-tool-dashboard/dist"
+}
