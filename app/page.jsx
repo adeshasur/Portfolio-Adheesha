@@ -400,7 +400,7 @@ export default function HomePage() {
                 initial={reduceMotion ? false : { opacity: 0, y: 28 }}
                 animate={reduceMotion ? {} : { opacity: 1, y: 0 }}
                 transition={{ duration: 0.82, delay: 0.14, ease: [0.22, 1, 0.36, 1] }}
-                className="mt-10 flex flex-wrap gap-3"
+                className="mt-14 flex flex-wrap gap-3"
               >
                 <button
                   type="button"
@@ -606,7 +606,7 @@ export default function HomePage() {
                 ))}
               </div>
 
-              <div className="mt-10 flex flex-wrap gap-3">
+              <div className="mt-14 flex flex-wrap gap-3">
                 <button
                   type="button"
                   onClick={() => smoothScrollTo("hero")}
@@ -683,6 +683,7 @@ export default function HomePage() {
     </main>
   );
 }
+
 
 
 
