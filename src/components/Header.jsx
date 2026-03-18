@@ -12,12 +12,12 @@ export default function Header() {
             </Link>
             <Link
               to="/contact"
-              className="inline-flex min-h-12 items-center justify-center border border-black/5 bg-zinc-950 px-5 text-sm font-extrabold text-white transition duration-200 hover:-translate-y-0.5 hover:bg-zinc-800 md:min-h-11"
+              className="inline-flex min-h-12 items-center justify-center bg-zinc-950 px-5 text-sm font-extrabold text-white transition duration-200 hover:-translate-y-0.5 hover:bg-zinc-800 md:min-h-11"
             >
               Let's Talk
             </Link>
           </div>
-          <nav className="flex flex-wrap items-center justify-center gap-3 border-t border-black/5 pt-4 md:gap-5">
+          <nav className="flex flex-wrap items-center justify-center gap-3 pt-1 md:gap-5">
             {navLinks.map((link) => (
               <NavLink
                 key={link.href}
@@ -35,3 +35,4 @@ export default function Header() {
     </header>
   );
 }
+

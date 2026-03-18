@@ -12,10 +12,11 @@ export default function ProjectCard({ project, featured = false }) {
       <p className="text-sm leading-7 text-zinc-600">{project.blurb}</p>
       <a
         href={project.url}
-        className="mt-auto inline-flex min-h-11 items-center justify-center border border-black/10 bg-black/90 px-4 text-sm font-extrabold text-white transition duration-200 hover:-translate-y-0.5 hover:bg-zinc-800"
+        className="mt-auto inline-flex min-h-11 items-center justify-center bg-black/90 px-4 text-sm font-extrabold text-white transition duration-200 hover:-translate-y-0.5 hover:bg-zinc-800"
       >
         Open Project
       </a>
     </article>
   );
 }
+

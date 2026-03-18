@@ -30,13 +30,13 @@ export default function HomePage() {
             <div className="mt-8 flex flex-col gap-4 sm:flex-row">
               <Link
                 to="/projects"
-                className="inline-flex min-h-14 items-center justify-center border border-black/5 bg-zinc-950 px-6 text-sm font-extrabold text-white transition duration-200 hover:-translate-y-0.5 hover:bg-zinc-800"
+                className="inline-flex min-h-14 items-center justify-center bg-zinc-950 px-6 text-sm font-extrabold text-white transition duration-200 hover:-translate-y-0.5 hover:bg-zinc-800"
               >
                 Explore Projects
               </Link>
               <Link
                 to="/about"
-                className="inline-flex min-h-14 items-center justify-center border border-white/70 bg-white/45 px-6 text-sm font-extrabold text-ink backdrop-blur-xl transition duration-200 hover:-translate-y-0.5 hover:border-gold/30 hover:text-gold"
+                className="inline-flex min-h-14 items-center justify-center bg-white/45 px-6 text-sm font-extrabold text-ink backdrop-blur-xl transition duration-200 hover:-translate-y-0.5 hover:text-gold"
               >
                 About Me
               </Link>
@@ -53,9 +53,9 @@ export default function HomePage() {
           <div className="glass-scene relative mx-auto w-full max-w-[560px]">
             <div className="pointer-events-none absolute inset-x-12 bottom-10 top-12 bg-gradient-to-br from-gold/20 to-white/20 blur-3xl" />
             <div className="glass-stack relative aspect-[0.88]">
-              <div className="glass-layer glass-layer-back absolute inset-0 glass-card border-white/40" />
-              <div className="glass-layer glass-layer-mid absolute inset-4 glass-card border-white/50" />
-              <div className="glass-layer glass-layer-front absolute inset-0 overflow-hidden border border-white/80 bg-white/55 shadow-glass backdrop-blur-2xl">
+              <div className="glass-layer glass-layer-back absolute inset-0 glass-card" />
+              <div className="glass-layer glass-layer-mid absolute inset-4 glass-card" />
+              <div className="glass-layer glass-layer-front absolute inset-0 overflow-hidden bg-white/55 shadow-glass backdrop-blur-2xl">
                 <div className="absolute left-6 top-6 flex items-center gap-2 text-sm font-semibold text-zinc-500">
                   <Sparkles className="h-4 w-4 text-gold" />
                   3D glass hero
@@ -146,3 +146,4 @@ export default function HomePage() {
     </main>
   );
 }
+

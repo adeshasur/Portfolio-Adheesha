@@ -24,7 +24,7 @@ export default function AboutPage() {
                 <img
                   src={item.image}
                   alt={`${item.name} logo`}
-                  className="h-20 w-20 border border-white/80 bg-white/80 object-contain p-3"
+                  className="h-20 w-20 bg-white/80 object-contain p-3"
                 />
                 <div>
                   <h3 className="text-xl font-extrabold tracking-[-0.04em] text-ink">
@@ -53,7 +53,7 @@ export default function AboutPage() {
                 <img
                   src={item.image}
                   alt={`${item.name} logo`}
-                  className="h-20 w-full border border-white/80 bg-white/80 object-contain p-3"
+                  className="h-20 w-full bg-white/80 object-contain p-3"
                 />
                 <span className="text-sm font-bold text-zinc-600">{item.name}</span>
               </article>
@@ -72,3 +72,4 @@ export default function AboutPage() {
     </main>
   );
 }
+
