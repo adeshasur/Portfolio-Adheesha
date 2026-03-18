@@ -379,9 +379,13 @@ export default function HomePage() {
                 initial={reduceMotion ? false : { opacity: 0, y: 30 }}
                 animate={reduceMotion ? {} : { opacity: 1, y: 0 }}
                 transition={{ duration: 0.85, delay: 0.06, ease: [0.22, 1, 0.36, 1] }}
-                className="font-display mt-2 max-w-none text-[clamp(2.9rem,7vw,6rem)] font-semibold leading-[0.9] tracking-[-0.1em] text-ink"
+                className="font-display mt-2 max-w-none text-[clamp(2.6rem,6vw,5.4rem)] font-semibold leading-[0.9] tracking-[-0.1em] text-ink"
               >
-                {heroContent.headline}
+                {heroContent.headlineLines.map((line) => (
+                  <span key={line} className="block">
+                    {line}
+                  </span>
+                ))}
               </motion.h1>
 
               <motion.div
@@ -679,6 +683,7 @@ export default function HomePage() {
     </main>
   );
 }
+
 
 
 
