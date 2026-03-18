@@ -1,14 +1,14 @@
 :root {
-    --bg: #efefec;
-    --panel: rgba(255, 255, 255, 0.88);
+    --bg: #f6f5f1;
+    --panel: transparent;
     --panel-solid: #ffffff;
     --text: #121212;
     --muted: #5d5d5d;
     --line: rgba(18, 18, 18, 0.1);
     --gold: #bf9531;
     --gold-soft: rgba(191, 149, 49, 0.12);
-    --shadow: 0 20px 50px rgba(18, 18, 18, 0.08);
-    --content-width: min(1440px, calc(100vw - 32px));
+    --shadow: 0 0 0 rgba(18, 18, 18, 0);
+    --content-width: min(1600px, calc(100vw - 24px));
     --font-body: "Manrope", sans-serif;
 }
 
@@ -23,9 +23,7 @@ html {
 }
 
 body {
-    background:
-        linear-gradient(180deg, rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0) 22%),
-        linear-gradient(180deg, #f7f7f4 0%, #ecece8 100%);
+    background: linear-gradient(180deg, #fbfbf8 0%, #f3f2ee 100%);
     color: var(--text);
     font-family: var(--font-body);
     min-height: 100vh;
@@ -54,19 +52,10 @@ img {
     width: var(--content-width);
 }
 
-.hero-card,
-.content-section,
-.project-card,
-.split-card,
-.education-item,
-.showcase-card {
-    border: 1px solid var(--line);
-}
-
 .hero-card {
     background:
-        radial-gradient(circle at 78% 46%, rgba(191, 149, 49, 0.14), transparent 22%),
-        linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(255, 255, 255, 0.92));
+        radial-gradient(circle at 78% 46%, rgba(191, 149, 49, 0.12), transparent 22%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(255, 255, 255, 0.96));
     box-shadow: var(--shadow);
     min-height: calc(100svh - 40px);
     padding: 24px 28px 0;
@@ -77,6 +66,7 @@ img {
     display: grid;
     gap: 20px;
     grid-template-columns: 220px minmax(0, 1fr) auto;
+    border-bottom: 1px solid var(--line);
     padding-bottom: 18px;
 }
 
@@ -159,18 +149,19 @@ img {
     align-items: center;
     display: grid;
     gap: 36px;
-    grid-template-columns: minmax(0, 1fr) minmax(340px, 0.78fr);
-    min-height: calc(100svh - 138px);
+    grid-template-columns: minmax(0, 1fr) minmax(320px, 0.74fr);
+    min-height: calc(100svh - 146px);
 }
 
 .hero-copy {
-    max-width: 680px;
-    padding: 24px 0 42px;
+    max-width: 760px;
+    padding: 24px 0 56px;
 }
 
 .availability-pill {
     align-items: center;
-    background: rgba(255, 255, 255, 0.72);
+    background: transparent;
+    border: 1px solid var(--line);
     color: #5a5a5a;
     display: inline-flex;
     font-size: 0.9rem;
@@ -186,11 +177,11 @@ img {
 }
 
 .hero-copy h1 {
-    font-size: clamp(3.2rem, 5vw, 5.7rem);
+    font-size: clamp(3.2rem, 4.6vw, 5.1rem);
     font-weight: 800;
     letter-spacing: -0.08em;
-    line-height: 0.92;
-    max-width: 7.2ch;
+    line-height: 0.95;
+    max-width: 9ch;
 }
 
 .hero-description,
@@ -206,7 +197,7 @@ img {
 .hero-description {
     font-size: 1rem;
     margin-top: 18px;
-    max-width: 46ch;
+    max-width: 52ch;
 }
 
 .hero-actions {
@@ -226,7 +217,8 @@ img {
 .hero-meta span,
 .section-heading span,
 .project-topline span {
-    background: var(--gold-soft);
+    background: transparent;
+    border: 1px solid rgba(191, 149, 49, 0.22);
     color: var(--gold);
     display: inline-flex;
     font-size: 0.74rem;
@@ -248,7 +240,6 @@ img {
     display: flex;
     height: 100%;
     justify-content: flex-end;
-    overflow: hidden;
     position: relative;
     width: 100%;
 }
@@ -265,7 +256,7 @@ img {
 }
 
 .portrait-card img {
-    height: min(74svh, 760px);
+    height: min(68svh, 700px);
     object-fit: contain;
     object-position: right bottom;
     width: auto;
@@ -275,12 +266,13 @@ img {
     display: grid;
     gap: 16px;
     padding-bottom: 28px;
+    background: rgba(255, 255, 255, 0.96);
 }
 
 .content-section {
     background: var(--panel);
-    box-shadow: 0 12px 34px rgba(18, 18, 18, 0.04);
-    padding: 30px;
+    border-top: 1px solid var(--line);
+    padding: 34px 28px;
 }
 
 .section-heading {
@@ -316,7 +308,8 @@ img {
 .split-card,
 .education-item,
 .showcase-card {
-    background: var(--panel-solid);
+    background: transparent;
+    border: 1px solid var(--line);
 }
 
 .project-card,
@@ -378,6 +371,7 @@ img {
 .timeline-item img,
 .education-item img {
     background: #ffffff;
+    border: 1px solid rgba(18, 18, 18, 0.08);
     height: 84px;
     object-fit: contain;
     padding: 14px;
@@ -438,10 +432,11 @@ img {
 }
 
 .site-footer {
+    border-top: 1px solid var(--line);
     color: #545454;
     display: flex;
     justify-content: space-between;
-    padding: 2px 0 28px;
+    padding: 18px 0 28px;
 }
 
 @media (max-width: 1280px) {
@@ -460,17 +455,17 @@ img {
 
     .hero-grid {
         gap: 26px;
-        grid-template-columns: minmax(0, 1fr) minmax(300px, 0.72fr);
+        grid-template-columns: minmax(0, 1fr) minmax(280px, 0.68fr);
         min-height: auto;
     }
 
     .hero-copy h1 {
-        font-size: clamp(2.9rem, 4.6vw, 4.8rem);
-        max-width: 8ch;
+        font-size: clamp(2.9rem, 4.2vw, 4.4rem);
+        max-width: 9ch;
     }
 
     .portrait-card img {
-        height: min(58svh, 620px);
+        height: min(54svh, 560px);
     }
 
     .project-grid {
@@ -492,11 +487,11 @@ img {
     .hero-copy {
         max-width: none;
         order: 2;
-        padding: 8px 0 28px;
+        padding: 4px 0 28px;
     }
 
     .hero-copy h1 {
-        font-size: clamp(2.7rem, 8vw, 4.4rem);
+        font-size: clamp(2.7rem, 7.5vw, 4rem);
         line-height: 0.96;
         max-width: none;
     }
@@ -511,7 +506,7 @@ img {
     }
 
     .portrait-card img {
-        height: min(48svh, 420px);
+        height: min(44svh, 360px);
     }
 
     .project-grid,
