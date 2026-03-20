@@ -1,3 +1,4 @@
+import Script from "next/script";
 import { Inter, Poppins } from "next/font/google";
 import "./globals.css";
 
@@ -19,6 +20,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={`${inter.variable} ${poppins.variable}`}>
         {children}
+        <Script id="chatway-widget" src="https://cdn.chatway.app/widget.js?id=dqkNTqEXV67t" strategy="afterInteractive" />
       </body>
     </html>
   );

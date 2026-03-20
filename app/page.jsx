@@ -125,44 +125,35 @@ function ToolkitCard({ item, index }) {
   return (
     <motion.a
       href={item.href}
-      className={`group relative overflow-hidden rounded-[24px] p-3 md:p-4 ${item.className}`}
+      className={`group relative overflow-hidden rounded-[22px] p-3 ${item.className}`}
       style={{
-        backgroundImage: `linear-gradient(160deg, rgba(255,255,255,0.78), rgba(255,255,255,0.48)), ${item.accent}`,
-        boxShadow: `0 20px 60px ${item.glow}`,
+        backgroundImage: `linear-gradient(160deg, rgba(255,255,255,0.8), rgba(255,255,255,0.5)), ${item.accent}`,
+        boxShadow: `0 18px 44px ${item.glow}`,
       }}
-      initial={{ opacity: 0, y: 24 }}
+      initial={{ opacity: 0, y: 18 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.15 }}
-      transition={{ duration: 0.75, delay: index * 0.04, ease: [0.22, 1, 0.36, 1] }}
-      whileHover={{ y: -8, scale: 1.01 }}
+      transition={{ duration: 0.7, delay: index * 0.03, ease: [0.22, 1, 0.36, 1] }}
+      whileHover={{ y: -6, scale: 1.01 }}
     >
-      <div className="noise-mask" />
-      <motion.div
-        className="absolute -right-10 top-0 h-36 w-36 rounded-full bg-white/55 blur-2xl"
-        whileHover={{ scale: 1.18, x: -6, y: 6 }}
-        transition={{ duration: 0.45 }}
-      />
-      <motion.div
-        className="absolute inset-x-8 bottom-5 h-px bg-white/70"
-        initial={{ scaleX: 0.72, opacity: 0.4 }}
-        whileHover={{ scaleX: 1, opacity: 1 }}
-        transition={{ duration: 0.4 }}
-      />
-      <div className="relative z-10 flex h-full flex-col justify-between gap-6">
-        <div className="flex items-start justify-between gap-4">
-          <span className="inline-flex rounded-full bg-white/70 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-zinc-700 glass-soft">
+      <div className="noise-mask opacity-70" />
+      <div className="relative z-10 flex h-full flex-col justify-between gap-4">
+        <div className="flex items-center justify-between gap-3">
+          <div className="flex h-12 w-12 items-center justify-center rounded-[16px] bg-white/82 shadow-[0_12px_24px_rgba(15,23,42,0.08)]">
+            <span className="font-display text-[0.95rem] font-semibold tracking-[-0.06em] text-ink">{item.shortCode}</span>
+          </div>
+          <span className="rounded-full bg-white/70 px-2.5 py-1 text-[9px] font-semibold uppercase tracking-[0.18em] text-zinc-600 glass-soft">
             {item.category}
           </span>
-          <span className="text-xs font-semibold uppercase tracking-[0.22em] text-zinc-500">0{index + 1}</span>
         </div>
         <div>
-          <h3 className="font-display text-[1.05rem] font-semibold tracking-[-0.06em] text-ink md:text-[1.35rem]">
+          <h3 className="font-display text-[0.98rem] font-semibold tracking-[-0.05em] text-ink md:text-[1.1rem]">
             {item.name}
           </h3>
-          <p className="mt-1.5 max-w-sm text-[11px] leading-5 text-zinc-600 md:text-[12px]">{item.description}</p>
+          <p className="mt-1.5 text-[10.5px] leading-5 text-zinc-600 md:text-[11px]">{item.description}</p>
         </div>
-        <div className="inline-flex items-center gap-2 text-sm font-semibold text-ink">
-          Open Tool <ArrowUpRight className="h-4 w-4" />
+        <div className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-ink">
+          Open <ArrowUpRight className="h-3.5 w-3.5" />
         </div>
       </div>
     </motion.a>
@@ -313,23 +304,23 @@ function JourneyCard({ item, index }) {
   const cardClass = "group relative overflow-hidden rounded-[28px] bg-white/62 p-5 glass-soft transition duration-300 hover:-translate-y-1.5 md:p-6";
   const body = (
     <>
-      <div className="flex items-start justify-between gap-4">
-        <div>
+      <div className="flex items-center gap-4 rounded-[22px] bg-white/60 p-3.5">
+        {item.image ? (
+          <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded-[18px] bg-white shadow-[0_16px_32px_rgba(15,23,42,0.08)] md:h-24 md:w-24">
+            <Image src={item.image} alt={item.title} className="h-12 w-auto object-contain md:h-14" />
+          </div>
+        ) : null}
+        <div className="min-w-0">
           {item.year ? (
             <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-zinc-500">{item.year}</p>
           ) : null}
-          <h3 className={`font-display text-2xl font-semibold tracking-[-0.06em] text-ink ${item.year ? "mt-3" : "mt-0"}`}>{item.title}</h3>
+          <h3 className={`font-display text-[1.45rem] font-semibold tracking-[-0.06em] text-ink ${item.year ? "mt-2" : "mt-0"}`}>{item.title}</h3>
+          <p className="mt-1.5 text-[11px] font-medium uppercase tracking-[0.18em] text-zinc-500">{item.subtitle}</p>
         </div>
-        {item.image ? (
-          <div className="flex h-24 min-w-24 items-center justify-center rounded-[20px] bg-white/85 px-4 shadow-[0_16px_35px_rgba(15,23,42,0.08)] md:h-28 md:min-w-28">
-            <Image src={item.image} alt={item.title} className="h-14 w-auto object-contain md:h-[4.5rem]" />
-          </div>
-        ) : null}
       </div>
-      <p className="mt-3 text-sm font-medium uppercase tracking-[0.18em] text-zinc-500">{item.subtitle}</p>
-      <p className="mt-4 text-[15px] leading-8 text-zinc-600">{item.body}</p>
+      <p className="mt-4 text-[14px] leading-7 text-zinc-600">{item.body}</p>
       {item.href ? (
-        <div className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-ink">
+        <div className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-ink">
           Visit Link <ArrowUpRight className="h-4 w-4" />
         </div>
       ) : null}
@@ -596,6 +587,22 @@ export default function HomePage() {
               </div>
             ))}
           </motion.div>
+          <div className="pointer-events-none absolute inset-x-6 bottom-5 z-30 hidden items-end justify-between md:flex">
+            <a
+              href="https://buymeacoffee.com/adeshasur"
+              className="pointer-events-auto inline-flex items-center gap-2 rounded-full bg-white/72 px-4 py-2.5 text-sm font-semibold text-ink glass-soft"
+            >
+              Buy Me a Coffee
+              <ArrowUpRight className="h-4 w-4" />
+            </a>
+            <a
+              href="https://buymeacoffee.com/adeshasur"
+              className="pointer-events-auto inline-flex items-center gap-2 rounded-full bg-black px-4 py-2.5 text-sm font-semibold text-white shadow-lg shadow-black/10"
+            >
+              Support Adheesha
+              <ArrowUpRight className="h-4 w-4" />
+            </a>
+          </div>
         </div>
       </section>
 
@@ -609,7 +616,7 @@ export default function HomePage() {
             text="Smaller cards, softer motion, and easier scanning across the full toolkit."
           />
 
-          <div className="relative z-10 mt-10 grid auto-rows-[128px] grid-cols-1 gap-4 md:grid-cols-6 xl:grid-cols-12">
+          <div className="relative z-10 mt-8 grid auto-rows-[122px] grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-4 xl:grid-cols-6">
             {toolkitItems.map((item, index) => (
               <ToolkitCard key={item.name} item={item} index={index} />
             ))}
@@ -629,7 +636,7 @@ export default function HomePage() {
             theme="dark"
           />
 
-          <div className="relative z-10 mt-6 grid gap-3 lg:grid-cols-2 2xl:grid-cols-3">
+          <div className="relative z-10 mt-6 grid gap-3 md:grid-cols-2 xl:grid-cols-3">
             {softwareProjects.map((project, index) => (
               <ProjectCard key={project.name} project={project} index={index} />
             ))}
@@ -732,10 +739,10 @@ export default function HomePage() {
           <div className="absolute right-[8%] bottom-10 h-80 w-80 rounded-full bg-sky-100/45 blur-3xl" />
           <SectionIntro
             eyebrow="Certificates"
-            title="Certified milestones presented as a premium 3D showcase instead of a flat archive."
-            text="Each certificate is framed like a tactile object with depth, glow, and motion so the whole section feels more memorable and elevated."
+            title="Certificates arranged in a tighter showcase."
+            text="A cleaner certificate wall with smaller cards and better room for future additions."
           />
-          <div className="relative z-10 mt-7 grid gap-4 lg:grid-cols-2">
+          <div className="relative z-10 mt-6 grid gap-3 md:grid-cols-2 xl:grid-cols-3">
             {certificateItems.map((item, index) => (
               <CertificateCard key={item.title} item={item} index={index} onOpen={setActiveCertificate} />
             ))}
