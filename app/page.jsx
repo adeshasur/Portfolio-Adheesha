@@ -10,6 +10,7 @@ import {
   contactContent,
   certificateItems,
   educationItems,
+  experienceItems,
   galleryItems,
   heroContent,
   navItems,
@@ -58,10 +59,10 @@ function SectionIntro({ eyebrow, title, text, align = "left", theme = "light" })
         <Sparkles className="h-3.5 w-3.5" />
         {eyebrow}
       </span>
-      <h2 className={`font-display text-balance mt-6 text-[clamp(2.4rem,5vw,4.75rem)] font-semibold leading-[0.92] tracking-[-0.08em] ${dark ? "text-white" : "text-ink"}`}>
+      <h2 className={`font-display text-balance mt-5 text-[clamp(2rem,4vw,3.6rem)] font-semibold leading-[0.92] tracking-[-0.08em] ${dark ? "text-white" : "text-ink"}`}>
         {title}
       </h2>
-      <p className={`mt-5 max-w-2xl text-[15px] leading-8 md:text-[17px] ${dark ? "text-zinc-300" : "text-zinc-600"}`}>
+      <p className={`mt-4 max-w-xl text-[14px] leading-7 md:text-[15px] ${dark ? "text-zinc-300" : "text-zinc-600"}`}>
         {text}
       </p>
     </div>
@@ -124,7 +125,7 @@ function ToolkitCard({ item, index }) {
   return (
     <motion.a
       href={item.href}
-      className={`group relative overflow-hidden rounded-[30px] p-5 md:p-6 ${item.className}`}
+      className={`group relative overflow-hidden rounded-[26px] p-4 md:p-5 ${item.className}`}
       style={{
         backgroundImage: `linear-gradient(160deg, rgba(255,255,255,0.78), rgba(255,255,255,0.48)), ${item.accent}`,
         boxShadow: `0 20px 60px ${item.glow}`,
@@ -147,7 +148,7 @@ function ToolkitCard({ item, index }) {
         whileHover={{ scaleX: 1, opacity: 1 }}
         transition={{ duration: 0.4 }}
       />
-      <div className="relative z-10 flex h-full flex-col justify-between gap-10">
+      <div className="relative z-10 flex h-full flex-col justify-between gap-7">
         <div className="flex items-start justify-between gap-4">
           <span className="inline-flex rounded-full bg-white/70 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-zinc-700 glass-soft">
             {item.category}
@@ -155,10 +156,10 @@ function ToolkitCard({ item, index }) {
           <span className="text-xs font-semibold uppercase tracking-[0.22em] text-zinc-500">0{index + 1}</span>
         </div>
         <div>
-          <h3 className="font-display text-2xl font-semibold tracking-[-0.06em] text-ink md:text-3xl">
+          <h3 className="font-display text-[1.2rem] font-semibold tracking-[-0.06em] text-ink md:text-[1.55rem]">
             {item.name}
           </h3>
-          <p className="mt-3 max-w-sm text-sm leading-7 text-zinc-600 md:text-[15px]">{item.description}</p>
+          <p className="mt-2 max-w-sm text-[12px] leading-6 text-zinc-600 md:text-[13px]">{item.description}</p>
         </div>
         <div className="inline-flex items-center gap-2 text-sm font-semibold text-ink">
           Open Tool <ArrowUpRight className="h-4 w-4" />
@@ -178,12 +179,12 @@ function ProjectCard({ project, index }) {
       viewport={{ once: true, amount: 0.16 }}
       transition={{ duration: 0.8, delay: index * 0.06, ease: [0.22, 1, 0.36, 1] }}
       whileHover={{ y: -10 }}
-      className="group relative overflow-hidden rounded-[34px] glass-panel p-6 md:p-8"
+      className="group relative overflow-hidden rounded-[28px] glass-panel p-4 md:p-5"
     >
       <div className="noise-mask" />
       <div className="absolute inset-0" style={{ background: project.accent }} />
       <div
-        className="absolute inset-x-6 top-6 h-44 rounded-[26px] opacity-90 blur-3xl"
+        className="absolute inset-x-6 top-6 h-28 rounded-[22px] opacity-90 blur-3xl"
         style={{ background: project.glow }}
       />
       <div className="absolute inset-[1px] rounded-[33px] bg-white/74" />
@@ -195,21 +196,21 @@ function ProjectCard({ project, index }) {
               {project.status}
             </p>
           </div>
-          <div className="font-display text-5xl font-semibold tracking-[-0.08em] text-zinc-200 transition-transform duration-500 group-hover:scale-105 md:text-6xl">
+          <div className="font-display text-3xl font-semibold tracking-[-0.08em] text-zinc-200 transition-transform duration-500 group-hover:scale-105 md:text-4xl">
             {project.name.slice(0, 2).toUpperCase()}
           </div>
         </div>
 
         <div>
-          <h3 className="font-display text-3xl font-semibold tracking-[-0.07em] text-ink md:text-[2.6rem]">
+          <h3 className="font-display text-[1.7rem] font-semibold tracking-[-0.07em] text-ink md:text-[1.95rem]">
             {project.name}
           </h3>
-          <p className="mt-4 max-w-xl text-[15px] leading-8 text-zinc-600 md:text-[16px]">{project.description}</p>
+          <p className="mt-2.5 max-w-xl text-[13px] leading-7 text-zinc-600 md:text-[14px]">{project.description}</p>
         </div>
 
         <div className="flex flex-wrap gap-2">
           {project.details.map((detail) => (
-            <span key={detail} className="rounded-full bg-white/72 px-3 py-2 text-xs font-medium text-zinc-700 glass-soft">
+            <span key={detail} className="rounded-full bg-white/72 px-2.5 py-1 text-[10px] font-medium text-zinc-700 glass-soft">
               {detail}
             </span>
           ))}
@@ -219,7 +220,7 @@ function ProjectCard({ project, index }) {
           <button
             type="button"
             onClick={() => smoothScrollTo(project.href.replace("#", ""))}
-            className="inline-flex w-fit items-center gap-2 rounded-full bg-ink px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-black/10"
+            className="inline-flex w-fit items-center gap-2 rounded-full bg-ink px-4 py-2.5 text-sm font-semibold text-white shadow-lg shadow-black/10"
           >
             {project.cta}
             <ArrowUpRight className="h-4 w-4" />
@@ -227,7 +228,7 @@ function ProjectCard({ project, index }) {
         ) : (
           <a
             href={project.href}
-            className="inline-flex w-fit items-center gap-2 rounded-full bg-ink px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-black/10"
+            className="inline-flex w-fit items-center gap-2 rounded-full bg-ink px-4 py-2.5 text-sm font-semibold text-white shadow-lg shadow-black/10"
           >
             {project.cta}
             <ArrowUpRight className="h-4 w-4" />
@@ -279,7 +280,7 @@ function CertificateCard({ item, index, onOpen }) {
       viewport={{ once: true, amount: 0.18 }}
       transition={{ duration: 0.82, delay: index * 0.06, ease: [0.22, 1, 0.36, 1] }}
       whileHover={{ y: -10, rotateX: 4, rotateY: index % 2 === 0 ? -4 : 4 }}
-      className={`group relative mx-auto w-full overflow-hidden rounded-[32px] p-4 text-left [transform-style:preserve-3d] md:p-5 ${isPortrait ? "max-w-[350px]" : "max-w-[520px]"}`}
+      className={`group relative mx-auto w-full overflow-hidden rounded-[30px] p-3 text-left [transform-style:preserve-3d] md:p-3.5 ${isPortrait ? "max-w-[280px]" : "max-w-[420px]"}`}
       style={{ background: item.accent, boxShadow: `0 28px 80px ${item.glow}` }}
     >
       <div className="noise-mask opacity-20" />
@@ -298,10 +299,10 @@ function CertificateCard({ item, index, onOpen }) {
             />
           </div>
         </div>
-        <div className="mt-5 [transform:translateZ(22px)]">
+        <div className="mt-4 [transform:translateZ(22px)]">
           <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-zinc-500">{item.label}</p>
-          <h3 className="font-display mt-3 text-[1.55rem] font-semibold tracking-[-0.06em] text-ink md:text-[1.85rem]">{item.title}</h3>
-          <p className="mt-3 text-sm leading-7 text-zinc-600 md:text-[15px]">{item.description}</p>
+          <h3 className="font-display mt-2 text-[1.2rem] font-semibold tracking-[-0.06em] text-ink md:text-[1.45rem]">{item.title}</h3>
+          <p className="mt-2 text-[13px] leading-6 text-zinc-600 md:text-[14px]">{item.description}</p>
         </div>
       </div>
     </motion.button>
@@ -320,8 +321,8 @@ function JourneyCard({ item, index }) {
           <h3 className={`font-display text-2xl font-semibold tracking-[-0.06em] text-ink ${item.year ? "mt-3" : "mt-0"}`}>{item.title}</h3>
         </div>
         {item.image ? (
-          <div className="flex h-16 min-w-16 items-center justify-center rounded-[20px] bg-white/85 px-4 shadow-[0_16px_35px_rgba(15,23,42,0.08)] md:h-20 md:min-w-20">
-            <Image src={item.image} alt={item.title} className="h-10 w-auto object-contain md:h-12" />
+          <div className="flex h-24 min-w-24 items-center justify-center rounded-[20px] bg-white/85 px-4 shadow-[0_16px_35px_rgba(15,23,42,0.08)] md:h-28 md:min-w-28">
+            <Image src={item.image} alt={item.title} className="h-14 w-auto object-contain md:h-[4.5rem]" />
           </div>
         ) : null}
       </div>
@@ -510,6 +511,13 @@ export default function HomePage() {
                   >
                     Open Toolkit
                   </button>
+                  <a
+                    href="/cv/CV%20ADHEESHA%20SOORIYAARACHCHI.pdf"
+                    download
+                    className="rounded-full border border-white/50 bg-white/60 px-6 py-3.5 text-sm font-semibold text-ink glass-soft"
+                  >
+                    Download CV
+                  </a>
                 </div>
                 <div className="mt-7 flex flex-wrap items-center gap-3 md:mt-8">
                   {socialLinks.map((item) => {
@@ -597,11 +605,11 @@ export default function HomePage() {
           <div className="absolute inset-y-0 right-0 w-1/2 bg-gradient-to-l from-gold/10 to-transparent" />
           <SectionIntro
             eyebrow="Bento Toolkit"
-            title="A glassy toolkit wall for the real utilities already built and published."
-            text="Each tool gets a distinct tile, accent glow, and hover identity so the grid feels like a premium product shelf instead of a repeated card layout."
+            title="Published tools in a cleaner, lighter toolkit grid."
+            text="Smaller cards, softer motion, and easier scanning across the full toolkit."
           />
 
-          <div className="relative z-10 mt-10 grid auto-rows-[190px] grid-cols-1 gap-4 md:grid-cols-6 xl:grid-cols-12">
+          <div className="relative z-10 mt-10 grid auto-rows-[150px] grid-cols-1 gap-4 md:grid-cols-6 xl:grid-cols-12">
             {toolkitItems.map((item, index) => (
               <ToolkitCard key={item.name} item={item} index={index} />
             ))}
@@ -616,12 +624,12 @@ export default function HomePage() {
           <div className="absolute left-1/2 top-20 h-64 w-64 -translate-x-1/2 rounded-full bg-gold/10 blur-3xl" />
           <SectionIntro
             eyebrow="Software Projects"
-            title="High-fidelity product cards for larger software directions and polished live builds."
-            text="This section balances concept products like Salli-Pettiya and ProKade with finished tools, all using richer hover behavior and stronger visual depth."
+            title="Selected software projects with cleaner presentation."
+            text="Concept builds and live projects presented in a tighter, more practical layout."
             theme="dark"
           />
 
-          <div className="relative z-10 mt-10 grid gap-5 xl:grid-cols-2">
+          <div className="relative z-10 mt-7 grid gap-4 xl:grid-cols-2">
             {softwareProjects.map((project, index) => (
               <ProjectCard key={project.name} project={project} index={index} />
             ))}
@@ -654,8 +662,8 @@ export default function HomePage() {
           <div className="absolute right-[12%] bottom-10 h-72 w-72 rounded-full bg-gold/10 blur-3xl" />
           <SectionIntro
             eyebrow="Education"
-            title="All education qualifications are now shown in one clearer logo-led wall."
-            text="Each education card is bigger, easier to scan, and clickable so the section feels more complete and useful. Working experience now lives on its own dedicated page."
+            title="Education qualifications presented in one clear logo wall."
+            text="Every qualification is easier to scan, while work experience stays visible here and also has its own page."
           />
 
           <div className="relative z-10 mt-12 space-y-6">
@@ -677,11 +685,16 @@ export default function HomePage() {
               <div className="rounded-[32px] bg-white/48 p-5 glass-soft md:p-6">
                 <h3 className="font-display text-[1.8rem] font-semibold tracking-[-0.06em] text-ink md:text-[2.15rem]">Working Experience</h3>
                 <p className="mt-4 text-[15px] leading-8 text-zinc-600">
-                  Working experience now has its own dedicated page so the education area stays focused and your career history gets more space.
+                  Work experience is visible here for quick scanning, and the full section is also available on its own page.
                 </p>
+                <div className="mt-6 grid gap-4">
+                  {experienceItems.map((item, index) => (
+                    <JourneyCard key={item.title + "-home-" + index} item={item} index={index + educationItems.length} />
+                  ))}
+                </div>
                 <a
                   href="/experience"
-                  className="mt-6 inline-flex items-center gap-2 rounded-full bg-ink px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-black/10"
+                  className="mt-6 inline-flex items-center gap-2 rounded-full bg-ink px-4 py-2.5 text-sm font-semibold text-white shadow-lg shadow-black/10"
                 >
                   Open Experience Page
                   <ArrowUpRight className="h-4 w-4" />
@@ -722,7 +735,7 @@ export default function HomePage() {
             title="Certified milestones presented as a premium 3D showcase instead of a flat archive."
             text="Each certificate is framed like a tactile object with depth, glow, and motion so the whole section feels more memorable and elevated."
           />
-          <div className="relative z-10 mt-10 grid gap-5 lg:grid-cols-2">
+          <div className="relative z-10 mt-7 grid gap-4 lg:grid-cols-2">
             {certificateItems.map((item, index) => (
               <CertificateCard key={item.title} item={item} index={index} onOpen={setActiveCertificate} />
             ))}
@@ -902,6 +915,8 @@ export default function HomePage() {
     </main>
   );
 }
+
+
 
 
 

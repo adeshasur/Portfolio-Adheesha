@@ -25,8 +25,8 @@ function ExperienceCard({ item, index }) {
             <h2 className="font-display mt-3 text-[2rem] font-semibold tracking-[-0.06em] text-ink md:text-[2.35rem]">{item.title}</h2>
             <p className="mt-2 text-sm font-medium uppercase tracking-[0.18em] text-zinc-500">{item.subtitle}</p>
           </div>
-          <div className="flex h-20 min-w-20 items-center justify-center rounded-[24px] bg-white/90 px-5 shadow-[0_20px_40px_rgba(15,23,42,0.08)] md:h-24 md:min-w-24">
-            <Image src={item.image} alt={item.title} className="h-12 w-auto object-contain md:h-14" />
+          <div className="flex h-24 min-w-24 items-center justify-center rounded-[24px] bg-white/90 px-5 shadow-[0_20px_40px_rgba(15,23,42,0.08)] md:h-28 md:min-w-28">
+            <Image src={item.image} alt={item.title} className="h-14 w-auto object-contain md:h-[4.5rem]" />
           </div>
         </div>
         <p className="mt-6 max-w-2xl text-[15px] leading-8 text-zinc-600 md:text-[16px]">{item.body}</p>
@@ -85,8 +85,8 @@ export default function ExperiencePage() {
               <div className="mt-5 grid grid-cols-2 gap-4">
                 {experienceItems.map((item) => (
                   <div key={item.title} className="rounded-[24px] bg-white/88 p-4 shadow-[0_18px_35px_rgba(15,23,42,0.06)]">
-                    <div className="flex h-16 items-center justify-center rounded-[18px] bg-white md:h-20">
-                      <Image src={item.image} alt={item.title} className="h-10 w-auto object-contain md:h-12" />
+                    <div className="flex h-20 items-center justify-center rounded-[18px] bg-white md:h-24">
+                      <Image src={item.image} alt={item.title} className="h-12 w-auto object-contain md:h-14" />
                     </div>
                     <p className="mt-3 text-sm font-semibold text-zinc-700">{item.title}</p>
                   </div>
@@ -107,3 +107,4 @@ export default function ExperiencePage() {
     </main>
   );
 }
+
