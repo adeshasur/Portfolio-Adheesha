@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { AnimatePresence, motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
-import { ArrowUpRight, Facebook, Github, Instagram, Linkedin, Sparkles, WandSparkles } from "lucide-react";
+import { ArrowUpRight, Coffee, Facebook, Github, Instagram, Linkedin, Sparkles, WandSparkles } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import {
   achievementItems,
@@ -146,7 +146,7 @@ function ToolkitCard({ item, index }) {
           </span>
         </div>
       </div>
-      <div className="pointer-events-none absolute left-1/2 top-full z-20 mt-2 -translate-x-1/2 rounded-full bg-ink px-3 py-1.5 text-[11px] font-semibold text-white opacity-0 shadow-lg shadow-black/15 transition duration-200 group-hover:translate-y-1 group-hover:opacity-100">
+      <div className="pointer-events-none absolute left-1/2 bottom-full z-20 mb-2 -translate-x-1/2 whitespace-nowrap rounded-full bg-ink px-3 py-1.5 text-[11px] font-semibold text-white opacity-0 shadow-lg shadow-black/15 transition duration-200 group-hover:-translate-y-1 group-hover:opacity-100">
         {item.name}
       </div>
     </motion.a>
@@ -293,58 +293,35 @@ function CertificateCard({ item, index, onOpen }) {
   );
 }
 
-function JourneyCard({ item, index }) {
-  const cardClass = "group relative overflow-hidden rounded-[28px] bg-white/62 p-5 glass-soft transition duration-300 hover:-translate-y-1.5 md:p-6";
-  const body = (
-    <>
-      <div className="flex items-center gap-4 rounded-[22px] bg-white/60 p-3.5">
-        {item.image ? (
-          <div className="flex h-24 w-24 shrink-0 items-center justify-center rounded-[20px] bg-white shadow-[0_16px_32px_rgba(15,23,42,0.08)] md:h-28 md:w-28">
-            <Image src={item.image} alt={item.title} className="h-14 w-auto object-contain md:h-16" />
-          </div>
-        ) : null}
-        <div className="min-w-0">
-          {item.year ? (
-            <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-zinc-500">{item.year}</p>
-          ) : null}
-          <h3 className={`font-display text-[1.45rem] font-semibold tracking-[-0.06em] text-ink ${item.year ? "mt-2" : "mt-0"}`}>{item.title}</h3>
-          <p className="mt-1.5 text-[11px] font-medium uppercase tracking-[0.18em] text-zinc-500">{item.subtitle}</p>
-        </div>
-      </div>
-      <p className="mt-4 text-[14px] leading-7 text-zinc-600">{item.body}</p>
-      {item.href ? (
-        <div className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-ink">
-          Visit Link <ArrowUpRight className="h-4 w-4" />
-        </div>
-      ) : null}
-    </>
-  );
-
-  if (item.href) {
-    return (
-      <motion.a
-        href={item.href}
-        initial={{ opacity: 0, y: 28 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.22 }}
-        transition={{ duration: 0.75, delay: index * 0.05, ease: [0.22, 1, 0.36, 1] }}
-        className={cardClass}
-      >
-        {body}
-      </motion.a>
-    );
-  }
-
+function JourneyCard({ item, index, onOpen, label }) {
   return (
-    <motion.article
+    <motion.button
+      type="button"
+      onClick={() => onOpen({ ...item, label })}
       initial={{ opacity: 0, y: 28 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.22 }}
       transition={{ duration: 0.75, delay: index * 0.05, ease: [0.22, 1, 0.36, 1] }}
-      className={cardClass}
+      whileHover={{ y: -6 }}
+      className="group relative overflow-hidden rounded-[26px] bg-white/62 p-4 text-left glass-soft transition duration-300 md:p-4.5"
     >
-      {body}
-    </motion.article>
+      <div className="noise-mask opacity-20" />
+      <div className="relative z-10 rounded-[22px] bg-white/72 p-4">
+        <div className="flex h-24 w-full items-center justify-center rounded-[20px] bg-white shadow-[0_16px_32px_rgba(15,23,42,0.08)] md:h-28">
+          {item.image ? (
+            <Image src={item.image} alt={item.title} className="h-14 w-auto object-contain md:h-16" />
+          ) : null}
+        </div>
+        <div className="mt-4 min-w-0">
+          <h3 className="font-display text-[1.2rem] font-semibold tracking-[-0.06em] text-ink md:text-[1.35rem]">{item.title}</h3>
+          <p className="mt-1.5 text-[11px] font-medium uppercase tracking-[0.16em] text-zinc-500">{item.subtitle}</p>
+          <div className="mt-4 inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.14em] text-ink/80">
+            View More
+            <ArrowUpRight className="h-3.5 w-3.5" />
+          </div>
+        </div>
+      </div>
+    </motion.button>
   );
 }
 
@@ -376,6 +353,7 @@ export default function HomePage() {
   const reduceMotion = useReducedMotion();
   const [activeGalleryItem, setActiveGalleryItem] = useState(null);
   const [activeCertificate, setActiveCertificate] = useState(null);
+  const [activeJourneyItem, setActiveJourneyItem] = useState(null);
   const heroRef = useRef(null);
   const timelineRef = useRef(null);
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
@@ -580,17 +558,16 @@ export default function HomePage() {
               </div>
             ))}
           </motion.div>
-          <div className="pointer-events-none absolute bottom-5 left-6 z-30 hidden md:flex">
-            <a
-              href="https://buymeacoffee.com/adeshasur"
-              className="pointer-events-auto inline-flex items-center gap-2 rounded-full bg-white/72 px-4 py-2.5 text-sm font-semibold text-ink glass-soft"
-            >
-              Buy Me a Coffee
-              <ArrowUpRight className="h-4 w-4" />
-            </a>
-          </div>
         </div>
       </section>
+
+      <a
+        href="https://buymeacoffee.com/adeshasur"
+        aria-label="Buy Me a Coffee"
+        className="fixed bottom-5 left-5 z-[78] inline-flex h-14 w-14 items-center justify-center rounded-full bg-ink text-white shadow-[0_18px_40px_rgba(15,23,42,0.22)] transition hover:-translate-y-1"
+      >
+        <Coffee className="h-5 w-5" />
+      </a>
 
       <SectionReveal id="toolkit" className="scroll-mt-28 px-4 pt-20 md:px-6 md:pt-24">
         <div className="relative mx-auto max-w-[1380px] overflow-hidden rounded-[42px] px-6 py-8 md:px-10 md:py-10">
@@ -662,27 +639,37 @@ export default function HomePage() {
           <div className="relative z-10 mt-12 space-y-6">
             <div className="rounded-[32px] bg-white/48 p-5 glass-soft md:p-6">
               <div className="flex items-center justify-between gap-3">
-                <h3 className="font-display text-[1.8rem] font-semibold tracking-[-0.06em] text-ink md:text-[2.15rem]">Education Qualifications</h3>
+                <h3 className="font-display text-[1.55rem] font-semibold tracking-[-0.06em] text-ink md:text-[1.95rem]">Education Qualifications</h3>
                 <motion.div style={{ scaleY: timelineProgress }} className="hidden h-16 w-px origin-top bg-gradient-to-b from-gold to-amber-400 md:block" />
               </div>
-              <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+              <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
                 {educationItems.map((item, index) => (
-                  <JourneyCard key={
-                    item.title + "-" + index
-                  } item={item} index={index} />
+                  <JourneyCard
+                    key={item.title + "-" + index}
+                    item={item}
+                    index={index}
+                    onOpen={setActiveJourneyItem}
+                    label="Education Qualification"
+                  />
                 ))}
               </div>
             </div>
 
             <div className="grid gap-6 xl:grid-cols-[0.82fr_1.18fr]">
               <div className="rounded-[32px] bg-white/48 p-5 glass-soft md:p-6">
-                <h3 className="font-display text-[1.8rem] font-semibold tracking-[-0.06em] text-ink md:text-[2.15rem]">Working Experience</h3>
+                <h3 className="font-display text-[1.55rem] font-semibold tracking-[-0.06em] text-ink md:text-[1.95rem]">Working Experience</h3>
                 <p className="mt-4 text-[15px] leading-8 text-zinc-600">
-                  Work experience is visible here for quick scanning, and the full section is also available on its own page.
+                  Logos and roles stay visible here, while the full details open in a cleaner preview.
                 </p>
-                <div className="mt-6 grid gap-4">
+                <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
                   {experienceItems.map((item, index) => (
-                    <JourneyCard key={item.title + "-home-" + index} item={item} index={index + educationItems.length} />
+                    <JourneyCard
+                      key={item.title + "-home-" + index}
+                      item={item}
+                      index={index + educationItems.length}
+                      onOpen={setActiveJourneyItem}
+                      label="Working Experience"
+                    />
                   ))}
                 </div>
                 <a
@@ -800,6 +787,64 @@ export default function HomePage() {
           </div>
         </div>
       </SectionReveal>
+
+      <AnimatePresence>
+        {activeJourneyItem ? (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[83] flex items-center justify-center bg-black/45 p-4 backdrop-blur-xl"
+            onClick={() => setActiveJourneyItem(null)}
+          >
+            <motion.div
+              initial={{ opacity: 0, y: 24, scale: 0.96 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 18, scale: 0.96 }}
+              transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+              onClick={(event) => event.stopPropagation()}
+              className="relative w-full max-w-4xl overflow-hidden rounded-[34px] bg-white p-5 shadow-2xl shadow-black/20 md:p-6"
+            >
+              <div className="grid gap-6 md:grid-cols-[0.78fr_1.22fr] md:items-center">
+                <div className="rounded-[28px] bg-white/85 p-4 shadow-[0_24px_60px_rgba(15,23,42,0.14)]">
+                  <div className="flex min-h-[260px] items-center justify-center rounded-[24px] bg-white p-6 md:min-h-[320px]">
+                    {activeJourneyItem.image ? (
+                      <Image src={activeJourneyItem.image} alt={activeJourneyItem.title} className="h-24 w-auto object-contain md:h-32" />
+                    ) : null}
+                  </div>
+                </div>
+                <div>
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-zinc-500">{activeJourneyItem.label}</p>
+                  <h3 className="font-display mt-4 text-3xl font-semibold tracking-[-0.06em] text-ink md:text-4xl">
+                    {activeJourneyItem.title}
+                  </h3>
+                  <p className="mt-3 text-sm font-medium uppercase tracking-[0.18em] text-zinc-500">{activeJourneyItem.subtitle}</p>
+                  <p className="mt-4 text-[15px] leading-8 text-zinc-600 md:text-[16px]">
+                    {activeJourneyItem.body}
+                  </p>
+                  <div className="mt-8 flex flex-wrap gap-3">
+                    {activeJourneyItem.href ? (
+                      <a
+                        href={activeJourneyItem.href}
+                        className="rounded-full bg-ink px-5 py-3 text-sm font-semibold text-white"
+                      >
+                        Visit Website
+                      </a>
+                    ) : null}
+                    <button
+                      type="button"
+                      onClick={() => setActiveJourneyItem(null)}
+                      className="rounded-full bg-zinc-100 px-5 py-3 text-sm font-semibold text-ink"
+                    >
+                      Close Preview
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        ) : null}
+      </AnimatePresence>
 
       <AnimatePresence>
         {activeCertificate ? (
