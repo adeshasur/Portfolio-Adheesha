@@ -7,6 +7,7 @@ import { useEffect, useRef, useState } from "react";
 import {
   bookshelfItems,
   contactContent,
+  certificateItems,
   galleryItems,
   heroContent,
   navItems,
@@ -265,6 +266,44 @@ function GalleryCard({ item, index, onOpen }) {
   );
 }
 
+function CertificateCard({ item, index, onOpen }) {
+  return (
+    <motion.button
+      type="button"
+      onClick={() => onOpen(item)}
+      initial={{ opacity: 0, y: 28 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.18 }}
+      transition={{ duration: 0.82, delay: index * 0.06, ease: [0.22, 1, 0.36, 1] }}
+      whileHover={{ y: -10, rotateX: 5, rotateY: index % 2 === 0 ? -6 : 6 }}
+      className="group relative overflow-hidden rounded-[32px] p-4 text-left [transform-style:preserve-3d] md:p-5"
+      style={{ background: item.accent, boxShadow: `0 28px 80px ${item.glow}` }}
+    >
+      <div className="noise-mask opacity-20" />
+      <div className="absolute inset-[1px] rounded-[31px] bg-white/72" />
+      <div className="absolute -right-8 top-6 h-28 w-28 rounded-full bg-white/45 blur-3xl transition duration-500 group-hover:scale-125" />
+      <div className="absolute left-6 top-6 h-16 w-16 rounded-3xl bg-white/35 blur-2xl" />
+      <div className="relative z-10">
+        <div className="relative overflow-hidden rounded-[24px] bg-white/65 p-2 shadow-[0_28px_45px_rgba(15,23,42,0.12)] [transform:translateZ(36px)]">
+          <div className="relative aspect-[1.42/1] overflow-hidden rounded-[18px] bg-white">
+            <Image
+              src={item.image}
+              alt={item.title}
+              fill
+              sizes="(min-width: 1280px) 28vw, (min-width: 768px) 42vw, 90vw"
+              className="object-cover object-center transition duration-500 group-hover:scale-[1.03]"
+            />
+          </div>
+        </div>
+        <div className="mt-5 [transform:translateZ(22px)]">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-zinc-500">{item.label}</p>
+          <h3 className="font-display mt-3 text-[1.7rem] font-semibold tracking-[-0.06em] text-ink md:text-[2rem]">{item.title}</h3>
+          <p className="mt-3 text-sm leading-7 text-zinc-600 md:text-[15px]">{item.description}</p>
+        </div>
+      </div>
+    </motion.button>
+  );
+}
 function TimelineCard({ item, index }) {
   const Icon = item.year === "Education" ? GraduationCap : item.year === "Experience" ? BriefcaseBusiness : Sparkles;
 
@@ -319,6 +358,7 @@ function BookSpine({ item, index }) {
 export default function HomePage() {
   const reduceMotion = useReducedMotion();
   const [activeGalleryItem, setActiveGalleryItem] = useState(null);
+  const [activeCertificate, setActiveCertificate] = useState(null);
   const heroRef = useRef(null);
   const timelineRef = useRef(null);
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
@@ -588,6 +628,23 @@ export default function HomePage() {
         </div>
       </SectionReveal>
 
+      <SectionReveal id="certificates" className="scroll-mt-28 px-4 pt-20 md:px-6 md:pt-24" delay={0.14}>
+        <div className="relative mx-auto max-w-[1380px] overflow-hidden rounded-[42px] px-6 py-8 md:px-10 md:py-10">
+          <div className="absolute inset-0 rounded-[42px] bg-gradient-to-br from-white/70 via-white/36 to-amber-50/50" />
+          <div className="absolute left-[10%] top-16 h-72 w-72 rounded-full bg-gold/12 blur-3xl" />
+          <div className="absolute right-[8%] bottom-10 h-80 w-80 rounded-full bg-sky-100/45 blur-3xl" />
+          <SectionIntro
+            eyebrow="Certificates"
+            title="Certified milestones presented as a premium 3D showcase instead of a flat archive."
+            text="Each certificate is framed like a tactile object with depth, glow, and motion so the whole section feels more memorable and elevated."
+          />
+          <div className="relative z-10 mt-10 grid gap-5 lg:grid-cols-2">
+            {certificateItems.map((item, index) => (
+              <CertificateCard key={item.title} item={item} index={index} onOpen={setActiveCertificate} />
+            ))}
+          </div>
+        </div>
+      </SectionReveal>
       <SectionReveal id="books" className="scroll-mt-28 px-4 pt-20 md:px-6 md:pt-24" delay={0.16}>
         <div className="relative mx-auto max-w-[1380px] overflow-hidden rounded-[42px] px-6 py-8 md:px-10 md:py-10">
           <div className="absolute inset-0 rounded-[42px] bg-gradient-to-br from-white/62 via-white/24 to-amber-50/55" />
@@ -655,6 +712,56 @@ export default function HomePage() {
       </SectionReveal>
 
       <AnimatePresence>
+        {activeCertificate ? (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[82] flex items-center justify-center bg-black/45 p-4 backdrop-blur-xl"
+            onClick={() => setActiveCertificate(null)}
+          >
+            <motion.div
+              initial={{ opacity: 0, y: 24, scale: 0.96 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 18, scale: 0.96 }}
+              transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+              onClick={(event) => event.stopPropagation()}
+              className="relative w-full max-w-5xl overflow-hidden rounded-[34px] bg-white p-5 shadow-2xl shadow-black/20 md:p-6"
+            >
+              <div className="grid gap-6 md:grid-cols-[1.12fr_0.88fr] md:items-center">
+                <div className="relative overflow-hidden rounded-[28px] bg-white/85 p-3 shadow-[0_24px_60px_rgba(15,23,42,0.14)]">
+                  <div className="relative aspect-[1.42/1] overflow-hidden rounded-[22px] bg-white">
+                    <Image
+                      src={activeCertificate.image}
+                      alt={activeCertificate.title}
+                      fill
+                      sizes="(min-width: 768px) 56vw, 90vw"
+                      className="object-cover object-center"
+                    />
+                  </div>
+                </div>
+                <div>
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-zinc-500">{activeCertificate.label}</p>
+                  <h3 className="font-display mt-4 text-3xl font-semibold tracking-[-0.06em] text-ink md:text-4xl">
+                    {activeCertificate.title}
+                  </h3>
+                  <p className="mt-4 text-[15px] leading-8 text-zinc-600 md:text-[16px]">
+                    {activeCertificate.description}
+                  </p>
+                  <button
+                    type="button"
+                    onClick={() => setActiveCertificate(null)}
+                    className="mt-8 rounded-full bg-ink px-5 py-3 text-sm font-semibold text-white"
+                  >
+                    Close Preview
+                  </button>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        ) : null}
+      </AnimatePresence>
+      <AnimatePresence>
         {activeGalleryItem ? (
           <motion.div
             initial={{ opacity: 0 }}
@@ -711,6 +818,7 @@ export default function HomePage() {
     </main>
   );
 }
+
 
 
 
