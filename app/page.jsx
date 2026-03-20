@@ -125,7 +125,7 @@ function ToolkitCard({ item, index }) {
   return (
     <motion.a
       href={item.href}
-      className={`group relative overflow-hidden rounded-[26px] p-4 md:p-5 ${item.className}`}
+      className={`group relative overflow-hidden rounded-[24px] p-3 md:p-4 ${item.className}`}
       style={{
         backgroundImage: `linear-gradient(160deg, rgba(255,255,255,0.78), rgba(255,255,255,0.48)), ${item.accent}`,
         boxShadow: `0 20px 60px ${item.glow}`,
@@ -148,7 +148,7 @@ function ToolkitCard({ item, index }) {
         whileHover={{ scaleX: 1, opacity: 1 }}
         transition={{ duration: 0.4 }}
       />
-      <div className="relative z-10 flex h-full flex-col justify-between gap-7">
+      <div className="relative z-10 flex h-full flex-col justify-between gap-6">
         <div className="flex items-start justify-between gap-4">
           <span className="inline-flex rounded-full bg-white/70 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-zinc-700 glass-soft">
             {item.category}
@@ -156,10 +156,10 @@ function ToolkitCard({ item, index }) {
           <span className="text-xs font-semibold uppercase tracking-[0.22em] text-zinc-500">0{index + 1}</span>
         </div>
         <div>
-          <h3 className="font-display text-[1.2rem] font-semibold tracking-[-0.06em] text-ink md:text-[1.55rem]">
+          <h3 className="font-display text-[1.05rem] font-semibold tracking-[-0.06em] text-ink md:text-[1.35rem]">
             {item.name}
           </h3>
-          <p className="mt-2 max-w-sm text-[12px] leading-6 text-zinc-600 md:text-[13px]">{item.description}</p>
+          <p className="mt-1.5 max-w-sm text-[11px] leading-5 text-zinc-600 md:text-[12px]">{item.description}</p>
         </div>
         <div className="inline-flex items-center gap-2 text-sm font-semibold text-ink">
           Open Tool <ArrowUpRight className="h-4 w-4" />
@@ -179,7 +179,7 @@ function ProjectCard({ project, index }) {
       viewport={{ once: true, amount: 0.16 }}
       transition={{ duration: 0.8, delay: index * 0.06, ease: [0.22, 1, 0.36, 1] }}
       whileHover={{ y: -10 }}
-      className="group relative overflow-hidden rounded-[28px] glass-panel p-4 md:p-5"
+      className="group relative overflow-hidden rounded-[24px] glass-panel p-3.5 md:p-4"
     >
       <div className="noise-mask" />
       <div className="absolute inset-0" style={{ background: project.accent }} />
@@ -188,7 +188,7 @@ function ProjectCard({ project, index }) {
         style={{ background: project.glow }}
       />
       <div className="absolute inset-[1px] rounded-[33px] bg-white/74" />
-      <div className="relative z-10 flex h-full flex-col gap-8">
+      <div className="relative z-10 flex h-full flex-col gap-6">
         <div className="flex items-center justify-between gap-4">
           <div>
             <p className="text-[11px] font-semibold uppercase tracking-[0.26em] text-zinc-500">{project.type}</p>
@@ -196,16 +196,16 @@ function ProjectCard({ project, index }) {
               {project.status}
             </p>
           </div>
-          <div className="font-display text-3xl font-semibold tracking-[-0.08em] text-zinc-200 transition-transform duration-500 group-hover:scale-105 md:text-4xl">
+          <div className="font-display text-[1.8rem] font-semibold tracking-[-0.08em] text-zinc-200 transition-transform duration-500 group-hover:scale-105 md:text-[2.3rem]">
             {project.name.slice(0, 2).toUpperCase()}
           </div>
         </div>
 
         <div>
-          <h3 className="font-display text-[1.7rem] font-semibold tracking-[-0.07em] text-ink md:text-[1.95rem]">
+          <h3 className="font-display text-[1.45rem] font-semibold tracking-[-0.07em] text-ink md:text-[1.65rem]">
             {project.name}
           </h3>
-          <p className="mt-2.5 max-w-xl text-[13px] leading-7 text-zinc-600 md:text-[14px]">{project.description}</p>
+          <p className="mt-2 max-w-xl text-[12px] leading-6 text-zinc-600 md:text-[13px]">{project.description}</p>
         </div>
 
         <div className="flex flex-wrap gap-2">
@@ -609,7 +609,7 @@ export default function HomePage() {
             text="Smaller cards, softer motion, and easier scanning across the full toolkit."
           />
 
-          <div className="relative z-10 mt-10 grid auto-rows-[150px] grid-cols-1 gap-4 md:grid-cols-6 xl:grid-cols-12">
+          <div className="relative z-10 mt-10 grid auto-rows-[128px] grid-cols-1 gap-4 md:grid-cols-6 xl:grid-cols-12">
             {toolkitItems.map((item, index) => (
               <ToolkitCard key={item.name} item={item} index={index} />
             ))}
@@ -629,7 +629,7 @@ export default function HomePage() {
             theme="dark"
           />
 
-          <div className="relative z-10 mt-7 grid gap-4 xl:grid-cols-2">
+          <div className="relative z-10 mt-6 grid gap-3 lg:grid-cols-2 2xl:grid-cols-3">
             {softwareProjects.map((project, index) => (
               <ProjectCard key={project.name} project={project} index={index} />
             ))}
@@ -915,6 +915,7 @@ export default function HomePage() {
     </main>
   );
 }
+
 
 
 
