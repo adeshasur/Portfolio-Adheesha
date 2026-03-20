@@ -2,18 +2,19 @@
 
 import Image from "next/image";
 import { AnimatePresence, motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
-import { ArrowUpRight, BriefcaseBusiness, Facebook, Github, GraduationCap, Instagram, Linkedin, Sparkles, WandSparkles } from "lucide-react";
+import { ArrowUpRight, Facebook, Github, Instagram, Linkedin, Sparkles, WandSparkles } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import {
+  achievementItems,
   bookshelfItems,
   contactContent,
   certificateItems,
+  educationItems,
   galleryItems,
   heroContent,
   navItems,
   socialLinks,
   softwareProjects,
-  timelineItems,
   toolkitItems,
 } from "../lib/site-data";
 
@@ -313,8 +314,10 @@ function JourneyCard({ item, index }) {
     <>
       <div className="flex items-start justify-between gap-4">
         <div>
-          <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-zinc-500">{item.year}</p>
-          <h3 className="font-display mt-3 text-2xl font-semibold tracking-[-0.06em] text-ink">{item.title}</h3>
+          {item.year ? (
+            <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-zinc-500">{item.year}</p>
+          ) : null}
+          <h3 className={`font-display text-2xl font-semibold tracking-[-0.06em] text-ink ${item.year ? "mt-3" : "mt-0"}`}>{item.title}</h3>
         </div>
         {item.image ? (
           <div className="flex h-16 min-w-16 items-center justify-center rounded-[20px] bg-white/85 px-4 shadow-[0_16px_35px_rgba(15,23,42,0.08)] md:h-20 md:min-w-20">
@@ -396,9 +399,6 @@ export default function HomePage() {
   const layerTwo = useTransform(scrollYProgress, [0, 1], [0, reduceMotion ? 0 : 90]);
   const layerThree = useTransform(scrollYProgress, [0, 1], [0, reduceMotion ? 0 : -110]);
   const timelineProgress = useTransform(timelineScroll, [0, 1], ["0%", "100%"]);
-  const educationItems = timelineItems.filter((item) => item.year === "Education");
-  const experienceItems = timelineItems.filter((item) => item.year === "Experience");
-  const achievementItems = timelineItems.filter((item) => item.year === "Achievement");
 
   return (
     <main className="relative overflow-hidden pb-20 text-ink md:pb-28">
@@ -417,14 +417,24 @@ export default function HomePage() {
 
           <nav className="hide-scrollbar flex max-w-[60vw] items-center gap-2 overflow-x-auto rounded-full bg-white/55 px-2 py-1.5 md:max-w-none md:gap-3 md:px-3">
             {navItems.map((item) => (
-              <button
-                key={item.id}
-                type="button"
-                onClick={() => smoothScrollTo(item.id)}
-                className="whitespace-nowrap rounded-full px-3 py-2 text-xs font-medium text-zinc-600 transition hover:bg-white/70 hover:text-ink md:text-sm"
-              >
-                {item.label}
-              </button>
+              item.href ? (
+                <a
+                  key={item.href}
+                  href={item.href}
+                  className="whitespace-nowrap rounded-full px-3 py-2 text-xs font-medium text-zinc-600 transition hover:bg-white/70 hover:text-ink md:text-sm"
+                >
+                  {item.label}
+                </a>
+              ) : (
+                <button
+                  key={item.id}
+                  type="button"
+                  onClick={() => smoothScrollTo(item.id)}
+                  className="whitespace-nowrap rounded-full px-3 py-2 text-xs font-medium text-zinc-600 transition hover:bg-white/70 hover:text-ink md:text-sm"
+                >
+                  {item.label}
+                </button>
+              )
             ))}
           </nav>
 
@@ -637,66 +647,71 @@ export default function HomePage() {
         </div>
       </SectionReveal>
 
-            <SectionReveal id="timeline" className="scroll-mt-28 px-4 pt-20 md:px-6 md:pt-24" delay={0.12}>
+            <SectionReveal id="education" className="scroll-mt-28 px-4 pt-20 md:px-6 md:pt-24" delay={0.12}>
         <div ref={timelineRef} className="relative mx-auto max-w-[1380px] overflow-hidden rounded-[42px] px-6 py-8 md:px-10 md:py-10">
           <div className="absolute inset-0 rounded-[42px] bg-gradient-to-br from-white/70 via-white/32 to-sky-50/40" />
           <div className="absolute left-[14%] top-20 h-72 w-72 rounded-full bg-sky-100/50 blur-3xl" />
           <div className="absolute right-[12%] bottom-10 h-72 w-72 rounded-full bg-gold/10 blur-3xl" />
           <SectionIntro
-            eyebrow="Journey"
-            title="Education qualifications and working experience are now separated into clearer, more usable groups."
-            text="Each logo card is larger, cleaner, and link-ready so the section feels more like a real portfolio proof wall than a single mixed timeline."
+            eyebrow="Education"
+            title="All education qualifications are now shown in one clearer logo-led wall."
+            text="Each education card is bigger, easier to scan, and clickable so the section feels more complete and useful. Working experience now lives on its own dedicated page."
           />
 
-          <div className="relative z-10 mt-12 grid gap-6 xl:grid-cols-[1fr_1fr_0.9fr]">
+          <div className="relative z-10 mt-12 space-y-6">
             <div className="rounded-[32px] bg-white/48 p-5 glass-soft md:p-6">
               <div className="flex items-center justify-between gap-3">
                 <h3 className="font-display text-[1.8rem] font-semibold tracking-[-0.06em] text-ink md:text-[2.15rem]">Education Qualifications</h3>
                 <motion.div style={{ scaleY: timelineProgress }} className="hidden h-16 w-px origin-top bg-gradient-to-b from-gold to-amber-400 md:block" />
               </div>
-              <div className="mt-6 space-y-4">
+              <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
                 {educationItems.map((item, index) => (
-                  <JourneyCard key={`${item.title}-${index}`} item={item} index={index} />
+                  <JourneyCard key={
+                    item.title + "-" + index
+                  } item={item} index={index} />
                 ))}
               </div>
             </div>
 
-            <div className="rounded-[32px] bg-white/48 p-5 glass-soft md:p-6">
-              <div className="flex items-center justify-between gap-3">
+            <div className="grid gap-6 xl:grid-cols-[0.82fr_1.18fr]">
+              <div className="rounded-[32px] bg-white/48 p-5 glass-soft md:p-6">
                 <h3 className="font-display text-[1.8rem] font-semibold tracking-[-0.06em] text-ink md:text-[2.15rem]">Working Experience</h3>
-                <motion.div style={{ scaleY: timelineProgress }} className="hidden h-16 w-px origin-top bg-gradient-to-b from-sky-400 to-gold md:block" />
+                <p className="mt-4 text-[15px] leading-8 text-zinc-600">
+                  Working experience now has its own dedicated page so the education area stays focused and your career history gets more space.
+                </p>
+                <a
+                  href="/experience"
+                  className="mt-6 inline-flex items-center gap-2 rounded-full bg-ink px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-black/10"
+                >
+                  Open Experience Page
+                  <ArrowUpRight className="h-4 w-4" />
+                </a>
               </div>
-              <div className="mt-6 space-y-4">
-                {experienceItems.map((item, index) => (
-                  <JourneyCard key={`${item.title}-${index}`} item={item} index={index + educationItems.length} />
-                ))}
-              </div>
-            </div>
 
-            <div className="rounded-[32px] bg-white/48 p-5 glass-soft md:p-6">
-              <h3 className="font-display text-[1.8rem] font-semibold tracking-[-0.06em] text-ink md:text-[2.15rem]">Achievements</h3>
-              <div className="mt-6 space-y-4">
-                {achievementItems.map((item, index) => (
-                  <motion.article
-                    key={`${item.title}-${index}`}
-                    initial={{ opacity: 0, y: 28 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, amount: 0.22 }}
-                    transition={{ duration: 0.75, delay: index * 0.06, ease: [0.22, 1, 0.36, 1] }}
-                    className="rounded-[28px] bg-white/68 p-5 glass-soft"
-                  >
-                    <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-zinc-500">{item.year}</p>
-                    <h4 className="font-display mt-3 text-2xl font-semibold tracking-[-0.05em] text-ink">{item.title}</h4>
-                    <p className="mt-2 text-sm font-medium uppercase tracking-[0.18em] text-zinc-500">{item.subtitle}</p>
-                    <p className="mt-4 text-[15px] leading-8 text-zinc-600">{item.body}</p>
-                  </motion.article>
-                ))}
+              <div className="rounded-[32px] bg-white/48 p-5 glass-soft md:p-6">
+                <h3 className="font-display text-[1.8rem] font-semibold tracking-[-0.06em] text-ink md:text-[2.15rem]">Achievements</h3>
+                <div className="mt-6 grid gap-4 md:grid-cols-2">
+                  {achievementItems.map((item, index) => (
+                    <motion.article
+                      key={item.title + "-" + index}
+                      initial={{ opacity: 0, y: 28 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true, amount: 0.22 }}
+                      transition={{ duration: 0.75, delay: index * 0.06, ease: [0.22, 1, 0.36, 1] }}
+                      className="rounded-[28px] bg-white/68 p-5 glass-soft"
+                    >
+                      <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-zinc-500">{item.year}</p>
+                      <h4 className="font-display mt-3 text-2xl font-semibold tracking-[-0.05em] text-ink">{item.title}</h4>
+                      <p className="mt-2 text-sm font-medium uppercase tracking-[0.18em] text-zinc-500">{item.subtitle}</p>
+                      <p className="mt-4 text-[15px] leading-8 text-zinc-600">{item.body}</p>
+                    </motion.article>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
         </div>
       </SectionReveal>
-
       <SectionReveal id="certificates" className="scroll-mt-28 px-4 pt-20 md:px-6 md:pt-24" delay={0.14}>
         <div className="relative mx-auto max-w-[1380px] overflow-hidden rounded-[42px] px-6 py-8 md:px-10 md:py-10">
           <div className="absolute inset-0 rounded-[42px] bg-gradient-to-br from-white/70 via-white/36 to-amber-50/50" />
@@ -887,6 +902,7 @@ export default function HomePage() {
     </main>
   );
 }
+
 
 
 
