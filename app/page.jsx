@@ -125,36 +125,29 @@ function ToolkitCard({ item, index }) {
   return (
     <motion.a
       href={item.href}
-      className={`group relative overflow-hidden rounded-[22px] p-3 ${item.className}`}
+      className={`group relative overflow-visible rounded-[20px] p-3 ${item.className}`}
       style={{
         backgroundImage: `linear-gradient(160deg, rgba(255,255,255,0.8), rgba(255,255,255,0.5)), ${item.accent}`,
-        boxShadow: `0 18px 44px ${item.glow}`,
+        boxShadow: `0 14px 34px ${item.glow}`,
       }}
       initial={{ opacity: 0, y: 18 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.15 }}
       transition={{ duration: 0.7, delay: index * 0.03, ease: [0.22, 1, 0.36, 1] }}
-      whileHover={{ y: -6, scale: 1.01 }}
+      whileHover={{ y: -4, scale: 1.02 }}
+      aria-label={item.name}
+      title={item.name}
     >
       <div className="noise-mask opacity-70" />
-      <div className="relative z-10 flex h-full flex-col justify-between gap-4">
-        <div className="flex items-center justify-between gap-3">
-          <div className="flex h-12 w-12 items-center justify-center rounded-[16px] bg-white/82 shadow-[0_12px_24px_rgba(15,23,42,0.08)]">
-            <span className="font-display text-[0.95rem] font-semibold tracking-[-0.06em] text-ink">{item.shortCode}</span>
-          </div>
-          <span className="rounded-full bg-white/70 px-2.5 py-1 text-[9px] font-semibold uppercase tracking-[0.18em] text-zinc-600 glass-soft">
-            {item.category}
+      <div className="relative z-10 flex h-full items-center justify-center">
+        <div className="flex h-12 w-12 items-center justify-center rounded-[16px] bg-white/84 shadow-[0_12px_24px_rgba(15,23,42,0.08)] md:h-14 md:w-14">
+          <span className="font-display text-[0.95rem] font-semibold tracking-[-0.06em] text-ink md:text-[1rem]">
+            {item.shortCode}
           </span>
         </div>
-        <div>
-          <h3 className="font-display text-[0.98rem] font-semibold tracking-[-0.05em] text-ink md:text-[1.1rem]">
-            {item.name}
-          </h3>
-          <p className="mt-1.5 text-[10.5px] leading-5 text-zinc-600 md:text-[11px]">{item.description}</p>
-        </div>
-        <div className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-ink">
-          Open <ArrowUpRight className="h-3.5 w-3.5" />
-        </div>
+      </div>
+      <div className="pointer-events-none absolute left-1/2 top-full z-20 mt-2 -translate-x-1/2 rounded-full bg-ink px-3 py-1.5 text-[11px] font-semibold text-white opacity-0 shadow-lg shadow-black/15 transition duration-200 group-hover:translate-y-1 group-hover:opacity-100">
+        {item.name}
       </div>
     </motion.a>
   );
@@ -170,38 +163,38 @@ function ProjectCard({ project, index }) {
       viewport={{ once: true, amount: 0.16 }}
       transition={{ duration: 0.8, delay: index * 0.06, ease: [0.22, 1, 0.36, 1] }}
       whileHover={{ y: -10 }}
-      className="group relative overflow-hidden rounded-[24px] glass-panel p-3.5 md:p-4"
+      className="group relative overflow-hidden rounded-[22px] glass-panel p-3 md:p-3.5"
     >
       <div className="noise-mask" />
       <div className="absolute inset-0" style={{ background: project.accent }} />
       <div
-        className="absolute inset-x-6 top-6 h-28 rounded-[22px] opacity-90 blur-3xl"
+        className="absolute inset-x-5 top-5 h-20 rounded-[20px] opacity-90 blur-3xl"
         style={{ background: project.glow }}
       />
-      <div className="absolute inset-[1px] rounded-[33px] bg-white/74" />
-      <div className="relative z-10 flex h-full flex-col gap-6">
+      <div className="absolute inset-[1px] rounded-[24px] bg-white/74" />
+      <div className="relative z-10 flex h-full flex-col gap-4">
         <div className="flex items-center justify-between gap-4">
           <div>
-            <p className="text-[11px] font-semibold uppercase tracking-[0.26em] text-zinc-500">{project.type}</p>
-            <p className="mt-2 inline-flex rounded-full bg-white/75 px-3 py-1 text-xs font-semibold text-zinc-700 glass-soft">
+            <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-zinc-500">{project.type}</p>
+            <p className="mt-1.5 inline-flex rounded-full bg-white/75 px-2.5 py-1 text-[10px] font-semibold text-zinc-700 glass-soft">
               {project.status}
             </p>
           </div>
-          <div className="font-display text-[1.8rem] font-semibold tracking-[-0.08em] text-zinc-200 transition-transform duration-500 group-hover:scale-105 md:text-[2.3rem]">
+          <div className="font-display text-[1.35rem] font-semibold tracking-[-0.08em] text-zinc-200 transition-transform duration-500 group-hover:scale-105 md:text-[1.7rem]">
             {project.name.slice(0, 2).toUpperCase()}
           </div>
         </div>
 
         <div>
-          <h3 className="font-display text-[1.45rem] font-semibold tracking-[-0.07em] text-ink md:text-[1.65rem]">
+          <h3 className="font-display text-[1.2rem] font-semibold tracking-[-0.07em] text-ink md:text-[1.35rem]">
             {project.name}
           </h3>
-          <p className="mt-2 max-w-xl text-[12px] leading-6 text-zinc-600 md:text-[13px]">{project.description}</p>
+          <p className="mt-1.5 max-w-xl text-[11px] leading-[1.45rem] text-zinc-600 md:text-[12px]">{project.description}</p>
         </div>
 
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-1.5">
           {project.details.map((detail) => (
-            <span key={detail} className="rounded-full bg-white/72 px-2.5 py-1 text-[10px] font-medium text-zinc-700 glass-soft">
+            <span key={detail} className="rounded-full bg-white/72 px-2 py-1 text-[9px] font-medium text-zinc-700 glass-soft">
               {detail}
             </span>
           ))}
@@ -211,7 +204,7 @@ function ProjectCard({ project, index }) {
           <button
             type="button"
             onClick={() => smoothScrollTo(project.href.replace("#", ""))}
-            className="inline-flex w-fit items-center gap-2 rounded-full bg-ink px-4 py-2.5 text-sm font-semibold text-white shadow-lg shadow-black/10"
+            className="inline-flex w-fit items-center gap-2 rounded-full bg-ink px-3.5 py-2 text-[12px] font-semibold text-white shadow-lg shadow-black/10"
           >
             {project.cta}
             <ArrowUpRight className="h-4 w-4" />
@@ -219,7 +212,7 @@ function ProjectCard({ project, index }) {
         ) : (
           <a
             href={project.href}
-            className="inline-flex w-fit items-center gap-2 rounded-full bg-ink px-4 py-2.5 text-sm font-semibold text-white shadow-lg shadow-black/10"
+            className="inline-flex w-fit items-center gap-2 rounded-full bg-ink px-3.5 py-2 text-[12px] font-semibold text-white shadow-lg shadow-black/10"
           >
             {project.cta}
             <ArrowUpRight className="h-4 w-4" />
@@ -271,29 +264,29 @@ function CertificateCard({ item, index, onOpen }) {
       viewport={{ once: true, amount: 0.18 }}
       transition={{ duration: 0.82, delay: index * 0.06, ease: [0.22, 1, 0.36, 1] }}
       whileHover={{ y: -10, rotateX: 4, rotateY: index % 2 === 0 ? -4 : 4 }}
-      className={`group relative mx-auto w-full overflow-hidden rounded-[30px] p-3 text-left [transform-style:preserve-3d] md:p-3.5 ${isPortrait ? "max-w-[280px]" : "max-w-[420px]"}`}
-      style={{ background: item.accent, boxShadow: `0 28px 80px ${item.glow}` }}
+      className={`group relative mx-auto w-full overflow-hidden rounded-[26px] p-2.5 text-left [transform-style:preserve-3d] md:p-3 ${isPortrait ? "max-w-[220px]" : "max-w-[320px]"}`}
+      style={{ background: item.accent, boxShadow: `0 22px 56px ${item.glow}` }}
     >
       <div className="noise-mask opacity-20" />
-      <div className="absolute inset-[1px] rounded-[31px] bg-white/72" />
-      <div className="absolute -right-8 top-6 h-28 w-28 rounded-full bg-white/45 blur-3xl transition duration-500 group-hover:scale-125" />
-      <div className="absolute left-6 top-6 h-16 w-16 rounded-3xl bg-white/35 blur-2xl" />
+      <div className="absolute inset-[1px] rounded-[27px] bg-white/72" />
+      <div className="absolute -right-8 top-6 h-20 w-20 rounded-full bg-white/45 blur-3xl transition duration-500 group-hover:scale-125" />
+      <div className="absolute left-4 top-4 h-14 w-14 rounded-3xl bg-white/35 blur-2xl" />
       <div className="relative z-10">
-        <div className={`relative overflow-hidden rounded-[24px] bg-white/65 p-2 shadow-[0_28px_45px_rgba(15,23,42,0.12)] [transform:translateZ(36px)] ${isPortrait ? "mx-auto max-w-[280px]" : ""}`}>
-          <div className={`relative overflow-hidden rounded-[18px] bg-white ${isPortrait ? "aspect-[0.76/1]" : "aspect-[1.48/1]"}`}>
+        <div className={`relative overflow-hidden rounded-[20px] bg-white/65 p-1.5 shadow-[0_22px_38px_rgba(15,23,42,0.12)] [transform:translateZ(36px)] ${isPortrait ? "mx-auto max-w-[220px]" : ""}`}>
+          <div className={`relative overflow-hidden rounded-[16px] bg-white ${isPortrait ? "aspect-[0.76/1]" : "aspect-[1.5/1]"}`}>
             <Image
               src={item.image}
               alt={item.title}
               fill
-              sizes="(min-width: 1280px) 28vw, (min-width: 768px) 42vw, 90vw"
+              sizes="(min-width: 1536px) 18vw, (min-width: 1280px) 20vw, (min-width: 768px) 28vw, 46vw"
               className="object-contain object-center bg-white p-1 transition duration-500 group-hover:scale-[1.02]"
             />
           </div>
         </div>
-        <div className="mt-4 [transform:translateZ(22px)]">
-          <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-zinc-500">{item.label}</p>
-          <h3 className="font-display mt-2 text-[1.2rem] font-semibold tracking-[-0.06em] text-ink md:text-[1.45rem]">{item.title}</h3>
-          <p className="mt-2 text-[13px] leading-6 text-zinc-600 md:text-[14px]">{item.description}</p>
+        <div className="mt-3 [transform:translateZ(22px)]">
+          <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-zinc-500">{item.label}</p>
+          <h3 className="font-display mt-1.5 text-[1rem] font-semibold tracking-[-0.06em] text-ink md:text-[1.1rem]">{item.title}</h3>
+          <p className="mt-1.5 text-[11px] leading-5 text-zinc-600 md:text-[12px]">{item.description}</p>
         </div>
       </div>
     </motion.button>
@@ -306,8 +299,8 @@ function JourneyCard({ item, index }) {
     <>
       <div className="flex items-center gap-4 rounded-[22px] bg-white/60 p-3.5">
         {item.image ? (
-          <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded-[18px] bg-white shadow-[0_16px_32px_rgba(15,23,42,0.08)] md:h-24 md:w-24">
-            <Image src={item.image} alt={item.title} className="h-12 w-auto object-contain md:h-14" />
+          <div className="flex h-24 w-24 shrink-0 items-center justify-center rounded-[20px] bg-white shadow-[0_16px_32px_rgba(15,23,42,0.08)] md:h-28 md:w-28">
+            <Image src={item.image} alt={item.title} className="h-14 w-auto object-contain md:h-16" />
           </div>
         ) : null}
         <div className="min-w-0">
@@ -587,19 +580,12 @@ export default function HomePage() {
               </div>
             ))}
           </motion.div>
-          <div className="pointer-events-none absolute inset-x-6 bottom-5 z-30 hidden items-end justify-between md:flex">
+          <div className="pointer-events-none absolute bottom-5 left-6 z-30 hidden md:flex">
             <a
               href="https://buymeacoffee.com/adeshasur"
               className="pointer-events-auto inline-flex items-center gap-2 rounded-full bg-white/72 px-4 py-2.5 text-sm font-semibold text-ink glass-soft"
             >
               Buy Me a Coffee
-              <ArrowUpRight className="h-4 w-4" />
-            </a>
-            <a
-              href="https://buymeacoffee.com/adeshasur"
-              className="pointer-events-auto inline-flex items-center gap-2 rounded-full bg-black px-4 py-2.5 text-sm font-semibold text-white shadow-lg shadow-black/10"
-            >
-              Support Adheesha
               <ArrowUpRight className="h-4 w-4" />
             </a>
           </div>
@@ -616,7 +602,7 @@ export default function HomePage() {
             text="Smaller cards, softer motion, and easier scanning across the full toolkit."
           />
 
-          <div className="relative z-10 mt-8 grid auto-rows-[122px] grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-4 xl:grid-cols-6">
+          <div className="relative z-10 mt-8 grid auto-rows-[96px] grid-cols-3 gap-3 sm:grid-cols-4 md:grid-cols-5 xl:grid-cols-7">
             {toolkitItems.map((item, index) => (
               <ToolkitCard key={item.name} item={item} index={index} />
             ))}
@@ -636,7 +622,7 @@ export default function HomePage() {
             theme="dark"
           />
 
-          <div className="relative z-10 mt-6 grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+          <div className="relative z-10 mt-6 grid gap-3 md:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-5">
             {softwareProjects.map((project, index) => (
               <ProjectCard key={project.name} project={project} index={index} />
             ))}
@@ -742,7 +728,7 @@ export default function HomePage() {
             title="Certificates arranged in a tighter showcase."
             text="A cleaner certificate wall with smaller cards and better room for future additions."
           />
-          <div className="relative z-10 mt-6 grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+          <div className="relative z-10 mt-6 grid gap-3 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
             {certificateItems.map((item, index) => (
               <CertificateCard key={item.title} item={item} index={index} onOpen={setActiveCertificate} />
             ))}
