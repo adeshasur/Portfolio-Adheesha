@@ -429,7 +429,7 @@ export default function HomePage() {
                     Open Toolkit
                   </button>
                 </div>
-                <div className="mt-5 flex flex-wrap items-center gap-3">
+                <div className="mt-7 flex flex-wrap items-center gap-3 md:mt-8">
                   {socialLinks.map((item) => {
                     const Icon = socialIconMap[item.icon];
                     return (
@@ -711,6 +711,7 @@ export default function HomePage() {
     </main>
   );
 }
+
 
 
 
