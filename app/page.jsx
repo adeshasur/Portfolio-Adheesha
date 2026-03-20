@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { AnimatePresence, motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
-import { ArrowUpRight, BriefcaseBusiness, GraduationCap, Sparkles, WandSparkles } from "lucide-react";
+import { ArrowUpRight, BriefcaseBusiness, Facebook, Github, GraduationCap, Instagram, Linkedin, Sparkles, WandSparkles } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import {
   bookshelfItems,
@@ -10,12 +10,19 @@ import {
   galleryItems,
   heroContent,
   navItems,
+  socialLinks,
   softwareProjects,
   timelineItems,
   toolkitItems,
 } from "../lib/site-data";
 
 const easeOutQuint = (value) => 1 - Math.pow(1 - value, 5);
+const socialIconMap = {
+  github: Github,
+  linkedin: Linkedin,
+  instagram: Instagram,
+  facebook: Facebook,
+};
 
 function smoothScrollTo(id) {
   if (typeof window === "undefined") return;
@@ -404,22 +411,39 @@ export default function HomePage() {
                 initial={reduceMotion ? false : { opacity: 0, y: 28 }}
                 animate={reduceMotion ? {} : { opacity: 1, y: 0 }}
                 transition={{ duration: 0.82, delay: 0.14, ease: [0.22, 1, 0.36, 1] }}
-                className="mt-14 flex flex-wrap gap-3"
+                className="mt-14"
               >
-                <button
-                  type="button"
-                  onClick={() => smoothScrollTo("projects")}
-                  className="rounded-full bg-ink px-6 py-3.5 text-sm font-semibold text-white shadow-lg shadow-black/10"
-                >
-                  Explore Projects
-                </button>
-                <button
-                  type="button"
-                  onClick={() => smoothScrollTo("toolkit")}
-                  className="rounded-full border border-white/50 bg-white/60 px-6 py-3.5 text-sm font-semibold text-ink glass-soft"
-                >
-                  Open Toolkit
-                </button>
+                <div className="flex flex-wrap gap-3">
+                  <button
+                    type="button"
+                    onClick={() => smoothScrollTo("projects")}
+                    className="rounded-full bg-ink px-6 py-3.5 text-sm font-semibold text-white shadow-lg shadow-black/10"
+                  >
+                    Explore Projects
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => smoothScrollTo("toolkit")}
+                    className="rounded-full border border-white/50 bg-white/60 px-6 py-3.5 text-sm font-semibold text-ink glass-soft"
+                  >
+                    Open Toolkit
+                  </button>
+                </div>
+                <div className="mt-5 flex flex-wrap items-center gap-3">
+                  {socialLinks.map((item) => {
+                    const Icon = socialIconMap[item.icon];
+                    return (
+                      <a
+                        key={item.label}
+                        href={item.href}
+                        aria-label={item.label}
+                        className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-black text-white shadow-lg shadow-black/10 transition duration-300 hover:-translate-y-1 hover:bg-zinc-800"
+                      >
+                        <Icon className="h-4.5 w-4.5" />
+                      </a>
+                    );
+                  })}
+                </div>
               </motion.div>
             </div>
 
@@ -687,6 +711,8 @@ export default function HomePage() {
     </main>
   );
 }
+
+
 
 
 
