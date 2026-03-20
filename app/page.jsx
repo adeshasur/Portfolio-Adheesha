@@ -267,6 +267,8 @@ function GalleryCard({ item, index, onOpen }) {
 }
 
 function CertificateCard({ item, index, onOpen }) {
+  const isPortrait = item.orientation === "portrait";
+
   return (
     <motion.button
       type="button"
@@ -275,8 +277,8 @@ function CertificateCard({ item, index, onOpen }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.18 }}
       transition={{ duration: 0.82, delay: index * 0.06, ease: [0.22, 1, 0.36, 1] }}
-      whileHover={{ y: -10, rotateX: 5, rotateY: index % 2 === 0 ? -6 : 6 }}
-      className="group relative overflow-hidden rounded-[32px] p-4 text-left [transform-style:preserve-3d] md:p-5"
+      whileHover={{ y: -10, rotateX: 4, rotateY: index % 2 === 0 ? -4 : 4 }}
+      className={`group relative mx-auto w-full overflow-hidden rounded-[32px] p-4 text-left [transform-style:preserve-3d] md:p-5 ${isPortrait ? "max-w-[350px]" : "max-w-[520px]"}`}
       style={{ background: item.accent, boxShadow: `0 28px 80px ${item.glow}` }}
     >
       <div className="noise-mask opacity-20" />
@@ -284,49 +286,76 @@ function CertificateCard({ item, index, onOpen }) {
       <div className="absolute -right-8 top-6 h-28 w-28 rounded-full bg-white/45 blur-3xl transition duration-500 group-hover:scale-125" />
       <div className="absolute left-6 top-6 h-16 w-16 rounded-3xl bg-white/35 blur-2xl" />
       <div className="relative z-10">
-        <div className="relative overflow-hidden rounded-[24px] bg-white/65 p-2 shadow-[0_28px_45px_rgba(15,23,42,0.12)] [transform:translateZ(36px)]">
-          <div className="relative aspect-[1.42/1] overflow-hidden rounded-[18px] bg-white">
+        <div className={`relative overflow-hidden rounded-[24px] bg-white/65 p-2 shadow-[0_28px_45px_rgba(15,23,42,0.12)] [transform:translateZ(36px)] ${isPortrait ? "mx-auto max-w-[280px]" : ""}`}>
+          <div className={`relative overflow-hidden rounded-[18px] bg-white ${isPortrait ? "aspect-[0.76/1]" : "aspect-[1.48/1]"}`}>
             <Image
               src={item.image}
               alt={item.title}
               fill
               sizes="(min-width: 1280px) 28vw, (min-width: 768px) 42vw, 90vw"
-              className="object-cover object-center transition duration-500 group-hover:scale-[1.03]"
+              className="object-contain object-center bg-white p-1 transition duration-500 group-hover:scale-[1.02]"
             />
           </div>
         </div>
         <div className="mt-5 [transform:translateZ(22px)]">
           <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-zinc-500">{item.label}</p>
-          <h3 className="font-display mt-3 text-[1.7rem] font-semibold tracking-[-0.06em] text-ink md:text-[2rem]">{item.title}</h3>
+          <h3 className="font-display mt-3 text-[1.55rem] font-semibold tracking-[-0.06em] text-ink md:text-[1.85rem]">{item.title}</h3>
           <p className="mt-3 text-sm leading-7 text-zinc-600 md:text-[15px]">{item.description}</p>
         </div>
       </div>
     </motion.button>
   );
 }
-function TimelineCard({ item, index }) {
-  const Icon = item.year === "Education" ? GraduationCap : item.year === "Experience" ? BriefcaseBusiness : Sparkles;
+
+function JourneyCard({ item, index }) {
+  const cardClass = "group relative overflow-hidden rounded-[28px] bg-white/62 p-5 glass-soft transition duration-300 hover:-translate-y-1.5 md:p-6";
+  const body = (
+    <>
+      <div className="flex items-start justify-between gap-4">
+        <div>
+          <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-zinc-500">{item.year}</p>
+          <h3 className="font-display mt-3 text-2xl font-semibold tracking-[-0.06em] text-ink">{item.title}</h3>
+        </div>
+        {item.image ? (
+          <div className="flex h-16 min-w-16 items-center justify-center rounded-[20px] bg-white/85 px-4 shadow-[0_16px_35px_rgba(15,23,42,0.08)] md:h-20 md:min-w-20">
+            <Image src={item.image} alt={item.title} className="h-10 w-auto object-contain md:h-12" />
+          </div>
+        ) : null}
+      </div>
+      <p className="mt-3 text-sm font-medium uppercase tracking-[0.18em] text-zinc-500">{item.subtitle}</p>
+      <p className="mt-4 text-[15px] leading-8 text-zinc-600">{item.body}</p>
+      {item.href ? (
+        <div className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-ink">
+          Visit Link <ArrowUpRight className="h-4 w-4" />
+        </div>
+      ) : null}
+    </>
+  );
+
+  if (item.href) {
+    return (
+      <motion.a
+        href={item.href}
+        initial={{ opacity: 0, y: 28 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.22 }}
+        transition={{ duration: 0.75, delay: index * 0.05, ease: [0.22, 1, 0.36, 1] }}
+        className={cardClass}
+      >
+        {body}
+      </motion.a>
+    );
+  }
 
   return (
     <motion.article
-      initial={{ opacity: 0, x: 28 }}
-      whileInView={{ opacity: 1, x: 0 }}
+      initial={{ opacity: 0, y: 28 }}
+      whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.22 }}
       transition={{ duration: 0.75, delay: index * 0.05, ease: [0.22, 1, 0.36, 1] }}
-      className="relative ml-8 rounded-[28px] glass-panel p-5 md:ml-12 md:p-6"
+      className={cardClass}
     >
-      <div className="absolute -left-[42px] top-8 flex h-8 w-8 items-center justify-center rounded-full bg-white/90 shadow-lg shadow-black/5 md:-left-[54px]">
-        <Icon className="h-4 w-4 text-gold" />
-      </div>
-      <div className="flex flex-wrap items-center gap-4">
-        <span className="rounded-full bg-white/70 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.24em] text-zinc-600 glass-soft">
-          {item.year}
-        </span>
-        {item.image ? <Image src={item.image} alt={item.title} className="h-8 w-auto object-contain" /> : null}
-      </div>
-      <h3 className="font-display mt-4 text-2xl font-semibold tracking-[-0.06em] text-ink">{item.title}</h3>
-      <p className="mt-2 text-sm font-medium uppercase tracking-[0.18em] text-zinc-500">{item.subtitle}</p>
-      <p className="mt-4 text-[15px] leading-8 text-zinc-600">{item.body}</p>
+      {body}
     </motion.article>
   );
 }
@@ -367,6 +396,9 @@ export default function HomePage() {
   const layerTwo = useTransform(scrollYProgress, [0, 1], [0, reduceMotion ? 0 : 90]);
   const layerThree = useTransform(scrollYProgress, [0, 1], [0, reduceMotion ? 0 : -110]);
   const timelineProgress = useTransform(timelineScroll, [0, 1], ["0%", "100%"]);
+  const educationItems = timelineItems.filter((item) => item.year === "Education");
+  const experienceItems = timelineItems.filter((item) => item.year === "Experience");
+  const achievementItems = timelineItems.filter((item) => item.year === "Achievement");
 
   return (
     <main className="relative overflow-hidden pb-20 text-ink md:pb-28">
@@ -605,24 +637,61 @@ export default function HomePage() {
         </div>
       </SectionReveal>
 
-      <SectionReveal id="timeline" className="scroll-mt-28 px-4 pt-20 md:px-6 md:pt-24" delay={0.12}>
+            <SectionReveal id="timeline" className="scroll-mt-28 px-4 pt-20 md:px-6 md:pt-24" delay={0.12}>
         <div ref={timelineRef} className="relative mx-auto max-w-[1380px] overflow-hidden rounded-[42px] px-6 py-8 md:px-10 md:py-10">
           <div className="absolute inset-0 rounded-[42px] bg-gradient-to-br from-white/70 via-white/32 to-sky-50/40" />
           <div className="absolute left-[14%] top-20 h-72 w-72 rounded-full bg-sky-100/50 blur-3xl" />
           <div className="absolute right-[12%] bottom-10 h-72 w-72 rounded-full bg-gold/10 blur-3xl" />
           <SectionIntro
-            eyebrow="Interactive Timeline"
-            title="Education, experience, and achievements connected through one animated vertical story."
-            text="As you scroll, the line and cards reveal in sequence so the journey feels intentional and alive instead of static."
+            eyebrow="Journey"
+            title="Education qualifications and working experience are now separated into clearer, more usable groups."
+            text="Each logo card is larger, cleaner, and link-ready so the section feels more like a real portfolio proof wall than a single mixed timeline."
           />
 
-          <div className="relative z-10 mt-12 pl-2 md:pl-6">
-            <div className="absolute left-5 top-0 h-full w-px bg-white/50 md:left-7" />
-            <motion.div style={{ height: timelineProgress }} className="absolute left-5 top-0 w-px bg-gradient-to-b from-gold via-amber-400 to-sky-400 md:left-7" />
-            <div className="space-y-5 md:space-y-6">
-              {timelineItems.map((item, index) => (
-                <TimelineCard key={`${item.title}-${index}`} item={item} index={index} />
-              ))}
+          <div className="relative z-10 mt-12 grid gap-6 xl:grid-cols-[1fr_1fr_0.9fr]">
+            <div className="rounded-[32px] bg-white/48 p-5 glass-soft md:p-6">
+              <div className="flex items-center justify-between gap-3">
+                <h3 className="font-display text-[1.8rem] font-semibold tracking-[-0.06em] text-ink md:text-[2.15rem]">Education Qualifications</h3>
+                <motion.div style={{ scaleY: timelineProgress }} className="hidden h-16 w-px origin-top bg-gradient-to-b from-gold to-amber-400 md:block" />
+              </div>
+              <div className="mt-6 space-y-4">
+                {educationItems.map((item, index) => (
+                  <JourneyCard key={`${item.title}-${index}`} item={item} index={index} />
+                ))}
+              </div>
+            </div>
+
+            <div className="rounded-[32px] bg-white/48 p-5 glass-soft md:p-6">
+              <div className="flex items-center justify-between gap-3">
+                <h3 className="font-display text-[1.8rem] font-semibold tracking-[-0.06em] text-ink md:text-[2.15rem]">Working Experience</h3>
+                <motion.div style={{ scaleY: timelineProgress }} className="hidden h-16 w-px origin-top bg-gradient-to-b from-sky-400 to-gold md:block" />
+              </div>
+              <div className="mt-6 space-y-4">
+                {experienceItems.map((item, index) => (
+                  <JourneyCard key={`${item.title}-${index}`} item={item} index={index + educationItems.length} />
+                ))}
+              </div>
+            </div>
+
+            <div className="rounded-[32px] bg-white/48 p-5 glass-soft md:p-6">
+              <h3 className="font-display text-[1.8rem] font-semibold tracking-[-0.06em] text-ink md:text-[2.15rem]">Achievements</h3>
+              <div className="mt-6 space-y-4">
+                {achievementItems.map((item, index) => (
+                  <motion.article
+                    key={`${item.title}-${index}`}
+                    initial={{ opacity: 0, y: 28 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.22 }}
+                    transition={{ duration: 0.75, delay: index * 0.06, ease: [0.22, 1, 0.36, 1] }}
+                    className="rounded-[28px] bg-white/68 p-5 glass-soft"
+                  >
+                    <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-zinc-500">{item.year}</p>
+                    <h4 className="font-display mt-3 text-2xl font-semibold tracking-[-0.05em] text-ink">{item.title}</h4>
+                    <p className="mt-2 text-sm font-medium uppercase tracking-[0.18em] text-zinc-500">{item.subtitle}</p>
+                    <p className="mt-4 text-[15px] leading-8 text-zinc-600">{item.body}</p>
+                  </motion.article>
+                ))}
+              </div>
             </div>
           </div>
         </div>
@@ -728,15 +797,15 @@ export default function HomePage() {
               onClick={(event) => event.stopPropagation()}
               className="relative w-full max-w-5xl overflow-hidden rounded-[34px] bg-white p-5 shadow-2xl shadow-black/20 md:p-6"
             >
-              <div className="grid gap-6 md:grid-cols-[1.12fr_0.88fr] md:items-center">
-                <div className="relative overflow-hidden rounded-[28px] bg-white/85 p-3 shadow-[0_24px_60px_rgba(15,23,42,0.14)]">
-                  <div className="relative aspect-[1.42/1] overflow-hidden rounded-[22px] bg-white">
+              <div className={`grid gap-6 md:items-center ${activeCertificate.orientation === "portrait" ? "md:grid-cols-[0.78fr_1.22fr]" : "md:grid-cols-[1.08fr_0.92fr]"}`}>
+                <div className={`relative overflow-hidden rounded-[28px] bg-white/85 p-3 shadow-[0_24px_60px_rgba(15,23,42,0.14)] ${activeCertificate.orientation === "portrait" ? "mx-auto max-w-[420px]" : ""}`}>
+                  <div className={`relative overflow-hidden rounded-[22px] bg-white ${activeCertificate.orientation === "portrait" ? "aspect-[0.76/1]" : "aspect-[1.42/1]"}`}>
                     <Image
                       src={activeCertificate.image}
                       alt={activeCertificate.title}
                       fill
                       sizes="(min-width: 768px) 56vw, 90vw"
-                      className="object-cover object-center"
+                      className="object-contain object-center bg-white p-1"
                     />
                   </div>
                 </div>
@@ -818,6 +887,7 @@ export default function HomePage() {
     </main>
   );
 }
+
 
 
 
