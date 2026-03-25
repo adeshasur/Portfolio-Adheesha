@@ -121,35 +121,100 @@ function RoleRoller({ roles, reduceMotion }) {
     </div>
   );
 }
-function ToolkitCard({ item, index }) {
+const toolkitGroups = [
+  {
+    title: "Identity & Lookup",
+    eyebrow: "Daily Utilities",
+    description: "Fast-access tools for decoding details, searching records, and handling practical lookup work.",
+    accent: "linear-gradient(145deg, rgba(220, 252, 231, 0.85), rgba(255, 255, 255, 0.74), rgba(224, 242, 254, 0.78))",
+    glow: "rgba(56, 189, 120, 0.16)",
+    items: toolkitItems.filter((item) => ["NIC Decoder", "Postal Code Finder"].includes(item.name)),
+  },
+  {
+    title: "Creative & Productivity",
+    eyebrow: "Make & Format",
+    description: "Tools for generating assets, transforming content, and shaping cleaner visual output faster.",
+    accent: "linear-gradient(145deg, rgba(254, 240, 138, 0.78), rgba(255, 255, 255, 0.8), rgba(253, 230, 138, 0.72))",
+    glow: "rgba(245, 158, 11, 0.16)",
+    items: toolkitItems.filter((item) => ["QR Studio", "Text Transformer Pro", "Chroma Craft"].includes(item.name)),
+  },
+  {
+    title: "Security & Finance",
+    eyebrow: "Safer Decisions",
+    description: "Practical tools built around protection, calculation clarity, and everyday personal workflow support.",
+    accent: "linear-gradient(145deg, rgba(226, 232, 240, 0.84), rgba(255, 255, 255, 0.78), rgba(224, 231, 255, 0.74))",
+    glow: "rgba(71, 85, 105, 0.16)",
+    items: toolkitItems.filter((item) => ["Vault Guard", "Interest Calc Pro"].includes(item.name)),
+  },
+];
+
+function ToolkitCategoryCard({ group, index }) {
   return (
-    <motion.a
-      href={item.href}
-      className={`group relative overflow-visible rounded-[20px] p-3 ${item.className}`}
+    <motion.article
+      className="group relative overflow-hidden rounded-[28px] p-5 md:p-6"
       style={{
-        backgroundImage: `linear-gradient(160deg, rgba(255,255,255,0.8), rgba(255,255,255,0.5)), ${item.accent}`,
-        boxShadow: `0 14px 34px ${item.glow}`,
+        backgroundImage: `linear-gradient(165deg, rgba(255,255,255,0.82), rgba(255,255,255,0.58)), ${group.accent}`,
+        boxShadow: `0 20px 44px ${group.glow}`,
       }}
-      initial={{ opacity: 0, y: 18 }}
+      initial={{ opacity: 0, y: 22 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.15 }}
-      transition={{ duration: 0.7, delay: index * 0.03, ease: [0.22, 1, 0.36, 1] }}
-      whileHover={{ y: -4, scale: 1.02 }}
-      aria-label={item.name}
-      title={item.name}
+      viewport={{ once: true, amount: 0.14 }}
+      transition={{ duration: 0.75, delay: index * 0.06, ease: [0.22, 1, 0.36, 1] }}
+      whileHover={{ y: -8 }}
     >
-      <div className="noise-mask opacity-70" />
-      <div className="relative z-10 flex h-full items-center justify-center">
-        <div className="flex h-12 w-12 items-center justify-center rounded-[16px] bg-white/84 shadow-[0_12px_24px_rgba(15,23,42,0.08)] md:h-14 md:w-14">
-          <span className="font-display text-[0.95rem] font-semibold tracking-[-0.06em] text-ink md:text-[1rem]">
-            {item.shortCode}
+      <div className="noise-mask opacity-35" />
+      <div className="relative z-10 flex h-full flex-col">
+        <div className="flex items-start justify-between gap-4">
+          <span className="inline-flex rounded-full bg-white/75 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-zinc-600 glass-soft">
+            {group.eyebrow}
+          </span>
+          <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-zinc-500">
+            {group.items.length} Tools
           </span>
         </div>
+
+        <h3 className="font-display mt-5 text-[1.55rem] font-semibold tracking-[-0.06em] text-ink md:text-[1.75rem]">
+          {group.title}
+        </h3>
+        <p className="mt-3 max-w-md text-[14px] leading-7 text-zinc-600">
+          {group.description}
+        </p>
+
+        <div className="mt-6 grid gap-3 sm:grid-cols-2">
+          {group.items.map((item) => (
+            <a
+              key={item.name}
+              href={item.href}
+              target="_blank"
+              rel="noreferrer"
+              className="group/item relative overflow-hidden rounded-[22px] border border-white/45 bg-white/70 p-3 transition duration-300 hover:-translate-y-1"
+              style={{
+                backgroundImage: `linear-gradient(160deg, rgba(255,255,255,0.72), rgba(255,255,255,0.5)), ${item.accent}`,
+              }}
+            >
+              <div className="relative z-10 flex items-start gap-3">
+                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-[16px] bg-white/85 shadow-[0_12px_24px_rgba(15,23,42,0.08)]">
+                  <span className="font-display text-[0.78rem] font-semibold tracking-[-0.05em] text-ink">
+                    {item.shortCode}
+                  </span>
+                </div>
+                <div className="min-w-0">
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-zinc-500">
+                    {item.category}
+                  </p>
+                  <div className="mt-1 flex items-start justify-between gap-2">
+                    <p className="font-display text-[1rem] font-semibold tracking-[-0.05em] text-ink">
+                      {item.name}
+                    </p>
+                    <ArrowUpRight className="mt-0.5 h-4 w-4 shrink-0 text-zinc-500 transition group-hover/item:translate-x-0.5 group-hover/item:-translate-y-0.5" />
+                  </div>
+                </div>
+              </div>
+            </a>
+          ))}
+        </div>
       </div>
-      <div className="pointer-events-none absolute left-1/2 bottom-full z-20 mb-2 -translate-x-1/2 whitespace-nowrap rounded-full bg-ink px-3 py-1.5 text-[11px] font-semibold text-white opacity-0 shadow-lg shadow-black/15 transition duration-200 group-hover:-translate-y-1 group-hover:opacity-100">
-        {item.name}
-      </div>
-    </motion.a>
+    </motion.article>
   );
 }
 
@@ -600,14 +665,14 @@ export default function HomePage() {
           <div className="absolute inset-0 rounded-[42px] bg-gradient-to-br from-white/60 via-white/30 to-emerald-50/55" />
           <div className="absolute inset-y-0 right-0 w-1/2 bg-gradient-to-l from-gold/10 to-transparent" />
           <SectionIntro
-            eyebrow="Bento Toolkit"
-            title="Published tools in a cleaner, lighter toolkit grid."
-            text="Smaller cards, softer motion, and easier scanning across the full toolkit."
+            eyebrow="Categorized Toolkit"
+            title="Published tools grouped by how they are actually used."
+            text="Same portfolio style, but with clearer categories so the toolkit feels easier to understand at a glance."
           />
 
-          <div className="relative z-10 mt-8 grid auto-rows-[96px] grid-cols-3 gap-3 sm:grid-cols-4 md:grid-cols-5 xl:grid-cols-7">
-            {toolkitItems.map((item, index) => (
-              <ToolkitCard key={item.name} item={item} index={index} />
+          <div className="relative z-10 mt-8 grid gap-4 lg:grid-cols-3">
+            {toolkitGroups.map((group, index) => (
+              <ToolkitCategoryCard key={group.title} group={group} index={index} />
             ))}
           </div>
         </div>
@@ -982,6 +1047,8 @@ export default function HomePage() {
     </main>
   );
 }
+
+
 
 
 
