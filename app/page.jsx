@@ -16,7 +16,7 @@ import {
   navItems,
   socialLinks,
   softwareProjects,
-  toolkitItems,
+  toolkitGroups,
 } from "../lib/site-data";
 
 const easeOutQuint = (value) => 1 - Math.pow(1 - value, 5);
@@ -121,36 +121,10 @@ function RoleRoller({ roles, reduceMotion }) {
     </div>
   );
 }
-const toolkitGroups = [
-  {
-    title: "Identity & Lookup",
-    eyebrow: "Daily Utilities",
-    description: "Fast-access tools for decoding details, searching records, and handling practical lookup work.",
-    accent: "linear-gradient(145deg, rgba(220, 252, 231, 0.85), rgba(255, 255, 255, 0.74), rgba(224, 242, 254, 0.78))",
-    glow: "rgba(56, 189, 120, 0.16)",
-    items: toolkitItems.filter((item) => ["NIC Decoder", "Postal Code Finder"].includes(item.name)),
-  },
-  {
-    title: "Creative & Productivity",
-    eyebrow: "Make & Format",
-    description: "Tools for generating assets, transforming content, and shaping cleaner visual output faster.",
-    accent: "linear-gradient(145deg, rgba(254, 240, 138, 0.78), rgba(255, 255, 255, 0.8), rgba(253, 230, 138, 0.72))",
-    glow: "rgba(245, 158, 11, 0.16)",
-    items: toolkitItems.filter((item) => ["QR Studio", "Text Transformer Pro", "Chroma Craft"].includes(item.name)),
-  },
-  {
-    title: "Security & Finance",
-    eyebrow: "Safer Decisions",
-    description: "Practical tools built around protection, calculation clarity, and everyday personal workflow support.",
-    accent: "linear-gradient(145deg, rgba(226, 232, 240, 0.84), rgba(255, 255, 255, 0.78), rgba(224, 231, 255, 0.74))",
-    glow: "rgba(71, 85, 105, 0.16)",
-    items: toolkitItems.filter((item) => ["Vault Guard", "Interest Calc Pro"].includes(item.name)),
-  },
-];
-
-function ToolkitCategoryCard({ group, index }) {
+function ToolkitOverviewCard({ group, index }) {
   return (
-    <motion.article
+    <motion.a
+      href={`/tools#${group.id}`}
       className="group relative overflow-hidden rounded-[28px] p-5 md:p-6"
       style={{
         backgroundImage: `linear-gradient(165deg, rgba(255,255,255,0.82), rgba(255,255,255,0.58)), ${group.accent}`,
@@ -180,41 +154,20 @@ function ToolkitCategoryCard({ group, index }) {
           {group.description}
         </p>
 
-        <div className="mt-6 grid gap-3 sm:grid-cols-2">
+        <div className="mt-6 flex flex-wrap gap-2">
           {group.items.map((item) => (
-            <a
-              key={item.name}
-              href={item.href}
-              target="_blank"
-              rel="noreferrer"
-              className="group/item relative overflow-hidden rounded-[22px] border border-white/45 bg-white/70 p-3 transition duration-300 hover:-translate-y-1"
-              style={{
-                backgroundImage: `linear-gradient(160deg, rgba(255,255,255,0.72), rgba(255,255,255,0.5)), ${item.accent}`,
-              }}
-            >
-              <div className="relative z-10 flex items-start gap-3">
-                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-[16px] bg-white/85 shadow-[0_12px_24px_rgba(15,23,42,0.08)]">
-                  <span className="font-display text-[0.78rem] font-semibold tracking-[-0.05em] text-ink">
-                    {item.shortCode}
-                  </span>
-                </div>
-                <div className="min-w-0">
-                  <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-zinc-500">
-                    {item.category}
-                  </p>
-                  <div className="mt-1 flex items-start justify-between gap-2">
-                    <p className="font-display text-[1rem] font-semibold tracking-[-0.05em] text-ink">
-                      {item.name}
-                    </p>
-                    <ArrowUpRight className="mt-0.5 h-4 w-4 shrink-0 text-zinc-500 transition group-hover/item:translate-x-0.5 group-hover/item:-translate-y-0.5" />
-                  </div>
-                </div>
-              </div>
-            </a>
+            <span key={item.name} className="rounded-full bg-white/72 px-3 py-1 text-[11px] font-medium text-zinc-700 glass-soft">
+              {item.name}
+            </span>
           ))}
         </div>
+
+        <div className="mt-6 inline-flex items-center gap-2 text-[12px] font-semibold uppercase tracking-[0.16em] text-ink/80">
+          Open Tools Page
+          <ArrowUpRight className="h-4 w-4 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+        </div>
       </div>
-    </motion.article>
+    </motion.a>
   );
 }
 
@@ -665,14 +618,14 @@ export default function HomePage() {
           <div className="absolute inset-0 rounded-[42px] bg-gradient-to-br from-white/60 via-white/30 to-emerald-50/55" />
           <div className="absolute inset-y-0 right-0 w-1/2 bg-gradient-to-l from-gold/10 to-transparent" />
           <SectionIntro
-            eyebrow="Categorized Toolkit"
-            title="Published tools grouped by how they are actually used."
-            text="Same portfolio style, but with clearer categories so the toolkit feels easier to understand at a glance."
+            eyebrow="Toolkit Overview"
+            title="Tool categories that open into a dedicated tools page."
+            text="The home page stays lighter, while the full toolkit experience opens on its own page when you choose a category."
           />
 
           <div className="relative z-10 mt-8 grid gap-4 lg:grid-cols-3">
             {toolkitGroups.map((group, index) => (
-              <ToolkitCategoryCard key={group.title} group={group} index={index} />
+              <ToolkitOverviewCard key={group.id} group={group} index={index} />
             ))}
           </div>
         </div>
@@ -1047,6 +1000,8 @@ export default function HomePage() {
     </main>
   );
 }
+
+
 
 
 
