@@ -333,7 +333,7 @@ function JourneyCard({ item, index, onOpen, label }) {
       <div className="relative z-10 rounded-[22px] bg-white/72 p-4">
         <div className="mx-auto flex aspect-square w-full max-w-[170px] items-center justify-center rounded-[24px] bg-white shadow-[0_16px_32px_rgba(15,23,42,0.08)] md:max-w-[190px]">
           {item.image ? (
-            <Image src={item.image} alt={item.title} className="h-20 w-20 object-contain md:h-24 md:w-24" />
+            <Image src={item.image} alt={item.title} className={`h-20 w-20 object-contain md:h-24 md:w-24 ${item.imageClassName || ""}`.trim()} />
           ) : null}
         </div>
         <div className="mt-4 min-w-0">
@@ -980,7 +980,4 @@ export default function HomePage() {
     </main>
   );
 }
-
-
-
 
