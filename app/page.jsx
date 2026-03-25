@@ -672,7 +672,7 @@ export default function HomePage() {
           />
 
           <div className="mt-12 space-y-6">
-            <div className="rounded-[32px] bg-white/48 p-5 glass-soft md:p-6">
+            <div className="py-1">
               <div className="flex items-center justify-between gap-3">
                 <h3 className="font-display text-[1.55rem] font-semibold tracking-[-0.06em] text-ink md:text-[1.95rem]">Education Qualifications</h3>
                 <motion.div style={{ scaleY: timelineProgress }} className="hidden h-16 w-px origin-top bg-gradient-to-b from-gold to-amber-400 md:block" />
@@ -690,7 +690,7 @@ export default function HomePage() {
               </div>
             </div>
 
-            <div className="rounded-[32px] bg-white/48 p-5 glass-soft md:p-6">
+            <div className="py-1">
               <h3 className="font-display text-[1.55rem] font-semibold tracking-[-0.06em] text-ink md:text-[1.95rem]">Working Experience</h3>
               <p className="mt-4 text-[15px] leading-8 text-zinc-600">
                 Logos and roles stay visible here, while the full details open in a cleaner preview.
@@ -715,7 +715,7 @@ export default function HomePage() {
               </a>
             </div>
 
-            <div className="rounded-[32px] bg-white/48 p-5 glass-soft md:p-6">
+            <div className="py-1">
               <h3 className="font-display text-[1.8rem] font-semibold tracking-[-0.06em] text-ink md:text-[2.15rem]">Achievements</h3>
               <div className="mt-6 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
                 {achievementItems.map((item, index) => (
@@ -752,16 +752,13 @@ export default function HomePage() {
         </div>
       </SectionReveal>
       <SectionReveal id="certificates" className="scroll-mt-28 px-4 pt-20 md:px-6 md:pt-24" delay={0.14}>
-        <div className="relative mx-auto max-w-[1380px] overflow-hidden rounded-[42px] px-6 py-8 md:px-10 md:py-10">
-          <div className="absolute inset-0 rounded-[42px] bg-gradient-to-br from-white/70 via-white/36 to-amber-50/50" />
-          <div className="absolute left-[10%] top-16 h-72 w-72 rounded-full bg-gold/12 blur-3xl" />
-          <div className="absolute right-[8%] bottom-10 h-80 w-80 rounded-full bg-sky-100/45 blur-3xl" />
+        <div className="relative mx-auto max-w-[1380px] px-6 py-8 md:px-10 md:py-10">
           <SectionIntro
             eyebrow="Certificates"
             title="Certificates arranged in a tighter showcase."
             text="A cleaner certificate wall with smaller cards and better room for future additions."
           />
-          <div className="relative z-10 mt-6 grid gap-3 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
+          <div className="relative mt-6 grid gap-3 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
             {certificateItems.map((item, index) => (
               <CertificateCard key={item.title} item={item} index={index} onOpen={setActiveCertificate} />
             ))}
@@ -999,6 +996,7 @@ export default function HomePage() {
     </main>
   );
 }
+
 
 
 
