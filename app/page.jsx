@@ -644,19 +644,15 @@ export default function HomePage() {
           </div>
         </div>
       </SectionReveal>
-
-            <SectionReveal id="education" className="scroll-mt-28 px-4 pt-20 md:px-6 md:pt-24" delay={0.12}>
-        <div ref={timelineRef} className="relative mx-auto max-w-[1380px] overflow-hidden rounded-[42px] px-6 py-8 md:px-10 md:py-10">
-          <div className="absolute inset-0 rounded-[42px] bg-gradient-to-br from-white/70 via-white/32 to-sky-50/40" />
-          <div className="absolute left-[14%] top-20 h-72 w-72 rounded-full bg-sky-100/50 blur-3xl" />
-          <div className="absolute right-[12%] bottom-10 h-72 w-72 rounded-full bg-gold/10 blur-3xl" />
+      <SectionReveal id="education" className="scroll-mt-28 px-4 pt-20 md:px-6 md:pt-24" delay={0.12}>
+        <div ref={timelineRef} className="relative mx-auto max-w-[1380px] px-6 py-8 md:px-10 md:py-10">
           <SectionIntro
             eyebrow="Education"
             title="Education qualifications presented in one clear logo wall."
             text="Every qualification is easier to scan, while work experience stays visible here and also has its own page."
           />
 
-          <div className="relative z-10 mt-12 space-y-6">
+          <div className="mt-12 space-y-6">
             <div className="rounded-[32px] bg-white/48 p-5 glass-soft md:p-6">
               <div className="flex items-center justify-between gap-3">
                 <h3 className="font-display text-[1.55rem] font-semibold tracking-[-0.06em] text-ink md:text-[1.95rem]">Education Qualifications</h3>
@@ -675,51 +671,49 @@ export default function HomePage() {
               </div>
             </div>
 
-            <div className="grid gap-6 xl:grid-cols-[0.82fr_1.18fr]">
-              <div className="rounded-[32px] bg-white/48 p-5 glass-soft md:p-6">
-                <h3 className="font-display text-[1.55rem] font-semibold tracking-[-0.06em] text-ink md:text-[1.95rem]">Working Experience</h3>
-                <p className="mt-4 text-[15px] leading-8 text-zinc-600">
-                  Logos and roles stay visible here, while the full details open in a cleaner preview.
-                </p>
-                <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-                  {experienceItems.map((item, index) => (
-                    <JourneyCard
-                      key={item.title + "-home-" + index}
-                      item={item}
-                      index={index + educationItems.length}
-                      onOpen={setActiveJourneyItem}
-                      label="Working Experience"
-                    />
-                  ))}
-                </div>
-                <a
-                  href="/experience"
-                  className="mt-6 inline-flex items-center gap-2 rounded-full bg-ink px-4 py-2.5 text-sm font-semibold text-white shadow-lg shadow-black/10"
-                >
-                  Open Experience Page
-                  <ArrowUpRight className="h-4 w-4" />
-                </a>
+            <div className="rounded-[32px] bg-white/48 p-5 glass-soft md:p-6">
+              <h3 className="font-display text-[1.55rem] font-semibold tracking-[-0.06em] text-ink md:text-[1.95rem]">Working Experience</h3>
+              <p className="mt-4 text-[15px] leading-8 text-zinc-600">
+                Logos and roles stay visible here, while the full details open in a cleaner preview.
+              </p>
+              <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+                {experienceItems.map((item, index) => (
+                  <JourneyCard
+                    key={item.title + "-home-" + index}
+                    item={item}
+                    index={index + educationItems.length}
+                    onOpen={setActiveJourneyItem}
+                    label="Working Experience"
+                  />
+                ))}
               </div>
+              <a
+                href="/experience"
+                className="mt-6 inline-flex items-center gap-2 rounded-full bg-ink px-4 py-2.5 text-sm font-semibold text-white shadow-lg shadow-black/10"
+              >
+                Open Experience Page
+                <ArrowUpRight className="h-4 w-4" />
+              </a>
+            </div>
 
-              <div className="rounded-[32px] bg-white/48 p-5 glass-soft md:p-6">
-                <h3 className="font-display text-[1.8rem] font-semibold tracking-[-0.06em] text-ink md:text-[2.15rem]">Achievements</h3>
-                <div className="mt-6 grid gap-4 md:grid-cols-2">
-                  {achievementItems.map((item, index) => (
-                    <motion.article
-                      key={item.title + "-" + index}
-                      initial={{ opacity: 0, y: 28 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true, amount: 0.22 }}
-                      transition={{ duration: 0.75, delay: index * 0.06, ease: [0.22, 1, 0.36, 1] }}
-                      className="rounded-[28px] bg-white/68 p-5 glass-soft"
-                    >
-                      <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-zinc-500">{item.year}</p>
-                      <h4 className="font-display mt-3 text-2xl font-semibold tracking-[-0.05em] text-ink">{item.title}</h4>
-                      <p className="mt-2 text-sm font-medium uppercase tracking-[0.18em] text-zinc-500">{item.subtitle}</p>
-                      <p className="mt-4 text-[15px] leading-8 text-zinc-600">{item.body}</p>
-                    </motion.article>
-                  ))}
-                </div>
+            <div className="rounded-[32px] bg-white/48 p-5 glass-soft md:p-6">
+              <h3 className="font-display text-[1.8rem] font-semibold tracking-[-0.06em] text-ink md:text-[2.15rem]">Achievements</h3>
+              <div className="mt-6 grid gap-4 md:grid-cols-2">
+                {achievementItems.map((item, index) => (
+                  <motion.article
+                    key={item.title + "-" + index}
+                    initial={{ opacity: 0, y: 28 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.22 }}
+                    transition={{ duration: 0.75, delay: index * 0.06, ease: [0.22, 1, 0.36, 1] }}
+                    className="rounded-[28px] bg-white/68 p-5 glass-soft"
+                  >
+                    <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-zinc-500">{item.year}</p>
+                    <h4 className="font-display mt-3 text-2xl font-semibold tracking-[-0.05em] text-ink">{item.title}</h4>
+                    <p className="mt-2 text-sm font-medium uppercase tracking-[0.18em] text-zinc-500">{item.subtitle}</p>
+                    <p className="mt-4 text-[15px] leading-8 text-zinc-600">{item.body}</p>
+                  </motion.article>
+                ))}
               </div>
             </div>
           </div>
@@ -973,6 +967,7 @@ export default function HomePage() {
     </main>
   );
 }
+
 
 
 
