@@ -154,17 +154,16 @@ function ToolkitOverviewCard({ group, index }) {
           {group.description}
         </p>
 
-        <div className="mt-6 flex flex-wrap gap-2">
-          {group.items.map((item) => (
-            <span key={item.name} className="rounded-full bg-white/72 px-3 py-1 text-[11px] font-medium text-zinc-700 glass-soft">
-              {item.name}
-            </span>
-          ))}
-        </div>
-
-        <div className="mt-6 inline-flex items-center gap-2 text-[12px] font-semibold uppercase tracking-[0.16em] text-ink/80">
-          Open Tools Page
-          <ArrowUpRight className="h-4 w-4 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+        <div className="mt-6 flex items-center justify-between gap-3 rounded-[20px] bg-white/55 px-4 py-3 glass-soft">
+          <div>
+            <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-zinc-500">
+              Category Access
+            </p>
+            <p className="mt-1 text-sm font-medium text-zinc-700">
+              Open the full tools page for everything in this group.
+            </p>
+          </div>
+          <ArrowUpRight className="h-5 w-5 shrink-0 text-zinc-500 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
         </div>
       </div>
     </motion.a>
@@ -1000,6 +999,7 @@ export default function HomePage() {
     </main>
   );
 }
+
 
 
 
