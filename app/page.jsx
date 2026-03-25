@@ -708,6 +708,19 @@ export default function HomePage() {
                     transition={{ duration: 0.75, delay: index * 0.06, ease: [0.22, 1, 0.36, 1] }}
                     className="rounded-[28px] bg-white/68 p-5 glass-soft"
                   >
+                    {item.image ? (
+                      <div className="mb-4 overflow-hidden rounded-[22px] bg-white p-3 shadow-[0_18px_36px_rgba(15,23,42,0.08)]">
+                        <div className="relative aspect-[4/3] overflow-hidden rounded-[18px] bg-zinc-50">
+                          <Image
+                            src={item.image}
+                            alt={item.title}
+                            fill
+                            sizes="(min-width: 1280px) 24vw, (min-width: 768px) 42vw, 92vw"
+                            className="object-cover"
+                          />
+                        </div>
+                      </div>
+                    ) : null}
                     <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-zinc-500">{item.year}</p>
                     <h4 className="font-display mt-3 text-2xl font-semibold tracking-[-0.05em] text-ink">{item.title}</h4>
                     <p className="mt-2 text-sm font-medium uppercase tracking-[0.18em] text-zinc-500">{item.subtitle}</p>
@@ -967,10 +980,4 @@ export default function HomePage() {
     </main>
   );
 }
-
-
-
-
-
-
 
