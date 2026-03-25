@@ -710,13 +710,13 @@ export default function HomePage() {
                   >
                     {item.image ? (
                       <div className="mb-4 overflow-hidden rounded-[22px] bg-white p-3 shadow-[0_18px_36px_rgba(15,23,42,0.08)]">
-                        <div className="relative aspect-[4/3] overflow-hidden rounded-[18px] bg-zinc-50">
+                        <div className={`relative overflow-hidden rounded-[18px] bg-zinc-50 ${item.imageOrientation === "portrait" ? "aspect-[0.82/1]" : "aspect-[4/3]"}`}>
                           <Image
                             src={item.image}
                             alt={item.title}
                             fill
                             sizes="(min-width: 1280px) 24vw, (min-width: 768px) 42vw, 92vw"
-                            className="object-cover"
+                            className="object-contain object-center"
                           />
                         </div>
                       </div>
@@ -980,4 +980,5 @@ export default function HomePage() {
     </main>
   );
 }
+
 
