@@ -612,18 +612,14 @@ export default function HomePage() {
       </SectionReveal>
 
       <SectionReveal id="projects" className="scroll-mt-28 px-4 pt-20 md:px-6 md:pt-24" delay={0.04}>
-        <div className="relative mx-auto max-w-[1380px] overflow-hidden rounded-[42px] px-6 py-8 md:px-10 md:py-10">
-          <div className="absolute inset-0 rounded-[42px] bg-gradient-to-br from-slate-950 via-zinc-950 to-black" />
-          <div className="noise-mask opacity-10" />
-          <div className="absolute left-1/2 top-20 h-64 w-64 -translate-x-1/2 rounded-full bg-gold/10 blur-3xl" />
+        <div className="relative mx-auto max-w-[1380px] px-6 py-8 md:px-10 md:py-10">
           <SectionIntro
             eyebrow="Software Projects"
             title="Selected software projects with cleaner presentation."
             text="Concept builds and live projects presented in a tighter, more practical layout."
-            theme="dark"
           />
 
-          <div className="relative z-10 mt-6 grid gap-3 md:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-5">
+          <div className="relative mt-6 grid gap-3 md:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-5">
             {softwareProjects.map((project, index) => (
               <ProjectCard key={project.name} project={project} index={index} />
             ))}
@@ -977,6 +973,7 @@ export default function HomePage() {
     </main>
   );
 }
+
 
 
 
