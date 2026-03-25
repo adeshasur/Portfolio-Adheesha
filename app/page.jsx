@@ -539,7 +539,7 @@ export default function HomePage() {
                 transition={{ duration: 1, delay: 0.04, ease: [0.22, 1, 0.36, 1] }}
                 className="relative min-h-[400px] w-full max-w-[620px] overflow-hidden rounded-[38px] md:min-h-[580px] lg:-mt-16"
               >
-                <motion.div style={{ y: layerOne }} className="absolute right-0 top-8 z-20 w-[220px] rounded-[28px] bg-white/58 p-4 text-[12px] font-medium leading-6 text-zinc-600 glass-panel md:right-2 md:top-44 md:w-[250px]">
+                <motion.div style={{ y: layerOne }} className="absolute right-0 top-8 z-20 w-[220px] rounded-[28px] bg-white/58 p-4 text-[12px] font-medium leading-6 text-zinc-600 glass-panel md:right-1 md:top-auto md:bottom-44 md:w-[250px]">
                   {heroContent.portraitHighlight}
                 </motion.div>
                 <motion.div style={{ y: layerTwo }} className="absolute left-8 top-28 h-32 w-32 rounded-full bg-gold/15 blur-3xl" />
@@ -982,6 +982,7 @@ export default function HomePage() {
     </main>
   );
 }
+
 
 
 
