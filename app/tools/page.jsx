@@ -34,7 +34,7 @@ function ToolsHero({ totalTools, query, setQuery, activeFilter, setActiveFilter 
     <section className="relative overflow-hidden rounded-[42px] px-6 py-10 md:px-10 md:py-12">
       <div className="absolute inset-0 rounded-[42px] bg-gradient-to-br from-white/76 via-white/48 to-amber-50/55" />
       <div
-        className="absolute inset-0 rounded-[42px] opacity-60"
+        className="tools-grid-animated absolute inset-0 rounded-[42px] opacity-60"
         style={{
           backgroundImage:
             "linear-gradient(rgba(209, 213, 219, 0.24) 1px, transparent 1px), linear-gradient(90deg, rgba(209, 213, 219, 0.24) 1px, transparent 1px)",
@@ -237,4 +237,5 @@ export default function ToolsPage() {
     </main>
   );
 }
+
 

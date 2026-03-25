@@ -94,3 +94,36 @@
     display: none;
   }
 }
+@keyframes tools-grid-drift {
+  0% {
+    transform: translate3d(0, 0, 0);
+    opacity: 0.46;
+  }
+  50% {
+    transform: translate3d(10px, 6px, 0);
+    opacity: 0.68;
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+    opacity: 0.46;
+  }
+}
+
+@keyframes tools-grid-glow {
+  0% {
+    filter: brightness(1);
+  }
+  50% {
+    filter: brightness(1.06);
+  }
+  100% {
+    filter: brightness(1);
+  }
+}
+
+@layer utilities {
+  .tools-grid-animated {
+    animation: tools-grid-drift 9s ease-in-out infinite, tools-grid-glow 6s ease-in-out infinite;
+    will-change: transform, opacity, filter;
+  }
+}
