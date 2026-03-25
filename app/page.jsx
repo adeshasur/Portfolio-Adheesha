@@ -331,9 +331,9 @@ function JourneyCard({ item, index, onOpen, label }) {
     >
       <div className="noise-mask opacity-20" />
       <div className="relative z-10 rounded-[22px] bg-white/72 p-4">
-        <div className="mx-auto flex aspect-square w-full max-w-[190px] items-center justify-center rounded-[24px] bg-white shadow-[0_16px_32px_rgba(15,23,42,0.08)] md:max-w-[220px]">
+        <div className="mx-auto flex aspect-square w-full max-w-[170px] items-center justify-center rounded-[24px] bg-white shadow-[0_16px_32px_rgba(15,23,42,0.08)] md:max-w-[190px]">
           {item.image ? (
-            <Image src={item.image} alt={item.title} className="h-24 w-24 object-contain md:h-28 md:w-28" />
+            <Image src={item.image} alt={item.title} className="h-20 w-20 object-contain md:h-24 md:w-24" />
           ) : null}
         </div>
         <div className="mt-4 min-w-0">
@@ -698,7 +698,7 @@ export default function HomePage() {
 
             <div className="rounded-[32px] bg-white/48 p-5 glass-soft md:p-6">
               <h3 className="font-display text-[1.8rem] font-semibold tracking-[-0.06em] text-ink md:text-[2.15rem]">Achievements</h3>
-              <div className="mt-6 grid gap-4 md:grid-cols-2">
+              <div className="mt-6 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
                 {achievementItems.map((item, index) => (
                   <motion.article
                     key={item.title + "-" + index}
@@ -980,6 +980,7 @@ export default function HomePage() {
     </main>
   );
 }
+
 
 
 
