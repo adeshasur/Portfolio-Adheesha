@@ -539,9 +539,9 @@ export default function HomePage() {
                 transition={{ duration: 1, delay: 0.04, ease: [0.22, 1, 0.36, 1] }}
                 className="relative min-h-[400px] w-full max-w-[620px] overflow-hidden rounded-[38px] md:min-h-[580px] lg:-mt-16"
               >
-                <motion.div style={{ y: layerOne }} className="absolute right-4 top-8 h-36 w-44 rounded-[28px] bg-white/52 glass-panel" />
+                <motion.div style={{ y: layerOne }} className="absolute right-4 top-8 z-20 h-36 w-44 rounded-[28px] bg-white/52 glass-panel" />
                 <motion.div style={{ y: layerTwo }} className="absolute left-8 top-28 h-32 w-32 rounded-full bg-gold/15 blur-3xl" />
-                <motion.div style={{ y: layerThree }} className="absolute bottom-16 left-5 rounded-[24px] bg-white/58 px-4 py-3 text-xs font-semibold uppercase tracking-[0.22em] text-zinc-700 glass-soft">
+                <motion.div style={{ y: layerThree }} className="absolute bottom-16 left-5 z-20 rounded-[24px] bg-white/58 px-4 py-3 text-xs font-semibold uppercase tracking-[0.22em] text-zinc-700 glass-soft">
                   Flat portrait • layered glass depth
                 </motion.div>
 
@@ -980,4 +980,5 @@ export default function HomePage() {
     </main>
   );
 }
+
 
