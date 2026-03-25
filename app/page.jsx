@@ -331,9 +331,9 @@ function JourneyCard({ item, index, onOpen, label }) {
     >
       <div className="noise-mask opacity-20" />
       <div className="relative z-10 rounded-[22px] bg-white/72 p-4">
-        <div className="flex h-24 w-full items-center justify-center rounded-[20px] bg-white shadow-[0_16px_32px_rgba(15,23,42,0.08)] md:h-28">
+        <div className="mx-auto flex aspect-square w-full max-w-[190px] items-center justify-center rounded-[24px] bg-white shadow-[0_16px_32px_rgba(15,23,42,0.08)] md:max-w-[220px]">
           {item.image ? (
-            <Image src={item.image} alt={item.title} className="h-14 w-auto object-contain md:h-16" />
+            <Image src={item.image} alt={item.title} className="h-24 w-24 object-contain md:h-28 md:w-28" />
           ) : null}
         </div>
         <div className="mt-4 min-w-0">
@@ -821,9 +821,9 @@ export default function HomePage() {
             >
               <div className="grid gap-6 md:grid-cols-[0.78fr_1.22fr] md:items-center">
                 <div className="rounded-[28px] bg-white/85 p-4 shadow-[0_24px_60px_rgba(15,23,42,0.14)]">
-                  <div className="flex min-h-[260px] items-center justify-center rounded-[24px] bg-white p-6 md:min-h-[320px]">
+                  <div className="mx-auto flex aspect-square w-full max-w-[300px] items-center justify-center rounded-[24px] bg-white p-6">
                     {activeJourneyItem.image ? (
-                      <Image src={activeJourneyItem.image} alt={activeJourneyItem.title} className="h-24 w-auto object-contain md:h-32" />
+                      <Image src={activeJourneyItem.image} alt={activeJourneyItem.title} className="h-36 w-36 object-contain md:h-44 md:w-44" />
                     ) : null}
                   </div>
                 </div>
@@ -967,6 +967,7 @@ export default function HomePage() {
     </main>
   );
 }
+
 
 
 
