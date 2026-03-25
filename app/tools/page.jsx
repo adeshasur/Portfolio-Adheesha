@@ -217,7 +217,7 @@ export default function ToolsPage() {
             </div>
 
             {filteredTools.length ? (
-              <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+              <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
                 {filteredTools.map((item, index) => (
                   <ToolCard key={item.name} item={item} index={index} />
                 ))}
@@ -237,3 +237,4 @@ export default function ToolsPage() {
     </main>
   );
 }
+
