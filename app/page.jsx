@@ -155,6 +155,7 @@ function ToolkitCard({ item, index }) {
 
 function ProjectCard({ project, index }) {
   const isAnchor = project.href.startsWith("#");
+  const isExternal = !isAnchor;
 
   return (
     <motion.article
@@ -184,6 +185,27 @@ function ProjectCard({ project, index }) {
             {project.name.slice(0, 2).toUpperCase()}
           </div>
         </div>
+        {project.image ? (
+          isAnchor ? null : (
+            <a
+              href={project.href}
+              target="_blank"
+              rel="noreferrer"
+              className="group/image relative block overflow-hidden rounded-[18px] border border-white/45 bg-white/70"
+              aria-label={`Open ${project.name}`}
+            >
+              <div className="relative aspect-[16/10]">
+                <Image
+                  src={project.image}
+                  alt={project.imageAlt || project.name}
+                  fill
+                  sizes="(min-width: 1536px) 18vw, (min-width: 1280px) 22vw, (min-width: 768px) 40vw, 92vw"
+                  className="object-cover transition duration-500 group-hover/image:scale-[1.03]"
+                />
+              </div>
+            </a>
+          )
+        ) : null}
 
         <div>
           <h3 className="font-display text-[1.2rem] font-semibold tracking-[-0.07em] text-ink md:text-[1.35rem]">
@@ -212,6 +234,8 @@ function ProjectCard({ project, index }) {
         ) : (
           <a
             href={project.href}
+            target={isExternal ? "_blank" : undefined}
+            rel={isExternal ? "noreferrer" : undefined}
             className="inline-flex w-fit items-center gap-2 rounded-full bg-ink px-3.5 py-2 text-[12px] font-semibold text-white shadow-lg shadow-black/10"
           >
             {project.cta}
@@ -953,26 +977,6 @@ export default function HomePage() {
     </main>
   );
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
