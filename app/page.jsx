@@ -276,34 +276,46 @@ function GalleryCard({ item, index, onOpen }) {
       viewport={{ once: true, amount: 0.15 }}
       transition={{ duration: 0.8, delay: index * 0.05, ease: [0.22, 1, 0.36, 1] }}
       whileHover={{ y: -8 }}
-      className={`group relative mb-5 w-full overflow-hidden rounded-[28px] text-left ${item.height}`}
+      className={`group relative mb-5 w-full overflow-hidden rounded-[28px] text-left ${hasImage ? "bg-white/72 p-2.5 glass-soft shadow-[0_20px_48px_rgba(15,23,42,0.08)]" : item.height}`}
       style={hasImage ? undefined : { background: item.accent }}
     >
       {hasImage ? (
         <>
-          <Image
-            src={item.image}
-            alt={item.imageAlt || item.title}
-            fill
-            sizes="(min-width: 1536px) 24vw, (min-width: 1280px) 28vw, (min-width: 768px) 42vw, 92vw"
-            className="object-contain bg-white/92 p-3 transition duration-700 group-hover:scale-[1.02]"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/78 via-black/18 to-black/8" />
+          <div className="relative overflow-hidden rounded-[22px] border border-black/6 bg-white shadow-[0_18px_36px_rgba(15,23,42,0.08)]">
+            <div className="relative h-[240px] w-full overflow-hidden bg-white sm:h-[260px]">
+              <Image
+                src={item.image}
+                alt={item.imageAlt || item.title}
+                fill
+                sizes="(min-width: 1536px) 18vw, (min-width: 1280px) 22vw, (min-width: 768px) 34vw, 92vw"
+                className="object-contain bg-white p-2 transition duration-700 group-hover:scale-[1.02]"
+              />
+            </div>
+            <span className="absolute left-3 top-3 z-10 rounded-full bg-black/70 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-white backdrop-blur-md">
+              {item.category}
+            </span>
+          </div>
+          <div className="px-1.5 pb-1.5 pt-3">
+            <h3 className="font-display text-[1.28rem] font-semibold tracking-[-0.05em] text-ink">{item.title}</h3>
+            <p className="mt-2 line-clamp-3 text-[12px] leading-6 text-zinc-600">{item.description}</p>
+          </div>
         </>
       ) : (
-        <div className="noise-mask opacity-20" />
+        <>
+          <div className="noise-mask opacity-20" />
+          <div className="absolute inset-4 rounded-[22px] border border-white/40" />
+          <div className="absolute -right-8 top-6 h-24 w-24 rounded-full bg-white/45 blur-2xl transition-transform duration-500 group-hover:scale-125" />
+          <div className="relative z-10 flex h-full flex-col justify-between p-4">
+            <span className="w-fit rounded-full bg-white/70 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-zinc-700 glass-soft">
+              {item.category}
+            </span>
+            <div>
+              <h3 className="font-display text-2xl font-semibold tracking-[-0.06em] text-ink">{item.title}</h3>
+              <p className="mt-2 max-w-sm text-sm leading-7 text-zinc-700/80">{item.description}</p>
+            </div>
+          </div>
+        </>
       )}
-      <div className={`absolute inset-4 rounded-[22px] border ${hasImage ? "border-white/20" : "border-white/40"}`} />
-      <div className={`absolute -right-8 top-6 h-24 w-24 rounded-full blur-2xl transition-transform duration-500 group-hover:scale-125 ${hasImage ? "bg-white/20" : "bg-white/45"}`} />
-      <div className="relative z-10 flex h-full flex-col justify-between p-4">
-        <span className={`w-fit rounded-full px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] ${hasImage ? "bg-black/30 text-white backdrop-blur-md" : "bg-white/70 text-zinc-700 glass-soft"}`}>
-          {item.category}
-        </span>
-        <div>
-          <h3 className={`font-display text-2xl font-semibold tracking-[-0.06em] ${hasImage ? "text-white" : "text-ink"}`}>{item.title}</h3>
-          <p className={`mt-2 max-w-sm text-sm leading-7 ${hasImage ? "text-white/82" : "text-zinc-700/80"}`}>{item.description}</p>
-        </div>
-      </div>
     </motion.button>
   );
 }
@@ -673,7 +685,7 @@ export default function HomePage() {
             text="Poster systems, brand layouts, and social visuals now sit in their own section so the design work reads as a focused collection."
           />
 
-          <div className="relative z-10 mt-10 columns-1 gap-5 md:columns-2 xl:columns-3">
+          <div className="relative z-10 mt-10 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
             {graphicDesignItems.map((item, index) => (
               <GalleryCard key={item.title} item={item} index={index} onOpen={setActiveGalleryItem} />
             ))}
