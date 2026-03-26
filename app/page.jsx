@@ -265,6 +265,8 @@ function ProjectCard({ project, index }) {
 }
 
 function GalleryCard({ item, index, onOpen }) {
+  const hasImage = Boolean(item.image);
+
   return (
     <motion.button
       type="button"
@@ -274,19 +276,32 @@ function GalleryCard({ item, index, onOpen }) {
       viewport={{ once: true, amount: 0.15 }}
       transition={{ duration: 0.8, delay: index * 0.05, ease: [0.22, 1, 0.36, 1] }}
       whileHover={{ y: -8 }}
-      className={`group relative mb-5 w-full overflow-hidden rounded-[28px] p-4 text-left ${item.height}`}
-      style={{ background: item.accent }}
+      className={`group relative mb-5 w-full overflow-hidden rounded-[28px] text-left ${item.height}`}
+      style={hasImage ? undefined : { background: item.accent }}
     >
-      <div className="noise-mask opacity-20" />
-      <div className="absolute inset-4 rounded-[22px] border border-white/40" />
-      <div className="absolute -right-8 top-6 h-24 w-24 rounded-full bg-white/45 blur-2xl transition-transform duration-500 group-hover:scale-125" />
-      <div className="relative z-10 flex h-full flex-col justify-between">
-        <span className="w-fit rounded-full bg-white/70 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-zinc-700 glass-soft">
+      {hasImage ? (
+        <>
+          <Image
+            src={item.image}
+            alt={item.imageAlt || item.title}
+            fill
+            sizes="(min-width: 1536px) 24vw, (min-width: 1280px) 28vw, (min-width: 768px) 42vw, 92vw"
+            className="object-contain bg-white/92 p-3 transition duration-700 group-hover:scale-[1.02]"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/78 via-black/18 to-black/8" />
+        </>
+      ) : (
+        <div className="noise-mask opacity-20" />
+      )}
+      <div className={`absolute inset-4 rounded-[22px] border ${hasImage ? "border-white/20" : "border-white/40"}`} />
+      <div className={`absolute -right-8 top-6 h-24 w-24 rounded-full blur-2xl transition-transform duration-500 group-hover:scale-125 ${hasImage ? "bg-white/20" : "bg-white/45"}`} />
+      <div className="relative z-10 flex h-full flex-col justify-between p-4">
+        <span className={`w-fit rounded-full px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] ${hasImage ? "bg-black/30 text-white backdrop-blur-md" : "bg-white/70 text-zinc-700 glass-soft"}`}>
           {item.category}
         </span>
         <div>
-          <h3 className="font-display text-2xl font-semibold tracking-[-0.06em] text-ink">{item.title}</h3>
-          <p className="mt-2 max-w-sm text-sm leading-7 text-zinc-700/80">{item.description}</p>
+          <h3 className={`font-display text-2xl font-semibold tracking-[-0.06em] ${hasImage ? "text-white" : "text-ink"}`}>{item.title}</h3>
+          <p className={`mt-2 max-w-sm text-sm leading-7 ${hasImage ? "text-white/82" : "text-zinc-700/80"}`}>{item.description}</p>
         </div>
       </div>
     </motion.button>
@@ -403,6 +418,8 @@ export default function HomePage() {
   const layerTwo = useTransform(scrollYProgress, [0, 1], [0, reduceMotion ? 0 : 90]);
   const layerThree = useTransform(scrollYProgress, [0, 1], [0, reduceMotion ? 0 : -110]);
   const timelineProgress = useTransform(timelineScroll, [0, 1], ["0%", "100%"]);
+  const graphicDesignItems = galleryItems.filter((item) => item.category === "Graphic Design");
+  const photographyItems = galleryItems.filter((item) => item.category === "Photography");
 
   return (
     <main className="relative overflow-hidden pb-20 text-ink md:pb-28">
@@ -651,18 +668,37 @@ export default function HomePage() {
           <div className="absolute inset-0 rounded-[42px] bg-gradient-to-br from-white/68 via-white/38 to-rose-50/45" />
           <div className="absolute right-10 top-10 h-60 w-60 rounded-full bg-pink-100/50 blur-3xl" />
           <SectionIntro
-            eyebrow="Creative Gallery"
-            title="Graphic designs and photographs arranged in a lighter, mood-led masonry gallery."
-            text="Because there are no uploaded gallery images in the repo yet, this build uses premium visual placeholders with a light-box interaction ready for your real work."
+            eyebrow="Graphic Designs"
+            title="Graphic design work separated into its own lighter, mood-led gallery."
+            text="Poster systems, brand layouts, and social visuals now sit in their own section so the design work reads as a focused collection."
           />
 
           <div className="relative z-10 mt-10 columns-1 gap-5 md:columns-2 xl:columns-3">
-            {galleryItems.map((item, index) => (
+            {graphicDesignItems.map((item, index) => (
               <GalleryCard key={item.title} item={item} index={index} onOpen={setActiveGalleryItem} />
             ))}
           </div>
         </div>
       </SectionReveal>
+
+      <SectionReveal id="photography" className="scroll-mt-28 px-4 pt-10 md:px-6 md:pt-12" delay={0.1}>
+        <div className="relative mx-auto max-w-[1380px] overflow-hidden rounded-[42px] px-6 py-8 md:px-10 md:py-10">
+          <div className="absolute inset-0 rounded-[42px] bg-gradient-to-br from-white/70 via-slate-50/55 to-sky-50/45" />
+          <div className="absolute left-10 top-10 h-60 w-60 rounded-full bg-sky-100/55 blur-3xl" />
+          <SectionIntro
+            eyebrow="Photographs"
+            title="Photography now lives in a dedicated section of its own."
+            text="Portraits, storytelling shots, and light studies stay together here so the photography side feels separate from the graphic design work."
+          />
+
+          <div className="relative z-10 mt-10 columns-1 gap-5 md:columns-2 xl:columns-3">
+            {photographyItems.map((item, index) => (
+              <GalleryCard key={item.title} item={item} index={index} onOpen={setActiveGalleryItem} />
+            ))}
+          </div>
+        </div>
+      </SectionReveal>
+
       <SectionReveal id="education" className="scroll-mt-28 px-4 pt-20 md:px-6 md:pt-24" delay={0.12}>
         <div ref={timelineRef} className="relative mx-auto max-w-[1380px] px-6 py-8 md:px-10 md:py-10">
           <SectionIntro
@@ -957,20 +993,39 @@ export default function HomePage() {
               className="relative w-full max-w-3xl overflow-hidden rounded-[34px] bg-white p-5 shadow-2xl shadow-black/20 md:p-6"
             >
               <div className="grid gap-6 md:grid-cols-[1.1fr_0.9fr] md:items-center">
-                <div className="relative min-h-[320px] overflow-hidden rounded-[28px] p-5" style={{ background: activeGalleryItem.accent }}>
-                  <div className="noise-mask opacity-20" />
-                  <div className="absolute inset-4 rounded-[24px] border border-white/40" />
-                  <div className="absolute -right-10 top-6 h-28 w-28 rounded-full bg-white/40 blur-3xl" />
-                  <div className="relative z-10 flex h-full flex-col justify-between">
-                    <span className="w-fit rounded-full bg-white/72 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-zinc-700 glass-soft">
-                      {activeGalleryItem.category}
-                    </span>
-                    <div>
-                      <h3 className="font-display text-4xl font-semibold tracking-[-0.07em] text-ink">
-                        {activeGalleryItem.title}
-                      </h3>
-                    </div>
-                  </div>
+                <div className={`relative min-h-[320px] overflow-hidden rounded-[28px] p-5 ${activeGalleryItem.image ? "bg-zinc-100" : ""}`} style={activeGalleryItem.image ? undefined : { background: activeGalleryItem.accent }}>
+                  {activeGalleryItem.image ? (
+                    <>
+                      <span className="absolute left-8 top-8 z-10 w-fit rounded-full bg-black/35 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-white backdrop-blur-md">
+                        {activeGalleryItem.category}
+                      </span>
+                      <div className="relative h-full min-h-[320px] overflow-hidden rounded-[22px] bg-white shadow-[0_22px_48px_rgba(15,23,42,0.14)]">
+                        <Image
+                          src={activeGalleryItem.image}
+                          alt={activeGalleryItem.imageAlt || activeGalleryItem.title}
+                          fill
+                          sizes="(min-width: 768px) 56vw, 90vw"
+                          className="object-contain bg-white p-2"
+                        />
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <div className="noise-mask opacity-20" />
+                      <div className="absolute inset-4 rounded-[24px] border border-white/40" />
+                      <div className="absolute -right-10 top-6 h-28 w-28 rounded-full bg-white/40 blur-3xl" />
+                      <div className="relative z-10 flex h-full flex-col justify-between">
+                        <span className="w-fit rounded-full bg-white/72 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-zinc-700 glass-soft">
+                          {activeGalleryItem.category}
+                        </span>
+                        <div>
+                          <h3 className="font-display text-4xl font-semibold tracking-[-0.07em] text-ink">
+                            {activeGalleryItem.title}
+                          </h3>
+                        </div>
+                      </div>
+                    </>
+                  )}
                 </div>
                 <div>
                   <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-zinc-500">Creative Lightbox</p>
@@ -996,6 +1051,11 @@ export default function HomePage() {
     </main>
   );
 }
+
+
+
+
+
 
 
 

@@ -5,7 +5,10 @@ const styles = `
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@500;600;700&display=swap');
   
   :root {
-    --primary: #FFB11B;
+    --primary: #111111;
+    --panel-border: rgba(17, 17, 17, 0.14);
+    --panel-bg: rgba(255, 255, 255, 0.58);
+    --panel-muted: rgba(255, 255, 255, 0.42);
     --text-main: #111827;
     --text-muted: #6B7280;
     --border: #E5E7EB;
@@ -40,32 +43,32 @@ const styles = `
 
   /* Clean Minimalist Card -> Glassmorphism */
   .clean-card {
-    background: rgba(255, 255, 255, 0.75);
+    background: transparent;
     backdrop-filter: blur(24px);
     -webkit-backdrop-filter: blur(24px);
-    border: 1px solid rgba(255, 255, 255, 0.5);
-    border-radius: 32px;
-    box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
   }
 
   /* Refined Input */
   .clean-input {
     background: var(--bg-surface);
-    border: 1.5px solid var(--border);
+    border: 1.5px solid var(--panel-border);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
   .clean-input:focus {
-    border-color: var(--primary);
+    border-color: rgba(17, 17, 17, 0.36);
     background: rgba(255,255,255,0.9);
-    box-shadow: 0 0 0 4px rgba(255, 177, 27, 0.15), 0 4px 6px -1px rgba(0,0,0,0.05);
+    box-shadow: 0 0 0 4px rgba(17, 17, 17, 0.08);
     outline: none;
     transform: translateY(-1px);
   }
 
   /* Elegant Button */
   .clean-button {
-    background: var(--primary);
-    color: var(--text-main);
+    background: #111111;
+    color: #FFFFFF;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     overflow: hidden;
@@ -80,17 +83,17 @@ const styles = `
   }
   .clean-button:hover:not(:disabled) {
     transform: translateY(-2px);
-    box-shadow: 0 8px 20px -6px rgba(255, 177, 27, 0.6), 0 4px 10px -4px rgba(255, 177, 27, 0.4);
+    box-shadow: 0 10px 24px -10px rgba(17, 17, 17, 0.38);
   }
   .clean-button:hover:not(:disabled)::after {
     opacity: 1;
   }
   .clean-button:active:not(:disabled) {
     transform: translateY(1px);
-    box-shadow: 0 2px 4px rgba(255, 177, 27, 0.4);
+    box-shadow: 0 2px 4px rgba(17, 17, 17, 0.24);
   }
   .clean-button:disabled {
-    background: #E5E7EB;
+    background: rgba(229, 231, 235, 0.82);
     color: #9CA3AF;
     cursor: not-allowed;
     box-shadow: none;
@@ -158,14 +161,14 @@ const QRCodeGenerator = ({ embedded = false }) => {
       <style>{styles}</style>
 
       {/* Background Glow Elements */}
-      <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-[500px] h-[500px] bg-yellow-400/15 rounded-full blur-[120px] -z-10 pointer-events-none animate-float"></div>
-      <div className="absolute top-1/2 right-1/4 -translate-y-1/2 w-[400px] h-[400px] bg-orange-300/10 rounded-full blur-[100px] -z-10 pointer-events-none animate-float-delayed"></div>
+      <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-[500px] h-[500px] bg-black/6 rounded-full blur-[120px] -z-10 pointer-events-none animate-float"></div>
+      <div className="absolute top-1/2 right-1/4 -translate-y-1/2 w-[400px] h-[400px] bg-black/4 rounded-full blur-[100px] -z-10 pointer-events-none animate-float-delayed"></div>
 
       {!embedded ? (
         <>
           {/* Clean Header - Fixed to Top */}
           <div className="fixed top-6 left-0 w-full text-center z-10 hidden sm:block">
-            <h1 className="text-2xl sm:text-3xl font-bold font-brand tracking-tight mb-1 text-transparent bg-clip-text bg-gradient-to-r from-yellow-600 to-yellow-400">
+            <h1 className="text-2xl sm:text-3xl font-bold font-brand tracking-tight mb-1 text-transparent bg-clip-text bg-gradient-to-r from-zinc-900 to-zinc-500">
               QR Studio
             </h1>
             <p className="text-xs text-gray-500 font-medium">Create clean, scannable QR codes instantly.</p>
@@ -173,7 +176,7 @@ const QRCodeGenerator = ({ embedded = false }) => {
           
           {/* Mobile Top Header */}
           <div className="text-center mb-8 sm:hidden">
-            <h1 className="text-3xl sm:text-4xl font-bold font-brand tracking-tight mb-2 text-transparent bg-clip-text bg-gradient-to-r from-yellow-600 to-yellow-400">
+            <h1 className="text-3xl sm:text-4xl font-bold font-brand tracking-tight mb-2 text-transparent bg-clip-text bg-gradient-to-r from-zinc-900 to-zinc-500">
               QR Studio
             </h1>
             <p className="text-sm text-gray-500 font-medium">Create clean, scannable QR codes instantly.</p>
@@ -182,7 +185,7 @@ const QRCodeGenerator = ({ embedded = false }) => {
       ) : null}
 
       {/* Main Workspace - Centered Vertically */}
-      <div className="clean-card p-6 sm:p-8 grid grid-cols-1 md:grid-cols-2 gap-8 items-start w-full relative z-20 shadow-2xl shadow-gray-200/50 hover:shadow-yellow-100/50 transition-shadow duration-500">
+      <div className="clean-card p-6 sm:p-8 grid grid-cols-1 md:grid-cols-2 gap-8 items-start w-full relative z-20 shadow-none hover:shadow-none transition-shadow duration-500">
         
         {/* Left: Input Form */}
         <div className="flex flex-col space-y-6">
@@ -210,13 +213,13 @@ const QRCodeGenerator = ({ embedded = false }) => {
         </div>
 
         {/* Right: Preview Area */}
-        <div className="flex flex-col md:border-l md:border-gray-100 md:pl-8 h-full justify-center min-h-[220px]">
+        <div className="flex flex-col md:border-l md:border-[rgba(17,17,17,0.08)] md:pl-8 h-full justify-center min-h-[220px]">
           {isGenerating ? (
-              <div className="bg-gray-50/50 p-6 rounded-2xl border border-gray-100 flex items-center justify-center w-full aspect-square max-w-[280px] mx-auto">
+              <div className="bg-[rgba(255,255,255,0.58)] p-6 rounded-2xl border border-[rgba(17,17,17,0.12)] flex items-center justify-center w-full aspect-square max-w-[280px] mx-auto">
                  <div className="w-full h-full rounded-xl animate-shimmer scale-95 origin-center transition-all"></div>
               </div>
           ) : debouncedText ? (
-            <div className="bg-gray-50/50 p-6 rounded-2xl border border-gray-100 flex items-center justify-center w-full aspect-square max-w-[280px] mx-auto animate-in fade-in zoom-in-95 duration-500 qr-container">
+            <div className="bg-[rgba(255,255,255,0.58)] p-6 rounded-2xl border border-[rgba(17,17,17,0.12)] flex items-center justify-center w-full aspect-square max-w-[280px] mx-auto animate-in fade-in zoom-in-95 duration-500 qr-container">
                <div className="animate-in fade-in zoom-in-50 duration-700">
                  <QRCodeCanvas
                      id="qr-canvas"
@@ -228,7 +231,7 @@ const QRCodeGenerator = ({ embedded = false }) => {
                </div>
             </div>
           ) : (
-            <div className="bg-gray-50 rounded-2xl border border-dashed border-gray-200 flex flex-col items-center justify-center p-8 w-full max-w-[280px] aspect-square mx-auto">
+            <div className="bg-[rgba(255,255,255,0.34)] rounded-2xl border border-dashed border-[rgba(17,17,17,0.12)] flex flex-col items-center justify-center p-8 w-full max-w-[280px] aspect-square mx-auto">
                 <svg className="w-8 h-8 text-gray-300 mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm14 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z" />
                 </svg>
@@ -257,3 +260,7 @@ const QRCodeGenerator = ({ embedded = false }) => {
 };
 
 export default QRCodeGenerator;
+
+
+
+
