@@ -431,7 +431,7 @@ export default function HomePage() {
   const layerThree = useTransform(scrollYProgress, [0, 1], [0, reduceMotion ? 0 : -110]);
   const timelineProgress = useTransform(timelineScroll, [0, 1], ["0%", "100%"]);
   const graphicDesignItems = galleryItems.filter((item) => item.category === "Graphic Design");
-  const photographyItems = galleryItems.filter((item) => item.category === "Photography");
+  const videoEditingItems = galleryItems.filter((item) => item.category === "Video Editing");
 
   return (
     <main className="relative overflow-hidden pb-20 text-ink md:pb-28">
@@ -693,18 +693,18 @@ export default function HomePage() {
         </div>
       </SectionReveal>
 
-      <SectionReveal id="photography" className="scroll-mt-28 px-4 pt-10 md:px-6 md:pt-12" delay={0.1}>
+      <SectionReveal id="video-editing" className="scroll-mt-28 px-4 pt-10 md:px-6 md:pt-12" delay={0.1}>
         <div className="relative mx-auto max-w-[1380px] overflow-hidden rounded-[42px] px-6 py-8 md:px-10 md:py-10">
           <div className="absolute inset-0 rounded-[42px] bg-gradient-to-br from-white/70 via-slate-50/55 to-sky-50/45" />
           <div className="absolute left-10 top-10 h-60 w-60 rounded-full bg-sky-100/55 blur-3xl" />
           <SectionIntro
-            eyebrow="Photographs"
-            title="Photography now lives in a dedicated section of its own."
-            text="Portraits, storytelling shots, and light studies stay together here so the photography side feels separate from the graphic design work."
+            eyebrow="Video Editing"
+            title="Video editing now lives in a dedicated section of its own."
+            text="Cuts, visual rhythm, and edited storytelling moments stay together here so the video-editing side feels separate from the graphic design work."
           />
 
           <div className="relative z-10 mt-10 columns-1 gap-5 md:columns-2 xl:columns-3">
-            {photographyItems.map((item, index) => (
+            {videoEditingItems.map((item, index) => (
               <GalleryCard key={item.title} item={item} index={index} onOpen={setActiveGalleryItem} />
             ))}
           </div>
@@ -1063,6 +1063,7 @@ export default function HomePage() {
     </main>
   );
 }
+
 
 
 
