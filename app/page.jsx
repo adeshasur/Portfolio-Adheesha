@@ -170,9 +170,15 @@ function ToolkitOverviewCard({ group, index }) {
   );
 }
 
-function ProjectCard({ project, index }) {
-  const isAnchor = project.href.startsWith("#");
-  const isExternal = !isAnchor;
+function ProjectCard({ project, index, onOpen }) {
+  const href = project.href || "";
+  const isAnchor = href.startsWith("#");
+  const hasDirectLink = Boolean(href);
+  const isExternal = hasDirectLink && !isAnchor;
+  const canPreview = Boolean(project.shots?.length);
+  const imageClassName = project.imageContain
+    ? "object-contain bg-white p-3 transition duration-500 group-hover/image:scale-[1.03]"
+    : "object-cover transition duration-500 group-hover/image:scale-[1.03]";
 
   return (
     <motion.article
@@ -203,9 +209,29 @@ function ProjectCard({ project, index }) {
           </div>
         </div>
         {project.image ? (
-          isAnchor ? null : (
+          canPreview ? (
+            <button
+              type="button"
+              onClick={() => onOpen(project)}
+              className="group/image relative block overflow-hidden rounded-[18px] border border-white/45 bg-white/70 text-left"
+              aria-label={`Open preview for ${project.name}`}
+            >
+              <div className="relative aspect-[16/10]">
+                <Image
+                  src={project.image}
+                  alt={project.imageAlt || project.name}
+                  fill
+                  sizes="(min-width: 1536px) 18vw, (min-width: 1280px) 22vw, (min-width: 768px) 40vw, 92vw"
+                  className={imageClassName}
+                />
+                <span className="absolute left-3 top-3 rounded-full bg-black/70 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-white backdrop-blur-md">
+                  Preview
+                </span>
+              </div>
+            </button>
+          ) : isAnchor ? null : hasDirectLink ? (
             <a
-              href={project.href}
+              href={href}
               target="_blank"
               rel="noreferrer"
               className="group/image relative block overflow-hidden rounded-[18px] border border-white/45 bg-white/70"
@@ -217,10 +243,22 @@ function ProjectCard({ project, index }) {
                   alt={project.imageAlt || project.name}
                   fill
                   sizes="(min-width: 1536px) 18vw, (min-width: 1280px) 22vw, (min-width: 768px) 40vw, 92vw"
-                  className="object-cover transition duration-500 group-hover/image:scale-[1.03]"
+                  className={imageClassName}
                 />
               </div>
             </a>
+          ) : (
+            <div className="relative block overflow-hidden rounded-[18px] border border-white/45 bg-white/70">
+              <div className="relative aspect-[16/10]">
+                <Image
+                  src={project.image}
+                  alt={project.imageAlt || project.name}
+                  fill
+                  sizes="(min-width: 1536px) 18vw, (min-width: 1280px) 22vw, (min-width: 768px) 40vw, 92vw"
+                  className={imageClassName}
+                />
+              </div>
+            </div>
           )
         ) : null}
 
@@ -239,26 +277,50 @@ function ProjectCard({ project, index }) {
           ))}
         </div>
 
-        {isAnchor ? (
-          <button
-            type="button"
-            onClick={() => smoothScrollTo(project.href.replace("#", ""))}
-            className="inline-flex w-fit items-center gap-2 rounded-full bg-ink px-3.5 py-2 text-[12px] font-semibold text-white shadow-lg shadow-black/10"
-          >
-            {project.cta}
-            <ArrowUpRight className="h-4 w-4" />
-          </button>
-        ) : (
-          <a
-            href={project.href}
-            target={isExternal ? "_blank" : undefined}
-            rel={isExternal ? "noreferrer" : undefined}
-            className="inline-flex w-fit items-center gap-2 rounded-full bg-ink px-3.5 py-2 text-[12px] font-semibold text-white shadow-lg shadow-black/10"
-          >
-            {project.cta}
-            <ArrowUpRight className="h-4 w-4" />
-          </a>
-        )}
+        <div className="mt-auto flex flex-wrap gap-2">
+          {canPreview ? (
+            <button
+              type="button"
+              onClick={() => onOpen(project)}
+              className="inline-flex w-fit items-center gap-2 rounded-full bg-ink px-3.5 py-2 text-[12px] font-semibold text-white shadow-lg shadow-black/10"
+            >
+              {project.cta}
+              <ArrowUpRight className="h-4 w-4" />
+            </button>
+          ) : isAnchor ? (
+            <button
+              type="button"
+              onClick={() => smoothScrollTo(href.replace("#", ""))}
+              className="inline-flex w-fit items-center gap-2 rounded-full bg-ink px-3.5 py-2 text-[12px] font-semibold text-white shadow-lg shadow-black/10"
+            >
+              {project.cta}
+              <ArrowUpRight className="h-4 w-4" />
+            </button>
+          ) : hasDirectLink ? (
+            <a
+              href={href}
+              target={isExternal ? "_blank" : undefined}
+              rel={isExternal ? "noreferrer" : undefined}
+              className="inline-flex w-fit items-center gap-2 rounded-full bg-ink px-3.5 py-2 text-[12px] font-semibold text-white shadow-lg shadow-black/10"
+            >
+              {project.cta}
+              <ArrowUpRight className="h-4 w-4" />
+            </a>
+          ) : null}
+
+          {project.links?.map((link) => (
+            <a
+              key={link.href}
+              href={link.href}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex w-fit items-center gap-2 rounded-full bg-white/75 px-3.5 py-2 text-[12px] font-semibold text-ink glass-soft"
+            >
+              {link.label}
+              <ArrowUpRight className="h-4 w-4" />
+            </a>
+          ))}
+        </div>
       </div>
     </motion.article>
   );
@@ -419,6 +481,8 @@ function BookSpine({ item, index }) {
 
 export default function HomePage() {
   const reduceMotion = useReducedMotion();
+  const [activeProject, setActiveProject] = useState(null);
+  const [activeProjectShotIndex, setActiveProjectShotIndex] = useState(0);
   const [activeGalleryItem, setActiveGalleryItem] = useState(null);
   const [activeCertificate, setActiveCertificate] = useState(null);
   const [activeJourneyItem, setActiveJourneyItem] = useState(null);
@@ -432,6 +496,7 @@ export default function HomePage() {
   const timelineProgress = useTransform(timelineScroll, [0, 1], ["0%", "100%"]);
   const graphicDesignItems = galleryItems.filter((item) => item.category === "Graphic Design");
   const videoEditingItems = galleryItems.filter((item) => item.category === "Video Editing");
+  const activeProjectShot = activeProject?.shots?.[activeProjectShotIndex] || activeProject?.shots?.[0];
 
   return (
     <main className="relative overflow-hidden pb-20 text-ink md:pb-28">
@@ -669,7 +734,15 @@ export default function HomePage() {
 
           <div className="relative mt-6 grid gap-3 md:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-5">
             {softwareProjects.map((project, index) => (
-              <ProjectCard key={project.name} project={project} index={index} />
+              <ProjectCard
+                key={project.name}
+                project={project}
+                index={index}
+                onOpen={(selectedProject) => {
+                  setActiveProject(selectedProject);
+                  setActiveProjectShotIndex(0);
+                }}
+              />
             ))}
           </div>
         </div>
@@ -878,6 +951,117 @@ export default function HomePage() {
           </div>
         </div>
       </SectionReveal>
+
+      <AnimatePresence>
+        {activeProject && activeProjectShot ? (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[84] flex items-center justify-center bg-black/45 p-4 backdrop-blur-xl"
+            onClick={() => setActiveProject(null)}
+          >
+            <motion.div
+              initial={{ opacity: 0, y: 24, scale: 0.96 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 18, scale: 0.96 }}
+              transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+              onClick={(event) => event.stopPropagation()}
+              className="relative w-full max-w-6xl overflow-hidden rounded-[34px] bg-white p-5 shadow-2xl shadow-black/20 md:p-6"
+            >
+              <div className="grid gap-6 lg:grid-cols-[1.12fr_0.88fr] lg:items-start">
+                <div className="rounded-[28px] bg-zinc-100 p-3 shadow-[0_24px_60px_rgba(15,23,42,0.14)]">
+                  <div className="relative overflow-hidden rounded-[22px] bg-white">
+                    <div className="relative aspect-[16/11]">
+                      <Image
+                        src={activeProjectShot.image}
+                        alt={activeProjectShot.title}
+                        fill
+                        sizes="(min-width: 1024px) 54vw, 94vw"
+                        className="object-contain bg-white p-3"
+                      />
+                    </div>
+                  </div>
+                  {activeProject.shots.length > 1 ? (
+                    <div className="mt-4 grid grid-cols-5 gap-2">
+                      {activeProject.shots.map((shot, index) => (
+                        <button
+                          key={shot.title}
+                          type="button"
+                          onClick={() => setActiveProjectShotIndex(index)}
+                          className={`relative overflow-hidden rounded-[18px] border bg-white p-1.5 transition ${index === activeProjectShotIndex ? "border-ink shadow-[0_16px_36px_rgba(15,23,42,0.12)]" : "border-black/8 hover:border-black/20"}`}
+                        >
+                          <div className="relative aspect-[4/5] overflow-hidden rounded-[14px] bg-zinc-50">
+                            <Image
+                              src={shot.image}
+                              alt={shot.title}
+                              fill
+                              sizes="160px"
+                              className="object-contain bg-white p-1.5"
+                            />
+                          </div>
+                        </button>
+                      ))}
+                    </div>
+                  ) : null}
+                </div>
+                <div>
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-zinc-500">
+                    {activeProject.previewLabel || "Project Preview"}
+                  </p>
+                  <h3 className="font-display mt-4 text-3xl font-semibold tracking-[-0.06em] text-ink md:text-4xl">
+                    {activeProject.name}
+                  </h3>
+                  <p className="mt-3 text-sm font-medium uppercase tracking-[0.18em] text-zinc-500">
+                    {activeProject.type}
+                  </p>
+                  <p className="mt-4 text-[15px] leading-8 text-zinc-600 md:text-[16px]">
+                    {activeProject.longDescription || activeProject.description}
+                  </p>
+
+                  <div className="mt-6 rounded-[24px] bg-zinc-50 px-4 py-4">
+                    <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-zinc-500">
+                      {activeProjectShot.title}
+                    </p>
+                    <p className="mt-2 text-sm leading-7 text-zinc-600">
+                      {activeProjectShot.description}
+                    </p>
+                  </div>
+
+                  <div className="mt-6 flex flex-wrap gap-2">
+                    {activeProject.details.map((detail) => (
+                      <span key={detail} className="rounded-full bg-zinc-100 px-3 py-1.5 text-[11px] font-semibold text-zinc-700">
+                        {detail}
+                      </span>
+                    ))}
+                  </div>
+
+                  <div className="mt-8 flex flex-wrap gap-3">
+                    {activeProject.links?.map((link) => (
+                      <a
+                        key={link.href}
+                        href={link.href}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="rounded-full bg-ink px-5 py-3 text-sm font-semibold text-white"
+                      >
+                        {link.label}
+                      </a>
+                    ))}
+                    <button
+                      type="button"
+                      onClick={() => setActiveProject(null)}
+                      className="rounded-full bg-zinc-100 px-5 py-3 text-sm font-semibold text-ink"
+                    >
+                      Close Preview
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        ) : null}
+      </AnimatePresence>
 
       <AnimatePresence>
         {activeJourneyItem ? (
