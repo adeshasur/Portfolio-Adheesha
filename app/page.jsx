@@ -91,6 +91,63 @@ function SectionIntro({ eyebrow, title, text, align = "left", theme = "light" })
   );
 }
 
+function SplitText({ text, delay = 0, reduceMotion }) {
+  const letters = text.split("");
+  
+  const container = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.03, delayChildren: delay }
+    }
+  };
+
+  const child = {
+    visible: {
+      opacity: 1,
+      y: 0,
+      rotateX: 0,
+      transition: {
+        type: "spring",
+        damping: 12,
+        stiffness: 100
+      }
+    },
+    hidden: {
+      opacity: 0,
+      y: 20,
+      rotateX: 90,
+      transition: {
+        type: "spring",
+        damping: 12,
+        stiffness: 100
+      }
+    }
+  };
+
+  if (reduceMotion) return <span>{text}</span>;
+
+  return (
+    <motion.span
+      variants={container}
+      initial="hidden"
+      animate="visible"
+      className="inline-block"
+      style={{ perspective: 600 }}
+    >
+      {letters.map((letter, index) => (
+        <motion.span
+          key={index}
+          variants={child}
+          className="inline-block whitespace-pre"
+        >
+          {letter}
+        </motion.span>
+      ))}
+    </motion.span>
+  );
+}
+
 function SectionReveal({ children, className = "", delay = 0, id }) {
   return (
     <motion.section
@@ -98,11 +155,180 @@ function SectionReveal({ children, className = "", delay = 0, id }) {
       initial={{ opacity: 0, y: 42 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.18 }}
-      transition={{ duration: 0.85, delay, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 0.95, delay, ease: [0.22, 1, 0.36, 1] }}
       className={className}
     >
       {children}
     </motion.section>
+  );
+}
+
+function CursorIndicator({ reduceMotion }) {
+  const [isHovering, setIsHovering] = useState(false);
+  const [isImageHovering, setIsImageHovering] = useState(false);
+  const mouseX = useSpring(0, { stiffness: 450, damping: 28 });
+  const mouseY = useSpring(0, { stiffness: 450, damping: 28 });
+  const cursorScale = useSpring(1, { stiffness: 250, damping: 20 });
+  
+  useEffect(() => {
+    if (reduceMotion) return;
+    
+    const moveMouse = (e) => {
+      mouseX.set(e.clientX);
+      mouseY.set(e.clientY);
+    };
+
+    const handleOver = (e) => {
+      const target = e.target;
+      if (target.closest("button") || target.closest("a") || target.closest(".cursor-magnetic")) {
+        setIsHovering(true);
+        cursorScale.set(1.5);
+      }
+      if (target.closest("img") || target.closest(".cursor-spotlight")) {
+        setIsImageHovering(true);
+        cursorScale.set(2.4);
+      }
+    };
+
+    const handleOut = () => {
+      setIsHovering(false);
+      setIsImageHovering(false);
+      cursorScale.set(1);
+    };
+
+    window.addEventListener("mousemove", moveMouse);
+    window.addEventListener("mouseover", handleOver);
+    window.addEventListener("mouseout", handleOut);
+    
+    return () => {
+      window.removeEventListener("mousemove", moveMouse);
+      window.removeEventListener("mouseover", handleOver);
+      window.removeEventListener("mouseout", handleOut);
+    };
+  }, [mouseX, mouseY, cursorScale, reduceMotion]);
+
+  if (reduceMotion) return null;
+
+  return (
+    <motion.div
+      className="pointer-events-none fixed left-0 top-0 z-[100] hidden mix-blend-difference md:block"
+      style={{
+        x: mouseX,
+        y: mouseY,
+        translateX: "-50%",
+        translateY: "-50%",
+        scale: cursorScale
+      }}
+    >
+      <div className={`rounded-full transition-all duration-300 ${isImageHovering ? "h-14 w-14 border border-white/20 bg-white/10" : isHovering ? "h-10 w-10 bg-white" : "h-3 w-3 bg-white"}`} />
+    </motion.div>
+  );
+}
+
+function TiltCard({ children, className = "", reduceMotion }) {
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+
+  const rotateX = useTransform(y, [-100, 100], [15, -15]);
+  const rotateY = useTransform(x, [-100, 100], [-15, 15]);
+  
+  const springX = useSpring(rotateX, { stiffness: 150, damping: 20 });
+  const springY = useSpring(rotateY, { stiffness: 150, damping: 20 });
+
+  function handleMouseMove(e) {
+    if (reduceMotion) return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    const width = rect.width;
+    const height = rect.height;
+    const mouseX = e.clientX - rect.left;
+    const mouseY = e.clientY - rect.top;
+    x.set(mouseX - width / 2);
+    y.set(mouseY - height / 2);
+  }
+
+  function handleMouseLeave() {
+    x.set(0);
+    y.set(0);
+  }
+
+  return (
+    <motion.div
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      style={{
+        rotateX: springX,
+        rotateY: springY,
+        transformStyle: "preserve-3d",
+        perspective: 1200
+      }}
+      className={`group/tilt ${className}`}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+function MagneticWrapper({ children, intensity = 0.35, reduceMotion }) {
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+  const springX = useSpring(x, { stiffness: 150, damping: 15 });
+  const springY = useSpring(y, { stiffness: 150, damping: 15 });
+
+  function handleMouseMove(e) {
+    if (reduceMotion) return;
+    const { clientX, clientY, currentTarget } = e;
+    const { left, top, width, height } = currentTarget.getBoundingClientRect();
+    const centerX = left + width / 2;
+    const centerY = top + height / 2;
+    const distanceX = clientX - centerX;
+    const distanceY = clientY - centerY;
+    x.set(distanceX * intensity);
+    y.set(distanceY * intensity);
+  }
+
+  function handleMouseLeave() {
+    x.set(0);
+    y.set(0);
+  }
+
+  return (
+    <motion.div
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      style={{ x: springX, y: springY }}
+      className="inline-block"
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+function HeroSpotlight({ reduceMotion }) {
+  const mouseX = useSpring(0, { stiffness: 50, damping: 20 });
+  const mouseY = useSpring(0, { stiffness: 50, damping: 20 });
+
+  useEffect(() => {
+    if (reduceMotion) return;
+    const handleMove = (e) => {
+      mouseX.set(e.clientX);
+      mouseY.set(e.clientY);
+    };
+    window.addEventListener("mousemove", handleMove);
+    return () => window.removeEventListener("mousemove", handleMove);
+  }, [mouseX, mouseY, reduceMotion]);
+
+  if (reduceMotion) return null;
+
+  return (
+    <motion.div
+      className="pointer-events-none fixed inset-0 z-0 opacity-40 transition-opacity duration-1000 group-hover:opacity-70"
+      style={{
+        background: useTransform(
+          [mouseX, mouseY],
+          ([x, y]) => `radial-gradient(1000px circle at ${x}px ${y}px, rgba(199, 165, 84, 0.08), transparent 80%)`
+        ),
+      }}
+    />
   );
 }
 
@@ -160,15 +386,16 @@ function AchievementCard({ item, index, onOpen, reduceMotion }) {
   }, [reduceMotion, hasMultipleImages, images.length]);
 
   return (
+    <TiltCard reduceMotion={reduceMotion} className="flex h-full flex-col">
     <motion.button
       type="button"
       onClick={() => onOpen(item)}
       variants={staggerItem}
-      whileHover={{ y: -8 }}
-      className="group relative flex h-full flex-col overflow-hidden rounded-[24px] bg-white/68 p-4 text-left glass-soft card-glow-hover transition-all duration-500"
+      whileHover={{ y: -8, z: 20 }}
+      className="group relative flex h-full flex-col overflow-hidden rounded-[24px] bg-white/68 p-4 text-left glass-soft card-glow-hover transition-all duration-500 [transform-style:preserve-3d]"
     >
       {images.length > 0 ? (
-        <div className="relative mx-auto mb-4 w-full overflow-hidden rounded-[18px] bg-white p-2 shadow-[0_12px_28px_rgba(15,23,42,0.05)]">
+        <div className="relative mx-auto mb-4 w-full overflow-hidden rounded-[18px] bg-white p-2 shadow-[0_12px_28px_rgba(15,23,42,0.05)] [transform:translateZ(40px)]">
           <div className="relative overflow-hidden rounded-[14px] bg-zinc-50 aspect-[3/4]">
             <AnimatePresence mode="wait">
               <motion.div
@@ -203,7 +430,7 @@ function AchievementCard({ item, index, onOpen, reduceMotion }) {
         </div>
       ) : null}
       
-      <div className="flex flex-col flex-grow">
+      <div className="flex flex-col flex-grow [transform:translateZ(20px)]">
         <p className="text-[9px] font-semibold uppercase tracking-[0.2em] text-zinc-400">
           {item.year}
         </p>
@@ -215,10 +442,11 @@ function AchievementCard({ item, index, onOpen, reduceMotion }) {
         </p>
         <div className="mt-4 flex items-center justify-between gap-2 text-[10px] font-semibold uppercase tracking-[0.12em] text-ink/70">
           Open Preview
-          <ArrowUpRight className="h-3 w-3" />
+          <ArrowUpRight className="h-3.5 w-3.5" />
         </div>
       </div>
     </motion.button>
+    </TiltCard>
   );
 }
 
@@ -273,7 +501,7 @@ function ToolkitOverviewCard({ group, index }) {
   );
 }
 
-function ProjectCard({ project, index, onOpen }) {
+function ProjectCard({ project, index, onOpen, reduceMotion }) {
   const href = project.href || "";
   const isAnchor = href.startsWith("#");
   const hasDirectLink = Boolean(href);
@@ -284,38 +512,24 @@ function ProjectCard({ project, index, onOpen }) {
     : "object-cover transition duration-500 group-hover/image:scale-[1.03]";
 
   return (
+    <TiltCard reduceMotion={reduceMotion} className="flex h-full flex-col">
     <motion.article
-      initial={{ opacity: 0, y: 28 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.16 }}
-      transition={{ duration: 0.8, delay: index * 0.06, ease: [0.22, 1, 0.36, 1] }}
-      whileHover={{ y: -10 }}
-      className="group relative overflow-hidden rounded-[22px] glass-panel p-3 md:p-3.5"
+      variants={staggerItem}
+      whileHover={{ y: -8, z: 20 }}
+      className="group relative flex h-full flex-col overflow-hidden rounded-[24px] bg-white/68 p-4 glass-soft card-glow-hover transition-all duration-500 [transform-style:preserve-3d]"
     >
-      <div className="noise-mask" />
-      <div className="absolute inset-0" style={{ background: project.accent }} />
-      <div
-        className="absolute inset-x-5 top-5 h-20 rounded-[20px] opacity-90 blur-3xl"
-        style={{ background: project.glow }}
-      />
-      <div className="absolute inset-[1px] rounded-[24px] bg-white/74" />
-      <div className="relative z-10 flex h-full flex-col gap-4">
-        <div className="flex items-center justify-between gap-4">
-          <div>
-            <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-zinc-500">{project.type}</p>
-            <p className="mt-1.5 inline-flex rounded-full bg-white/75 px-2.5 py-1 text-[10px] font-semibold text-zinc-700 glass-soft">
-              {project.status}
-            </p>
-          </div>
-          <div className="font-display text-[1.35rem] font-semibold tracking-[-0.08em] text-zinc-200 transition-transform duration-500 group-hover:scale-105 md:text-[1.7rem]">
-            {project.name.slice(0, 2).toUpperCase()}
+      <div className="noise-mask opacity-10" />
+      <div className="relative z-10 space-y-4">
+        <div className="flex items-start justify-between">
+          <div className="rounded-2xl bg-white/80 p-3 shadow-sm [transform:translateZ(40px)]">
+            <span className="text-xl">{project.icon}</span>
           </div>
         </div>
         {project.image ? (
           <button
             type="button"
             onClick={() => onOpen(project)}
-            className="group/image relative block overflow-hidden rounded-[18px] bg-white p-2 shadow-[0_12px_28px_rgba(15,23,42,0.05)] text-left"
+            className="group/image relative block overflow-hidden rounded-[18px] bg-white p-2 shadow-[0_12px_28px_rgba(15,23,42,0.05)] text-left [transform:translateZ(30px)]"
             aria-label={`Open preview for ${project.name}`}
           >
             <div className="relative aspect-[16/10] overflow-hidden rounded-[14px] bg-zinc-50 border border-black/5">
@@ -333,14 +547,14 @@ function ProjectCard({ project, index, onOpen }) {
           </button>
         ) : null}
 
-        <div>
+        <div className="[transform:translateZ(20px)]">
           <h3 className="font-display text-[1.2rem] font-semibold tracking-[-0.07em] text-ink md:text-[1.35rem]">
             {project.name}
           </h3>
           <p className="mt-1.5 max-w-xl text-[11px] leading-[1.45rem] text-zinc-600 md:text-[12px]">{project.description}</p>
         </div>
 
-        <div className="flex flex-wrap gap-1.5">
+        <div className="flex flex-wrap gap-1.5 [transform:translateZ(10px)]">
           {project.details.map((detail) => (
             <span key={detail} className="rounded-full bg-white/72 px-2 py-1 text-[9px] font-medium text-zinc-700 glass-soft">
               {detail}
@@ -348,7 +562,7 @@ function ProjectCard({ project, index, onOpen }) {
           ))}
         </div>
 
-        <div className="mt-auto flex flex-wrap gap-2">
+        <div className="mt-auto flex flex-wrap gap-2 [transform:translateZ(10px)]">
           {canPreview ? (
             <button
               type="button"
@@ -394,6 +608,7 @@ function ProjectCard({ project, index, onOpen }) {
         </div>
       </div>
     </motion.article>
+    </TiltCard>
   );
 }
 
@@ -500,7 +715,7 @@ function JourneyCard({ item, index, onOpen, label }) {
             ) : null}
           </div>
         </div>
-        <div className="mt-3 min-w-0">
+        <div className="mt-3 min-w-0 [transform:translateZ(30px)]">
           <h3 className="font-display text-[1.1rem] font-semibold tracking-[-0.05em] text-ink md:text-[1.2rem]">{item.title}</h3>
           <p className="mt-1 text-[10px] font-medium uppercase tracking-[0.14em] text-zinc-500">{item.subtitle}</p>
           <div className="mt-4 inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.14em] text-ink/80">
@@ -509,7 +724,7 @@ function JourneyCard({ item, index, onOpen, label }) {
           </div>
         </div>
       </div>
-    </motion.button>
+    </motion.article>
   );
 }
 
@@ -578,34 +793,46 @@ export default function HomePage() {
                 <a
                   key={item.href}
                   href={item.href}
-                  className="whitespace-nowrap rounded-full px-3 py-2 text-xs font-medium text-zinc-600 transition hover:bg-white/70 hover:text-ink md:text-sm"
-                >
-                  {item.label}
-                </a>
-              ) : (
-                <button
-                  key={item.id}
-                  type="button"
-                  onClick={() => smoothScrollTo(item.id)}
-                  className="whitespace-nowrap rounded-full px-3 py-2 text-xs font-medium text-zinc-600 transition hover:bg-white/70 hover:text-ink md:text-sm"
-                >
-                  {item.label}
-                </button>
-              )
-            ))}
-          </nav>
+          <nav className="flex items-center gap-1 rounded-full bg-white/45 p-1.5 glass-panel">
+              {navItems.map((item) => (
+                "id" in item ? (
+                  <MagneticWrapper key={item.id} reduceMotion={reduceMotion} intensity={0.2}>
+                    <button
+                      type="button"
+                      onClick={() => smoothScrollTo(item.id)}
+                      className="rounded-full px-4 py-2 text-xs font-semibold text-ink transition duration-300 hover:bg-white/60"
+                    >
+                      {item.label}
+                    </button>
+                  </MagneticWrapper>
+                ) : (
+                  <MagneticWrapper key={item.href} reduceMotion={reduceMotion} intensity={0.2}>
+                    <a
+                      href={item.href}
+                      className="rounded-full px-4 py-2 text-xs font-semibold text-ink transition duration-300 hover:bg-white/60"
+                    >
+                      {item.label}
+                    </a>
+                  </MagneticWrapper>
+                )
+              ))}
+            </nav>
 
-          <button
-            type="button"
-            onClick={() => smoothScrollTo("contact")}
-            className="hidden rounded-full bg-ink px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-black/10 md:inline-flex"
-          >
-            Let&apos;s Talk
-          </button>
+            <MagneticWrapper reduceMotion={reduceMotion} intensity={0.25}>
+              <button
+                type="button"
+                onClick={() => smoothScrollTo("contact")}
+                className="hidden rounded-full bg-ink px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-black/10 md:inline-flex"
+              >
+                Let&apos;s Talk
+              </button>
+            </MagneticWrapper>
         </div>
       </header>
 
-      <section id="hero" ref={heroRef} className="scroll-mt-28 px-4 pt-4 md:px-6 md:pt-6">
+      <SectionReveal id="hero" ref={heroRef} className="scroll-mt-28 px-4 pt-4 md:px-6 md:pt-6">
+        <CursorIndicator reduceMotion={reduceMotion} />
+        <HeroSpotlight reduceMotion={reduceMotion} />
         <div className="relative mx-auto max-w-[1380px] overflow-hidden rounded-[42px] px-6 pb-8 pt-5 md:px-10 md:pb-10 md:pt-6">
           <div className="absolute inset-0 rounded-[42px] bg-gradient-to-br from-white/80 via-white/58 to-gold/10" />
           <div className="noise-mask rounded-[42px]" />
@@ -628,18 +855,15 @@ export default function HomePage() {
                 {heroContent.badge}
               </motion.span>
 
-              <motion.h1
-                initial={reduceMotion ? false : { opacity: 0, y: 30 }}
-                animate={reduceMotion ? {} : { opacity: 1, y: 0 }}
-                transition={{ duration: 0.85, delay: 0.06, ease: [0.22, 1, 0.36, 1] }}
+              <h1
                 className="font-display mt-2 max-w-none text-[clamp(2.4rem,7vw,5.2rem)] font-semibold leading-[0.9] tracking-[-0.1em] text-ink"
               >
-                {heroContent.headlineLines.map((line) => (
-                  <span key={line} className="block">
-                    {line}
+                {heroContent.headlineLines.map((line, i) => (
+                  <span key={line} className="block overflow-hidden">
+                    <SplitText text={line} delay={0.2 + i * 0.15} reduceMotion={reduceMotion} />
                   </span>
                 ))}
-              </motion.h1>
+              </h1>
 
               <motion.div
                 initial={reduceMotion ? false : { opacity: 0, y: 26 }}
@@ -656,40 +880,47 @@ export default function HomePage() {
                 className="mt-16 md:mt-20"
               >
                 <div className="flex flex-wrap gap-3">
-                  <button
-                    type="button"
-                    onClick={() => smoothScrollTo("projects")}
-                    className="rounded-full bg-ink px-6 py-3.5 text-sm font-semibold text-white shadow-lg shadow-black/10"
-                  >
-                    Explore Projects
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => smoothScrollTo("toolkit")}
-                    className="rounded-full border border-white/50 bg-white/60 px-6 py-3.5 text-sm font-semibold text-ink glass-soft"
-                  >
-                    Open Toolkit
-                  </button>
-                  <a
-                    href="/cv/CV%20ADHEESHA%20SOORIYAARACHCHI.pdf"
-                    download
-                    className="rounded-full border border-white/50 bg-white/60 px-6 py-3.5 text-sm font-semibold text-ink glass-soft"
-                  >
-                    Download CV
-                  </a>
+                  <MagneticWrapper reduceMotion={reduceMotion}>
+                    <button
+                      type="button"
+                      onClick={() => smoothScrollTo("projects")}
+                      className="rounded-full bg-ink px-6 py-3.5 text-sm font-semibold text-white shadow-lg shadow-black/10"
+                    >
+                      Explore Projects
+                    </button>
+                  </MagneticWrapper>
+                  <MagneticWrapper reduceMotion={reduceMotion}>
+                    <button
+                      type="button"
+                      onClick={() => smoothScrollTo("toolkit")}
+                      className="rounded-full border border-white/50 bg-white/60 px-6 py-3.5 text-sm font-semibold text-ink glass-soft"
+                    >
+                      Open Toolkit
+                    </button>
+                  </MagneticWrapper>
+                  <MagneticWrapper reduceMotion={reduceMotion}>
+                    <a
+                      href="/CV.pdf"
+                      target="_blank"
+                      className="hidden rounded-full border border-ink/15 bg-white/45 px-6 py-3.5 text-sm font-semibold text-ink glass-soft sm:inline-flex"
+                    >
+                      Download CV
+                    </a>
+                  </MagneticWrapper>
                 </div>
                 <div className="mt-10 flex flex-wrap items-center gap-4 md:mt-12">
                   {socialLinks.map((item) => {
                     const Icon = socialIconMap[item.icon];
                     return (
-                      <a
-                        key={item.label}
-                        href={item.href}
-                        aria-label={item.label}
-                        className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-black text-white shadow-lg shadow-black/10 transition duration-300 hover:-translate-y-1.5 hover:bg-zinc-800 hover:shadow-xl"
-                      >
-                        <Icon className="h-5 w-5" />
-                      </a>
+                      <MagneticWrapper key={item.label} reduceMotion={reduceMotion} intensity={0.4}>
+                        <a
+                          href={item.href}
+                          aria-label={item.label}
+                          className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-black text-white shadow-lg shadow-black/10 transition duration-300 hover:-translate-y-1.5 hover:bg-zinc-800 hover:shadow-xl"
+                        >
+                          <Icon className="h-5 w-5" />
+                        </a>
+                      </MagneticWrapper>
                     );
                   })}
                 </div>
@@ -913,13 +1144,15 @@ export default function HomePage() {
                   />
                 ))}
               </motion.div>
-              <a
-                href="/experience"
-                className="mt-6 inline-flex items-center gap-2 rounded-full bg-ink px-4 py-2.5 text-sm font-semibold text-white shadow-lg shadow-black/10"
-              >
-                Open Experience Page
-                <ArrowUpRight className="h-4 w-4" />
-              </a>
+              <MagneticWrapper reduceMotion={reduceMotion} intensity={0.25}>
+                <a
+                  href="/experience"
+                  className="mt-6 inline-flex items-center gap-2 rounded-full bg-ink px-4 py-2.5 text-sm font-semibold text-white shadow-lg shadow-black/10 transition duration-300 hover:scale-[1.02]"
+                >
+                  Open Experience Page
+                  <ArrowUpRight className="h-4 w-4" />
+                </a>
+              </MagneticWrapper>
             </div>
 
             <div className="py-1">
@@ -1012,19 +1245,23 @@ export default function HomePage() {
               </div>
 
               <div className="mt-14 flex flex-wrap gap-3">
-                <button
-                  type="button"
-                  onClick={() => smoothScrollTo("hero")}
-                  className="rounded-full bg-white px-5 py-3 text-sm font-semibold text-ink"
-                >
-                  Back to Top
-                </button>
-                <a
-                  href="https://github.com/adeshasur/Portfolio-Adheesha"
-                  className="rounded-full border border-white/20 bg-white/10 px-5 py-3 text-sm font-semibold text-white"
-                >
-                  View Repository
-                </a>
+                <MagneticWrapper reduceMotion={reduceMotion} intensity={0.25}>
+                  <button
+                    type="button"
+                    onClick={() => smoothScrollTo("hero")}
+                    className="rounded-full bg-white px-5 py-3 text-sm font-semibold text-ink transition duration-300 hover:bg-zinc-100"
+                  >
+                    Back to Top
+                  </button>
+                </MagneticWrapper>
+                <MagneticWrapper reduceMotion={reduceMotion} intensity={0.25}>
+                  <a
+                    href="https://github.com/adeshasur/Portfolio-Adheesha"
+                    className="rounded-full border border-white/20 bg-white/10 px-5 py-3 text-sm font-semibold text-white transition duration-300 hover:bg-white/15"
+                  >
+                    View Repository
+                  </a>
+                </MagneticWrapper>
               </div>
             </div>
           </div>
