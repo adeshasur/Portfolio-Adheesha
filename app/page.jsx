@@ -787,40 +787,40 @@ export default function HomePage() {
             Adheesha Sooriyaarachchi
           </button>
 
-            <nav className="flex items-center gap-1 rounded-full bg-white/45 p-1.5 glass-panel">
-              {navItems.map((item) => (
-                "id" in item ? (
-                  <MagneticWrapper key={item.id} reduceMotion={reduceMotion} intensity={0.2}>
-                    <button
-                      type="button"
-                      onClick={() => smoothScrollTo(item.id)}
-                      className="rounded-full px-4 py-2 text-xs font-semibold text-ink transition duration-300 hover:bg-white/60"
-                    >
-                      {item.label}
-                    </button>
-                  </MagneticWrapper>
-                ) : (
-                  <MagneticWrapper key={item.href} reduceMotion={reduceMotion} intensity={0.2}>
-                    <a
-                      href={item.href}
-                      className="rounded-full px-4 py-2 text-xs font-semibold text-ink transition duration-300 hover:bg-white/60"
-                    >
-                      {item.label}
-                    </a>
-                  </MagneticWrapper>
-                )
-              ))}
-            </nav>
+          <nav className="flex items-center gap-1 rounded-full bg-white/45 p-1.5 glass-panel">
+            {navItems.map((item) => (
+              "id" in item ? (
+                <MagneticWrapper key={item.id} reduceMotion={reduceMotion} intensity={0.2}>
+                  <button
+                    type="button"
+                    onClick={() => smoothScrollTo(item.id)}
+                    className="rounded-full px-4 py-2 text-xs font-semibold text-ink transition duration-300 hover:bg-white/60"
+                  >
+                    {item.label}
+                  </button>
+                </MagneticWrapper>
+              ) : (
+                <MagneticWrapper key={item.href} reduceMotion={reduceMotion} intensity={0.2}>
+                  <a
+                    href={item.href}
+                    className="rounded-full px-4 py-2 text-xs font-semibold text-ink transition duration-300 hover:bg-white/60"
+                  >
+                    {item.label}
+                  </a>
+                </MagneticWrapper>
+              )
+            ))}
+          </nav>
 
-            <MagneticWrapper reduceMotion={reduceMotion} intensity={0.25}>
-              <button
-                type="button"
-                onClick={() => smoothScrollTo("contact")}
-                className="hidden rounded-full bg-ink px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-black/10 md:inline-flex"
-              >
-                Let&apos;s Talk
-              </button>
-            </MagneticWrapper>
+          <MagneticWrapper reduceMotion={reduceMotion} intensity={0.25}>
+            <button
+              type="button"
+              onClick={() => smoothScrollTo("contact")}
+              className="hidden rounded-full bg-ink px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-black/10 md:inline-flex"
+            >
+              Let&apos;s Talk
+            </button>
+          </MagneticWrapper>
         </div>
       </header>
 
@@ -968,10 +968,8 @@ export default function HomePage() {
               </motion.div>
             </div>
           </div>
-
-
         </div>
-      </section>
+      </SectionReveal>
 
       <a
         href="https://buymeacoffee.com/adeshasur"
