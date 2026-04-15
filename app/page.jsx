@@ -629,18 +629,19 @@ function GalleryCard({ item, index, onOpen }) {
         <>
           <div className="relative overflow-hidden rounded-[18px] bg-white p-2 shadow-[0_12px_28px_rgba(15,23,42,0.05)]">
             <div className="relative overflow-hidden rounded-[14px] bg-zinc-50 border border-black/5">
-            <div className="relative h-[240px] w-full overflow-hidden bg-white sm:h-[260px]">
-              <Image
-                src={item.image}
-                alt={item.imageAlt || item.title}
-                fill
-                sizes="(min-width: 1536px) 18vw, (min-width: 1280px) 22vw, (min-width: 768px) 34vw, 92vw"
-                className="object-contain bg-white p-2 transition duration-700 group-hover:scale-[1.02]"
-              />
+              <div className="relative h-[240px] w-full overflow-hidden bg-white sm:h-[260px]">
+                <Image
+                  src={item.image}
+                  alt={item.imageAlt || item.title}
+                  fill
+                  sizes="(min-width: 1536px) 18vw, (min-width: 1280px) 22vw, (min-width: 768px) 34vw, 92vw"
+                  className="object-contain bg-white p-2 transition duration-700 group-hover:scale-[1.02]"
+                />
+              </div>
+              <span className="absolute left-3 top-3 z-10 rounded-full bg-black/70 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-white backdrop-blur-md">
+                {item.category}
+              </span>
             </div>
-            <span className="absolute left-3 top-3 z-10 rounded-full bg-black/70 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-white backdrop-blur-md">
-              {item.category}
-            </span>
           </div>
           <div className="px-1.5 pb-1.5 pt-3">
             <h3 className="font-display text-[1.28rem] font-semibold tracking-[-0.05em] text-ink">{item.title}</h3>
