@@ -143,11 +143,11 @@ function AchievementCard({ item, index, reduceMotion }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.22 }}
       transition={{ duration: 0.75, delay: index * 0.06, ease: [0.22, 1, 0.36, 1] }}
-      className="flex flex-col h-full overflow-hidden rounded-[28px] bg-white/68 p-5 glass-soft"
+      className="flex flex-col h-full overflow-hidden rounded-[24px] bg-white/68 p-4 glass-soft"
     >
       {images.length > 0 ? (
-        <div className="relative mx-auto mb-6 w-full max-w-[400px] overflow-hidden rounded-[22px] bg-white p-2.5 shadow-[0_18px_36px_rgba(15,23,42,0.06)]">
-          <div className={`relative overflow-hidden rounded-[16px] bg-zinc-50 ${item.imageOrientation === "portrait" ? "aspect-[0.85/1]" : "aspect-[16/10]"}`}>
+        <div className="relative mx-auto mb-4 w-full overflow-hidden rounded-[18px] bg-white p-2 shadow-[0_12px_28px_rgba(15,23,42,0.05)]">
+          <div className="relative overflow-hidden rounded-[14px] bg-zinc-50 aspect-[4/3]">
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeImage}
@@ -161,18 +161,18 @@ function AchievementCard({ item, index, reduceMotion }) {
                   src={images[activeImage]}
                   alt={`${item.title} image ${activeImage + 1}`}
                   fill
-                  sizes="(min-width: 1280px) 22vw, (min-width: 768px) 45vw, 92vw"
+                  sizes="(min-width: 1280px) 15vw, (min-width: 768px) 45vw, 92vw"
                   className="object-contain object-center"
                 />
               </motion.div>
             </AnimatePresence>
             
             {hasMultipleImages && (
-              <div className="absolute bottom-3 inset-x-0 flex justify-center gap-1.5 z-10">
+              <div className="absolute bottom-2 inset-x-0 flex justify-center gap-1.2 z-10">
                 {images.map((_, i) => (
                   <div
                     key={i}
-                    className={`h-1 rounded-full transition-all duration-300 ${i === activeImage ? "w-4 bg-gold" : "w-1.5 bg-zinc-300/60"}`}
+                    className={`h-0.8 rounded-full transition-all duration-300 ${i === activeImage ? "w-3 bg-gold" : "w-1.2 bg-zinc-300/50"}`}
                   />
                 ))}
               </div>
@@ -181,17 +181,17 @@ function AchievementCard({ item, index, reduceMotion }) {
         </div>
       ) : null}
       
-      <div className="flex flex-col flex-grow">
-        <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-zinc-400">
+      <div className="flex flex-col flex-grow text-left">
+        <p className="text-[9px] font-semibold uppercase tracking-[0.2em] text-zinc-400">
           {item.year}
         </p>
-        <h4 className="font-display mt-2.5 text-[1.4rem] font-semibold tracking-[-0.04em] text-ink md:text-[1.55rem]">
+        <h4 className="font-display mt-2 text-[1.12rem] font-semibold tracking-[-0.03em] leading-tight text-ink md:text-[1.25rem]">
           {item.title}
         </h4>
-        <p className="mt-1.5 text-[11px] font-medium uppercase tracking-[0.16em] text-zinc-500">
+        <p className="mt-1 text-[10px] font-medium uppercase tracking-[0.14em] text-zinc-500">
           {item.subtitle}
         </p>
-        <p className="mt-4 text-[13.5px] leading-[1.75] text-zinc-600">
+        <p className="mt-3 text-[12.5px] leading-[1.6] text-zinc-600">
           {item.body}
         </p>
       </div>
@@ -915,7 +915,7 @@ export default function HomePage() {
 
             <div className="py-1">
               <h3 className="font-display text-[1.8rem] font-semibold tracking-[-0.06em] text-ink md:text-[2.15rem]">Achievements & Events</h3>
-              <div className="mt-8 grid gap-5 md:grid-cols-2 lg:mx-0">
+              <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
                 {achievementItems.map((item, index) => (
                   <AchievementCard
                     key={item.title + "-" + index}
