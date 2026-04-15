@@ -394,217 +394,158 @@ function AchievementCard({ item, index, onOpen, reduceMotion }) {
 
 
 
-function ToolkitOverviewCard({ group, index }) {
-  return (
-    <motion.a
-      href={`/tools#${group.id}`}
-      className="group relative overflow-hidden rounded-[24px] p-4 md:p-5"
-      style={{
-        backgroundImage: `linear-gradient(165deg, rgba(255,255,255,0.82), rgba(255,255,255,0.58)), ${group.accent}`,
-        boxShadow: `0 20px 44px ${group.glow}`,
-      }}
-      initial={{ opacity: 0, y: 22 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.14 }}
-      transition={{ duration: 0.75, delay: index * 0.06, ease: [0.22, 1, 0.36, 1] }}
-      whileHover={{ y: -8 }}
-    >
-      <div className="noise-mask opacity-35" />
-      <div className="relative z-10 flex h-full flex-col">
-        <div className="flex items-start justify-between gap-4">
-          <span className="inline-flex rounded-full bg-white/75 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-zinc-600 glass-soft">
-            {group.eyebrow}
-          </span>
-          <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-zinc-500">
-            {group.items.length} Tools
-          </span>
-        </div>
-
-        <h3 className="font-display mt-4 text-[1.3rem] font-semibold tracking-[-0.05em] text-ink md:text-[1.5rem]">
-          {group.title}
-        </h3>
-        <p className="mt-2.5 max-w-sm text-[13px] leading-6 text-zinc-600">
-          {group.description}
-        </p>
-
-        <div className="mt-6 flex items-center justify-between gap-3 rounded-[20px] bg-white/55 px-4 py-3 glass-soft">
-          <div>
-            <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-zinc-500">
-              Category Access
-            </p>
-            <p className="mt-1 text-sm font-medium text-zinc-700">
-              Open the full tools page for everything in this group.
-            </p>
-          </div>
-          <ArrowUpRight className="h-5 w-5 shrink-0 text-zinc-500 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-        </div>
-      </div>
-    </motion.a>
-  );
-}
-
-function ProjectCard({ project, index, onOpen, reduceMotion }) {
-  const href = project.href || "";
-  const isAnchor = href.startsWith("#");
-  const hasDirectLink = Boolean(href);
-  const isExternal = hasDirectLink && !isAnchor;
-  const canPreview = Boolean(project.shots?.length);
-  const imageClassName = project.imageContain
-    ? "object-contain bg-white p-3 transition duration-500 group-hover/image:scale-[1.03]"
-    : "object-cover transition duration-500 group-hover/image:scale-[1.03]";
-
+function ToolkitOverviewCard({ group, index, reduceMotion }) {
   return (
     <TiltCard reduceMotion={reduceMotion} className="flex h-full flex-col">
-    <motion.article
-      variants={staggerItem}
-      whileHover={{ y: -8, z: 20 }}
-      className="group relative flex h-full flex-col overflow-hidden rounded-[24px] bg-white/68 p-4 glass-soft card-glow-hover transition-all duration-500 [transform-style:preserve-3d]"
-    >
-      <div className="noise-mask opacity-10" />
-      <div className="relative z-10 space-y-4">
-        <div className="flex items-start justify-between">
-          <div className="rounded-2xl bg-white/80 p-3 shadow-sm [transform:translateZ(40px)]">
-            <span className="text-xl">{project.icon}</span>
+      <motion.button
+        type="button"
+        onClick={() => smoothScrollTo(group.id)}
+        variants={staggerItem}
+        whileHover={{ y: -8, z: 20 }}
+        className="group relative flex h-full flex-col overflow-hidden rounded-[24px] bg-white/68 p-4 text-left glass-soft card-glow-hover transition-all duration-500 [transform-style:preserve-3d]"
+      >
+        <div className="relative mx-auto mb-4 w-full overflow-hidden rounded-[18px] bg-white p-2 shadow-[0_12px_28px_rgba(15,23,42,0.05)] [transform:translateZ(40px)]">
+          <div className="relative flex aspect-[3/4] items-center justify-center overflow-hidden rounded-[14px] bg-zinc-50" style={{ background: group.accent }}>
+            <div className="noise-mask opacity-20" />
+            <div className="flex flex-col items-center gap-2 px-4 text-center">
+              <span className="text-3xl filter drop-shadow-md">🛠️</span>
+              <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-ink/40">
+                {group.items.length} Tools
+              </p>
+            </div>
           </div>
         </div>
-        {project.image ? (
-          <button
-            type="button"
-            onClick={() => onOpen(project)}
-            className="group/image relative block overflow-hidden rounded-[18px] bg-white p-2 shadow-[0_12px_28px_rgba(15,23,42,0.05)] text-left [transform:translateZ(30px)]"
-            aria-label={`Open preview for ${project.name}`}
-          >
-            <div className="relative aspect-[16/10] overflow-hidden rounded-[14px] bg-zinc-50 border border-black/5">
-              <Image
-                src={project.image}
-                alt={project.imageAlt || project.name}
-                fill
-                sizes="(min-width: 1536px) 18vw, (min-width: 1280px) 22vw, (min-width: 768px) 40vw, 92vw"
-                className={imageClassName}
-              />
-              <span className="absolute left-3 top-3 rounded-full bg-black/70 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-white backdrop-blur-md">
-                Preview
-              </span>
+
+        <div className="flex flex-grow flex-col [transform:translateZ(20px)]">
+          <p className="text-[9px] font-semibold uppercase tracking-[0.22em] text-zinc-400">
+            {group.eyebrow}
+          </p>
+          <h4 className="font-display mt-2 text-[1.12rem] font-semibold tracking-[-0.03em] leading-tight text-ink md:text-[1.25rem]">
+            {group.title}
+          </h4>
+          <p className="mt-2 line-clamp-2 text-[11px] leading-5 text-zinc-500">
+            {group.description}
+          </p>
+          <div className="mt-auto pt-4">
+            <div className="flex items-center justify-between gap-2 text-[10px] font-semibold uppercase tracking-[0.14em] text-ink/70">
+              Explore Tools
+              <ArrowUpRight className="h-3.5 w-3.5" />
             </div>
-          </button>
-        ) : null}
-
-        <div className="[transform:translateZ(20px)]">
-          <h3 className="font-display text-[1.2rem] font-semibold tracking-[-0.07em] text-ink md:text-[1.35rem]">
-            {project.name}
-          </h3>
-          <p className="mt-1.5 max-w-xl text-[11px] leading-[1.45rem] text-zinc-600 md:text-[12px]">{project.description}</p>
+          </div>
         </div>
-
-        <div className="flex flex-wrap gap-1.5 [transform:translateZ(10px)]">
-          {project.details.map((detail) => (
-            <span key={detail} className="rounded-full bg-white/72 px-2 py-1 text-[9px] font-medium text-zinc-700 glass-soft">
-              {detail}
-            </span>
-          ))}
-        </div>
-
-        <div className="mt-auto flex flex-wrap gap-2 [transform:translateZ(10px)]">
-          {canPreview ? (
-            <button
-              type="button"
-              onClick={() => onOpen(project)}
-              className="inline-flex w-fit items-center gap-2 rounded-full bg-ink px-3.5 py-2 text-[12px] font-semibold text-white shadow-lg shadow-black/10"
-            >
-              {project.cta}
-              <ArrowUpRight className="h-4 w-4" />
-            </button>
-          ) : isAnchor ? (
-            <button
-              type="button"
-              onClick={() => smoothScrollTo(href.replace("#", ""))}
-              className="inline-flex w-fit items-center gap-2 rounded-full bg-ink px-3.5 py-2 text-[12px] font-semibold text-white shadow-lg shadow-black/10"
-            >
-              {project.cta}
-              <ArrowUpRight className="h-4 w-4" />
-            </button>
-          ) : hasDirectLink ? (
-            <a
-              href={href}
-              target={isExternal ? "_blank" : undefined}
-              rel={isExternal ? "noreferrer" : undefined}
-              className="inline-flex w-fit items-center gap-2 rounded-full bg-ink px-3.5 py-2 text-[12px] font-semibold text-white shadow-lg shadow-black/10"
-            >
-              {project.cta}
-              <ArrowUpRight className="h-4 w-4" />
-            </a>
-          ) : null}
-
-          {project.links?.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex w-fit items-center gap-2 rounded-full bg-white/75 px-3.5 py-2 text-[12px] font-semibold text-ink glass-soft"
-            >
-              {link.label}
-              <ArrowUpRight className="h-4 w-4" />
-            </a>
-          ))}
-        </div>
-      </div>
-    </motion.article>
+      </motion.button>
     </TiltCard>
   );
 }
 
-function GalleryCard({ item, index, onOpen }) {
+function ProjectCard({ project, index, onOpen, reduceMotion }) {
+  const canPreview = Boolean(project.shots?.length);
+  const imageClassName = project.imageContain ? "object-contain p-3" : "object-cover";
+
+  return (
+    <TiltCard reduceMotion={reduceMotion} className="flex h-full flex-col">
+      <motion.button
+        type="button"
+        onClick={() => onOpen(project)}
+        variants={staggerItem}
+        whileHover={{ y: -8, z: 20 }}
+        className="group relative flex h-full flex-col overflow-hidden rounded-[24px] bg-white/68 p-4 text-left glass-soft card-glow-hover transition-all duration-500 [transform-style:preserve-3d]"
+      >
+        <div className="relative mx-auto mb-4 w-full overflow-hidden rounded-[18px] bg-white p-2 shadow-[0_12px_28px_rgba(15,23,42,0.05)] [transform:translateZ(40px)]">
+          <div className="relative aspect-[3/4] overflow-hidden rounded-[14px] bg-zinc-50 border border-black/5">
+            {project.image ? (
+              <Image
+                src={project.image}
+                alt={project.name}
+                fill
+                sizes="(min-width: 1536px) 15vw, (min-width: 1280px) 18vw, (min-width: 768px) 45vw, 92vw"
+                className={`${imageClassName} transition-transform duration-700 group-hover/image:scale-[1.05]`}
+              />
+            ) : (
+               <div className="flex h-full items-center justify-center bg-white/40">
+                <span className="text-4xl">{project.icon || "💻"}</span>
+              </div>
+            )}
+            <span className="absolute left-3 top-3 rounded-full bg-black/70 px-2.5 py-1 text-[9px] font-semibold uppercase tracking-[0.2em] text-white backdrop-blur-md">
+              {project.status || "Project"}
+            </span>
+          </div>
+        </div>
+
+        <div className="flex flex-grow flex-col [transform:translateZ(20px)]">
+          <p className="text-[9px] font-semibold uppercase tracking-[0.22em] text-zinc-400">
+            {project.type || "Software Development"}
+          </p>
+          <h4 className="font-display mt-2 text-[1.12rem] font-semibold tracking-[-0.03em] leading-tight text-ink md:text-[1.25rem]">
+            {project.name}
+          </h4>
+          <p className="mt-2 line-clamp-2 text-[11px] leading-5 text-zinc-500 text-balance">
+            {project.description}
+          </p>
+          <div className="mt-auto pt-4">
+            <div className="flex items-center justify-between gap-2 text-[10px] font-semibold uppercase tracking-[0.14em] text-ink/70">
+              {canPreview ? "Open Preview" : "View Details"}
+              <ArrowUpRight className="h-3.5 w-3.5" />
+            </div>
+          </div>
+        </div>
+      </motion.button>
+    </TiltCard>
+  );
+}
+
+function GalleryCard({ item, index, onOpen, reduceMotion }) {
   const hasImage = Boolean(item.image);
 
   return (
-    <motion.button
-      type="button"
-      onClick={() => onOpen(item)}
-      variants={staggerItem}
-      whileHover={{ y: -8 }}
-      className="group relative flex h-full flex-col overflow-hidden rounded-[24px] bg-white/68 p-4 text-left glass-soft card-glow-hover transition-all duration-500"
-    >
-      {hasImage ? (
-        <>
-          <div className="relative overflow-hidden rounded-[18px] bg-white p-2 shadow-[0_12px_28px_rgba(15,23,42,0.05)]">
-            <div className="relative overflow-hidden rounded-[14px] bg-zinc-50 border border-black/5">
-              <div className="relative h-[240px] w-full overflow-hidden bg-white sm:h-[260px]">
-                <Image
-                  src={item.image}
-                  alt={item.imageAlt || item.title}
-                  fill
-                  sizes="(min-width: 1536px) 18vw, (min-width: 1280px) 22vw, (min-width: 768px) 34vw, 92vw"
-                  className="object-contain bg-white p-2 transition duration-700 group-hover:scale-[1.02]"
-                />
+    <TiltCard reduceMotion={reduceMotion} className="flex h-full flex-col">
+      <motion.button
+        type="button"
+        onClick={() => onOpen(item)}
+        variants={staggerItem}
+        whileHover={{ y: -8, z: 20 }}
+        className="group relative flex h-full flex-col overflow-hidden rounded-[24px] bg-white/68 p-4 text-left glass-soft card-glow-hover transition-all duration-500 [transform-style:preserve-3d]"
+      >
+        <div className="relative mx-auto mb-4 w-full overflow-hidden rounded-[18px] bg-white p-2 shadow-[0_12px_28px_rgba(15,23,42,0.05)] [transform:translateZ(40px)]">
+          <div className="relative aspect-[3/4] overflow-hidden rounded-[14px] bg-zinc-50 border border-black/5">
+            {hasImage ? (
+              <Image
+                src={item.image}
+                alt={item.title}
+                fill
+                sizes="(min-width: 1536px) 18vw, (min-width: 1280px) 22vw, (min-width: 768px) 34vw, 92vw"
+                className="object-contain bg-white p-2 transition-transform duration-700 group-hover/image:scale-[1.05]"
+              />
+            ) : (
+              <div className="flex h-full items-center justify-center bg-zinc-100" style={{ background: item.accent }}>
+                <span className="text-3xl opacity-40">🎬</span>
               </div>
-              <span className="absolute left-3 top-3 z-10 rounded-full bg-black/70 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-white backdrop-blur-md">
-                {item.category}
-              </span>
-            </div>
-          </div>
-          <div className="px-1.5 pb-1.5 pt-3">
-            <h3 className="font-display text-[1.28rem] font-semibold tracking-[-0.05em] text-ink">{item.title}</h3>
-            <p className="mt-2 line-clamp-3 text-[12px] leading-6 text-zinc-600">{item.description}</p>
-          </div>
-        </>
-      ) : (
-        <>
-          <div className="noise-mask opacity-20" />
-          <div className="absolute inset-4 rounded-[22px] border border-white/40" />
-          <div className="absolute -right-8 top-6 h-24 w-24 rounded-full bg-white/45 blur-2xl transition-transform duration-500 group-hover:scale-125" />
-          <div className="relative z-10 flex h-full flex-col justify-between p-4">
-            <span className="w-fit rounded-full bg-white/70 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-zinc-700 glass-soft">
+            )}
+            <span className="absolute left-3 top-3 z-10 rounded-full bg-black/70 px-2.5 py-1 text-[9px] font-semibold uppercase tracking-[0.22em] text-white backdrop-blur-md">
               {item.category}
             </span>
-            <div>
-              <h3 className="font-display text-2xl font-semibold tracking-[-0.06em] text-ink">{item.title}</h3>
-              <p className="mt-2 max-w-sm text-sm leading-7 text-zinc-700/80">{item.description}</p>
+          </div>
+        </div>
+
+        <div className="flex flex-grow flex-col [transform:translateZ(20px)]">
+          <p className="text-[9px] font-semibold uppercase tracking-[0.22em] text-zinc-400">
+             Creative Gallery
+          </p>
+          <h4 className="font-display mt-2 text-[1.12rem] font-semibold tracking-[-0.03em] leading-tight text-ink md:text-[1.25rem]">
+            {item.title}
+          </h4>
+          <p className="mt-2 line-clamp-2 text-[11px] leading-5 text-zinc-500">
+            {item.description}
+          </p>
+          <div className="mt-auto pt-4">
+            <div className="flex items-center justify-between gap-2 text-[10px] font-semibold uppercase tracking-[0.14em] text-ink/70">
+              Open Gallery
+              <ArrowUpRight className="h-3.5 w-3.5" />
             </div>
           </div>
-        </>
-      )}
-    </motion.button>
+        </div>
+      </motion.button>
+    </TiltCard>
   );
 }
 
@@ -642,32 +583,54 @@ function CertificateCard({ item, index, onOpen }) {
   );
 }
 
-function JourneyCard({ item, index, onOpen, label }) {
+function JourneyCard({ item, index, onOpen, label, reduceMotion }) {
   return (
-    <motion.article
-      variants={staggerItem}
-      whileHover={{ y: -8 }}
-      className="group relative flex h-full flex-col overflow-hidden rounded-[24px] bg-white/68 p-4 glass-soft card-glow-hover transition-all duration-500"
-    >
-      <div className="noise-mask opacity-20" />
-      <div className="relative z-10 rounded-[20px] bg-white/72 p-3.5">
-        <div className="mx-auto flex aspect-square w-full max-w-[140px] items-center justify-center rounded-[18px] bg-white shadow-[0_12px_28px_rgba(15,23,42,0.05)] md:max-w-[160px]">
-          <div className="relative h-full w-full overflow-hidden rounded-[14px]">
+    <TiltCard reduceMotion={reduceMotion} className="flex h-full flex-col">
+      <motion.button
+        type="button"
+        onClick={() => onOpen(item)}
+        variants={staggerItem}
+        whileHover={{ y: -8, z: 20 }}
+        className="group relative flex h-full flex-col overflow-hidden rounded-[24px] bg-white/68 p-4 text-left glass-soft card-glow-hover transition-all duration-500 [transform-style:preserve-3d]"
+      >
+        <div className="relative mx-auto mb-4 w-full overflow-hidden rounded-[18px] bg-white p-2 shadow-[0_12px_28px_rgba(15,23,42,0.05)] [transform:translateZ(40px)]">
+          <div className="relative flex aspect-[3/4] items-center justify-center overflow-hidden rounded-[14px] bg-zinc-50 border border-black/5">
             {item.image ? (
-              <Image src={item.image} alt={item.title} className={`h-16 w-16 object-contain md:h-20 md:w-20 ${item.imageClassName || ""}`.trim()} />
-            ) : null}
+              <Image 
+                src={item.image} 
+                alt={item.title} 
+                className={`h-24 w-24 object-contain transition-transform duration-700 group-hover/image:scale-[1.1] ${item.imageClassName || ""}`.trim()} 
+              />
+            ) : (
+              <div className="flex flex-col items-center gap-2 opacity-30">
+                <span className="text-3xl">🏢</span>
+              </div>
+            )}
+            <span className="absolute left-3 top-3 rounded-full bg-black/70 px-2.5 py-1 text-[9px] font-semibold uppercase tracking-[0.2em] text-white backdrop-blur-md">
+              {label.split(" ")[0]}
+            </span>
           </div>
         </div>
-        <div className="mt-3 min-w-0 [transform:translateZ(30px)]">
-          <h3 className="font-display text-[1.1rem] font-semibold tracking-[-0.05em] text-ink md:text-[1.2rem]">{item.title}</h3>
-          <p className="mt-1 text-[10px] font-medium uppercase tracking-[0.14em] text-zinc-500">{item.subtitle}</p>
-          <div className="mt-4 inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.14em] text-ink/80">
-            View More
-            <ArrowUpRight className="h-3.5 w-3.5" />
+
+        <div className="flex flex-grow flex-col [transform:translateZ(20px)]">
+          <p className="text-[9px] font-semibold uppercase tracking-[0.22em] text-zinc-400">
+            {item.subtitle}
+          </p>
+          <h4 className="font-display mt-2 text-[1.12rem] font-semibold tracking-[-0.03em] leading-tight text-ink md:text-[1.25rem]">
+            {item.title}
+          </h4>
+          <p className="mt-2 line-clamp-2 text-[11px] leading-5 text-zinc-500">
+            {item.body}
+          </p>
+          <div className="mt-auto pt-4">
+            <div className="flex items-center justify-between gap-2 text-[10px] font-semibold uppercase tracking-[0.14em] text-ink/70">
+              View Milestones
+              <ArrowUpRight className="h-3.5 w-3.5" />
+            </div>
           </div>
         </div>
-      </div>
-    </motion.article>
+      </motion.button>
+    </TiltCard>
   );
 }
 
@@ -995,7 +958,13 @@ export default function HomePage() {
             className="relative z-10 mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5"
           >
             {graphicDesignItems.map((item, index) => (
-              <GalleryCard key={item.title} item={item} index={index} onOpen={setActiveGalleryItem} />
+              <GalleryCard 
+                key={item.title} 
+                item={item} 
+                index={index} 
+                onOpen={setActiveGalleryItem} 
+                reduceMotion={reduceMotion} 
+              />
             ))}
           </motion.div>
         </div>
@@ -1019,7 +988,13 @@ export default function HomePage() {
             className="relative z-10 mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5"
           >
             {videoEditingItems.map((item, index) => (
-              <GalleryCard key={item.title} item={item} index={index} onOpen={setActiveGalleryItem} />
+              <GalleryCard 
+                key={item.title} 
+                item={item} 
+                index={index} 
+                onOpen={setActiveGalleryItem} 
+                reduceMotion={reduceMotion} 
+              />
             ))}
           </motion.div>
         </div>
@@ -1053,6 +1028,7 @@ export default function HomePage() {
                     index={index}
                     onOpen={setActiveJourneyItem}
                     label="Education Qualification"
+                    reduceMotion={reduceMotion}
                   />
                 ))}
               </motion.div>
@@ -1077,6 +1053,7 @@ export default function HomePage() {
                     index={index + educationItems.length}
                     onOpen={setActiveJourneyItem}
                     label="Working Experience"
+                    reduceMotion={reduceMotion}
                   />
                 ))}
               </motion.div>
@@ -1126,7 +1103,7 @@ export default function HomePage() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.1 }}
-            className="relative mt-6 grid gap-3 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5"
+            className="relative mt-6 grid gap-3 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5"
           >
             {certificateItems.map((item, index) => (
               <CertificateCard key={item.title} item={item} index={index} onOpen={setActiveCertificate} />
