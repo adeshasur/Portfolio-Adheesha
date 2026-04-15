@@ -293,57 +293,25 @@ function ProjectCard({ project, index, onOpen }) {
           </div>
         </div>
         {project.image ? (
-          canPreview ? (
-            <button
-              type="button"
-              onClick={() => onOpen(project)}
-              className="group/image relative block overflow-hidden rounded-[18px] border border-white/45 bg-white/70 text-left"
-              aria-label={`Open preview for ${project.name}`}
-            >
-              <div className="relative aspect-[16/10]">
-                <Image
-                  src={project.image}
-                  alt={project.imageAlt || project.name}
-                  fill
-                  sizes="(min-width: 1536px) 18vw, (min-width: 1280px) 22vw, (min-width: 768px) 40vw, 92vw"
-                  className={imageClassName}
-                />
-                <span className="absolute left-3 top-3 rounded-full bg-black/70 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-white backdrop-blur-md">
-                  Preview
-                </span>
-              </div>
-            </button>
-          ) : isAnchor ? null : hasDirectLink ? (
-            <a
-              href={href}
-              target="_blank"
-              rel="noreferrer"
-              className="group/image relative block overflow-hidden rounded-[18px] border border-white/45 bg-white/70"
-              aria-label={`Open ${project.name}`}
-            >
-              <div className="relative aspect-[16/10]">
-                <Image
-                  src={project.image}
-                  alt={project.imageAlt || project.name}
-                  fill
-                  sizes="(min-width: 1536px) 18vw, (min-width: 1280px) 22vw, (min-width: 768px) 40vw, 92vw"
-                  className={imageClassName}
-                />
-              </div>
-            </a>
-          ) : (
-            <div className="relative block overflow-hidden rounded-[18px] border border-white/45 bg-white/70">
-              <div className="relative aspect-[16/10]">
-                <Image
-                  src={project.image}
-                  alt={project.imageAlt || project.name}
-                  fill
-                  sizes="(min-width: 1536px) 18vw, (min-width: 1280px) 22vw, (min-width: 768px) 40vw, 92vw"
-                  className={imageClassName}
-                />
-              </div>
+          <button
+            type="button"
+            onClick={() => onOpen(project)}
+            className="group/image relative block overflow-hidden rounded-[18px] bg-white p-2 shadow-[0_12px_28px_rgba(15,23,42,0.05)] text-left"
+            aria-label={`Open preview for ${project.name}`}
+          >
+            <div className="relative aspect-[16/10] overflow-hidden rounded-[14px] bg-zinc-50 border border-black/5">
+              <Image
+                src={project.image}
+                alt={project.imageAlt || project.name}
+                fill
+                sizes="(min-width: 1536px) 18vw, (min-width: 1280px) 22vw, (min-width: 768px) 40vw, 92vw"
+                className={imageClassName}
+              />
+              <span className="absolute left-3 top-3 rounded-full bg-black/70 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-white backdrop-blur-md">
+                Preview
+              </span>
             </div>
-          )
+          </button>
         ) : null}
 
         <div>
@@ -422,12 +390,12 @@ function GalleryCard({ item, index, onOpen }) {
       viewport={{ once: true, amount: 0.15 }}
       transition={{ duration: 0.8, delay: index * 0.05, ease: [0.22, 1, 0.36, 1] }}
       whileHover={{ y: -8 }}
-      className={`group relative mb-5 w-full overflow-hidden rounded-[28px] text-left ${hasImage ? "bg-white/72 p-2.5 glass-soft shadow-[0_20px_48px_rgba(15,23,42,0.08)]" : item.height}`}
-      style={hasImage ? undefined : { background: item.accent }}
+      className="group relative mb-5 w-full overflow-hidden rounded-[24px] bg-white/68 p-4 text-left glass-soft transition duration-300"
     >
       {hasImage ? (
         <>
-          <div className="relative overflow-hidden rounded-[22px] border border-black/6 bg-white shadow-[0_18px_36px_rgba(15,23,42,0.08)]">
+          <div className="relative overflow-hidden rounded-[18px] bg-white p-2 shadow-[0_12px_28px_rgba(15,23,42,0.05)]">
+            <div className="relative overflow-hidden rounded-[14px] bg-zinc-50 border border-black/5">
             <div className="relative h-[240px] w-full overflow-hidden bg-white sm:h-[260px]">
               <Image
                 src={item.image}
@@ -478,16 +446,12 @@ function CertificateCard({ item, index, onOpen }) {
       viewport={{ once: true, amount: 0.18 }}
       transition={{ duration: 0.82, delay: index * 0.06, ease: [0.22, 1, 0.36, 1] }}
       whileHover={{ y: -10, rotateX: 4, rotateY: index % 2 === 0 ? -4 : 4 }}
-      className={`group relative mx-auto w-full overflow-hidden rounded-[26px] p-2.5 text-left [transform-style:preserve-3d] md:p-3 ${isPortrait ? "max-w-[220px]" : "max-w-[320px]"}`}
-      style={{ background: item.accent, boxShadow: `0 22px 56px ${item.glow}` }}
+      className="group relative mx-auto w-full overflow-hidden rounded-[24px] bg-white/68 p-4 text-left glass-soft transition duration-300"
     >
       <div className="noise-mask opacity-20" />
-      <div className="absolute inset-[1px] rounded-[27px] bg-white/72" />
-      <div className="absolute -right-8 top-6 h-20 w-20 rounded-full bg-white/45 blur-3xl transition duration-500 group-hover:scale-125" />
-      <div className="absolute left-4 top-4 h-14 w-14 rounded-3xl bg-white/35 blur-2xl" />
       <div className="relative z-10">
-        <div className={`relative overflow-hidden rounded-[20px] bg-white/65 p-1.5 shadow-[0_22px_38px_rgba(15,23,42,0.12)] [transform:translateZ(36px)] ${isPortrait ? "mx-auto max-w-[220px]" : ""}`}>
-          <div className={`relative overflow-hidden rounded-[16px] bg-white ${isPortrait ? "aspect-[0.76/1]" : "aspect-[1.5/1]"}`}>
+        <div className={`relative overflow-hidden rounded-[18px] bg-white p-2 shadow-[0_12px_28px_rgba(15,23,42,0.05)] ${isPortrait ? "mx-auto max-w-[220px]" : ""}`}>
+          <div className={`relative overflow-hidden rounded-[14px] bg-white ${isPortrait ? "aspect-[0.76/1]" : "aspect-[1.5/1]"}`}>
             <Image
               src={item.image}
               alt={item.title}
@@ -497,7 +461,7 @@ function CertificateCard({ item, index, onOpen }) {
             />
           </div>
         </div>
-        <div className="mt-3 [transform:translateZ(22px)]">
+        <div className="mt-3">
           <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-zinc-500">{item.label}</p>
           <h3 className="font-display mt-1.5 text-[1rem] font-semibold tracking-[-0.06em] text-ink md:text-[1.1rem]">{item.title}</h3>
           <p className="mt-1.5 text-[11px] leading-5 text-zinc-600 md:text-[12px]">{item.description}</p>
@@ -512,19 +476,21 @@ function JourneyCard({ item, index, onOpen, label }) {
     <motion.button
       type="button"
       onClick={() => onOpen({ ...item, label })}
-      initial={{ opacity: 0, y: 28 }}
+      initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.22 }}
+      viewport={{ once: true, amount: 0.15 }}
       transition={{ duration: 0.75, delay: index * 0.05, ease: [0.22, 1, 0.36, 1] }}
       whileHover={{ y: -6 }}
-      className="group relative overflow-hidden rounded-[24px] bg-white/62 p-3.5 text-left glass-soft transition duration-300 md:p-4"
+      className="group relative flex flex-col h-full overflow-hidden rounded-[24px] bg-white/68 p-4 glass-soft transition duration-300"
     >
       <div className="noise-mask opacity-20" />
       <div className="relative z-10 rounded-[20px] bg-white/72 p-3.5">
-        <div className="mx-auto flex aspect-square w-full max-w-[140px] items-center justify-center rounded-[20px] bg-white shadow-[0_12px_28px_rgba(15,23,42,0.06)] md:max-w-[160px]">
-          {item.image ? (
-            <Image src={item.image} alt={item.title} className={`h-16 w-16 object-contain md:h-20 md:w-20 ${item.imageClassName || ""}`.trim()} />
-          ) : null}
+        <div className="mx-auto flex aspect-square w-full max-w-[140px] items-center justify-center rounded-[18px] bg-white shadow-[0_12px_28px_rgba(15,23,42,0.05)] md:max-w-[160px]">
+          <div className="relative h-full w-full overflow-hidden rounded-[14px]">
+            {item.image ? (
+              <Image src={item.image} alt={item.title} className={`h-16 w-16 object-contain md:h-20 md:w-20 ${item.imageClassName || ""}`.trim()} />
+            ) : null}
+          </div>
         </div>
         <div className="mt-3 min-w-0">
           <h3 className="font-display text-[1.1rem] font-semibold tracking-[-0.05em] text-ink md:text-[1.2rem]">{item.title}</h3>
@@ -767,19 +733,7 @@ export default function HomePage() {
             </div>
           </div>
 
-          <motion.div
-            initial={reduceMotion ? false : { opacity: 0, y: 20 }}
-            animate={reduceMotion ? {} : { opacity: 1, y: 0 }}
-            transition={{ duration: 0.75, delay: 0.16, ease: [0.22, 1, 0.36, 1] }}
-            className="relative z-10 mt-6 grid gap-4 md:grid-cols-3"
-          >
-            {heroContent.stats.map((item) => (
-              <div key={item.label} className="rounded-[24px] bg-white/55 px-5 py-4 glass-soft">
-                <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-zinc-500">{item.label}</p>
-                <p className="mt-2 text-sm leading-7 text-zinc-700">{item.value}</p>
-              </div>
-            ))}
-          </motion.div>
+
         </div>
       </section>
 
