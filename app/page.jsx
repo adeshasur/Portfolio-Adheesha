@@ -681,7 +681,7 @@ function CertificateCard({ item, index, onOpen }) {
       <div className="noise-mask opacity-20" />
       <div className="relative z-10">
         <div className={`relative overflow-hidden rounded-[18px] bg-white p-2 shadow-[0_12px_28px_rgba(15,23,42,0.05)] ${isPortrait ? "mx-auto max-w-[220px]" : ""}`}>
-          <div className={`relative overflow-hidden rounded-[14px] bg-white ${isPortrait ? "aspect-[0.76/1]" : "aspect-[1.5/1]"}`}>
+          <div className={`relative overflow-hidden rounded-[14px] bg-white ${isPortrait ? "aspect-[3/4]" : "aspect-[3/2]"}`}>
             <Image
               src={item.image}
               alt={item.title}
@@ -1451,7 +1451,7 @@ export default function HomePage() {
             >
               <div className="grid gap-6 md:grid-cols-[0.8fr_1.2fr] md:items-center">
                 <div className="relative overflow-hidden rounded-[28px] bg-white/85 p-3 shadow-[0_24px_60px_rgba(15,23,42,0.14)]">
-                   <div className="relative overflow-hidden rounded-[22px] bg-white aspect-[3/4.2]">
+                   <div className="relative overflow-hidden rounded-[22px] bg-white aspect-[3/4]">
                       <AchievementCard
                         item={activeAchievement}
                         index={0}
@@ -1501,7 +1501,7 @@ export default function HomePage() {
             >
               <div className={`grid gap-6 md:items-center ${activeCertificate.orientation === "portrait" ? "md:grid-cols-[0.78fr_1.22fr]" : "md:grid-cols-[1.08fr_0.92fr]"}`}>
                 <div className={`relative overflow-hidden rounded-[28px] bg-white/85 p-3 shadow-[0_24px_60px_rgba(15,23,42,0.14)] ${activeCertificate.orientation === "portrait" ? "mx-auto max-w-[420px]" : ""}`}>
-                  <div className={`relative overflow-hidden rounded-[22px] bg-white ${activeCertificate.orientation === "portrait" ? "aspect-[0.76/1]" : "aspect-[1.42/1]"}`}>
+                  <div className={`relative overflow-hidden rounded-[22px] bg-white ${activeCertificate.orientation === "portrait" ? "aspect-[3/4]" : "aspect-[14/10]"}`}>
                     <Image
                       src={activeCertificate.image}
                       alt={activeCertificate.title}
