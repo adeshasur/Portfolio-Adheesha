@@ -165,67 +165,7 @@ const SectionReveal = forwardRef(({ children, className = "", delay = 0, id }, r
 });
 SectionReveal.displayName = "SectionReveal";
 
-function CursorIndicator({ reduceMotion }) {
-  const [isHovering, setIsHovering] = useState(false);
-  const [isImageHovering, setIsImageHovering] = useState(false);
-  const mouseX = useSpring(0, { stiffness: 450, damping: 28 });
-  const mouseY = useSpring(0, { stiffness: 450, damping: 28 });
-  const cursorScale = useSpring(1, { stiffness: 250, damping: 20 });
-  
-  useEffect(() => {
-    if (reduceMotion) return;
-    
-    const moveMouse = (e) => {
-      mouseX.set(e.clientX);
-      mouseY.set(e.clientY);
-    };
 
-    const handleOver = (e) => {
-      const target = e.target;
-      if (target.closest("button") || target.closest("a") || target.closest(".cursor-magnetic")) {
-        setIsHovering(true);
-        cursorScale.set(1.5);
-      }
-      if (target.closest("img") || target.closest(".cursor-spotlight")) {
-        setIsImageHovering(true);
-        cursorScale.set(2.4);
-      }
-    };
-
-    const handleOut = () => {
-      setIsHovering(false);
-      setIsImageHovering(false);
-      cursorScale.set(1);
-    };
-
-    window.addEventListener("mousemove", moveMouse);
-    window.addEventListener("mouseover", handleOver);
-    window.addEventListener("mouseout", handleOut);
-    
-    return () => {
-      window.removeEventListener("mousemove", moveMouse);
-      window.removeEventListener("mouseover", handleOver);
-      window.removeEventListener("mouseout", handleOut);
-    };
-  }, [mouseX, mouseY, cursorScale, reduceMotion]);
-
-  if (reduceMotion) return null;
-
-  return (
-    <motion.div
-      className="pointer-events-none fixed left-0 top-0 z-[100] hidden mix-blend-difference md:block"
-      style={{
-        x: mouseX,
-        y: mouseY,
-        translateX: "-50%",
-        translateY: "-50%",
-        scale: cursorScale
-      }}
-    >
-      <div className={`rounded-full transition-all duration-300 ${isImageHovering ? "h-14 w-14 border border-white/20 bg-white/10" : isHovering ? "h-10 w-10 bg-white" : "h-3 w-3 bg-white"}`} />
-    </motion.div>
-  );
-}
 
 function TiltCard({ children, className = "", reduceMotion }) {
   const x = useMotionValue(0);
@@ -828,7 +768,7 @@ export default function HomePage() {
       </header>
 
       <SectionReveal id="hero" ref={heroRef} className="scroll-mt-28 px-4 pt-4 md:px-6 md:pt-6">
-        <CursorIndicator reduceMotion={reduceMotion} />
+
         <HeroSpotlight reduceMotion={reduceMotion} />
         <div className="relative mx-auto max-w-[1380px] overflow-hidden rounded-[42px] px-6 pb-8 pt-5 md:px-10 md:pb-10 md:pt-6">
           <div className="absolute inset-0 rounded-[42px] bg-gradient-to-br from-white/80 via-white/58 to-gold/10" />
