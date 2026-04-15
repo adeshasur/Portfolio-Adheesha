@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { AnimatePresence, motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
-import { ArrowUpRight, Coffee, Facebook, Github, Instagram, Linkedin, Sparkles, WandSparkles } from "lucide-react";
+import { ArrowUpRight, Coffee, Facebook, Github, Instagram, Linkedin, Sparkles, WandSparkles, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import {
   achievementItems,
@@ -122,7 +122,7 @@ function RoleRoller({ roles, reduceMotion }) {
   );
 }
 
-function AchievementCard({ item, index, reduceMotion }) {
+function AchievementCard({ item, index, onOpen, reduceMotion }) {
   const [activeImage, setActiveImage] = useState(0);
   const images = item.images || (item.image ? [item.image] : []);
   const hasMultipleImages = images.length > 1;
@@ -138,16 +138,19 @@ function AchievementCard({ item, index, reduceMotion }) {
   }, [reduceMotion, hasMultipleImages, images.length]);
 
   return (
-    <motion.article
+    <motion.button
+      type="button"
+      onClick={() => onOpen(item)}
       initial={{ opacity: 0, y: 28 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.22 }}
       transition={{ duration: 0.75, delay: index * 0.06, ease: [0.22, 1, 0.36, 1] }}
-      className="flex flex-col h-full overflow-hidden rounded-[24px] bg-white/68 p-4 glass-soft"
+      whileHover={{ y: -6 }}
+      className="flex flex-col h-full overflow-hidden rounded-[24px] bg-white/68 p-4 text-left glass-soft transition duration-300"
     >
       {images.length > 0 ? (
         <div className="relative mx-auto mb-4 w-full overflow-hidden rounded-[18px] bg-white p-2 shadow-[0_12px_28px_rgba(15,23,42,0.05)]">
-          <div className="relative overflow-hidden rounded-[14px] bg-zinc-50 aspect-[4/3]">
+          <div className="relative overflow-hidden rounded-[14px] bg-zinc-50 aspect-[3/4]">
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeImage}
@@ -181,23 +184,27 @@ function AchievementCard({ item, index, reduceMotion }) {
         </div>
       ) : null}
       
-      <div className="flex flex-col flex-grow text-left">
+      <div className="flex flex-col flex-grow">
         <p className="text-[9px] font-semibold uppercase tracking-[0.2em] text-zinc-400">
           {item.year}
         </p>
         <h4 className="font-display mt-2 text-[1.12rem] font-semibold tracking-[-0.03em] leading-tight text-ink md:text-[1.25rem]">
           {item.title}
         </h4>
-        <p className="mt-1 text-[10px] font-medium uppercase tracking-[0.14em] text-zinc-500">
+        <p className="mt-1 text-[10px] font-medium uppercase tracking-[0.14em] text-zinc-500 text-balance">
           {item.subtitle}
         </p>
-        <p className="mt-3 text-[12.5px] leading-[1.6] text-zinc-600">
-          {item.body}
-        </p>
+        <div className="mt-4 flex items-center justify-between gap-2 text-[10px] font-semibold uppercase tracking-[0.12em] text-ink/70">
+          Open Preview
+          <ArrowUpRight className="h-3 w-3" />
+        </div>
       </div>
-    </motion.article>
+    </motion.button>
   );
 }
+
+
+
 function ToolkitOverviewCard({ group, index }) {
   return (
     <motion.a
@@ -562,6 +569,7 @@ export default function HomePage() {
   const [activeProjectShotIndex, setActiveProjectShotIndex] = useState(0);
   const [activeGalleryItem, setActiveGalleryItem] = useState(null);
   const [activeCertificate, setActiveCertificate] = useState(null);
+  const [activeAchievement, setActiveAchievement] = useState(null);
   const [activeJourneyItem, setActiveJourneyItem] = useState(null);
   const heroRef = useRef(null);
   const timelineRef = useRef(null);
@@ -921,6 +929,7 @@ export default function HomePage() {
                     key={item.title + "-" + index}
                     item={item}
                     index={index}
+                    onOpen={setActiveAchievement}
                     reduceMotion={reduceMotion}
                   />
                 ))}
@@ -1178,6 +1187,56 @@ export default function HomePage() {
         ) : null}
       </AnimatePresence>
 
+      <AnimatePresence>
+        {activeAchievement ? (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[84] flex items-center justify-center bg-black/45 p-4 backdrop-blur-xl"
+            onClick={() => setActiveAchievement(null)}
+          >
+            <motion.div
+              initial={{ opacity: 0, y: 24, scale: 0.96 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 18, scale: 0.96 }}
+              transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+              onClick={(event) => event.stopPropagation()}
+              className="relative w-full max-w-5xl overflow-hidden rounded-[34px] bg-white p-5 shadow-2xl shadow-black/20 md:p-6"
+            >
+              <div className="grid gap-6 md:grid-cols-[0.8fr_1.2fr] md:items-center">
+                <div className="relative overflow-hidden rounded-[28px] bg-white/85 p-3 shadow-[0_24px_60px_rgba(15,23,42,0.14)]">
+                   <div className="relative overflow-hidden rounded-[22px] bg-white aspect-[3/4.2]">
+                      <AchievementCard
+                        item={activeAchievement}
+                        index={0}
+                        onOpen={() => {}}
+                        reduceMotion={reduceMotion}
+                      />
+                   </div>
+                </div>
+                <div>
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-zinc-500">{activeAchievement.year}</p>
+                  <h3 className="font-display mt-4 text-3xl font-semibold tracking-[-0.06em] text-ink md:text-4xl">
+                    {activeAchievement.title}
+                  </h3>
+                  <p className="mt-3 text-sm font-medium uppercase tracking-[0.18em] text-zinc-500">{activeAchievement.subtitle}</p>
+                  <p className="mt-6 text-[15px] leading-8 text-zinc-600 md:text-[16px]">
+                    {activeAchievement.body}
+                  </p>
+                  <button
+                    type="button"
+                    onClick={() => setActiveAchievement(null)}
+                    className="mt-8 rounded-full bg-ink px-5 py-3 text-sm font-semibold text-white"
+                  >
+                    Close Preview
+                  </button>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        ) : null}
+      </AnimatePresence>
       <AnimatePresence>
         {activeCertificate ? (
           <motion.div
