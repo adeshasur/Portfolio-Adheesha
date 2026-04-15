@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import Image from "next/image";
 import { AnimatePresence, motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
@@ -119,6 +119,83 @@ function RoleRoller({ roles, reduceMotion }) {
         </AnimatePresence>
       </div>
     </div>
+  );
+}
+
+function AchievementCard({ item, index, reduceMotion }) {
+  const [activeImage, setActiveImage] = useState(0);
+  const images = item.images || (item.image ? [item.image] : []);
+  const hasMultipleImages = images.length > 1;
+
+  useEffect(() => {
+    if (reduceMotion || !hasMultipleImages) return undefined;
+
+    const timer = window.setInterval(() => {
+      setActiveImage((current) => (current + 1) % images.length);
+    }, 3000);
+
+    return () => window.clearInterval(timer);
+  }, [reduceMotion, hasMultipleImages, images.length]);
+
+  return (
+    <motion.article
+      initial={{ opacity: 0, y: 28 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.22 }}
+      transition={{ duration: 0.75, delay: index * 0.06, ease: [0.22, 1, 0.36, 1] }}
+      className="flex flex-col h-full overflow-hidden rounded-[28px] bg-white/68 p-5 glass-soft"
+    >
+      {images.length > 0 ? (
+        <div className="relative mx-auto mb-6 w-full max-w-[400px] overflow-hidden rounded-[22px] bg-white p-2.5 shadow-[0_18px_36px_rgba(15,23,42,0.06)]">
+          <div className={`relative overflow-hidden rounded-[16px] bg-zinc-50 ${item.imageOrientation === "portrait" ? "aspect-[0.85/1]" : "aspect-[16/10]"}`}>
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeImage}
+                initial={{ opacity: 0, x: 10 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -10 }}
+                transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                className="absolute inset-0"
+              >
+                <Image
+                  src={images[activeImage]}
+                  alt={`${item.title} image ${activeImage + 1}`}
+                  fill
+                  sizes="(min-width: 1280px) 22vw, (min-width: 768px) 45vw, 92vw"
+                  className="object-contain object-center"
+                />
+              </motion.div>
+            </AnimatePresence>
+            
+            {hasMultipleImages && (
+              <div className="absolute bottom-3 inset-x-0 flex justify-center gap-1.5 z-10">
+                {images.map((_, i) => (
+                  <div
+                    key={i}
+                    className={`h-1 rounded-full transition-all duration-300 ${i === activeImage ? "w-4 bg-gold" : "w-1.5 bg-zinc-300/60"}`}
+                  />
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+      ) : null}
+      
+      <div className="flex flex-col flex-grow">
+        <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-zinc-400">
+          {item.year}
+        </p>
+        <h4 className="font-display mt-2.5 text-[1.4rem] font-semibold tracking-[-0.04em] text-ink md:text-[1.55rem]">
+          {item.title}
+        </h4>
+        <p className="mt-1.5 text-[11px] font-medium uppercase tracking-[0.16em] text-zinc-500">
+          {item.subtitle}
+        </p>
+        <p className="mt-4 text-[13.5px] leading-[1.75] text-zinc-600">
+          {item.body}
+        </p>
+      </div>
+    </motion.article>
   );
 }
 function ToolkitOverviewCard({ group, index }) {
@@ -837,35 +914,15 @@ export default function HomePage() {
             </div>
 
             <div className="py-1">
-              <h3 className="font-display text-[1.8rem] font-semibold tracking-[-0.06em] text-ink md:text-[2.15rem]">Achievements</h3>
-              <div className="mt-6 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+              <h3 className="font-display text-[1.8rem] font-semibold tracking-[-0.06em] text-ink md:text-[2.15rem]">Achievements & Events</h3>
+              <div className="mt-8 grid gap-5 md:grid-cols-2 lg:mx-0">
                 {achievementItems.map((item, index) => (
-                  <motion.article
+                  <AchievementCard
                     key={item.title + "-" + index}
-                    initial={{ opacity: 0, y: 28 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, amount: 0.22 }}
-                    transition={{ duration: 0.75, delay: index * 0.06, ease: [0.22, 1, 0.36, 1] }}
-                    className="rounded-[28px] bg-white/68 p-5 glass-soft"
-                  >
-                    {item.image ? (
-                      <div className="mx-auto mb-4 w-full max-w-[260px] overflow-hidden rounded-[22px] bg-white p-3 shadow-[0_18px_36px_rgba(15,23,42,0.08)]">
-                        <div className={`relative overflow-hidden rounded-[18px] bg-zinc-50 ${item.imageOrientation === "portrait" ? "aspect-[0.82/1]" : "aspect-[4/3]"}`}>
-                          <Image
-                            src={item.image}
-                            alt={item.title}
-                            fill
-                            sizes="(min-width: 1280px) 18vw, (min-width: 768px) 28vw, 52vw"
-                            className="object-contain object-center"
-                          />
-                        </div>
-                      </div>
-                    ) : null}
-                    <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-zinc-500">{item.year}</p>
-                    <h4 className="font-display mt-3 text-2xl font-semibold tracking-[-0.05em] text-ink">{item.title}</h4>
-                    <p className="mt-2 text-sm font-medium uppercase tracking-[0.18em] text-zinc-500">{item.subtitle}</p>
-                    <p className="mt-4 text-[15px] leading-8 text-zinc-600">{item.body}</p>
-                  </motion.article>
+                    item={item}
+                    index={index}
+                    reduceMotion={reduceMotion}
+                  />
                 ))}
               </div>
             </div>
