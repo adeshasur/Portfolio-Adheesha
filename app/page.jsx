@@ -209,7 +209,7 @@ function ToolkitOverviewCard({ group, index }) {
   return (
     <motion.a
       href={`/tools#${group.id}`}
-      className="group relative overflow-hidden rounded-[28px] p-5 md:p-6"
+      className="group relative overflow-hidden rounded-[24px] p-4 md:p-5"
       style={{
         backgroundImage: `linear-gradient(165deg, rgba(255,255,255,0.82), rgba(255,255,255,0.58)), ${group.accent}`,
         boxShadow: `0 20px 44px ${group.glow}`,
@@ -231,10 +231,10 @@ function ToolkitOverviewCard({ group, index }) {
           </span>
         </div>
 
-        <h3 className="font-display mt-5 text-[1.55rem] font-semibold tracking-[-0.06em] text-ink md:text-[1.75rem]">
+        <h3 className="font-display mt-4 text-[1.3rem] font-semibold tracking-[-0.05em] text-ink md:text-[1.5rem]">
           {group.title}
         </h3>
-        <p className="mt-3 max-w-md text-[14px] leading-7 text-zinc-600">
+        <p className="mt-2.5 max-w-sm text-[13px] leading-6 text-zinc-600">
           {group.description}
         </p>
 
@@ -517,18 +517,18 @@ function JourneyCard({ item, index, onOpen, label }) {
       viewport={{ once: true, amount: 0.22 }}
       transition={{ duration: 0.75, delay: index * 0.05, ease: [0.22, 1, 0.36, 1] }}
       whileHover={{ y: -6 }}
-      className="group relative overflow-hidden rounded-[26px] bg-white/62 p-4 text-left glass-soft transition duration-300 md:p-4.5"
+      className="group relative overflow-hidden rounded-[24px] bg-white/62 p-3.5 text-left glass-soft transition duration-300 md:p-4"
     >
       <div className="noise-mask opacity-20" />
-      <div className="relative z-10 rounded-[22px] bg-white/72 p-4">
-        <div className="mx-auto flex aspect-square w-full max-w-[170px] items-center justify-center rounded-[24px] bg-white shadow-[0_16px_32px_rgba(15,23,42,0.08)] md:max-w-[190px]">
+      <div className="relative z-10 rounded-[20px] bg-white/72 p-3.5">
+        <div className="mx-auto flex aspect-square w-full max-w-[140px] items-center justify-center rounded-[20px] bg-white shadow-[0_12px_28px_rgba(15,23,42,0.06)] md:max-w-[160px]">
           {item.image ? (
-            <Image src={item.image} alt={item.title} className={`h-20 w-20 object-contain md:h-24 md:w-24 ${item.imageClassName || ""}`.trim()} />
+            <Image src={item.image} alt={item.title} className={`h-16 w-16 object-contain md:h-20 md:w-20 ${item.imageClassName || ""}`.trim()} />
           ) : null}
         </div>
-        <div className="mt-4 min-w-0">
-          <h3 className="font-display text-[1.2rem] font-semibold tracking-[-0.06em] text-ink md:text-[1.35rem]">{item.title}</h3>
-          <p className="mt-1.5 text-[11px] font-medium uppercase tracking-[0.16em] text-zinc-500">{item.subtitle}</p>
+        <div className="mt-3 min-w-0">
+          <h3 className="font-display text-[1.1rem] font-semibold tracking-[-0.05em] text-ink md:text-[1.2rem]">{item.title}</h3>
+          <p className="mt-1 text-[10px] font-medium uppercase tracking-[0.14em] text-zinc-500">{item.subtitle}</p>
           <div className="mt-4 inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.14em] text-ink/80">
             View More
             <ArrowUpRight className="h-3.5 w-3.5" />
@@ -801,7 +801,7 @@ export default function HomePage() {
             text="The home page stays lighter, while the full toolkit experience opens on its own page when you choose a category."
           />
 
-          <div className="relative z-10 mt-8 grid gap-4 lg:grid-cols-3">
+          <div className="relative z-10 mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
             {toolkitGroups.map((group, index) => (
               <ToolkitOverviewCard key={group.id} group={group} index={index} />
             ))}
@@ -817,7 +817,7 @@ export default function HomePage() {
             text="Concept builds and live projects presented in a tighter, more practical layout."
           />
 
-          <div className="relative mt-6 grid gap-3 md:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-5">
+          <div className="relative mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
             {softwareProjects.map((project, index) => (
               <ProjectCard
                 key={project.name}
@@ -843,7 +843,7 @@ export default function HomePage() {
             text="Poster systems, brand layouts, and social visuals now sit in their own section so the design work reads as a focused collection."
           />
 
-          <div className="relative z-10 mt-10 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+          <div className="relative z-10 mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
             {graphicDesignItems.map((item, index) => (
               <GalleryCard key={item.title} item={item} index={index} onOpen={setActiveGalleryItem} />
             ))}
@@ -861,7 +861,7 @@ export default function HomePage() {
             text="Cuts, visual rhythm, and edited storytelling moments stay together here so the video-editing side feels separate from the graphic design work."
           />
 
-          <div className="relative z-10 mt-10 columns-1 gap-5 md:columns-2 xl:columns-3">
+          <div className="relative z-10 mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
             {videoEditingItems.map((item, index) => (
               <GalleryCard key={item.title} item={item} index={index} onOpen={setActiveGalleryItem} />
             ))}
@@ -883,7 +883,7 @@ export default function HomePage() {
                 <h3 className="font-display text-[1.55rem] font-semibold tracking-[-0.06em] text-ink md:text-[1.95rem]">Education Qualifications</h3>
                 <motion.div style={{ scaleY: timelineProgress }} className="hidden h-16 w-px origin-top bg-gradient-to-b from-gold to-amber-400 md:block" />
               </div>
-              <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+              <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
                 {educationItems.map((item, index) => (
                   <JourneyCard
                     key={item.title + "-" + index}
@@ -901,7 +901,7 @@ export default function HomePage() {
               <p className="mt-4 text-[15px] leading-8 text-zinc-600">
                 Logos and roles stay visible here, while the full details open in a cleaner preview.
               </p>
-              <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+              <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
                 {experienceItems.map((item, index) => (
                   <JourneyCard
                     key={item.title + "-home-" + index}
