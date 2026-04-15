@@ -787,13 +787,7 @@ export default function HomePage() {
             Adheesha Sooriyaarachchi
           </button>
 
-          <nav className="hide-scrollbar flex max-w-[60vw] items-center gap-2 overflow-x-auto rounded-full bg-white/55 px-2 py-1.5 md:max-w-none md:gap-3 md:px-3">
-            {navItems.map((item) => (
-              item.href ? (
-                <a
-                  key={item.href}
-                  href={item.href}
-          <nav className="flex items-center gap-1 rounded-full bg-white/45 p-1.5 glass-panel">
+            <nav className="flex items-center gap-1 rounded-full bg-white/45 p-1.5 glass-panel">
               {navItems.map((item) => (
                 "id" in item ? (
                   <MagneticWrapper key={item.id} reduceMotion={reduceMotion} intensity={0.2}>
