@@ -50,6 +50,28 @@ function smoothScrollTo(id) {
   window.requestAnimationFrame(step);
 }
 
+const staggerContainer = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.08,
+    },
+  },
+};
+
+const staggerItem = {
+  hidden: { opacity: 0, y: 22 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.75,
+      ease: [0.22, 1, 0.36, 1],
+    },
+  },
+};
+
 function SectionIntro({ eyebrow, title, text, align = "left", theme = "light" }) {
   const dark = theme === "dark";
 
@@ -59,7 +81,7 @@ function SectionIntro({ eyebrow, title, text, align = "left", theme = "light" })
         <Sparkles className="h-3.5 w-3.5" />
         {eyebrow}
       </span>
-      <h2 className={`font-display text-balance mt-5 text-[clamp(2rem,4vw,3.6rem)] font-semibold leading-[0.92] tracking-[-0.08em] ${dark ? "text-white" : "text-ink"}`}>
+      <h2 className={`font-display text-balance mt-5 text-[clamp(1.75rem,5vw,3.6rem)] font-semibold leading-[0.92] tracking-[-0.08em] ${dark ? "text-white" : "text-ink"}`}>
         {title}
       </h2>
       <p className={`mt-4 max-w-xl text-[14px] leading-7 md:text-[15px] ${dark ? "text-zinc-300" : "text-zinc-600"}`}>
@@ -141,12 +163,9 @@ function AchievementCard({ item, index, onOpen, reduceMotion }) {
     <motion.button
       type="button"
       onClick={() => onOpen(item)}
-      initial={{ opacity: 0, y: 28 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.22 }}
-      transition={{ duration: 0.75, delay: index * 0.06, ease: [0.22, 1, 0.36, 1] }}
-      whileHover={{ y: -6 }}
-      className="flex flex-col h-full overflow-hidden rounded-[24px] bg-white/68 p-4 text-left glass-soft transition duration-300"
+      variants={staggerItem}
+      whileHover={{ y: -8 }}
+      className="group relative flex h-full flex-col overflow-hidden rounded-[24px] bg-white/68 p-4 text-left glass-soft card-glow-hover transition-all duration-500"
     >
       {images.length > 0 ? (
         <div className="relative mx-auto mb-4 w-full overflow-hidden rounded-[18px] bg-white p-2 shadow-[0_12px_28px_rgba(15,23,42,0.05)]">
@@ -385,12 +404,9 @@ function GalleryCard({ item, index, onOpen }) {
     <motion.button
       type="button"
       onClick={() => onOpen(item)}
-      initial={{ opacity: 0, y: 28 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.15 }}
-      transition={{ duration: 0.8, delay: index * 0.05, ease: [0.22, 1, 0.36, 1] }}
+      variants={staggerItem}
       whileHover={{ y: -8 }}
-      className="group relative mb-5 w-full overflow-hidden rounded-[24px] bg-white/68 p-4 text-left glass-soft transition duration-300"
+      className="group relative flex h-full flex-col overflow-hidden rounded-[24px] bg-white/68 p-4 text-left glass-soft card-glow-hover transition-all duration-500"
     >
       {hasImage ? (
         <>
@@ -441,12 +457,9 @@ function CertificateCard({ item, index, onOpen }) {
     <motion.button
       type="button"
       onClick={() => onOpen(item)}
-      initial={{ opacity: 0, y: 28 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.18 }}
-      transition={{ duration: 0.82, delay: index * 0.06, ease: [0.22, 1, 0.36, 1] }}
+      variants={staggerItem}
       whileHover={{ y: -10, rotateX: 4, rotateY: index % 2 === 0 ? -4 : 4 }}
-      className="group relative mx-auto w-full overflow-hidden rounded-[24px] bg-white/68 p-4 text-left glass-soft transition duration-300"
+      className="group relative mx-auto flex h-full w-full flex-col overflow-hidden rounded-[24px] bg-white/68 p-4 text-left glass-soft card-glow-hover transition-all duration-500"
     >
       <div className="noise-mask opacity-20" />
       <div className="relative z-10">
@@ -473,15 +486,10 @@ function CertificateCard({ item, index, onOpen }) {
 
 function JourneyCard({ item, index, onOpen, label }) {
   return (
-    <motion.button
-      type="button"
-      onClick={() => onOpen({ ...item, label })}
-      initial={{ opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.15 }}
-      transition={{ duration: 0.75, delay: index * 0.05, ease: [0.22, 1, 0.36, 1] }}
-      whileHover={{ y: -6 }}
-      className="group relative flex flex-col h-full overflow-hidden rounded-[24px] bg-white/68 p-4 glass-soft transition duration-300"
+    <motion.article
+      variants={staggerItem}
+      whileHover={{ y: -8 }}
+      className="group relative flex h-full flex-col overflow-hidden rounded-[24px] bg-white/68 p-4 glass-soft card-glow-hover transition-all duration-500"
     >
       <div className="noise-mask opacity-20" />
       <div className="relative z-10 rounded-[20px] bg-white/72 p-3.5">
@@ -613,7 +621,10 @@ export default function HomePage() {
                 transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
                 className="inline-flex items-center gap-3 rounded-full bg-white/64 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.25em] text-zinc-700 glass-soft"
               >
-                <span className="h-2.5 w-2.5 rounded-full bg-emerald-500" />
+                <span className="relative flex h-2.5 w-2.5 items-center justify-center">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+                  <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-500" />
+                </span>
                 {heroContent.badge}
               </motion.span>
 
@@ -621,7 +632,7 @@ export default function HomePage() {
                 initial={reduceMotion ? false : { opacity: 0, y: 30 }}
                 animate={reduceMotion ? {} : { opacity: 1, y: 0 }}
                 transition={{ duration: 0.85, delay: 0.06, ease: [0.22, 1, 0.36, 1] }}
-                className="font-display mt-2 max-w-none text-[clamp(2.6rem,6vw,5.4rem)] font-semibold leading-[0.9] tracking-[-0.1em] text-ink"
+                className="font-display mt-2 max-w-none text-[clamp(2.4rem,7vw,5.2rem)] font-semibold leading-[0.9] tracking-[-0.1em] text-ink"
               >
                 {heroContent.headlineLines.map((line) => (
                   <span key={line} className="block">
@@ -642,7 +653,7 @@ export default function HomePage() {
                 initial={reduceMotion ? false : { opacity: 0, y: 28 }}
                 animate={reduceMotion ? {} : { opacity: 1, y: 0 }}
                 transition={{ duration: 0.82, delay: 0.14, ease: [0.22, 1, 0.36, 1] }}
-                className="mt-14"
+                className="mt-16 md:mt-20"
               >
                 <div className="flex flex-wrap gap-3">
                   <button
@@ -667,7 +678,7 @@ export default function HomePage() {
                     Download CV
                   </a>
                 </div>
-                <div className="mt-7 flex flex-wrap items-center gap-3 md:mt-8">
+                <div className="mt-10 flex flex-wrap items-center gap-4 md:mt-12">
                   {socialLinks.map((item) => {
                     const Icon = socialIconMap[item.icon];
                     return (
@@ -675,9 +686,9 @@ export default function HomePage() {
                         key={item.label}
                         href={item.href}
                         aria-label={item.label}
-                        className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-black text-white shadow-lg shadow-black/10 transition duration-300 hover:-translate-y-1 hover:bg-zinc-800"
+                        className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-black text-white shadow-lg shadow-black/10 transition duration-300 hover:-translate-y-1.5 hover:bg-zinc-800 hover:shadow-xl"
                       >
-                        <Icon className="h-4.5 w-4.5" />
+                        <Icon className="h-5 w-5" />
                       </a>
                     );
                   })}
@@ -755,11 +766,17 @@ export default function HomePage() {
             text="The home page stays lighter, while the full toolkit experience opens on its own page when you choose a category."
           />
 
-          <div className="relative z-10 mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+          <motion.div 
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.1 }}
+            className="relative z-10 mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5"
+          >
             {toolkitGroups.map((group, index) => (
               <ToolkitOverviewCard key={group.id} group={group} index={index} />
             ))}
-          </div>
+          </motion.div>
         </div>
       </SectionReveal>
 
@@ -771,7 +788,13 @@ export default function HomePage() {
             text="Concept builds and live projects presented in a tighter, more practical layout."
           />
 
-          <div className="relative mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+          <motion.div 
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.1 }}
+            className="relative mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5"
+          >
             {softwareProjects.map((project, index) => (
               <ProjectCard
                 key={project.name}
@@ -783,7 +806,7 @@ export default function HomePage() {
                 }}
               />
             ))}
-          </div>
+          </motion.div>
         </div>
       </SectionReveal>
 
@@ -797,11 +820,17 @@ export default function HomePage() {
             text="Poster systems, brand layouts, and social visuals now sit in their own section so the design work reads as a focused collection."
           />
 
-          <div className="relative z-10 mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+          <motion.div 
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.1 }}
+            className="relative z-10 mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5"
+          >
             {graphicDesignItems.map((item, index) => (
               <GalleryCard key={item.title} item={item} index={index} onOpen={setActiveGalleryItem} />
             ))}
-          </div>
+          </motion.div>
         </div>
       </SectionReveal>
 
@@ -815,11 +844,17 @@ export default function HomePage() {
             text="Cuts, visual rhythm, and edited storytelling moments stay together here so the video-editing side feels separate from the graphic design work."
           />
 
-          <div className="relative z-10 mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+          <motion.div 
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.1 }}
+            className="relative z-10 mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5"
+          >
             {videoEditingItems.map((item, index) => (
               <GalleryCard key={item.title} item={item} index={index} onOpen={setActiveGalleryItem} />
             ))}
-          </div>
+          </motion.div>
         </div>
       </SectionReveal>
 
@@ -834,10 +869,16 @@ export default function HomePage() {
           <div className="mt-12 space-y-6">
             <div className="py-1">
               <div className="flex items-center justify-between gap-3">
-                <h3 className="font-display text-[1.55rem] font-semibold tracking-[-0.06em] text-ink md:text-[1.95rem]">Education Qualifications</h3>
+                <h3 className="font-display text-[clamp(1.4rem,4vw,1.95rem)] font-semibold tracking-[-0.06em] text-ink">Education Qualifications</h3>
                 <motion.div style={{ scaleY: timelineProgress }} className="hidden h-16 w-px origin-top bg-gradient-to-b from-gold to-amber-400 md:block" />
               </div>
-              <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+              <motion.div 
+                variants={staggerContainer}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.1 }}
+                className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5"
+              >
                 {educationItems.map((item, index) => (
                   <JourneyCard
                     key={item.title + "-" + index}
@@ -847,15 +888,21 @@ export default function HomePage() {
                     label="Education Qualification"
                   />
                 ))}
-              </div>
+              </motion.div>
             </div>
 
             <div className="py-1">
-              <h3 className="font-display text-[1.55rem] font-semibold tracking-[-0.06em] text-ink md:text-[1.95rem]">Working Experience</h3>
+              <h3 className="font-display text-[clamp(1.4rem,4vw,1.95rem)] font-semibold tracking-[-0.06em] text-ink">Working Experience</h3>
               <p className="mt-4 text-[15px] leading-8 text-zinc-600">
                 Logos and roles stay visible here, while the full details open in a cleaner preview.
               </p>
-              <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+              <motion.div 
+                variants={staggerContainer}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.1 }}
+                className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5"
+              >
                 {experienceItems.map((item, index) => (
                   <JourneyCard
                     key={item.title + "-home-" + index}
@@ -865,7 +912,7 @@ export default function HomePage() {
                     label="Working Experience"
                   />
                 ))}
-              </div>
+              </motion.div>
               <a
                 href="/experience"
                 className="mt-6 inline-flex items-center gap-2 rounded-full bg-ink px-4 py-2.5 text-sm font-semibold text-white shadow-lg shadow-black/10"
@@ -876,8 +923,14 @@ export default function HomePage() {
             </div>
 
             <div className="py-1">
-              <h3 className="font-display text-[1.8rem] font-semibold tracking-[-0.06em] text-ink md:text-[2.15rem]">Achievements & Events</h3>
-              <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+              <h3 className="font-display text-[clamp(1.4rem,4vw,2.15rem)] font-semibold tracking-[-0.06em] text-ink">Achievements & Events</h3>
+              <motion.div 
+                variants={staggerContainer}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.1 }}
+                className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5"
+              >
                 {achievementItems.map((item, index) => (
                   <AchievementCard
                     key={item.title + "-" + index}
@@ -887,7 +940,7 @@ export default function HomePage() {
                     reduceMotion={reduceMotion}
                   />
                 ))}
-              </div>
+              </motion.div>
             </div>
           </div>
         </div>
@@ -899,11 +952,17 @@ export default function HomePage() {
             title="Certificates arranged in a tighter showcase."
             text="A cleaner certificate wall with smaller cards and better room for future additions."
           />
-          <div className="relative mt-6 grid gap-3 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
+          <motion.div 
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.1 }}
+            className="relative mt-6 grid gap-3 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5"
+          >
             {certificateItems.map((item, index) => (
               <CertificateCard key={item.title} item={item} index={index} onOpen={setActiveCertificate} />
             ))}
-          </div>
+          </motion.div>
         </div>
       </SectionReveal>
       <SectionReveal id="books" className="scroll-mt-28 px-4 pt-20 md:px-6 md:pt-24" delay={0.16}>
