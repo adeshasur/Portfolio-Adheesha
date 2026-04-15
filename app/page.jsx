@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { AnimatePresence, motion, useMotionValue, useReducedMotion, useScroll, useSpring, useTransform } from "framer-motion";
 import { ArrowUpRight, Coffee, Facebook, Github, Instagram, Linkedin, Sparkles, WandSparkles, X } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, forwardRef } from "react";
 import {
   achievementItems,
   bookshelfItems,
@@ -148,10 +148,11 @@ function SplitText({ text, delay = 0, reduceMotion }) {
   );
 }
 
-function SectionReveal({ children, className = "", delay = 0, id }) {
+const SectionReveal = forwardRef(({ children, className = "", delay = 0, id }, ref) => {
   return (
     <motion.section
       id={id}
+      ref={ref}
       initial={{ opacity: 0, y: 42 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.18 }}
@@ -161,7 +162,8 @@ function SectionReveal({ children, className = "", delay = 0, id }) {
       {children}
     </motion.section>
   );
-}
+});
+SectionReveal.displayName = "SectionReveal";
 
 function CursorIndicator({ reduceMotion }) {
   const [isHovering, setIsHovering] = useState(false);
@@ -417,11 +419,11 @@ function AchievementCard({ item, index, onOpen, reduceMotion }) {
             </AnimatePresence>
             
             {hasMultipleImages && (
-              <div className="absolute bottom-2 inset-x-0 flex justify-center gap-1.2 z-10">
+              <div className="absolute bottom-2 inset-x-0 flex justify-center gap-1.5 z-10">
                 {images.map((_, i) => (
                   <div
                     key={i}
-                    className={`h-0.8 rounded-full transition-all duration-300 ${i === activeImage ? "w-3 bg-gold" : "w-1.2 bg-zinc-300/50"}`}
+                    className={`h-1 rounded-full transition-all duration-300 ${i === activeImage ? "w-3 bg-gold" : "w-1 bg-zinc-300/50"}`}
                   />
                 ))}
               </div>
@@ -997,7 +999,7 @@ export default function HomePage() {
             className="relative z-10 mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5"
           >
             {toolkitGroups.map((group, index) => (
-              <ToolkitOverviewCard key={group.id} group={group} index={index} />
+              <ToolkitOverviewCard key={group.id} group={group} index={index} reduceMotion={reduceMotion} />
             ))}
           </motion.div>
         </div>
@@ -1023,6 +1025,7 @@ export default function HomePage() {
                 key={project.name}
                 project={project}
                 index={index}
+                reduceMotion={reduceMotion}
                 onOpen={(selectedProject) => {
                   setActiveProject(selectedProject);
                   setActiveProjectShotIndex(0);
