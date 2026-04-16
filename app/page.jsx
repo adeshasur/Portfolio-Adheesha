@@ -659,24 +659,21 @@ function IconBubble({ iconName, mousePos, reduceMotion, index }) {
 function ToolkitHeroCard({ reduceMotion }) {
   const allIcons = toolkitGroups.flatMap(g => g.items);
   const containerRef = useRef(null);
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-  const springX = useSpring(mouseX, { damping: 30, stiffness: 200 });
-  const springY = useSpring(mouseY, { damping: 30, stiffness: 200 });
+  const mouseX = useMotionValue(-500); // Start off-screen
+  const mouseY = useMotionValue(-500);
+  const springX = useSpring(mouseX, { damping: 40, stiffness: 180 });
+  const springY = useSpring(mouseY, { damping: 40, stiffness: 180 });
   const [hovered, setHovered] = useState(false);
 
-  function handleMouseMove(e) {
+  const handleMouseMove = (e) => {
     if (reduceMotion || !containerRef.current) return;
     const rect = containerRef.current.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    mouseX.set(x);
-    mouseY.set(y);
-  }
+    mouseX.set(e.clientX - rect.left);
+    mouseY.set(e.clientY - rect.top);
+  };
 
-  // Parallax transforms for text
-  const textX = useTransform(springX, [0, 1380], [reduceMotion ? 0 : 5, reduceMotion ? 0 : -5]);
-  const textY = useTransform(springY, [0, 800], [reduceMotion ? 0 : 5, reduceMotion ? 0 : -5]);
+  const textX = useTransform(springX, [0, 1380], [reduceMotion ? 0 : 8, reduceMotion ? 0 : -8]);
+  const textY = useTransform(springY, [0, 800], [reduceMotion ? 0 : 8, reduceMotion ? 0 : -8]);
 
   return (
     <SectionReveal id="toolkit" className="scroll-mt-28 px-4 pt-20 md:px-6 md:pt-24">
@@ -689,72 +686,79 @@ function ToolkitHeroCard({ reduceMotion }) {
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        whileHover={{ scale: 1.005 }}
-        className="group relative mx-auto block max-w-[1380px] overflow-hidden rounded-[42px] bg-ink shadow-2xl shadow-black/30 transition-shadow duration-500 hover:shadow-gold/10"
+        whileHover={{ scale: 1.002 }}
+        className="group relative mx-auto block max-w-[1380px] overflow-hidden rounded-[42px] bg-ink shadow-2xl shadow-black/30 transition-shadow duration-700 hover:shadow-gold/15"
       >
-        {/* Luminous Animated Border */}
-        <div className="absolute inset-0 z-10 pointer-events-none rounded-[42px] p-[1px] overflow-hidden">
+        {/* Prism Strobe Shimmer (Rose/Gold/Azure Sweep) */}
+        <motion.div
+          animate={{ x: ["-100%", "200%"] }}
+          transition={{ duration: 7, repeat: Infinity, ease: "linear" }}
+          className="absolute inset-0 z-10 pointer-events-none opacity-[0.03] bg-gradient-to-r from-transparent via-white to-transparent"
+        />
+
+        {/* Dynamic Multi-color Shimmer for Corners */}
+        <div className="absolute inset-0 z-10 pointer-events-none rounded-[42px] p-[1.5px] overflow-hidden">
           <motion.div 
             animate={{ rotate: 360 }}
-            transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
-            className="absolute left-[-50%] top-[-50%] h-[200%] w-[200%] bg-[conic-gradient(from_0deg,transparent_0%,transparent_40%,rgba(215,179,123,0.3)_50%,transparent_60%,transparent_100%)] opacity-0 transition-opacity duration-700 group-hover:opacity-100"
+            transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
+            className="absolute left-[-50%] top-[-50%] h-[200%] w-[200%] bg-[conic-gradient(from_0deg,transparent_0%,rgba(215,179,123,0.15)_25%,rgba(244,63,94,0.15)_50%,rgba(56,189,248,0.15)_75%,transparent_100%)] opacity-0 transition-opacity duration-1000 group-hover:opacity-100"
           />
         </div>
 
-        {/* Gravity Glow (Mouse Following) */}
+        {/* Intensified Gravity Glow */}
         <motion.div
           style={{
             left: springX,
             top: springY,
-            background: "radial-gradient(circle, rgba(215,179,123,0.15) 0%, transparent 70%)",
+            background: "radial-gradient(circle, rgba(215,179,123,0.22) 0%, transparent 65%)",
           }}
-          className="pointer-events-none absolute -translate-x-1/2 -translate-y-1/2 z-0 h-[600px] w-[600px] rounded-full opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+          className="pointer-events-none absolute -translate-x-1/2 -translate-y-1/2 z-0 h-[700px] w-[700px] rounded-full opacity-0 transition-opacity duration-500 group-hover:opacity-100 blur-3xl"
         />
 
         <div className="noise-mask opacity-15" />
         
-        <div className="relative z-10 grid lg:grid-cols-[1.1fr_0.9fr]">
+        <div className="relative z-10 flex flex-col lg:grid lg:grid-cols-[1.1fr_0.9fr]">
           {/* Left Content */}
           <motion.div 
             style={{ x: textX, y: textY }}
-            className="p-8 md:p-14 lg:p-20"
+            className="p-10 md:p-14 lg:p-20 flex flex-col justify-center"
           >
             <motion.span
               variants={staggerItem}
-              className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-[10px] font-semibold uppercase tracking-[0.22em] text-gold/80 glass-soft overflow-hidden"
+              className="inline-flex items-center gap-2 w-fit rounded-full border border-white/10 bg-white/5 px-4 py-2 text-[10px] font-semibold uppercase tracking-[0.22em] text-gold/80 glass-soft overflow-hidden"
             >
               <Sparkles className="h-4 w-4" />
               Comprehensive Toolkit
               <motion.div 
                 animate={{ x: ["-100%", "200%"] }}
-                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut", repeatDelay: 1 }}
+                transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut", repeatDelay: 1.5 }}
                 className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
               />
             </motion.span>
             
-            <h2 className="font-display mt-8 text-[clamp(2.5rem,6vw,4.8rem)] font-semibold leading-[0.95] tracking-[-0.08em] text-white">
+            <h2 className="font-display mt-8 text-balance text-[clamp(2.5rem,6vw,4.8rem)] font-semibold leading-[0.95] tracking-[-0.08em] text-white">
               Build something <br />
-              <span className="text-white/60 group-hover:text-white/80 transition-colors duration-700">modern, premium,</span> <br />
+              <span className="text-white/60 group-hover:text-white transition-colors duration-1000">modern, premium,</span> <br />
               and useful.
             </h2>
             
-            <p className="mt-8 max-w-xl text-[15px] leading-8 text-white/50 transition-colors duration-700 group-hover:text-white/70 md:text-[17px]">
+            <p className="mt-8 max-w-xl text-balance text-[15px] leading-[1.8] text-white/50 transition-colors duration-1000 group-hover:text-white/70 md:text-[17px]">
               From specialized utilities to creative builders, every tool is crafted with a focus on high-fidelity presentation, smooth interaction, and practical depth.
             </p>
 
-            <div className="mt-12 flex items-center gap-4">
-              <span className="text-[11px] font-bold uppercase tracking-[0.3em] text-gold/60">Explore Collection</span>
+            <div className="mt-12 flex items-center gap-4 group/btn">
+              <span className="text-[11px] font-extrabold uppercase tracking-[0.4em] text-gold/50 group-hover:text-gold/90 transition-colors">Explore Collection</span>
               <motion.div 
-                animate={{ x: [0, 5, 0] }}
-                transition={{ duration: 1.5, repeat: Infinity }}
+                animate={{ x: [0, 6, 0] }}
+                transition={{ duration: 2, repeat: Infinity }}
               >
                 <ArrowUpRight className="h-5 w-5 text-gold/80" />
               </motion.div>
             </div>
           </motion.div>
           
-          {/* Right Motion Zone */}
-          <div className="relative min-h-[340px] border-l border-white/10 bg-gradient-to-br from-white/5 to-transparent md:min-h-full">
+          {/* Right Motion Zone (Now fully responsive) */}
+          <div className="relative h-[400px] border-t border-white/10 bg-gradient-to-br from-white/5 to-transparent md:h-[500px] lg:h-auto lg:border-t-0 lg:border-l">
             <div className="absolute inset-0 z-0 opacity-40">
                <Canvas camera={{ position: [0, 0, 5] }}>
                   <Environment preset="city" />
@@ -766,7 +770,7 @@ function ToolkitHeroCard({ reduceMotion }) {
                   </Float>
                </Canvas>
             </div>
-            <div className="absolute inset-0 z-10">
+            <div className="absolute inset-0 z-10 p-6 md:p-10">
                <FloatingIconsCloud items={allIcons} reduceMotion={reduceMotion} />
             </div>
           </div>
@@ -1245,7 +1249,7 @@ export default function HomePage() {
       <a
         href="https://buymeacoffee.com/adeshasur"
         aria-label="Buy Me a Coffee"
-        className="fixed bottom-5 left-5 z-[78] inline-flex h-14 w-14 items-center justify-center rounded-full bg-ink text-white shadow-[0_18px_40px_rgba(15,23,42,0.22)] transition hover:-translate-y-1"
+        className="fixed bottom-5 right-5 z-[100] inline-flex h-14 w-14 items-center justify-center rounded-full bg-ink text-white shadow-[0_18px_40px_rgba(15,23,42,0.22)] transition hover:-translate-y-1 md:left-5 md:right-auto"
       >
         <Coffee className="h-5 w-5" />
       </a>
