@@ -666,19 +666,6 @@ function ToolkitHeroCard({ reduceMotion }) {
   const springX = useSpring(mouseX, { damping: 40, stiffness: 180 });
   const springY = useSpring(mouseY, { damping: 40, stiffness: 180 });
   const [hovered, setHovered] = useState(false);
-  const [glitch, setGlitch] = useState(false);
-
-  // Periodic Glitch Trigger
-  useEffect(() => {
-    if (reduceMotion) return;
-    const interval = setInterval(() => {
-      if (Math.random() > 0.7) {
-        setGlitch(true);
-        setTimeout(() => setGlitch(false), 200);
-      }
-    }, 3000);
-    return () => clearInterval(interval);
-  }, [reduceMotion]);
 
   const handleMouseMove = (e) => {
     if (reduceMotion || !containerRef.current) return;
@@ -691,7 +678,7 @@ function ToolkitHeroCard({ reduceMotion }) {
   const textY = useTransform(springY, [0, 800], [reduceMotion ? 0 : 8, reduceMotion ? 0 : -8]);
 
   return (
-    <SectionReveal id="toolkit" className="scroll-mt-28 px-4 pt-20 md:px-6 md:pt-24">
+    <SectionReveal id="toolkit" className="scroll-mt-28 px-4 pt-20 pb-24 md:px-6 md:pt-24 md:pb-0">
       <motion.a
         href="/tools"
         ref={containerRef}
@@ -702,39 +689,35 @@ function ToolkitHeroCard({ reduceMotion }) {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         whileHover={{ scale: 1.002 }}
-        animate={glitch ? { x: [0, -4, 4, 0], filter: ["none", "brightness(1.5)", "none"] } : {}}
-        className="group relative mx-auto block max-w-[1380px] overflow-hidden rounded-[42px] bg-ink shadow-2xl shadow-black/30 transition-shadow duration-700 hover:shadow-gold/15"
+        className="group relative mx-auto block max-w-[1380px] overflow-hidden rounded-[42px] bg-ink shadow-2xl shadow-black/40 transition-shadow duration-700 hover:shadow-gold/15"
       >
-        {/* Elite Monochrome Scanner Sweep */}
+        {/* Elite Aura Shimmer (Soft Wide Prism) */}
         <motion.div
-          animate={{ x: ["-100%", "200%"] }}
-          transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-          className="absolute inset-0 z-10 pointer-events-none opacity-[0.08] bg-gradient-to-r from-transparent via-white to-transparent"
+          animate={{ x: ["-150%", "250%"] }}
+          transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
+          className="absolute inset-0 z-10 pointer-events-none opacity-[0.12] blur-[100px] bg-gradient-to-r from-transparent via-white to-transparent"
         />
 
-        {/* Digital Scanlines Overlay */}
-        <div className="absolute inset-0 z-10 pointer-events-none opacity-[0.03] bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(255,255,255,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.02),rgba(0,255,0,0.01),rgba(0,0,255,0.02))] bg-[length:100%_4px,3px_100%]" />
-
-        {/* Luminous Mono-Border */}
-        <div className="absolute inset-0 z-10 pointer-events-none rounded-[42px] p-[1.5px] overflow-hidden">
+        {/* Luminous Gold-Flow Border */}
+        <div className="absolute inset-0 z-10 pointer-events-none rounded-[42px] p-[1px] overflow-hidden">
           <motion.div 
             animate={{ rotate: 360 }}
-            transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-            className="absolute left-[-50%] top-[-50%] h-[200%] w-[200%] bg-[conic-gradient(from_0deg,transparent_0%,rgba(255,255,255,0.1)_25%,rgba(215,179,123,0.2)_50%,rgba(255,255,255,0.1)_75%,transparent_100%)] opacity-0 transition-opacity duration-1000 group-hover:opacity-100"
+            transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+            className="absolute left-[-50%] top-[-50%] h-[200%] w-[200%] bg-[conic-gradient(from_0deg,transparent_0%,rgba(215,179,123,0.3)_50%,transparent_100%)] opacity-0 transition-opacity duration-1000 group-hover:opacity-100"
           />
         </div>
 
-        {/* Intensified Gravity Glow (High Intensity Gold) */}
+        {/* Liquid Gravity Glow */}
         <motion.div
           style={{
             left: springX,
             top: springY,
-            background: "radial-gradient(circle, rgba(215,179,123,0.25) 0%, transparent 65%)",
+            background: "radial-gradient(circle, rgba(215,179,123,0.28) 0%, transparent 65%)",
           }}
-          className="pointer-events-none absolute -translate-x-1/2 -translate-y-1/2 z-0 h-[700px] w-[700px] rounded-full opacity-0 transition-opacity duration-500 group-hover:opacity-100 blur-3xl"
+          className="pointer-events-none absolute -translate-x-1/2 -translate-y-1/2 z-0 h-[700px] w-[700px] rounded-full opacity-0 transition-opacity duration-700 group-hover:opacity-100 blur-[120px]"
         />
 
-        <div className="noise-mask opacity-20" />
+        <div className="noise-mask opacity-10" />
         
         <div className="relative z-10 flex flex-col lg:grid lg:grid-cols-[1.1fr_0.9fr]">
           {/* Left Content */}
@@ -744,18 +727,18 @@ function ToolkitHeroCard({ reduceMotion }) {
           >
             <motion.span
               variants={staggerItem}
-              className="inline-flex items-center gap-2 w-fit rounded-full border border-white/10 bg-white/5 px-4 py-2 text-[10px] font-semibold uppercase tracking-[0.22em] text-gold/80 glass-soft overflow-hidden"
+              className="inline-flex items-center gap-2 w-fit rounded-full border border-white/10 bg-white/5 px-4 py-2 text-[10px] font-semibold uppercase tracking-[0.22em] text-gold glass-soft overflow-hidden"
             >
               <Sparkles className="h-4 w-4" />
               Comprehensive Toolkit
               <motion.div 
                 animate={{ x: ["-100%", "200%"] }}
-                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", repeatDelay: 1 }}
+                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", repeatDelay: 1.5 }}
                 className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
               />
             </motion.span>
             
-            <h2 className="font-display mt-8 text-balance text-[clamp(2.5rem,6vw,4.8rem)] font-semibold leading-[0.95] tracking-[-0.08em] text-white">
+            <h2 className="font-display mt-10 text-balance text-[clamp(2.5rem,6vw,4.8rem)] font-semibold leading-[0.95] tracking-[-0.08em] text-white">
               Build something <br />
               <span className="text-white/60 group-hover:text-white transition-colors duration-1000">modern, premium,</span> <br />
               and useful.
