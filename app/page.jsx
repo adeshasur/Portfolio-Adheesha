@@ -1,9 +1,11 @@
 "use client";
 
+import { Suspense, createContext, forwardRef, useContext, useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import { Canvas, useFrame } from "@react-three/fiber";
+import { Environment, Float, MeshTransmissionMaterial, RoundedBox } from "@react-three/drei";
 import { AnimatePresence, motion, useMotionValue, useReducedMotion, useScroll, useSpring, useTransform } from "framer-motion";
 import { ArrowUpRight, Coffee, Facebook, Github, Instagram, Linkedin, Sparkles, WandSparkles, X } from "lucide-react";
-import { useEffect, useRef, useState, forwardRef } from "react";
 import {
   achievementItems,
   bookshelfItems,
@@ -25,6 +27,24 @@ const socialIconMap = {
   linkedin: Linkedin,
   instagram: Instagram,
   facebook: Facebook,
+};
+
+const toolIconConfig = {
+  "identity-lookup": {
+    accent: ["#efe7d6", "#f6f3ea"],
+    glow: "#d7b37b",
+    variant: "lookup",
+  },
+  "creative-productivity": {
+    accent: ["#f4e6db", "#f8f5ee"],
+    glow: "#c88f6f",
+    variant: "creative",
+  },
+  "security-finance": {
+    accent: ["#e2e8f0", "#f5f7fb"],
+    glow: "#89a0bd",
+    variant: "security",
+  },
 };
 
 function smoothScrollTo(id) {
@@ -72,21 +92,29 @@ const staggerItem = {
   },
 };
 
-function SectionIntro({ eyebrow, title, text, align = "left", theme = "light" }) {
-  const dark = theme === "dark";
-
+function SectionIntro({ eyebrow, title, text, theme = "light", className = "" }) {
   return (
-    <div className={`relative z-10 max-w-3xl ${align === "center" ? "mx-auto text-center" : ""}`}>
-      <span className={`inline-flex items-center gap-2 rounded-full px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.24em] ${dark ? "bg-white/10 text-gold" : "bg-white/55 text-gold glass-soft"}`}>
-        <Sparkles className="h-3.5 w-3.5" />
+    <div className={`max-w-3xl ${className}`}>
+      <motion.p
+        initial={{ opacity: 0, x: -12 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        viewport={{ once: true }}
+        className={`text-[11px] font-bold uppercase tracking-[0.3em] ${theme === "dark" ? "text-gold/80" : "text-gold"}`}
+      >
         {eyebrow}
-      </span>
-      <h2 className={`font-display text-balance mt-5 text-[clamp(1.75rem,5vw,3.6rem)] font-semibold leading-[0.92] tracking-[-0.08em] ${dark ? "text-white" : "text-ink"}`}>
-        {title}
+      </motion.p>
+      <h2 className={`font-display mt-5 text-[clamp(2.2rem,5vw,3.65rem)] font-semibold leading-[0.98] tracking-[-0.08em] ${theme === "dark" ? "text-white" : "text-ink"}`}>
+        <SplitText text={title} delay={0.1} />
       </h2>
-      <p className={`mt-4 max-w-xl text-[14px] leading-7 md:text-[15px] ${dark ? "text-zinc-300" : "text-zinc-600"}`}>
+      <motion.p
+        initial={{ opacity: 0, y: 12 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ delay: 0.25 }}
+        className={`mt-6 text-[15px] leading-8 ${theme === "dark" ? "text-zinc-400" : "text-zinc-600"} md:text-[17px]`}
+      >
         {text}
-      </p>
+      </motion.p>
     </div>
   );
 }
@@ -167,25 +195,167 @@ SectionReveal.displayName = "SectionReveal";
 
 
 
+const DepthContext = createContext({ x: 0, y: 0 });
+
+function ToolIconMesh({ variant, hovered, pointer, reduceMotion }) {
+  const groupRef = useRef(null);
+  const lensRef = useRef(null);
+
+  useFrame((state, delta) => {
+    if (!groupRef.current) return;
+
+    // Default rotation + hover speedup
+    const spinSpeed = hovered ? 1.85 : 0.42;
+    groupRef.current.rotation.y += delta * spinSpeed;
+    
+    // Smooth tilt reaction to pointer
+    groupRef.current.rotation.x = reduceMotion ? 0.16 : 0.16 + (pointer.y * 0.28);
+    groupRef.current.rotation.z = reduceMotion ? 0 : pointer.x * 0.12;
+
+    // Hover scale bounce effect
+    const targetScale = hovered ? 1.14 : 1;
+    groupRef.current.scale.x += (targetScale - groupRef.current.scale.x) * 0.14;
+    groupRef.current.scale.y += (targetScale - groupRef.current.scale.y) * 0.14;
+    groupRef.current.scale.z += (targetScale - groupRef.current.scale.z) * 0.14;
+  });
+
+  return (
+    <Float speed={reduceMotion ? 0 : hovered ? 3.2 : 1.6} rotationIntensity={reduceMotion ? 0 : hovered ? 1.2 : 0.45} floatIntensity={reduceMotion ? 0 : 0.85}>
+      <group ref={groupRef}>
+        {variant === "lookup" ? (
+          <>
+            {/* Magnifier Lens - Glass Effect */}
+            <mesh position={[0, 0, 0]} ref={lensRef}>
+              <cylinderGeometry args={[0.55, 0.55, 0.08, 32]} />
+              <MeshTransmissionMaterial
+                backside
+                samples={6}
+                thickness={0.65}
+                roughness={0.04}
+                chromaticAberration={0.06}
+                anisotropy={0.15}
+                distortion={0.2}
+                distortionScale={0.3}
+                temporalDistortion={0.1}
+                color="#fdfcf8"
+              />
+            </mesh>
+            {/* Magnifier Frame */}
+            <mesh position={[0, 0, 0]}>
+              <torusGeometry args={[0.56, 0.06, 24, 64]} />
+              <meshStandardMaterial color="#d7b37b" metalness={0.92} roughness={0.12} />
+            </mesh>
+            {/* Magnifier Handle */}
+            <mesh position={[0.62, -0.62, 0]} rotation={[0, 0, -Math.PI / 4]}>
+              <cylinderGeometry args={[0.07, 0.07, 0.72, 16]} />
+              <meshStandardMaterial color="#d7b37b" metalness={0.95} roughness={0.08} />
+            </mesh>
+          </>
+        ) : null}
+
+        {variant === "creative" ? (
+          <>
+            {/* Abstract Glass Shape */}
+            <mesh rotation={[0.8, 0.4, 0.3]}>
+              <torusKnotGeometry args={[0.38, 0.12, 200, 32, 2, 3]} />
+              <MeshTransmissionMaterial
+                backside
+                samples={6}
+                thickness={0.8}
+                roughness={0.12}
+                chromaticAberration={0.08}
+                anisotropy={0.2}
+                color="#f4e6db"
+              />
+            </mesh>
+            {/* Orbital Rings - Metallic */}
+            <group rotation={[Math.PI / 4, 0, 0]}>
+               <mesh>
+                 <torusGeometry args={[0.78, 0.025, 16, 120]} />
+                 <meshStandardMaterial color="#c88f6f" metalness={0.85} roughness={0.1} />
+               </mesh>
+            </group>
+            <group rotation={[-Math.PI / 3, 0.4, 0.2]}>
+               <mesh>
+                 <torusGeometry args={[0.72, 0.018, 16, 100]} />
+                 <meshStandardMaterial color="#ffffff" metalness={0.4} roughness={0.05} />
+               </mesh>
+            </group>
+          </>
+        ) : null}
+
+        {variant === "security" ? (
+          <>
+            {/* Security Cube - Metallic/Geometric */}
+            <RoundedBox args={[0.82, 0.82, 0.82]} radius={0.12} smoothness={5}>
+              <meshStandardMaterial color="#eef2f7" metalness={0.88} roughness={0.08} />
+            </RoundedBox>
+            {/* Protection Shield Overlay - Glass */}
+            <mesh position={[0, 0, 0.52]} scale={[0.68, 0.84, 0.15]}>
+              <cylinderGeometry args={[0.6, 0.45, 0.18, 6]} />
+              <MeshTransmissionMaterial
+                backside
+                samples={4}
+                thickness={0.5}
+                roughness={0.05}
+                chromaticAberration={0.03}
+                color="#f0f9ff"
+              />
+            </mesh>
+            {/* Core Glow */}
+            <mesh scale={0.4}>
+              <sphereGeometry args={[1, 16, 16]} />
+              <meshStandardMaterial color="#89a0bd" emissive="#89a0bd" emissiveIntensity={2} toneMapped={false} />
+            </mesh>
+          </>
+        ) : null}
+      </group>
+    </Float>
+  );
+}
+
+function ToolIconScene({ groupId, hovered, reduceMotion, pointer }) {
+  const config = toolIconConfig[groupId] || toolIconConfig["identity-lookup"];
+
+  return (
+    <Canvas
+      camera={{ position: [0, 0, 3.4], fov: 34 }}
+      dpr={[1, 1.6]}
+      gl={{ antialias: true, alpha: true }}
+    >
+      <color attach="background" args={["transparent"]} />
+      <ambientLight intensity={1.4} />
+      <directionalLight position={[2.2, 2.6, 2.8]} intensity={hovered ? 3.4 : 2.6} color={config.glow} />
+      <pointLight position={[-2, -1.5, 1.5]} intensity={hovered ? 16 : 10} color={config.accent[0]} />
+      <spotLight position={[0, 2.4, 4]} angle={0.36} penumbra={1} intensity={hovered ? 18 : 10} color="#ffffff" />
+      <Suspense fallback={null}>
+        <Environment preset="studio" />
+        <ToolIconMesh variant={config.variant} hovered={hovered} pointer={pointer} reduceMotion={reduceMotion} />
+      </Suspense>
+    </Canvas>
+  );
+}
+
 function TiltCard({ children, className = "", reduceMotion }) {
   const x = useMotionValue(0);
   const y = useMotionValue(0);
+  const springX = useSpring(x, { stiffness: 150, damping: 22 });
+  const springY = useSpring(y, { stiffness: 150, damping: 22 });
 
-  const rotateX = useTransform(y, [-100, 100], [15, -15]);
-  const rotateY = useTransform(x, [-100, 100], [-15, 15]);
-  
-  const springX = useSpring(rotateX, { stiffness: 150, damping: 20 });
-  const springY = useSpring(rotateY, { stiffness: 150, damping: 20 });
+  // Parallax offsets (Inverse depth)
+  const parallaxX = useTransform(x, [-12, 12], [4, -4]); 
+  const parallaxY = useTransform(y, [-12, 12], [4, -4]);
 
   function handleMouseMove(e) {
     if (reduceMotion) return;
-    const rect = e.currentTarget.getBoundingClientRect();
-    const width = rect.width;
-    const height = rect.height;
-    const mouseX = e.clientX - rect.left;
-    const mouseY = e.clientY - rect.top;
-    x.set(mouseX - width / 2);
-    y.set(mouseY - height / 2);
+    const { clientX, clientY, currentTarget } = e;
+    const { left, top, width, height } = currentTarget.getBoundingClientRect();
+    const centerX = left + width / 2;
+    const centerY = top + height / 2;
+    const rotateX = ((clientY - centerY) / (height / 2)) * -12;
+    const rotateY = ((clientX - centerX) / (width / 2)) * 12;
+    x.set(rotateX);
+    y.set(rotateY);
   }
 
   function handleMouseLeave() {
@@ -205,7 +375,9 @@ function TiltCard({ children, className = "", reduceMotion }) {
       }}
       className={`group/tilt ${className}`}
     >
-      {children}
+      <DepthContext.Provider value={{ x: parallaxX, y: parallaxY }}>
+        {children}
+      </DepthContext.Provider>
     </motion.div>
   );
 }
@@ -395,25 +567,57 @@ function AchievementCard({ item, index, onOpen, reduceMotion }) {
 
 
 function ToolkitOverviewCard({ group, index, reduceMotion }) {
+  const { x: parallaxX, y: parallaxY } = useContext(DepthContext);
+  const [hovered, setHovered] = useState(false);
+  const [pointer, setPointer] = useState({ x: 0, y: 0 });
+  const iconConfig = toolIconConfig[group.id] || toolIconConfig["identity-lookup"];
+
+  function handlePointerMove(event) {
+    if (reduceMotion) return;
+    const bounds = event.currentTarget.getBoundingClientRect();
+    const x = ((event.clientX - bounds.left) / bounds.width - 0.5) * 2;
+    const y = ((event.clientY - bounds.top) / bounds.height - 0.5) * -2;
+    setPointer({ x, y });
+  }
+
   return (
     <TiltCard reduceMotion={reduceMotion} className="flex h-full flex-col">
       <motion.button
         type="button"
         onClick={() => smoothScrollTo(group.id)}
+        onHoverStart={() => setHovered(true)}
+        onHoverEnd={() => {
+          setHovered(false);
+          setPointer({ x: 0, y: 0 });
+        }}
         variants={staggerItem}
         whileHover={{ y: -8, z: 20 }}
-        className="group relative flex h-full flex-col overflow-hidden rounded-[24px] bg-white/68 p-4 text-left glass-soft card-glow-hover transition-all duration-500 [transform-style:preserve-3d]"
+        className="group border-glow-luminous holographic-grain relative flex h-full flex-col overflow-hidden rounded-[24px] bg-white/68 p-4 text-left glass-soft card-glow-hover transition-all duration-500 [transform-style:preserve-3d]"
       >
         <div className="relative mx-auto mb-4 w-full overflow-hidden rounded-[18px] bg-white p-2 shadow-[0_12px_28px_rgba(15,23,42,0.05)] [transform:translateZ(40px)]">
-          <div className="relative flex aspect-[3/4] items-center justify-center overflow-hidden rounded-[14px] bg-zinc-50" style={{ background: group.accent }}>
+          <motion.div
+            style={{ x: parallaxX, y: parallaxY, background: group.accent }}
+            onMouseMove={handlePointerMove}
+            className="relative flex aspect-[3/4] items-center justify-center overflow-hidden rounded-[14px] bg-zinc-50"
+          >
             <div className="noise-mask opacity-20" />
-            <div className="flex flex-col items-center gap-2 px-4 text-center">
+            <div
+              className="pointer-events-none absolute inset-[14%] rounded-full opacity-70 blur-2xl"
+              style={{ background: `radial-gradient(circle, ${iconConfig.glow}55 0%, transparent 72%)` }}
+            />
+            <div className="absolute inset-0">
+              <ToolIconScene groupId={group.id} hovered={hovered} reduceMotion={reduceMotion} pointer={pointer} />
+            </div>
+            <div className="pointer-events-none absolute bottom-3 left-3 rounded-full bg-white/70 px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.18em] text-ink/45 backdrop-blur-md">
+              {group.items.length} Tools
+            </div>
+            <div className="hidden flex-col items-center gap-2 px-4 text-center">
               <span className="text-3xl filter drop-shadow-md">🛠️</span>
               <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-ink/40">
                 {group.items.length} Tools
               </p>
             </div>
-          </div>
+          </motion.div>
         </div>
 
         <div className="flex flex-grow flex-col [transform:translateZ(20px)]">
@@ -441,6 +645,7 @@ function ToolkitOverviewCard({ group, index, reduceMotion }) {
 function ProjectCard({ project, index, onOpen, reduceMotion }) {
   const canPreview = Boolean(project.shots?.length);
   const imageClassName = project.imageContain ? "object-contain p-3" : "object-cover";
+  const { x: parallaxX, y: parallaxY } = useContext(DepthContext);
 
   return (
     <TiltCard reduceMotion={reduceMotion} className="flex h-full flex-col">
@@ -449,16 +654,19 @@ function ProjectCard({ project, index, onOpen, reduceMotion }) {
         onClick={() => onOpen(project)}
         variants={staggerItem}
         whileHover={{ y: -8, z: 20 }}
-        className="group relative flex h-full flex-col overflow-hidden rounded-[24px] bg-white/68 p-4 text-left glass-soft card-glow-hover transition-all duration-500 [transform-style:preserve-3d]"
+        className="group border-glow-luminous holographic-grain relative flex h-full flex-col overflow-hidden rounded-[24px] bg-white/68 p-4 text-left glass-soft card-glow-hover transition-all duration-500 [transform-style:preserve-3d]"
       >
         <div className="relative mx-auto mb-4 w-full overflow-hidden rounded-[18px] bg-white p-2 shadow-[0_12px_28px_rgba(15,23,42,0.05)] [transform:translateZ(40px)]">
-          <div className="relative aspect-[3/4] overflow-hidden rounded-[14px] bg-zinc-50 border border-black/5">
+          <motion.div 
+            style={{ x: parallaxX, y: parallaxY }}
+            className="relative aspect-[16/10] overflow-hidden rounded-[14px] bg-zinc-50 border border-black/5"
+          >
             {project.image ? (
               <Image
                 src={project.image}
                 alt={project.name}
                 fill
-                sizes="(min-width: 1536px) 15vw, (min-width: 1280px) 18vw, (min-width: 768px) 45vw, 92vw"
+                sizes="(min-width: 1536px) 20vw, (min-width: 1280px) 25vw, (min-width: 768px) 45vw, 92vw"
                 className={`${imageClassName} transition-transform duration-700 group-hover/image:scale-[1.05]`}
               />
             ) : (
@@ -469,7 +677,7 @@ function ProjectCard({ project, index, onOpen, reduceMotion }) {
             <span className="absolute left-3 top-3 rounded-full bg-black/70 px-2.5 py-1 text-[9px] font-semibold uppercase tracking-[0.2em] text-white backdrop-blur-md">
               {project.status || "Project"}
             </span>
-          </div>
+          </motion.div>
         </div>
 
         <div className="flex flex-grow flex-col [transform:translateZ(20px)]">
@@ -496,6 +704,7 @@ function ProjectCard({ project, index, onOpen, reduceMotion }) {
 
 function GalleryCard({ item, index, onOpen, reduceMotion }) {
   const hasImage = Boolean(item.image);
+  const { x: parallaxX, y: parallaxY } = useContext(DepthContext);
 
   return (
     <TiltCard reduceMotion={reduceMotion} className="flex h-full flex-col">
@@ -504,10 +713,13 @@ function GalleryCard({ item, index, onOpen, reduceMotion }) {
         onClick={() => onOpen(item)}
         variants={staggerItem}
         whileHover={{ y: -8, z: 20 }}
-        className="group relative flex h-full flex-col overflow-hidden rounded-[24px] bg-white/68 p-4 text-left glass-soft card-glow-hover transition-all duration-500 [transform-style:preserve-3d]"
+        className="group border-glow-luminous holographic-grain relative flex h-full flex-col overflow-hidden rounded-[24px] bg-white/68 p-4 text-left glass-soft card-glow-hover transition-all duration-500 [transform-style:preserve-3d]"
       >
         <div className="relative mx-auto mb-4 w-full overflow-hidden rounded-[18px] bg-white p-2 shadow-[0_12px_28px_rgba(15,23,42,0.05)] [transform:translateZ(40px)]">
-          <div className="relative aspect-[3/4] overflow-hidden rounded-[14px] bg-zinc-50 border border-black/5">
+          <motion.div 
+            style={{ x: parallaxX, y: parallaxY }}
+            className="relative aspect-square overflow-hidden rounded-[14px] bg-zinc-50 border border-black/5"
+          >
             {hasImage ? (
               <Image
                 src={item.image}
@@ -524,7 +736,7 @@ function GalleryCard({ item, index, onOpen, reduceMotion }) {
             <span className="absolute left-3 top-3 z-10 rounded-full bg-black/70 px-2.5 py-1 text-[9px] font-semibold uppercase tracking-[0.22em] text-white backdrop-blur-md">
               {item.category}
             </span>
-          </div>
+          </motion.div>
         </div>
 
         <div className="flex flex-grow flex-col [transform:translateZ(20px)]">
@@ -549,41 +761,49 @@ function GalleryCard({ item, index, onOpen, reduceMotion }) {
   );
 }
 
-function CertificateCard({ item, index, onOpen }) {
+function CertificateCard({ item, index, onOpen, reduceMotion }) {
   const isPortrait = item.orientation === "portrait";
+  const { x: parallaxX, y: parallaxY } = useContext(DepthContext);
 
   return (
-    <motion.button
-      type="button"
-      onClick={() => onOpen(item)}
-      variants={staggerItem}
-      whileHover={{ y: -10, rotateX: 4, rotateY: index % 2 === 0 ? -4 : 4 }}
-      className="group relative mx-auto flex h-full w-full flex-col overflow-hidden rounded-[24px] bg-white/68 p-4 text-left glass-soft card-glow-hover transition-all duration-500"
-    >
-      <div className="noise-mask opacity-20" />
-      <div className="relative z-10">
-        <div className={`relative overflow-hidden rounded-[18px] bg-white p-2 shadow-[0_12px_28px_rgba(15,23,42,0.05)] ${isPortrait ? "mx-auto max-w-[220px]" : ""}`}>
-          <div className={`relative overflow-hidden rounded-[14px] bg-white ${isPortrait ? "aspect-[3/4]" : "aspect-[3/2]"}`}>
-            <Image
-              src={item.image}
-              alt={item.title}
-              fill
-              sizes="(min-width: 1536px) 18vw, (min-width: 1280px) 20vw, (min-width: 768px) 28vw, 46vw"
-              className="object-contain object-center bg-white p-1 transition duration-500 group-hover:scale-[1.02]"
-            />
+    <TiltCard reduceMotion={reduceMotion} className="flex h-full flex-col">
+      <motion.button
+        type="button"
+        onClick={() => onOpen(item)}
+        variants={staggerItem}
+        whileHover={{ y: -10 }}
+        className="group border-glow-luminous holographic-grain relative mx-auto flex h-full w-full flex-col overflow-hidden rounded-[24px] bg-white/68 p-4 text-left glass-soft card-glow-hover transition-all duration-500 [transform-style:preserve-3d]"
+      >
+        <div className="noise-mask opacity-20" />
+        <div className="relative z-10">
+          <div className={`relative overflow-hidden rounded-[18px] bg-white p-2 shadow-[0_12px_28px_rgba(15,23,42,0.05)] ${isPortrait ? "mx-auto max-w-[220px]" : ""}`}>
+            <motion.div 
+              style={{ x: parallaxX, y: parallaxY }}
+              className={`relative overflow-hidden rounded-[14px] bg-white ${isPortrait ? "aspect-[3/4]" : "aspect-[3/2]"}`}
+            >
+              <Image
+                src={item.image}
+                alt={item.title}
+                fill
+                sizes="(min-width: 1536px) 18vw, (min-width: 1280px) 20vw, (min-width: 768px) 28vw, 46vw"
+                className="object-contain object-center bg-white p-1 transition duration-500 group-hover:scale-[1.02]"
+              />
+            </motion.div>
+          </div>
+          <div className="mt-3">
+            <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-zinc-500">{item.label}</p>
+            <h3 className="font-display mt-1.5 text-[1rem] font-semibold tracking-[-0.06em] text-ink md:text-[1.1rem]">{item.title}</h3>
+            <p className="mt-1.5 text-[11px] leading-5 text-zinc-600 md:text-[12px]">{item.description}</p>
           </div>
         </div>
-        <div className="mt-3">
-          <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-zinc-500">{item.label}</p>
-          <h3 className="font-display mt-1.5 text-[1rem] font-semibold tracking-[-0.06em] text-ink md:text-[1.1rem]">{item.title}</h3>
-          <p className="mt-1.5 text-[11px] leading-5 text-zinc-600 md:text-[12px]">{item.description}</p>
-        </div>
-      </div>
-    </motion.button>
+      </motion.button>
+    </TiltCard>
   );
 }
 
 function JourneyCard({ item, index, onOpen, label, reduceMotion }) {
+  const { x: parallaxX, y: parallaxY } = useContext(DepthContext);
+
   return (
     <TiltCard reduceMotion={reduceMotion} className="flex h-full flex-col">
       <motion.button
@@ -591,10 +811,13 @@ function JourneyCard({ item, index, onOpen, label, reduceMotion }) {
         onClick={() => onOpen(item)}
         variants={staggerItem}
         whileHover={{ y: -8, z: 20 }}
-        className="group relative flex h-full flex-col overflow-hidden rounded-[24px] bg-white/68 p-4 text-left glass-soft card-glow-hover transition-all duration-500 [transform-style:preserve-3d]"
+        className="group border-glow-luminous holographic-grain relative flex h-full flex-col overflow-hidden rounded-[24px] bg-white/68 p-4 text-left glass-soft card-glow-hover transition-all duration-500 [transform-style:preserve-3d]"
       >
         <div className="relative mx-auto mb-4 w-full overflow-hidden rounded-[18px] bg-white p-2 shadow-[0_12px_28px_rgba(15,23,42,0.05)] [transform:translateZ(40px)]">
-          <div className="relative flex aspect-[3/4] items-center justify-center overflow-hidden rounded-[14px] bg-zinc-50 border border-black/5">
+          <motion.div 
+            style={{ x: parallaxX, y: parallaxY }}
+            className="relative flex aspect-square items-center justify-center overflow-hidden rounded-[14px] bg-zinc-50 border border-black/5"
+          >
             {item.image ? (
               <Image 
                 src={item.image} 
@@ -609,7 +832,7 @@ function JourneyCard({ item, index, onOpen, label, reduceMotion }) {
             <span className="absolute left-3 top-3 rounded-full bg-black/70 px-2.5 py-1 text-[9px] font-semibold uppercase tracking-[0.2em] text-white backdrop-blur-md">
               {label.split(" ")[0]}
             </span>
-          </div>
+          </motion.div>
         </div>
 
         <div className="flex flex-grow flex-col [transform:translateZ(20px)]">
@@ -900,7 +1123,7 @@ export default function HomePage() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.1 }}
-            className="relative z-10 mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5"
+            className="relative z-10 mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3"
           >
             {toolkitGroups.map((group, index) => (
               <ToolkitOverviewCard key={group.id} group={group} index={index} reduceMotion={reduceMotion} />
@@ -922,7 +1145,7 @@ export default function HomePage() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.1 }}
-            className="relative mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5"
+            className="relative mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
           >
             {softwareProjects.map((project, index) => (
               <ProjectCard
@@ -1005,7 +1228,7 @@ export default function HomePage() {
           <SectionIntro
             eyebrow="Education"
             title="Education qualifications presented in one clear logo wall."
-            text="Every qualification is easier to scan, while work experience stays visible here and also has its own page."
+            text="Every qualification is easier to scan, while work experience stays visible here in one clear overview."
           />
 
           <div className="mt-12 space-y-6">
@@ -1057,15 +1280,6 @@ export default function HomePage() {
                   />
                 ))}
               </motion.div>
-              <MagneticWrapper reduceMotion={reduceMotion} intensity={0.25}>
-                <a
-                  href="/experience"
-                  className="mt-6 inline-flex items-center gap-2 rounded-full bg-ink px-4 py-2.5 text-sm font-semibold text-white shadow-lg shadow-black/10 transition duration-300 hover:scale-[1.02]"
-                >
-                  Open Experience Page
-                  <ArrowUpRight className="h-4 w-4" />
-                </a>
-              </MagneticWrapper>
             </div>
 
             <div className="py-1">
