@@ -4,7 +4,7 @@ import { Suspense, createContext, forwardRef, useContext, useEffect, useRef, use
 import Image from "next/image";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Environment, Float, MeshTransmissionMaterial, RoundedBox } from "@react-three/drei";
-import { AnimatePresence, motion, useMotionValue, useReducedMotion, useScroll, useSpring, useTransform } from "framer-motion";
+import { AnimatePresence, motion, useAnimationFrame, useMotionValue, useReducedMotion, useScroll, useSpring, useTransform } from "framer-motion";
 import { ArrowUpRight, Coffee, Facebook, Github, Instagram, Linkedin, Sparkles, WandSparkles, X } from "lucide-react";
 import {
   achievementItems,
@@ -566,75 +566,155 @@ function AchievementCard({ item, index, onOpen, reduceMotion }) {
 
 
 
-function ToolkitOverviewCard({ group, index, reduceMotion }) {
-  const { x: parallaxX, y: parallaxY } = useContext(DepthContext);
-  const [hovered, setHovered] = useState(false);
-  const [pointer, setPointer] = useState({ x: 0, y: 0 });
-  const iconConfig = toolIconConfig[group.id] || toolIconConfig["identity-lookup"];
+function FloatingIconsCloud({ items, reduceMotion }) {
+  const containerRef = useRef(null);
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
 
-  function handlePointerMove(event) {
-    if (reduceMotion) return;
-    const bounds = event.currentTarget.getBoundingClientRect();
-    const x = ((event.clientX - bounds.left) / bounds.width - 0.5) * 2;
-    const y = ((event.clientY - bounds.top) / bounds.height - 0.5) * -2;
-    setPointer({ x, y });
+  function handleMouseMove(e) {
+    if (reduceMotion || !containerRef.current) return;
+    const rect = containerRef.current.getBoundingClientRect();
+    setMousePos({
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top,
+    });
   }
 
   return (
-    <TiltCard reduceMotion={reduceMotion} className="w-full">
-      <motion.button
-        type="button"
-        onClick={() => smoothScrollTo(group.id)}
-        onHoverStart={() => setHovered(true)}
-        onHoverEnd={() => {
-          setHovered(false);
-          setPointer({ x: 0, y: 0 });
-        }}
-        onMouseMove={handlePointerMove}
-        variants={staggerItem}
-        whileHover={{ y: -4, scale: 1.01 }}
-        className="group border-glow-luminous holographic-grain relative flex w-full items-center gap-6 overflow-visible rounded-[28px] bg-white/64 p-3 text-left glass-soft card-glow-hover transition-all duration-500 [transform-style:preserve-3d] md:p-4"
-      >
-        {/* Left Side: 3D Icon Burst container */}
-        <div className="relative h-24 w-24 shrink-0 overflow-visible md:h-28 md:w-28">
-           <div 
-             className="absolute inset-0 rounded-[22px] shadow-[0_12px_32px_rgba(15,23,42,0.06)] bg-white/45"
-             style={{ background: group.accent }}
-           />
-           <div className="absolute -inset-2 pointer-events-none">
-              <ToolIconScene groupId={group.id} hovered={hovered} reduceMotion={reduceMotion} pointer={pointer} />
-           </div>
-        </div>
+    <div 
+      ref={containerRef}
+      onMouseMove={handleMouseMove}
+      className="relative h-[280px] w-full overflow-hidden rounded-[30px] bg-white/5 md:h-full"
+    >
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(215,179,123,0.12),transparent_70%)]" />
+      {items.map((item, i) => (
+        <IconBubble 
+          key={item.name + i} 
+          shortCode={item.shortCode || "??"} 
+          mousePos={mousePos}
+          reduceMotion={reduceMotion}
+          index={i}
+        />
+      ))}
+    </div>
+  );
+}
 
-        {/* Center: Content */}
-        <div className="flex flex-grow flex-col justify-center [transform:translateZ(20px)]">
-          <div className="flex items-center gap-2">
-            <span className="h-1 w-1 rounded-full" style={{ backgroundColor: iconConfig.glow }} />
-            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-400">
-              {group.eyebrow}
+function IconBubble({ shortCode, mousePos, reduceMotion, index }) {
+  const x = useMotionValue(Math.random() * 400);
+  const y = useMotionValue(Math.random() * 200 + 40);
+  const outX = useSpring(x, { damping: 20, stiffness: 80 });
+  const outY = useSpring(y, { damping: 20, stiffness: 80 });
+
+  useAnimationFrame(() => {
+    if (reduceMotion) return;
+    
+    // Natural drift
+    const time = Date.now() * 0.001;
+    const driftX = Math.sin(time + index) * 0.35;
+    const driftY = Math.cos(time * 0.8 + index) * 0.3;
+    
+    // Calc distance to mouse
+    const dx = x.get() - mousePos.x;
+    const dy = y.get() - mousePos.y;
+    const dist = Math.sqrt(dx * dx + dy * dy);
+    
+    if (dist < 120) {
+      const power = (120 - dist) / 120;
+      x.set(x.get() + (dx / dist) * 8 * power);
+      y.set(y.get() + (dy / dist) * 8 * power);
+    } else {
+      // Stay within bounds roughly
+      if (x.get() < 0) x.set(400);
+      if (x.get() > 500) x.set(0);
+      if (y.get() < 0) y.set(300);
+      if (y.get() > 300) y.set(0);
+      
+      x.set(x.get() + driftX);
+      y.set(y.get() + driftY);
+    }
+  });
+
+  return (
+    <motion.div
+      style={{ x: outX, y: outY }}
+      className="absolute flex h-12 w-12 items-center justify-center rounded-full border border-white/20 bg-white/10 text-[10px] font-bold text-white shadow-xl glass-soft backdrop-blur-md md:h-16 md:w-16 md:text-xs"
+    >
+      {shortCode}
+    </motion.div>
+  );
+}
+
+function ToolkitHeroCard({ reduceMotion }) {
+  const allIcons = toolkitGroups.flatMap(g => g.items);
+  
+  return (
+    <SectionReveal id="toolkit" className="scroll-mt-28 px-4 pt-20 md:px-6 md:pt-24">
+      <div className="relative mx-auto max-w-[1380px] overflow-hidden rounded-[42px] bg-ink p-1 shadow-2xl shadow-black/20">
+        <div className="noise-mask opacity-15" />
+        <div className="grid lg:grid-cols-[1.1fr_0.9fr]">
+          {/* Left Content */}
+          <div className="relative z-10 p-8 md:p-14 lg:p-20">
+            <motion.span
+              variants={staggerItem}
+              className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-[10px] font-semibold uppercase tracking-[0.22em] text-gold/80 glass-soft"
+            >
+              <Sparkles className="h-4 w-4" />
+              Comprehensive Toolkit
+            </motion.span>
+            
+            <h2 className="font-display mt-8 text-[clamp(2.5rem,6vw,4.8rem)] font-semibold leading-[0.95] tracking-[-0.08em] text-white">
+              Build something <br />
+              <span className="text-white/60">modern, premium,</span> <br />
+              and useful.
+            </h2>
+            
+            <p className="mt-8 max-w-xl text-[15px] leading-8 text-white/50 md:text-[17px]">
+              From specialized utilities to creative builders, every tool is crafted with a focus on high-fidelity presentation, smooth interaction, and practical depth.
             </p>
+            
+            <div className="mt-12 flex flex-wrap gap-4">
+              <MagneticWrapper reduceMotion={reduceMotion}>
+                <a
+                  href="/tools"
+                  className="inline-flex items-center gap-3 rounded-full bg-white px-7 py-4 text-sm font-bold text-ink shadow-[0_20px_40px_rgba(255,255,255,0.12)] transition-transform hover:scale-105 active:scale-95"
+                >
+                  View All Tools
+                  <WandSparkles className="h-4 w-4" />
+                </a>
+              </MagneticWrapper>
+              
+              <MagneticWrapper reduceMotion={reduceMotion}>
+                <button
+                  type="button"
+                  onClick={() => smoothScrollTo("projects")}
+                  className="rounded-full border border-white/20 bg-white/5 px-7 py-4 text-sm font-bold text-white glass-soft"
+                >
+                  Project Gallery
+                </button>
+              </MagneticWrapper>
+            </div>
           </div>
-          <h4 className="font-display mt-1 text-[1.25rem] font-bold tracking-[-0.04em] leading-tight text-ink md:text-[1.45rem]">
-            {group.title}
-          </h4>
-          <p className="mt-1 line-clamp-1 text-[12px] leading-relaxed text-zinc-500 md:line-clamp-2">
-            {group.description}
-          </p>
-        </div>
-
-        {/* Right Side: Action */}
-        <div className="mr-2 flex shrink-0 items-center justify-center [transform:translateZ(30px)]">
-          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-ink/5 text-ink/40 transition-colors duration-300 group-hover:bg-ink group-hover:text-white md:h-12 md:w-12">
-            <ArrowUpRight className="h-5 w-5" />
+          
+          {/* Right Motion Zone */}
+          <div className="relative min-h-[340px] border-l border-white/10 bg-gradient-to-br from-white/5 to-transparent md:min-h-full">
+            <div className="absolute inset-0 z-0 opacity-40">
+               <Canvas camera={{ position: [0, 0, 5] }}>
+                  <Environment preset="city" />
+                  <Float speed={1.5} rotationIntensity={0.5} floatIntensity={0.5}>
+                    <mesh position={[0, 0, 0]}>
+                      <torusKnotGeometry args={[1.2, 0.4, 128, 32]} />
+                      <MeshTransmissionMaterial backside thickness={0.5} roughness={0.05} chromaticAberration={0.02} color="#ffffff" />
+                    </mesh>
+                  </Float>
+               </Canvas>
+            </div>
+            <div className="absolute inset-0 z-10">
+               <FloatingIconsCloud items={allIcons} reduceMotion={reduceMotion} />
+            </div>
           </div>
         </div>
-
-        {/* Floating Tool Count Badge */}
-        <div className="absolute -right-2 -top-2 rounded-full bg-white/90 px-2.5 py-1 shadow-sm border border-black/5 text-[9px] font-bold uppercase tracking-[0.15em] text-ink/60 backdrop-blur-md">
-          {group.items.length} Units
-        </div>
-      </motion.button>
-    </TiltCard>
+      </div>
+    </SectionReveal>
   );
 }
 
@@ -877,7 +957,14 @@ function BookSpine({ item, index }) {
   );
 }
 
-export default function HomePage() {
+  useEffect(() => {
+    // Scroll to top on mount/refresh
+    if ("scrollRestoration" in window.history) {
+      window.history.scrollRestoration = "manual";
+    }
+    window.scrollTo(0, 0);
+  }, []);
+
   const reduceMotion = useReducedMotion();
   const [activeProject, setActiveProject] = useState(null);
   const [activeProjectShotIndex, setActiveProjectShotIndex] = useState(0);
@@ -1104,29 +1191,7 @@ export default function HomePage() {
         <Coffee className="h-5 w-5" />
       </a>
 
-      <SectionReveal id="toolkit" className="scroll-mt-28 px-4 pt-20 md:px-6 md:pt-24">
-        <div className="relative mx-auto max-w-[1380px] overflow-hidden rounded-[42px] px-6 py-8 md:px-10 md:py-10">
-          <div className="absolute inset-0 rounded-[42px] bg-gradient-to-br from-white/60 via-white/30 to-emerald-50/55" />
-          <div className="absolute inset-y-0 right-0 w-1/2 bg-gradient-to-l from-gold/10 to-transparent" />
-          <SectionIntro
-            eyebrow="Toolkit Overview"
-            title="Tool categories that open into a dedicated tools page."
-            text="The home page stays lighter, while the full toolkit experience opens on its own page when you choose a category."
-          />
-
-          <motion.div 
-            variants={staggerContainer}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.1 }}
-            className="relative z-10 mt-10 flex flex-col gap-4 max-w-4xl mx-auto"
-          >
-            {toolkitGroups.map((group, index) => (
-              <ToolkitOverviewCard key={group.id} group={group} index={index} reduceMotion={reduceMotion} />
-            ))}
-          </motion.div>
-        </div>
-      </SectionReveal>
+      <ToolkitHeroCard reduceMotion={reduceMotion} />
 
       <SectionReveal id="projects" className="scroll-mt-28 px-4 pt-20 md:px-6 md:pt-24" delay={0.04}>
         <div className="relative mx-auto max-w-[1380px] px-6 py-8 md:px-10 md:py-10">
