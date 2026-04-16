@@ -702,17 +702,17 @@ function ToolkitHeroCard({ reduceMotion }) {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         whileHover={{ scale: 1.002 }}
-        className="group relative mx-auto block max-w-[1380px] overflow-hidden rounded-[42px] bg-ink shadow-2xl shadow-black/40 transition-shadow duration-700 hover:shadow-white/5"
+        className="group relative mx-auto block max-w-[1380px] overflow-hidden rounded-[42px] bg-ink shadow-2xl shadow-black/40 transition-shadow duration-700 hover:shadow-white/5 transform-gpu isolation-isolate"
       >
         {/* Elite Aura Shimmer (Soft Wide Prism) */}
         <motion.div
           animate={{ x: ["-150%", "250%"] }}
           transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
-          className="absolute inset-0 z-10 pointer-events-none opacity-[0.12] blur-[100px] bg-gradient-to-r from-transparent via-white to-transparent"
+          className="absolute inset-0 z-10 pointer-events-none opacity-[0.12] blur-[100px] bg-gradient-to-r from-transparent via-white to-transparent transform-gpu translate-z-0"
         />
 
         {/* Luminous Silver-Flow Border */}
-        <div className="absolute inset-0 z-10 pointer-events-none rounded-[42px] p-[1px] overflow-hidden">
+        <div className="absolute inset-[0.5px] z-20 pointer-events-none rounded-[42px] overflow-hidden transform-gpu translate-z-0">
           <motion.div 
             animate={{ rotate: 360 }}
             transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
@@ -727,7 +727,7 @@ function ToolkitHeroCard({ reduceMotion }) {
             top: springY,
             background: "radial-gradient(circle, rgba(255,255,255,0.18) 0%, transparent 65%)",
           }}
-          className="pointer-events-none absolute -translate-x-1/2 -translate-y-1/2 z-0 h-[700px] w-[700px] rounded-full opacity-0 transition-opacity duration-700 group-hover:opacity-100 blur-[120px]"
+          className="pointer-events-none absolute -translate-x-1/2 -translate-y-1/2 z-0 h-[700px] w-[700px] rounded-full opacity-0 transition-opacity duration-700 group-hover:opacity-100 blur-[120px] transform-gpu translate-z-0"
         />
 
         <div className="noise-mask opacity-10" />
