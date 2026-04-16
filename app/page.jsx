@@ -581,7 +581,7 @@ function ToolkitOverviewCard({ group, index, reduceMotion }) {
   }
 
   return (
-    <TiltCard reduceMotion={reduceMotion} className="flex h-full flex-col">
+    <TiltCard reduceMotion={reduceMotion} className="w-full">
       <motion.button
         type="button"
         onClick={() => smoothScrollTo(group.id)}
@@ -590,52 +590,48 @@ function ToolkitOverviewCard({ group, index, reduceMotion }) {
           setHovered(false);
           setPointer({ x: 0, y: 0 });
         }}
+        onMouseMove={handlePointerMove}
         variants={staggerItem}
-        whileHover={{ y: -8, z: 20 }}
-        className="group border-glow-luminous holographic-grain relative flex h-full flex-col overflow-hidden rounded-[24px] bg-white/68 p-4 text-left glass-soft card-glow-hover transition-all duration-500 [transform-style:preserve-3d]"
+        whileHover={{ y: -4, scale: 1.01 }}
+        className="group border-glow-luminous holographic-grain relative flex w-full items-center gap-6 overflow-visible rounded-[28px] bg-white/64 p-3 text-left glass-soft card-glow-hover transition-all duration-500 [transform-style:preserve-3d] md:p-4"
       >
-        <div className="relative mx-auto mb-4 w-full overflow-hidden rounded-[18px] bg-white p-2 shadow-[0_12px_28px_rgba(15,23,42,0.05)] [transform:translateZ(40px)]">
-          <motion.div
-            style={{ x: parallaxX, y: parallaxY, background: group.accent }}
-            onMouseMove={handlePointerMove}
-            className="relative flex aspect-[3/4] items-center justify-center overflow-hidden rounded-[14px] bg-zinc-50"
-          >
-            <div className="noise-mask opacity-20" />
-            <div
-              className="pointer-events-none absolute inset-[14%] rounded-full opacity-70 blur-2xl"
-              style={{ background: `radial-gradient(circle, ${iconConfig.glow}55 0%, transparent 72%)` }}
-            />
-            <div className="absolute inset-0">
+        {/* Left Side: 3D Icon Burst container */}
+        <div className="relative h-24 w-24 shrink-0 overflow-visible md:h-28 md:w-28">
+           <div 
+             className="absolute inset-0 rounded-[22px] shadow-[0_12px_32px_rgba(15,23,42,0.06)] bg-white/45"
+             style={{ background: group.accent }}
+           />
+           <div className="absolute -inset-2 pointer-events-none">
               <ToolIconScene groupId={group.id} hovered={hovered} reduceMotion={reduceMotion} pointer={pointer} />
-            </div>
-            <div className="pointer-events-none absolute bottom-3 left-3 rounded-full bg-white/70 px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.18em] text-ink/45 backdrop-blur-md">
-              {group.items.length} Tools
-            </div>
-            <div className="hidden flex-col items-center gap-2 px-4 text-center">
-              <span className="text-3xl filter drop-shadow-md">🛠️</span>
-              <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-ink/40">
-                {group.items.length} Tools
-              </p>
-            </div>
-          </motion.div>
+           </div>
         </div>
 
-        <div className="flex flex-grow flex-col [transform:translateZ(20px)]">
-          <p className="text-[9px] font-semibold uppercase tracking-[0.22em] text-zinc-400">
-            {group.eyebrow}
-          </p>
-          <h4 className="font-display mt-2 text-[1.12rem] font-semibold tracking-[-0.03em] leading-tight text-ink md:text-[1.25rem]">
+        {/* Center: Content */}
+        <div className="flex flex-grow flex-col justify-center [transform:translateZ(20px)]">
+          <div className="flex items-center gap-2">
+            <span className="h-1 w-1 rounded-full" style={{ backgroundColor: iconConfig.glow }} />
+            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-400">
+              {group.eyebrow}
+            </p>
+          </div>
+          <h4 className="font-display mt-1 text-[1.25rem] font-bold tracking-[-0.04em] leading-tight text-ink md:text-[1.45rem]">
             {group.title}
           </h4>
-          <p className="mt-2 line-clamp-2 text-[11px] leading-5 text-zinc-500">
+          <p className="mt-1 line-clamp-1 text-[12px] leading-relaxed text-zinc-500 md:line-clamp-2">
             {group.description}
           </p>
-          <div className="mt-auto pt-4">
-            <div className="flex items-center justify-between gap-2 text-[10px] font-semibold uppercase tracking-[0.14em] text-ink/70">
-              Explore Tools
-              <ArrowUpRight className="h-3.5 w-3.5" />
-            </div>
+        </div>
+
+        {/* Right Side: Action */}
+        <div className="mr-2 flex shrink-0 items-center justify-center [transform:translateZ(30px)]">
+          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-ink/5 text-ink/40 transition-colors duration-300 group-hover:bg-ink group-hover:text-white md:h-12 md:w-12">
+            <ArrowUpRight className="h-5 w-5" />
           </div>
+        </div>
+
+        {/* Floating Tool Count Badge */}
+        <div className="absolute -right-2 -top-2 rounded-full bg-white/90 px-2.5 py-1 shadow-sm border border-black/5 text-[9px] font-bold uppercase tracking-[0.15em] text-ink/60 backdrop-blur-md">
+          {group.items.length} Units
         </div>
       </motion.button>
     </TiltCard>
@@ -1123,7 +1119,7 @@ export default function HomePage() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.1 }}
-            className="relative z-10 mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3"
+            className="relative z-10 mt-10 flex flex-col gap-4 max-w-4xl mx-auto"
           >
             {toolkitGroups.map((group, index) => (
               <ToolkitOverviewCard key={group.id} group={group} index={index} reduceMotion={reduceMotion} />
