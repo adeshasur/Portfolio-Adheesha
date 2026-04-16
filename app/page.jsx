@@ -1360,7 +1360,6 @@ export default function HomePage() {
       </a>
 
       <ToolkitHeroCard reduceMotion={reduceMotion} />
-      <ToolkitSelection reduceMotion={reduceMotion} />
 
       <SectionReveal id="projects" className="scroll-mt-28 px-4 pt-20 md:px-6 md:pt-24" delay={0.04}>
         <div className="relative mx-auto max-w-[1380px] px-6 py-8 md:px-10 md:py-10">
