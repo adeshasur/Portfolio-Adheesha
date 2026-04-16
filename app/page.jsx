@@ -658,54 +658,100 @@ function IconBubble({ iconName, mousePos, reduceMotion, index }) {
 
 function ToolkitHeroCard({ reduceMotion }) {
   const allIcons = toolkitGroups.flatMap(g => g.items);
-  
+  const containerRef = useRef(null);
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  const springX = useSpring(mouseX, { damping: 30, stiffness: 200 });
+  const springY = useSpring(mouseY, { damping: 30, stiffness: 200 });
+  const [hovered, setHovered] = useState(false);
+
+  function handleMouseMove(e) {
+    if (reduceMotion || !containerRef.current) return;
+    const rect = containerRef.current.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    mouseX.set(x);
+    mouseY.set(y);
+  }
+
+  // Parallax transforms for text
+  const textX = useTransform(springX, [0, 1380], [reduceMotion ? 0 : 5, reduceMotion ? 0 : -5]);
+  const textY = useTransform(springY, [0, 800], [reduceMotion ? 0 : 5, reduceMotion ? 0 : -5]);
+
   return (
     <SectionReveal id="toolkit" className="scroll-mt-28 px-4 pt-20 md:px-6 md:pt-24">
-      <div className="relative mx-auto max-w-[1380px] overflow-hidden rounded-[42px] bg-ink p-1 shadow-2xl shadow-black/20">
+      <motion.a
+        href="/tools"
+        ref={containerRef}
+        onMouseMove={handleMouseMove}
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        whileHover={{ scale: 1.005 }}
+        className="group relative mx-auto block max-w-[1380px] overflow-hidden rounded-[42px] bg-ink shadow-2xl shadow-black/30 transition-shadow duration-500 hover:shadow-gold/10"
+      >
+        {/* Luminous Animated Border */}
+        <div className="absolute inset-0 z-10 pointer-events-none rounded-[42px] p-[1px] overflow-hidden">
+          <motion.div 
+            animate={{ rotate: 360 }}
+            transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+            className="absolute left-[-50%] top-[-50%] h-[200%] w-[200%] bg-[conic-gradient(from_0deg,transparent_0%,transparent_40%,rgba(215,179,123,0.3)_50%,transparent_60%,transparent_100%)] opacity-0 transition-opacity duration-700 group-hover:opacity-100"
+          />
+        </div>
+
+        {/* Gravity Glow (Mouse Following) */}
+        <motion.div
+          style={{
+            left: springX,
+            top: springY,
+            background: "radial-gradient(circle, rgba(215,179,123,0.15) 0%, transparent 70%)",
+          }}
+          className="pointer-events-none absolute -translate-x-1/2 -translate-y-1/2 z-0 h-[600px] w-[600px] rounded-full opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+        />
+
         <div className="noise-mask opacity-15" />
-        <div className="grid lg:grid-cols-[1.1fr_0.9fr]">
+        
+        <div className="relative z-10 grid lg:grid-cols-[1.1fr_0.9fr]">
           {/* Left Content */}
-          <div className="relative z-10 p-8 md:p-14 lg:p-20">
+          <motion.div 
+            style={{ x: textX, y: textY }}
+            className="p-8 md:p-14 lg:p-20"
+          >
             <motion.span
               variants={staggerItem}
-              className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-[10px] font-semibold uppercase tracking-[0.22em] text-gold/80 glass-soft"
+              className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-[10px] font-semibold uppercase tracking-[0.22em] text-gold/80 glass-soft overflow-hidden"
             >
               <Sparkles className="h-4 w-4" />
               Comprehensive Toolkit
+              <motion.div 
+                animate={{ x: ["-100%", "200%"] }}
+                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut", repeatDelay: 1 }}
+                className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
+              />
             </motion.span>
             
             <h2 className="font-display mt-8 text-[clamp(2.5rem,6vw,4.8rem)] font-semibold leading-[0.95] tracking-[-0.08em] text-white">
               Build something <br />
-              <span className="text-white/60">modern, premium,</span> <br />
+              <span className="text-white/60 group-hover:text-white/80 transition-colors duration-700">modern, premium,</span> <br />
               and useful.
             </h2>
             
-            <p className="mt-8 max-w-xl text-[15px] leading-8 text-white/50 md:text-[17px]">
+            <p className="mt-8 max-w-xl text-[15px] leading-8 text-white/50 transition-colors duration-700 group-hover:text-white/70 md:text-[17px]">
               From specialized utilities to creative builders, every tool is crafted with a focus on high-fidelity presentation, smooth interaction, and practical depth.
             </p>
-            
-            <div className="mt-12 flex flex-wrap gap-4">
-              <MagneticWrapper reduceMotion={reduceMotion}>
-                <a
-                  href="/tools"
-                  className="inline-flex items-center gap-3 rounded-full bg-white px-7 py-4 text-sm font-bold text-ink shadow-[0_20px_40px_rgba(255,255,255,0.12)] transition-transform hover:scale-105 active:scale-95"
-                >
-                  View All Tools
-                  <WandSparkles className="h-4 w-4" />
-                </a>
-              </MagneticWrapper>
-              
-              <MagneticWrapper reduceMotion={reduceMotion}>
-                <button
-                  type="button"
-                  onClick={() => smoothScrollTo("projects")}
-                  className="rounded-full border border-white/20 bg-white/5 px-7 py-4 text-sm font-bold text-white glass-soft"
-                >
-                  Project Gallery
-                </button>
-              </MagneticWrapper>
+
+            <div className="mt-12 flex items-center gap-4">
+              <span className="text-[11px] font-bold uppercase tracking-[0.3em] text-gold/60">Explore Collection</span>
+              <motion.div 
+                animate={{ x: [0, 5, 0] }}
+                transition={{ duration: 1.5, repeat: Infinity }}
+              >
+                <ArrowUpRight className="h-5 w-5 text-gold/80" />
+              </motion.div>
             </div>
-          </div>
+          </motion.div>
           
           {/* Right Motion Zone */}
           <div className="relative min-h-[340px] border-l border-white/10 bg-gradient-to-br from-white/5 to-transparent md:min-h-full">
@@ -725,7 +771,7 @@ function ToolkitHeroCard({ reduceMotion }) {
             </div>
           </div>
         </div>
-      </div>
+      </motion.a>
     </SectionReveal>
   );
 }
