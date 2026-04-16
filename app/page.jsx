@@ -42,18 +42,18 @@ const toolkitIconMap = {
 
 const toolIconConfig = {
   "identity-lookup": {
-    accent: ["#efe7d6", "#f6f3ea"],
-    glow: "#d7b37b",
+    accent: ["#e5e5e5", "#f5f5f5"],
+    glow: "#ffffff",
     variant: "lookup",
   },
   "creative-productivity": {
-    accent: ["#f4e6db", "#f8f5ee"],
-    glow: "#c88f6f",
+    accent: ["#f2f2f2", "#ffffff"],
+    glow: "#d4d4d8",
     variant: "creative",
   },
   "security-finance": {
-    accent: ["#e2e8f0", "#f5f7fb"],
-    glow: "#89a0bd",
+    accent: ["#e2e8f0", "#f8fafc"],
+    glow: "#94a3b8",
     variant: "security",
   },
 };
@@ -658,6 +658,20 @@ function IconBubble({ iconName, mousePos, reduceMotion, index, glitch }) {
   );
 }
 
+function LightFollower({ springX, springY }) {
+  const lightRef = useRef();
+  
+  useFrame(() => {
+    if (!lightRef.current) return;
+    // Map spring coordinates to R3F world coordinates (roughly)
+    const x = (springX.get() / 1380) * 10 - 5;
+    const y = -(springY.get() / 800) * 5 + 2.5;
+    lightRef.current.position.set(x, y, 2.5);
+  });
+
+  return <pointLight ref={lightRef} intensity={2.5} color="#ffffff" />;
+}
+
 function ToolkitHeroCard({ reduceMotion }) {
   const allIcons = toolkitGroups.flatMap(g => g.items);
   const containerRef = useRef(null);
@@ -689,7 +703,7 @@ function ToolkitHeroCard({ reduceMotion }) {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         whileHover={{ scale: 1.002 }}
-        className="group relative mx-auto block max-w-[1380px] overflow-hidden rounded-[42px] bg-ink shadow-2xl shadow-black/40 transition-shadow duration-700 hover:shadow-gold/15"
+        className="group relative mx-auto block max-w-[1380px] overflow-hidden rounded-[42px] bg-ink shadow-2xl shadow-black/40 transition-shadow duration-700 hover:shadow-white/5"
       >
         {/* Elite Aura Shimmer (Soft Wide Prism) */}
         <motion.div
@@ -698,28 +712,28 @@ function ToolkitHeroCard({ reduceMotion }) {
           className="absolute inset-0 z-10 pointer-events-none opacity-[0.12] blur-[100px] bg-gradient-to-r from-transparent via-white to-transparent"
         />
 
-        {/* Luminous Gold-Flow Border */}
+        {/* Luminous Silver-Flow Border */}
         <div className="absolute inset-0 z-10 pointer-events-none rounded-[42px] p-[1px] overflow-hidden">
           <motion.div 
             animate={{ rotate: 360 }}
-            transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-            className="absolute left-[-50%] top-[-50%] h-[200%] w-[200%] bg-[conic-gradient(from_0deg,transparent_0%,rgba(215,179,123,0.3)_50%,transparent_100%)] opacity-0 transition-opacity duration-1000 group-hover:opacity-100"
+            transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+            className="absolute left-[-50%] top-[-50%] h-[200%] w-[200%] bg-[conic-gradient(from_0deg,transparent_0%,rgba(255,255,255,0.2)_50%,transparent_100%)] opacity-0 transition-opacity duration-1000 group-hover:opacity-100"
           />
         </div>
 
-        {/* Liquid Gravity Glow */}
+        {/* Liquid Gravity Glow (Pure White/Silver) */}
         <motion.div
           style={{
             left: springX,
             top: springY,
-            background: "radial-gradient(circle, rgba(215,179,123,0.28) 0%, transparent 65%)",
+            background: "radial-gradient(circle, rgba(255,255,255,0.18) 0%, transparent 65%)",
           }}
           className="pointer-events-none absolute -translate-x-1/2 -translate-y-1/2 z-0 h-[700px] w-[700px] rounded-full opacity-0 transition-opacity duration-700 group-hover:opacity-100 blur-[120px]"
         />
 
         <div className="noise-mask opacity-10" />
         
-        <div className="relative z-10 flex flex-col lg:grid lg:grid-cols-[1.1fr_0.9fr]">
+        <div className="relative z-10 flex flex-col lg:grid lg:grid-cols-[1.1fr_0.9fr] lg:min-h-[640px]">
           {/* Left Content */}
           <motion.div 
             style={{ x: textX, y: textY }}
@@ -727,7 +741,7 @@ function ToolkitHeroCard({ reduceMotion }) {
           >
             <motion.span
               variants={staggerItem}
-              className="inline-flex items-center gap-2 w-fit rounded-full border border-white/10 bg-white/5 px-4 py-2 text-[10px] font-semibold uppercase tracking-[0.22em] text-gold glass-soft overflow-hidden"
+              className="inline-flex items-center gap-2 w-fit rounded-full border border-white/10 bg-white/5 px-4 py-2 text-[10px] font-semibold uppercase tracking-[0.22em] text-white/80 glass-soft overflow-hidden"
             >
               <Sparkles className="h-4 w-4" />
               Comprehensive Toolkit
@@ -749,31 +763,42 @@ function ToolkitHeroCard({ reduceMotion }) {
             </p>
 
             <div className="mt-12 flex items-center gap-4 group/btn">
-              <span className="text-[11px] font-extrabold uppercase tracking-[0.4em] text-gold/50 group-hover:text-gold/90 transition-colors">Explore Collection</span>
+              <span className="text-[11px] font-extrabold uppercase tracking-[0.4em] text-white/40 group-hover:text-white/90 transition-colors">Explore Collection</span>
               <motion.div 
                 animate={{ x: [0, 6, 0] }}
                 transition={{ duration: 2, repeat: Infinity }}
               >
-                <ArrowUpRight className="h-5 w-5 text-gold/80" />
+                <ArrowUpRight className="h-5 w-5 text-white/60" />
               </motion.div>
             </div>
           </motion.div>
           
-          {/* Right Motion Zone (Now fully responsive) */}
-          <div className="relative h-[400px] border-t border-white/10 bg-gradient-to-br from-white/5 to-transparent md:h-[500px] lg:h-auto lg:border-t-0 lg:border-l">
-            <div className="absolute inset-0 z-0 opacity-40">
+          {/* Right Motion Zone (Restored and Enhanced) */}
+          <div className="relative h-[440px] border-t border-white/10 bg-gradient-to-br from-white/5 to-transparent md:h-[500px] lg:h-full lg:border-t-0 lg:border-l overflow-hidden">
+            <div className="absolute inset-0 z-0 opacity-60">
                <Canvas camera={{ position: [0, 0, 5] }}>
+                  <ambientLight intensity={0.2} />
+                  <pointLight position={[10, 10, 10]} intensity={1} />
                   <Environment preset="city" />
+                  <LightFollower springX={springX} springY={springY} />
                   <Float speed={1.5} rotationIntensity={0.5} floatIntensity={0.5}>
                     <mesh position={[0, 0, 0]}>
-                      <torusKnotGeometry args={[1.2, 0.4, 128, 32]} />
-                      <MeshTransmissionMaterial backside thickness={0.5} roughness={0.05} chromaticAberration={0.02} color="#ffffff" />
+                      <torusKnotGeometry args={[1.3, 0.45, 256, 64]} />
+                      <MeshTransmissionMaterial 
+                        backside 
+                        thickness={0.8} 
+                        roughness={0.02} 
+                        chromaticAberration={0.04} 
+                        transmission={0.95}
+                        reflectivity={0.5}
+                        color="#f8f8f8" 
+                      />
                     </mesh>
                   </Float>
                </Canvas>
             </div>
-            <div className="absolute inset-x-0 bottom-0 z-10 p-6 md:p-10">
-               <FloatingIconsCloud items={allIcons} reduceMotion={reduceMotion} glitch={glitch} />
+            <div className="absolute inset-0 z-10 p-6 md:p-14">
+               <FloatingIconsCloud items={allIcons} reduceMotion={reduceMotion} glitch={false} />
             </div>
           </div>
         </div>
