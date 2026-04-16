@@ -5,7 +5,7 @@ import Image from "next/image";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Environment, Float, MeshTransmissionMaterial, RoundedBox } from "@react-three/drei";
 import { AnimatePresence, motion, useAnimationFrame, useMotionValue, useReducedMotion, useScroll, useSpring, useTransform } from "framer-motion";
-import { ArrowUpRight, Calculator, Coffee, Facebook, FileCode, Github, IdCard, Instagram, Linkedin, MapPin, Palette, QrCode, RotateCw, ShieldCheck, Sparkles, WandSparkles, X } from "lucide-react";
+import { ArrowUpRight, Calculator, Coffee, Facebook, FileCode, Github, IdCard, Image, Instagram, Linkedin, MapPin, Palette, QrCode, RotateCw, ShieldCheck, Sparkles, WandSparkles, X } from "lucide-react";
 import {
   achievementItems,
   bookshelfItems,
@@ -33,6 +33,7 @@ const toolkitIconMap = {
   Calculator,
   FileCode,
   IdCard,
+  Image,
   MapPin,
   Palette,
   QrCode,
