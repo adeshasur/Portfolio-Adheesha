@@ -594,9 +594,8 @@ function FloatingIconsCloud({ items, reduceMotion, glitch }) {
     <div 
       ref={containerRef}
       onMouseMove={handleMouseMove}
-      className="relative h-[280px] w-full overflow-hidden rounded-[30px] bg-white/5 md:h-full"
+      className="relative h-[280px] w-full overflow-hidden md:h-full"
     >
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(215,179,123,0.12),transparent_70%)]" />
       {items.map((item, i) => (
         <IconBubble 
           key={item.name + i} 
@@ -774,7 +773,7 @@ function ToolkitHeroCard({ reduceMotion }) {
           </motion.div>
           
           {/* Right Motion Zone (Restored and Enhanced) */}
-          <div className="relative h-[440px] border-t border-white/10 bg-gradient-to-br from-white/5 to-transparent md:h-[500px] lg:h-full lg:border-t-0 lg:border-l overflow-hidden">
+          <div className="relative h-[440px] border-t border-white/10 md:h-[500px] lg:h-full lg:border-t-0 lg:border-l overflow-hidden">
             <div className="absolute inset-0 z-0 opacity-60">
                <Canvas camera={{ position: [0, 0, 5] }}>
                   <ambientLight intensity={0.2} />
