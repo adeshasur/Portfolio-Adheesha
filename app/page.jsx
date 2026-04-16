@@ -811,6 +811,79 @@ function ToolkitHeroCard({ reduceMotion }) {
   );
 }
 
+function ToolkitSelection({ reduceMotion, onOpen }) {
+  return (
+    <SectionReveal id="tools-grid" className="scroll-mt-28 px-4 py-24 md:px-6">
+      <div className="mx-auto max-w-7xl">
+        <div className="mb-16 text-center md:text-left">
+          <h3 className="font-display text-4xl font-semibold tracking-[-0.04em] text-ink md:text-5xl">
+            Toolkit Selection
+          </h3>
+          <p className="mt-4 max-w-2xl text-[16px] leading-relaxed text-zinc-500 md:text-[18px]">
+            A specialized collection of utilities built for speed, visual clarity, 
+            and everyday technical productivity.
+          </p>
+        </div>
+
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
+          {toolkitItems.map((tool, index) => (
+             <motion.a
+                key={tool.name}
+                href={tool.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                variants={staggerItem}
+                className="group border-glow-luminous holographic-grain relative flex flex-col overflow-hidden rounded-[32px] bg-white/68 p-6 glass-soft transition-all duration-500 hover:shadow-2xl"
+             >
+                <div className="flex items-start justify-between">
+                   <div 
+                      className="flex h-14 w-14 items-center justify-center rounded-2xl shadow-sm border border-black/5"
+                      style={{ background: tool.accent }}
+                   >
+                      <div className="noise-mask opacity-10" />
+                      {(() => {
+                        const Icon = toolkitIconMap[tool.icon] || FileCode;
+                        return <Icon className="h-6 w-6 text-ink/70" strokeWidth={1.5} />;
+                      })()}
+                   </div>
+                   <span className="rounded-full bg-zinc-100 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.22em] text-zinc-400">
+                      {tool.shortCode}
+                   </span>
+                </div>
+                
+                <div className="mt-8">
+                   <h4 className="font-display text-[22px] font-semibold tracking-[-0.03em] text-ink">
+                      {tool.name}
+                   </h4>
+                   <p className="mt-3 text-[14px] leading-6 text-zinc-500">
+                      {tool.description}
+                   </p>
+                </div>
+
+                <div className="mt-8 flex items-center justify-between">
+                   <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-zinc-400 group-hover:text-ink transition-colors">
+                      Open Tool
+                   </span>
+                   <ArrowUpRight className="h-4 w-4 text-zinc-300 group-hover:text-ink transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                </div>
+             </motion.a>
+          ))}
+        </div>
+        
+        <div className="mt-16 flex justify-center">
+           <a 
+             href="/tools" 
+             className="flex items-center gap-3 rounded-full bg-ink px-8 py-4 text-sm font-semibold text-white shadow-xl hover:bg-black active:scale-95 transition-all"
+           >
+             View Extensive Toolkit
+             <ArrowUpRight className="h-4 w-4" />
+           </a>
+        </div>
+      </div>
+    </SectionReveal>
+  );
+}
+
 function ProjectCard({ project, index, onOpen, reduceMotion }) {
   const canPreview = Boolean(project.shots?.length);
   const imageClassName = project.imageContain ? "object-contain p-3" : "object-cover";
@@ -1286,6 +1359,7 @@ export default function HomePage() {
       </a>
 
       <ToolkitHeroCard reduceMotion={reduceMotion} />
+      <ToolkitSelection reduceMotion={reduceMotion} />
 
       <SectionReveal id="projects" className="scroll-mt-28 px-4 pt-20 md:px-6 md:pt-24" delay={0.04}>
         <div className="relative mx-auto max-w-[1380px] px-6 py-8 md:px-10 md:py-10">
