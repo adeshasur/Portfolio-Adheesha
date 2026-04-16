@@ -5,7 +5,7 @@ import Image from "next/image";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Environment, Float, MeshTransmissionMaterial, RoundedBox } from "@react-three/drei";
 import { AnimatePresence, motion, useAnimationFrame, useMotionValue, useReducedMotion, useScroll, useSpring, useTransform } from "framer-motion";
-import { ArrowUpRight, Coffee, Facebook, Github, Instagram, Linkedin, Sparkles, WandSparkles, X } from "lucide-react";
+import { ArrowUpRight, Calculator, Coffee, Facebook, FileCode, Github, IdCard, Instagram, Linkedin, MapPin, Palette, QrCode, RotateCw, ShieldCheck, Sparkles, WandSparkles, X } from "lucide-react";
 import {
   achievementItems,
   bookshelfItems,
@@ -27,6 +27,17 @@ const socialIconMap = {
   linkedin: Linkedin,
   instagram: Instagram,
   facebook: Facebook,
+};
+
+const toolkitIconMap = {
+  Calculator,
+  FileCode,
+  IdCard,
+  MapPin,
+  Palette,
+  QrCode,
+  RotateCw,
+  ShieldCheck,
 };
 
 const toolIconConfig = {
@@ -589,7 +600,7 @@ function FloatingIconsCloud({ items, reduceMotion }) {
       {items.map((item, i) => (
         <IconBubble 
           key={item.name + i} 
-          shortCode={item.shortCode || "??"} 
+          iconName={item.icon} 
           mousePos={mousePos}
           reduceMotion={reduceMotion}
           index={i}
@@ -599,11 +610,12 @@ function FloatingIconsCloud({ items, reduceMotion }) {
   );
 }
 
-function IconBubble({ shortCode, mousePos, reduceMotion, index }) {
+function IconBubble({ iconName, mousePos, reduceMotion, index }) {
   const x = useMotionValue(Math.random() * 400);
   const y = useMotionValue(Math.random() * 200 + 40);
   const outX = useSpring(x, { damping: 20, stiffness: 80 });
   const outY = useSpring(y, { damping: 20, stiffness: 80 });
+  const Icon = toolkitIconMap[iconName] || FileCode;
 
   useAnimationFrame(() => {
     if (reduceMotion) return;
@@ -637,9 +649,9 @@ function IconBubble({ shortCode, mousePos, reduceMotion, index }) {
   return (
     <motion.div
       style={{ x: outX, y: outY }}
-      className="absolute flex h-12 w-12 items-center justify-center rounded-full border border-white/20 bg-white/10 text-[10px] font-bold text-white shadow-xl glass-soft backdrop-blur-md md:h-16 md:w-16 md:text-xs"
+      className="absolute flex h-12 w-12 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white shadow-xl glass-soft backdrop-blur-md md:h-16 md:w-16"
     >
-      {shortCode}
+      <Icon className="h-5 w-5 md:h-6 md:w-6 opacity-80" strokeWidth={1.5} />
     </motion.div>
   );
 }
