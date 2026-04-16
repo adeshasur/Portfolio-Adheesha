@@ -577,7 +577,7 @@ function AchievementCard({ item, index, onOpen, reduceMotion }) {
 
 
 
-function FloatingIconsCloud({ items, reduceMotion }) {
+function FloatingIconsCloud({ items, reduceMotion, glitch }) {
   const containerRef = useRef(null);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
 
@@ -604,13 +604,14 @@ function FloatingIconsCloud({ items, reduceMotion }) {
           mousePos={mousePos}
           reduceMotion={reduceMotion}
           index={i}
+          glitch={glitch}
         />
       ))}
     </div>
   );
 }
 
-function IconBubble({ iconName, mousePos, reduceMotion, index }) {
+function IconBubble({ iconName, mousePos, reduceMotion, index, glitch }) {
   const x = useMotionValue(Math.random() * 400);
   const y = useMotionValue(Math.random() * 200 + 40);
   const outX = useSpring(x, { damping: 20, stiffness: 80 });
@@ -649,6 +650,7 @@ function IconBubble({ iconName, mousePos, reduceMotion, index }) {
   return (
     <motion.div
       style={{ x: outX, y: outY }}
+      animate={glitch ? { x: [outX.get(), outX.get() + 2, outX.get() - 2, outX.get()], opacity: [0.8, 0.4, 0.8] } : {}}
       className="absolute flex h-12 w-12 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white shadow-xl glass-soft backdrop-blur-md md:h-16 md:w-16"
     >
       <Icon className="h-5 w-5 md:h-6 md:w-6 opacity-80" strokeWidth={1.5} />
@@ -659,11 +661,24 @@ function IconBubble({ iconName, mousePos, reduceMotion, index }) {
 function ToolkitHeroCard({ reduceMotion }) {
   const allIcons = toolkitGroups.flatMap(g => g.items);
   const containerRef = useRef(null);
-  const mouseX = useMotionValue(-500); // Start off-screen
+  const mouseX = useMotionValue(-500);
   const mouseY = useMotionValue(-500);
   const springX = useSpring(mouseX, { damping: 40, stiffness: 180 });
   const springY = useSpring(mouseY, { damping: 40, stiffness: 180 });
   const [hovered, setHovered] = useState(false);
+  const [glitch, setGlitch] = useState(false);
+
+  // Periodic Glitch Trigger
+  useEffect(() => {
+    if (reduceMotion) return;
+    const interval = setInterval(() => {
+      if (Math.random() > 0.7) {
+        setGlitch(true);
+        setTimeout(() => setGlitch(false), 200);
+      }
+    }, 3000);
+    return () => clearInterval(interval);
+  }, [reduceMotion]);
 
   const handleMouseMove = (e) => {
     if (reduceMotion || !containerRef.current) return;
@@ -687,35 +702,39 @@ function ToolkitHeroCard({ reduceMotion }) {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         whileHover={{ scale: 1.002 }}
+        animate={glitch ? { x: [0, -4, 4, 0], filter: ["none", "brightness(1.5)", "none"] } : {}}
         className="group relative mx-auto block max-w-[1380px] overflow-hidden rounded-[42px] bg-ink shadow-2xl shadow-black/30 transition-shadow duration-700 hover:shadow-gold/15"
       >
-        {/* Prism Strobe Shimmer (Rose/Gold/Azure Sweep) */}
+        {/* Elite Monochrome Scanner Sweep */}
         <motion.div
           animate={{ x: ["-100%", "200%"] }}
-          transition={{ duration: 7, repeat: Infinity, ease: "linear" }}
-          className="absolute inset-0 z-10 pointer-events-none opacity-[0.03] bg-gradient-to-r from-transparent via-white to-transparent"
+          transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+          className="absolute inset-0 z-10 pointer-events-none opacity-[0.08] bg-gradient-to-r from-transparent via-white to-transparent"
         />
 
-        {/* Dynamic Multi-color Shimmer for Corners */}
+        {/* Digital Scanlines Overlay */}
+        <div className="absolute inset-0 z-10 pointer-events-none opacity-[0.03] bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(255,255,255,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.02),rgba(0,255,0,0.01),rgba(0,0,255,0.02))] bg-[length:100%_4px,3px_100%]" />
+
+        {/* Luminous Mono-Border */}
         <div className="absolute inset-0 z-10 pointer-events-none rounded-[42px] p-[1.5px] overflow-hidden">
           <motion.div 
             animate={{ rotate: 360 }}
-            transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
-            className="absolute left-[-50%] top-[-50%] h-[200%] w-[200%] bg-[conic-gradient(from_0deg,transparent_0%,rgba(215,179,123,0.15)_25%,rgba(244,63,94,0.15)_50%,rgba(56,189,248,0.15)_75%,transparent_100%)] opacity-0 transition-opacity duration-1000 group-hover:opacity-100"
+            transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+            className="absolute left-[-50%] top-[-50%] h-[200%] w-[200%] bg-[conic-gradient(from_0deg,transparent_0%,rgba(255,255,255,0.1)_25%,rgba(215,179,123,0.2)_50%,rgba(255,255,255,0.1)_75%,transparent_100%)] opacity-0 transition-opacity duration-1000 group-hover:opacity-100"
           />
         </div>
 
-        {/* Intensified Gravity Glow */}
+        {/* Intensified Gravity Glow (High Intensity Gold) */}
         <motion.div
           style={{
             left: springX,
             top: springY,
-            background: "radial-gradient(circle, rgba(215,179,123,0.22) 0%, transparent 65%)",
+            background: "radial-gradient(circle, rgba(215,179,123,0.25) 0%, transparent 65%)",
           }}
           className="pointer-events-none absolute -translate-x-1/2 -translate-y-1/2 z-0 h-[700px] w-[700px] rounded-full opacity-0 transition-opacity duration-500 group-hover:opacity-100 blur-3xl"
         />
 
-        <div className="noise-mask opacity-15" />
+        <div className="noise-mask opacity-20" />
         
         <div className="relative z-10 flex flex-col lg:grid lg:grid-cols-[1.1fr_0.9fr]">
           {/* Left Content */}
@@ -731,7 +750,7 @@ function ToolkitHeroCard({ reduceMotion }) {
               Comprehensive Toolkit
               <motion.div 
                 animate={{ x: ["-100%", "200%"] }}
-                transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut", repeatDelay: 1.5 }}
+                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", repeatDelay: 1 }}
                 className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
               />
             </motion.span>
@@ -770,8 +789,8 @@ function ToolkitHeroCard({ reduceMotion }) {
                   </Float>
                </Canvas>
             </div>
-            <div className="absolute inset-0 z-10 p-6 md:p-10">
-               <FloatingIconsCloud items={allIcons} reduceMotion={reduceMotion} />
+            <div className="absolute inset-x-0 bottom-0 z-10 p-6 md:p-10">
+               <FloatingIconsCloud items={allIcons} reduceMotion={reduceMotion} glitch={glitch} />
             </div>
           </div>
         </div>
