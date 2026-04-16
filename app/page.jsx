@@ -957,6 +957,7 @@ function BookSpine({ item, index }) {
   );
 }
 
+export default function HomePage() {
   useEffect(() => {
     // Scroll to top on mount/refresh
     if ("scrollRestoration" in window.history) {
