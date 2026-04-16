@@ -708,7 +708,7 @@ function ToolkitHeroCard({ reduceMotion }) {
         <motion.div
           animate={{ x: ["-150%", "250%"] }}
           transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
-          className="absolute inset-0 z-10 pointer-events-none opacity-[0.12] blur-[100px] bg-gradient-to-r from-transparent via-white to-transparent transform-gpu translate-z-0"
+          className="absolute inset-0 z-10 pointer-events-none opacity-[0.1] blur-[50px] bg-gradient-to-r from-transparent via-white to-transparent transform-gpu translate-z-0"
         />
 
         {/* Luminous Silver-Flow Border */}
@@ -725,9 +725,9 @@ function ToolkitHeroCard({ reduceMotion }) {
           style={{
             left: springX,
             top: springY,
-            background: "radial-gradient(circle, rgba(255,255,255,0.18) 0%, transparent 65%)",
+            background: "radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 65%)",
           }}
-          className="pointer-events-none absolute -translate-x-1/2 -translate-y-1/2 z-0 h-[700px] w-[700px] rounded-full opacity-0 transition-opacity duration-700 group-hover:opacity-100 blur-[120px] transform-gpu translate-z-0"
+          className="pointer-events-none absolute -translate-x-1/2 -translate-y-1/2 z-0 h-[700px] w-[700px] rounded-full opacity-0 transition-opacity duration-700 group-hover:opacity-100 blur-[48px] transform-gpu translate-z-0"
         />
 
         <div className="noise-mask opacity-10" />
@@ -775,21 +775,25 @@ function ToolkitHeroCard({ reduceMotion }) {
           {/* Right Motion Zone (Restored and Enhanced) */}
           <div className="relative h-[440px] border-t border-white/10 md:h-[500px] lg:h-full lg:border-t-0 lg:border-l overflow-hidden">
             <div className="absolute inset-0 z-0 opacity-60">
-               <Canvas camera={{ position: [0, 0, 5] }}>
+               <Canvas 
+                 camera={{ position: [0, 0, 5] }}
+                 flat 
+                 dpr={[1, 1.5]} // Limit pixel ratio for performance
+               >
                   <ambientLight intensity={0.2} />
                   <pointLight position={[10, 10, 10]} intensity={1} />
                   <Environment preset="city" />
                   <LightFollower springX={springX} springY={springY} />
-                  <Float speed={1.5} rotationIntensity={0.5} floatIntensity={0.5}>
+                  <Float speed={1} rotationIntensity={0.3} floatIntensity={0.3}>
                     <mesh position={[0, 0, 0]}>
-                      <torusKnotGeometry args={[1.3, 0.45, 256, 64]} />
+                      <torusKnotGeometry args={[1.3, 0.45, 128, 32]} />
                       <MeshTransmissionMaterial 
-                        backside 
-                        thickness={0.8} 
-                        roughness={0.02} 
-                        chromaticAberration={0.04} 
-                        transmission={0.95}
-                        reflectivity={0.5}
+                        backside={false} // Disable backside for 2x performance
+                        thickness={0.5} 
+                        roughness={0.05} 
+                        chromaticAberration={0.02} 
+                        transmission={0.9}
+                        reflectivity={0.3}
                         color="#f8f8f8" 
                       />
                     </mesh>
