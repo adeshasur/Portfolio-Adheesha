@@ -20,6 +20,7 @@ import {
   softwareProjects,
   toolkitGroups,
   toolkitItems,
+  videoShowcaseGroups,
 } from "../lib/site-data";
 
 const easeOutQuint = (value) => 1 - Math.pow(1 - value, 5);
@@ -59,6 +60,26 @@ const toolIconConfig = {
     variant: "security",
   },
 };
+
+function getVideoEmbedUrl(url) {
+  if (!url) return null;
+
+  const normalizedUrl = String(url).trim();
+  const isFacebookUrl = normalizedUrl.includes("facebook.com") || normalizedUrl.includes("fb.watch");
+  const isTikTokUrl = normalizedUrl.includes("tiktok.com");
+
+  if (isFacebookUrl) {
+    return `https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(normalizedUrl)}&show_text=false&width=560&autoplay=1&mute=1`;
+  }
+
+  if (isTikTokUrl) {
+    const videoIdMatch = normalizedUrl.match(/\/video\/(\d+)/i);
+    if (!videoIdMatch) return null;
+    return `https://www.tiktok.com/embed/v2/${videoIdMatch[1]}`;
+  }
+
+  return null;
+}
 
 function smoothScrollTo(id) {
   if (typeof window === "undefined") return;
@@ -1004,6 +1025,156 @@ function GalleryCard({ item, index, onOpen, reduceMotion }) {
   );
 }
 
+function VideoSourceCard({ item, category, index, isPreviewActive, onPreview, reduceMotion }) {
+  const embedUrl = getVideoEmbedUrl(item.href);
+
+  return (
+    <motion.div
+      key={item.id}
+      initial={{ opacity: 0, x: 18 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1], delay: index * 0.03 }}
+      className="grid gap-4 md:grid-cols-[1.08fr_0.92fr]"
+    >
+      <div className="relative overflow-hidden rounded-[22px] border border-white/45 bg-zinc-100 p-2 shadow-[0_16px_34px_rgba(15,23,42,0.1)]">
+        <div className="relative aspect-[16/10] overflow-hidden rounded-[18px] bg-zinc-200">
+          {isPreviewActive && embedUrl ? (
+            <iframe
+              src={embedUrl}
+              title={`${item.title} preview`}
+              className="h-full w-full"
+              allow="autoplay; encrypted-media; picture-in-picture; clipboard-write; web-share"
+              allowFullScreen
+            />
+          ) : (
+            <div className="flex h-full w-full flex-col justify-between bg-gradient-to-br from-zinc-900 via-zinc-800 to-zinc-700 p-4 text-white">
+              <div className="flex items-center justify-between">
+                <span className="rounded-full bg-white/16 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.2em]">
+                  {category.platform}
+                </span>
+                <span className="rounded-full bg-white/12 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.18em]">
+                  {isPreviewActive ? "Previewing" : "Preview"}
+                </span>
+              </div>
+              <div>
+                <p className="text-sm font-semibold text-white/95">{item.title}</p>
+                <p className="mt-2 text-xs text-white/70">Press 3s preview to view a quick bridge clip.</p>
+              </div>
+            </div>
+          )}
+          {isPreviewActive ? (
+            <div className={`absolute bottom-0 left-0 h-1 bg-gold ${reduceMotion ? "" : "animate-[previewBar_3s_linear_1]"}`} style={reduceMotion ? { width: "100%" } : { width: "100%" }} />
+          ) : null}
+        </div>
+      </div>
+      <div className="flex flex-col justify-between rounded-[20px] border border-white/50 bg-white/70 p-4 glass-soft">
+        <div>
+          <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-zinc-500">{category.title}</p>
+          <h4 className="font-display mt-2 text-[1.2rem] font-semibold tracking-[-0.05em] text-ink">{item.title}</h4>
+          <p className="mt-2 text-[13px] leading-6 text-zinc-600">Quick portfolio preview with direct source opening.</p>
+        </div>
+        <div className="mt-5 flex flex-wrap gap-2">
+          <button
+            type="button"
+            onClick={onPreview}
+            className="rounded-full bg-ink px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-white"
+          >
+            3s Preview
+          </button>
+          <a
+            href={item.href}
+            target="_blank"
+            rel="noreferrer"
+            className="rounded-full border border-zinc-300 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-ink"
+          >
+            Open Source
+          </a>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
+function VideoCategorySlider({ category, reduceMotion }) {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [previewVideoId, setPreviewVideoId] = useState(null);
+  const previewTimeoutRef = useRef(null);
+  const totalItems = category.items.length;
+
+  useEffect(() => {
+    return () => {
+      if (previewTimeoutRef.current) {
+        window.clearTimeout(previewTimeoutRef.current);
+      }
+    };
+  }, []);
+
+  const goPrevious = () => {
+    setPreviewVideoId(null);
+    setActiveIndex((prev) => (prev - 1 + totalItems) % totalItems);
+  };
+
+  const goNext = () => {
+    setPreviewVideoId(null);
+    setActiveIndex((prev) => (prev + 1) % totalItems);
+  };
+
+  const handlePreview = (itemId) => {
+    if (previewTimeoutRef.current) {
+      window.clearTimeout(previewTimeoutRef.current);
+    }
+    setPreviewVideoId(itemId);
+    previewTimeoutRef.current = window.setTimeout(() => {
+      setPreviewVideoId(null);
+    }, 3000);
+  };
+
+  const activeItem = category.items[activeIndex];
+
+  return (
+    <motion.div
+      variants={staggerItem}
+      className="relative overflow-hidden rounded-[30px] border border-white/45 bg-white/62 p-5 glass-soft"
+    >
+      <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
+        <div>
+          <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-zinc-500">{category.platform}</p>
+          <h3 className="font-display mt-1 text-2xl font-semibold tracking-[-0.05em] text-ink">{category.title}</h3>
+          <p className="mt-2 text-sm text-zinc-600">{category.description}</p>
+        </div>
+        <div className="flex items-center gap-2">
+          <button
+            type="button"
+            onClick={goPrevious}
+            className="rounded-full border border-zinc-300 bg-white px-3 py-2 text-xs font-semibold uppercase tracking-[0.12em] text-zinc-700"
+          >
+            Prev
+          </button>
+          <span className="min-w-[88px] text-center text-[10px] font-semibold uppercase tracking-[0.2em] text-zinc-500">
+            {activeIndex + 1} / {totalItems}
+          </span>
+          <button
+            type="button"
+            onClick={goNext}
+            className="rounded-full border border-zinc-300 bg-white px-3 py-2 text-xs font-semibold uppercase tracking-[0.12em] text-zinc-700"
+          >
+            Next
+          </button>
+        </div>
+      </div>
+
+      <VideoSourceCard
+        item={activeItem}
+        category={category}
+        index={activeIndex}
+        isPreviewActive={previewVideoId === activeItem.id}
+        onPreview={() => handlePreview(activeItem.id)}
+        reduceMotion={reduceMotion}
+      />
+    </motion.div>
+  );
+}
+
 function CertificateCard({ item, index, onOpen, reduceMotion }) {
   const isPortrait = item.orientation === "portrait";
   const { x: parallaxX, y: parallaxY } = useContext(DepthContext);
@@ -1149,7 +1320,6 @@ export default function HomePage() {
   const layerThree = useTransform(scrollYProgress, [0, 1], [0, reduceMotion ? 0 : -110]);
   const timelineProgress = useTransform(timelineScroll, [0, 1], ["0%", "100%"]);
   const graphicDesignItems = galleryItems.filter((item) => item.category === "Graphic Design");
-  const videoEditingItems = galleryItems.filter((item) => item.category === "Video Editing");
   const activeProjectShot = activeProject?.shots?.[activeProjectShotIndex] || activeProject?.shots?.[0];
 
   return (
@@ -1428,8 +1598,8 @@ export default function HomePage() {
           <div className="absolute left-10 top-10 h-60 w-60 rounded-full bg-sky-100/55 blur-3xl" />
           <SectionIntro
             eyebrow="Video Editing"
-            title="Video editing now lives in a dedicated section of its own."
-            text="Cuts, visual rhythm, and edited storytelling moments stay together here so the video-editing side feels separate from the graphic design work."
+            title="Video work grouped into four dedicated categories."
+            text="Each category has a slider, quick 3-second preview, and direct source link opening in a new tab."
           />
 
           <motion.div 
@@ -1437,15 +1607,13 @@ export default function HomePage() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.1 }}
-            className="relative z-10 mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5"
+            className="relative z-10 mt-10 grid gap-5 lg:grid-cols-2"
           >
-            {videoEditingItems.map((item, index) => (
-              <GalleryCard 
-                key={item.title} 
-                item={item} 
-                index={index} 
-                onOpen={setActiveGalleryItem} 
-                reduceMotion={reduceMotion} 
+            {videoShowcaseGroups.map((category) => (
+              <VideoCategorySlider
+                key={category.id}
+                category={category}
+                reduceMotion={reduceMotion}
               />
             ))}
           </motion.div>

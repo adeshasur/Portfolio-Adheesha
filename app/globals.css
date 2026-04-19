@@ -130,6 +130,17 @@
   }
 }
 
+@keyframes previewBar {
+  from {
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+  to {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+}
+
 @layer utilities {
   .tools-grid-animated {
     animation: tools-grid-drift 9s ease-in-out infinite, tools-grid-glow 6s ease-in-out infinite;
