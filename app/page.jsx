@@ -1027,6 +1027,7 @@ function GalleryCard({ item, index, onOpen, reduceMotion }) {
 
 function VideoSourceCard({ item, category, index }) {
   const embedUrl = getVideoEmbedUrl(item.href);
+  const gifPreviewSrc = item.previewGif?.src || item.previewGif || null;
 
   return (
     <motion.div
@@ -1037,7 +1038,14 @@ function VideoSourceCard({ item, category, index }) {
       className="relative mx-auto w-full max-w-[350px] overflow-hidden rounded-[22px] border border-white/35 bg-zinc-950 p-2 shadow-[0_18px_36px_rgba(15,23,42,0.22)]"
     >
       <div className="relative aspect-[9/16] overflow-hidden rounded-[18px] bg-zinc-900">
-        {embedUrl ? (
+        {gifPreviewSrc ? (
+          <img
+            src={gifPreviewSrc}
+            alt={`${item.title} preview`}
+            className="h-full w-full object-cover"
+            loading="lazy"
+          />
+        ) : embedUrl ? (
           <iframe
             key={item.id}
             src={embedUrl}
@@ -1051,6 +1059,13 @@ function VideoSourceCard({ item, category, index }) {
             <p className="text-xs text-white/70">Preview unavailable for this source link.</p>
           </div>
         )}
+        <a
+          href={item.href}
+          target="_blank"
+          rel="noreferrer"
+          aria-label={`Open ${item.title} source`}
+          className="absolute inset-0 z-10"
+        />
         <div className="pointer-events-none absolute inset-0 flex flex-col justify-between p-3">
           <div className="flex items-center justify-between">
             <span className="rounded-full bg-black/55 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-white backdrop-blur">
@@ -1062,14 +1077,9 @@ function VideoSourceCard({ item, category, index }) {
           </div>
           <div className="rounded-2xl bg-black/45 p-3 backdrop-blur">
             <p className="text-sm font-semibold text-white">{item.title}</p>
-            <a
-              href={item.href}
-              target="_blank"
-              rel="noreferrer"
-              className="pointer-events-auto mt-2 inline-flex rounded-full border border-white/40 bg-white/15 px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.14em] text-white"
-            >
-              Open Source
-            </a>
+            <p className="mt-2 inline-flex rounded-full border border-white/40 bg-white/15 px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.14em] text-white">
+              Click Video To Open Source
+            </p>
           </div>
         </div>
       </div>
