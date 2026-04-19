@@ -1025,7 +1025,7 @@ function GalleryCard({ item, index, onOpen, reduceMotion }) {
   );
 }
 
-function VideoSourceCard({ item, category, index, isPreviewActive, onPreview, reduceMotion }) {
+function VideoSourceCard({ item, category, index }) {
   const embedUrl = getVideoEmbedUrl(item.href);
 
   return (
@@ -1039,50 +1039,41 @@ function VideoSourceCard({ item, category, index, isPreviewActive, onPreview, re
       <div className="relative overflow-hidden rounded-[22px] border border-white/45 bg-zinc-100 p-2 shadow-[0_16px_34px_rgba(15,23,42,0.1)]">
         <div className="relative mx-auto w-full max-w-[330px] overflow-hidden rounded-[18px] bg-zinc-200">
           <div className="relative aspect-[9/16]">
-          {isPreviewActive && embedUrl ? (
-            <iframe
-              src={embedUrl}
-              title={`${item.title} preview`}
-              className="h-full w-full"
-              allow="autoplay; encrypted-media; picture-in-picture; clipboard-write; web-share"
-              allowFullScreen
-            />
-          ) : (
-            <div className="flex h-full w-full flex-col justify-between bg-gradient-to-br from-zinc-900 via-zinc-800 to-zinc-700 p-4 text-white">
-              <div className="flex items-center justify-between">
-                <span className="rounded-full bg-white/16 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.2em]">
-                  {category.platform}
-                </span>
-                <span className="rounded-full bg-white/12 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.18em]">
-                  {isPreviewActive ? "Previewing" : "Preview"}
-                </span>
+            {embedUrl ? (
+              <iframe
+                key={item.id}
+                src={embedUrl}
+                title={`${item.title} preview`}
+                className="h-full w-full"
+                allow="autoplay; encrypted-media; picture-in-picture; clipboard-write; web-share"
+                allowFullScreen
+              />
+            ) : (
+              <div className="flex h-full w-full flex-col justify-between bg-gradient-to-br from-zinc-900 via-zinc-800 to-zinc-700 p-4 text-white">
+                <div className="flex items-center justify-between">
+                  <span className="rounded-full bg-white/16 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.2em]">
+                    {category.platform}
+                  </span>
+                  <span className="rounded-full bg-white/12 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.18em]">
+                    Preview
+                  </span>
+                </div>
+                <div>
+                  <p className="text-sm font-semibold text-white/95">{item.title}</p>
+                  <p className="mt-2 text-xs text-white/70">Preview unavailable for this source link.</p>
+                </div>
               </div>
-              <div>
-                <p className="text-sm font-semibold text-white/95">{item.title}</p>
-                <p className="mt-2 text-xs text-white/70">Auto preview runs for 3 seconds in portrait mode.</p>
-              </div>
-            </div>
-          )}
-          {isPreviewActive ? (
-            <div className={`absolute bottom-0 left-0 h-1 bg-gold ${reduceMotion ? "" : "animate-[previewBar_3s_linear_1]"}`} style={reduceMotion ? { width: "100%" } : { width: "100%" }} />
-          ) : null}
-        </div>
+            )}
+          </div>
         </div>
       </div>
       <div className="flex flex-col justify-between rounded-[20px] border border-white/50 bg-white/70 p-4 glass-soft">
         <div>
           <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-zinc-500">{category.title}</p>
           <h4 className="font-display mt-2 text-[1.2rem] font-semibold tracking-[-0.05em] text-ink">{item.title}</h4>
-          <p className="mt-2 text-[13px] leading-6 text-zinc-600">Quick portfolio preview with direct source opening.</p>
+          <p className="mt-2 text-[13px] leading-6 text-zinc-600">Auto preview is enabled. Open source to watch the original post.</p>
         </div>
         <div className="mt-5 flex flex-wrap gap-2">
-          <button
-            type="button"
-            onClick={onPreview}
-            className="rounded-full bg-ink px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-white"
-          >
-            Replay 3s
-          </button>
           <a
             href={item.href}
             target="_blank"
@@ -1097,19 +1088,9 @@ function VideoSourceCard({ item, category, index, isPreviewActive, onPreview, re
   );
 }
 
-function VideoCategorySlider({ category, reduceMotion }) {
+function VideoCategorySlider({ category }) {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [previewVideoId, setPreviewVideoId] = useState(null);
-  const previewTimeoutRef = useRef(null);
   const totalItems = category.items.length;
-
-  useEffect(() => {
-    return () => {
-      if (previewTimeoutRef.current) {
-        window.clearTimeout(previewTimeoutRef.current);
-      }
-    };
-  }, []);
 
   const goPrevious = () => {
     setActiveIndex((prev) => (prev - 1 + totalItems) % totalItems);
@@ -1119,31 +1100,7 @@ function VideoCategorySlider({ category, reduceMotion }) {
     setActiveIndex((prev) => (prev + 1) % totalItems);
   };
 
-  const handlePreview = (itemId) => {
-    if (previewTimeoutRef.current) {
-      window.clearTimeout(previewTimeoutRef.current);
-    }
-    setPreviewVideoId(itemId);
-    previewTimeoutRef.current = window.setTimeout(() => {
-      setPreviewVideoId(null);
-    }, 3000);
-  };
-
   const activeItem = category.items[activeIndex];
-
-  useEffect(() => {
-    const itemId = category.items[activeIndex]?.id;
-    if (!itemId) return;
-
-    if (previewTimeoutRef.current) {
-      window.clearTimeout(previewTimeoutRef.current);
-    }
-
-    setPreviewVideoId(itemId);
-    previewTimeoutRef.current = window.setTimeout(() => {
-      setPreviewVideoId(null);
-    }, 3000);
-  }, [activeIndex, category.items]);
 
   return (
     <motion.div
@@ -1181,9 +1138,6 @@ function VideoCategorySlider({ category, reduceMotion }) {
         item={activeItem}
         category={category}
         index={activeIndex}
-        isPreviewActive={previewVideoId === activeItem.id}
-        onPreview={() => handlePreview(activeItem.id)}
-        reduceMotion={reduceMotion}
       />
     </motion.div>
   );
@@ -1627,7 +1581,6 @@ export default function HomePage() {
               <VideoCategorySlider
                 key={category.id}
                 category={category}
-                reduceMotion={reduceMotion}
               />
             ))}
           </motion.div>
