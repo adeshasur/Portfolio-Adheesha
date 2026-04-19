@@ -1187,7 +1187,9 @@ function JourneyCard({ item, index, onOpen, label, reduceMotion }) {
               <Image 
                 src={item.image} 
                 alt={item.title} 
-                className={`h-20 w-20 object-contain transition-transform duration-700 group-hover/image:scale-[1.08] ${item.imageClassName || ""}`.trim()} 
+                fill
+                sizes="(min-width: 1536px) 14vw, (min-width: 1280px) 16vw, (min-width: 768px) 26vw, 42vw"
+                className={`object-contain p-2 transition-transform duration-700 group-hover/image:scale-[1.08] ${item.imageClassName || "scale-[1.2]"}`.trim()} 
               />
             ) : (
               <div className="flex flex-col items-center gap-2 opacity-30">
