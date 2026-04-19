@@ -1037,7 +1037,8 @@ function VideoSourceCard({ item, category, index, isPreviewActive, onPreview, re
       className="grid gap-4 md:grid-cols-[1.08fr_0.92fr]"
     >
       <div className="relative overflow-hidden rounded-[22px] border border-white/45 bg-zinc-100 p-2 shadow-[0_16px_34px_rgba(15,23,42,0.1)]">
-        <div className="relative aspect-[16/10] overflow-hidden rounded-[18px] bg-zinc-200">
+        <div className="relative mx-auto w-full max-w-[330px] overflow-hidden rounded-[18px] bg-zinc-200">
+          <div className="relative aspect-[9/16]">
           {isPreviewActive && embedUrl ? (
             <iframe
               src={embedUrl}
@@ -1058,13 +1059,14 @@ function VideoSourceCard({ item, category, index, isPreviewActive, onPreview, re
               </div>
               <div>
                 <p className="text-sm font-semibold text-white/95">{item.title}</p>
-                <p className="mt-2 text-xs text-white/70">Press 3s preview to view a quick bridge clip.</p>
+                <p className="mt-2 text-xs text-white/70">Auto preview runs for 3 seconds in portrait mode.</p>
               </div>
             </div>
           )}
           {isPreviewActive ? (
             <div className={`absolute bottom-0 left-0 h-1 bg-gold ${reduceMotion ? "" : "animate-[previewBar_3s_linear_1]"}`} style={reduceMotion ? { width: "100%" } : { width: "100%" }} />
           ) : null}
+        </div>
         </div>
       </div>
       <div className="flex flex-col justify-between rounded-[20px] border border-white/50 bg-white/70 p-4 glass-soft">
@@ -1079,7 +1081,7 @@ function VideoSourceCard({ item, category, index, isPreviewActive, onPreview, re
             onClick={onPreview}
             className="rounded-full bg-ink px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-white"
           >
-            3s Preview
+            Replay 3s
           </button>
           <a
             href={item.href}
@@ -1110,12 +1112,10 @@ function VideoCategorySlider({ category, reduceMotion }) {
   }, []);
 
   const goPrevious = () => {
-    setPreviewVideoId(null);
     setActiveIndex((prev) => (prev - 1 + totalItems) % totalItems);
   };
 
   const goNext = () => {
-    setPreviewVideoId(null);
     setActiveIndex((prev) => (prev + 1) % totalItems);
   };
 
@@ -1130,6 +1130,20 @@ function VideoCategorySlider({ category, reduceMotion }) {
   };
 
   const activeItem = category.items[activeIndex];
+
+  useEffect(() => {
+    const itemId = category.items[activeIndex]?.id;
+    if (!itemId) return;
+
+    if (previewTimeoutRef.current) {
+      window.clearTimeout(previewTimeoutRef.current);
+    }
+
+    setPreviewVideoId(itemId);
+    previewTimeoutRef.current = window.setTimeout(() => {
+      setPreviewVideoId(null);
+    }, 3000);
+  }, [activeIndex, category.items]);
 
   return (
     <motion.div
