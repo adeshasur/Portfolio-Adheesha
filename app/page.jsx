@@ -1091,13 +1091,13 @@ function VideoCategorySlider({ category }) {
   const [activeIndex, setActiveIndex] = useState(0);
   const totalItems = category.items.length;
 
-  const goPrevious = () => {
-    setActiveIndex((prev) => (prev - 1 + totalItems) % totalItems);
-  };
-
-  const goNext = () => {
-    setActiveIndex((prev) => (prev + 1) % totalItems);
-  };
+  useEffect(() => {
+    if (totalItems <= 1) return undefined;
+    const intervalId = window.setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % totalItems);
+    }, 3200);
+    return () => window.clearInterval(intervalId);
+  }, [totalItems]);
 
   const activeItem = category.items[activeIndex];
 
@@ -1106,31 +1106,15 @@ function VideoCategorySlider({ category }) {
       variants={staggerItem}
       className="relative overflow-hidden rounded-[22px] border border-white/45 bg-white/62 p-3 glass-soft"
     >
-      <div className="mb-3 flex items-start justify-between gap-2">
+      <div className="mb-3">
         <div>
           <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-zinc-500">{category.platform}</p>
           <h3 className="font-display mt-1 text-[1.05rem] font-semibold tracking-[-0.04em] leading-tight text-ink">{category.title}</h3>
           <p className="mt-1 text-[11px] leading-5 text-zinc-600 line-clamp-2">{category.description}</p>
         </div>
-        <div className="flex items-center gap-1">
-          <button
-            type="button"
-            onClick={goPrevious}
-            className="rounded-full border border-zinc-300 bg-white px-2.5 py-1.5 text-[10px] font-semibold uppercase tracking-[0.1em] text-zinc-700"
-          >
-            Prev
-          </button>
-          <span className="min-w-[60px] text-center text-[9px] font-semibold uppercase tracking-[0.16em] text-zinc-500">
-            {activeIndex + 1} / {totalItems}
-          </span>
-          <button
-            type="button"
-            onClick={goNext}
-            className="rounded-full border border-zinc-300 bg-white px-2.5 py-1.5 text-[10px] font-semibold uppercase tracking-[0.1em] text-zinc-700"
-          >
-            Next
-          </button>
-        </div>
+        <p className="mt-2 inline-flex rounded-full border border-zinc-200 bg-white px-2.5 py-1 text-[9px] font-semibold uppercase tracking-[0.14em] text-zinc-500">
+          Auto Preview {activeIndex + 1}/{totalItems}
+        </p>
       </div>
 
       <VideoSourceCard
@@ -1192,18 +1176,18 @@ function JourneyCard({ item, index, onOpen, label, reduceMotion }) {
         onClick={() => onOpen(item)}
         variants={staggerItem}
         whileHover={{ y: -8, z: 20 }}
-        className="group border-glow-luminous holographic-grain relative flex h-full flex-col overflow-hidden rounded-[24px] bg-white/68 p-4 text-left glass-soft card-glow-hover transition-all duration-500 [transform-style:preserve-3d]"
+        className="group relative flex h-full flex-col overflow-hidden rounded-[26px] border border-white/45 bg-white/72 p-3 text-left glass-soft card-glow-hover transition-all duration-500 [transform-style:preserve-3d]"
       >
-        <div className="relative mx-auto mb-4 w-full overflow-hidden rounded-[18px] bg-white p-2 shadow-[0_12px_28px_rgba(15,23,42,0.05)] [transform:translateZ(40px)]">
+        <div className="relative mx-auto mb-3 w-full overflow-hidden rounded-[20px] bg-white p-1.5 shadow-[0_10px_24px_rgba(15,23,42,0.07)] [transform:translateZ(40px)]">
           <motion.div 
             style={{ x: parallaxX, y: parallaxY }}
-            className="relative flex aspect-square items-center justify-center overflow-hidden rounded-[14px] bg-zinc-50 border border-black/5"
+            className="relative flex aspect-square items-center justify-center overflow-hidden rounded-[16px] bg-zinc-50 border border-black/5"
           >
             {item.image ? (
               <Image 
                 src={item.image} 
                 alt={item.title} 
-                className={`h-24 w-24 object-contain transition-transform duration-700 group-hover/image:scale-[1.1] ${item.imageClassName || ""}`.trim()} 
+                className={`h-20 w-20 object-contain transition-transform duration-700 group-hover/image:scale-[1.08] ${item.imageClassName || ""}`.trim()} 
               />
             ) : (
               <div className="flex flex-col items-center gap-2 opacity-30">
@@ -1220,7 +1204,7 @@ function JourneyCard({ item, index, onOpen, label, reduceMotion }) {
           <p className="text-[9px] font-semibold uppercase tracking-[0.22em] text-zinc-400">
             {item.subtitle}
           </p>
-          <h4 className="font-display mt-2 text-[1.12rem] font-semibold tracking-[-0.03em] leading-tight text-ink md:text-[1.25rem]">
+          <h4 className="font-display mt-1.5 text-[1.02rem] font-semibold tracking-[-0.03em] leading-tight text-ink md:text-[1.08rem]">
             {item.title}
           </h4>
           <p className="mt-2 line-clamp-2 text-[11px] leading-5 text-zinc-500">
@@ -1566,7 +1550,7 @@ export default function HomePage() {
           <SectionIntro
             eyebrow="Video Editing"
             title="Video work grouped into four dedicated categories."
-            text="Each category has a slider, quick 3-second preview, and direct source link opening in a new tab."
+            text="Each category card auto-rotates previews and opens the original source when you click the video."
           />
 
           <motion.div 
@@ -1605,7 +1589,7 @@ export default function HomePage() {
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true, amount: 0.1 }}
-                className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5"
+                className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6"
               >
                 {educationItems.map((item, index) => (
                   <JourneyCard
@@ -1630,7 +1614,7 @@ export default function HomePage() {
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true, amount: 0.1 }}
-                className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5"
+                className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6"
               >
                 {experienceItems.map((item, index) => (
                   <JourneyCard
