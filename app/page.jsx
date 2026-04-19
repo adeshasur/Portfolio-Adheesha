@@ -1181,7 +1181,7 @@ function JourneyCard({ item, index, onOpen, label, reduceMotion }) {
         <div className="relative mx-auto mb-3 w-full overflow-hidden rounded-[20px] bg-white p-1.5 shadow-[0_10px_24px_rgba(15,23,42,0.07)] [transform:translateZ(40px)]">
           <motion.div 
             style={{ x: parallaxX, y: parallaxY }}
-            className="relative flex aspect-square items-center justify-center overflow-hidden rounded-[16px] bg-zinc-50 border border-black/5"
+            className="relative flex aspect-[5/3] items-center justify-center overflow-hidden rounded-[16px] bg-zinc-50 border border-black/5"
           >
             {item.image ? (
               <Image 
@@ -1189,7 +1189,7 @@ function JourneyCard({ item, index, onOpen, label, reduceMotion }) {
                 alt={item.title} 
                 fill
                 sizes="(min-width: 1536px) 14vw, (min-width: 1280px) 16vw, (min-width: 768px) 26vw, 42vw"
-                className={`object-contain p-2 transition-transform duration-700 group-hover/image:scale-[1.08] ${item.imageClassName || "scale-[1.2]"}`.trim()} 
+                className={`object-contain p-0 transition-transform duration-700 group-hover/image:scale-[1.08] ${item.imageClassName || "scale-[1.85]"}`.trim()} 
               />
             ) : (
               <div className="flex flex-col items-center gap-2 opacity-30">
