@@ -1034,54 +1034,43 @@ function VideoSourceCard({ item, category, index }) {
       initial={{ opacity: 0, x: 18 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1], delay: index * 0.03 }}
-      className="grid gap-4 md:grid-cols-[1.08fr_0.92fr]"
+      className="relative mx-auto w-full max-w-[350px] overflow-hidden rounded-[22px] border border-white/35 bg-zinc-950 p-2 shadow-[0_18px_36px_rgba(15,23,42,0.22)]"
     >
-      <div className="relative overflow-hidden rounded-[22px] border border-white/45 bg-zinc-100 p-2 shadow-[0_16px_34px_rgba(15,23,42,0.1)]">
-        <div className="relative mx-auto w-full max-w-[330px] overflow-hidden rounded-[18px] bg-zinc-200">
-          <div className="relative aspect-[9/16]">
-            {embedUrl ? (
-              <iframe
-                key={item.id}
-                src={embedUrl}
-                title={`${item.title} preview`}
-                className="h-full w-full"
-                allow="autoplay; encrypted-media; picture-in-picture; clipboard-write; web-share"
-                allowFullScreen
-              />
-            ) : (
-              <div className="flex h-full w-full flex-col justify-between bg-gradient-to-br from-zinc-900 via-zinc-800 to-zinc-700 p-4 text-white">
-                <div className="flex items-center justify-between">
-                  <span className="rounded-full bg-white/16 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.2em]">
-                    {category.platform}
-                  </span>
-                  <span className="rounded-full bg-white/12 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.18em]">
-                    Preview
-                  </span>
-                </div>
-                <div>
-                  <p className="text-sm font-semibold text-white/95">{item.title}</p>
-                  <p className="mt-2 text-xs text-white/70">Preview unavailable for this source link.</p>
-                </div>
-              </div>
-            )}
+      <div className="relative aspect-[9/16] overflow-hidden rounded-[18px] bg-zinc-900">
+        {embedUrl ? (
+          <iframe
+            key={item.id}
+            src={embedUrl}
+            title={`${item.title} preview`}
+            className="h-full w-full"
+            allow="autoplay; encrypted-media; picture-in-picture; clipboard-write; web-share"
+            allowFullScreen
+          />
+        ) : (
+          <div className="flex h-full w-full items-end bg-gradient-to-br from-zinc-950 via-zinc-900 to-zinc-800 p-4 text-white">
+            <p className="text-xs text-white/70">Preview unavailable for this source link.</p>
           </div>
-        </div>
-      </div>
-      <div className="flex flex-col justify-between rounded-[20px] border border-white/50 bg-white/70 p-4 glass-soft">
-        <div>
-          <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-zinc-500">{category.title}</p>
-          <h4 className="font-display mt-2 text-[1.2rem] font-semibold tracking-[-0.05em] text-ink">{item.title}</h4>
-          <p className="mt-2 text-[13px] leading-6 text-zinc-600">Auto preview is enabled. Open source to watch the original post.</p>
-        </div>
-        <div className="mt-5 flex flex-wrap gap-2">
-          <a
-            href={item.href}
-            target="_blank"
-            rel="noreferrer"
-            className="rounded-full border border-zinc-300 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-ink"
-          >
-            Open Source
-          </a>
+        )}
+        <div className="pointer-events-none absolute inset-0 flex flex-col justify-between p-3">
+          <div className="flex items-center justify-between">
+            <span className="rounded-full bg-black/55 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-white backdrop-blur">
+              {category.platform}
+            </span>
+            <span className="rounded-full bg-black/45 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-white backdrop-blur">
+              Auto Preview
+            </span>
+          </div>
+          <div className="rounded-2xl bg-black/45 p-3 backdrop-blur">
+            <p className="text-sm font-semibold text-white">{item.title}</p>
+            <a
+              href={item.href}
+              target="_blank"
+              rel="noreferrer"
+              className="pointer-events-auto mt-2 inline-flex rounded-full border border-white/40 bg-white/15 px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.14em] text-white"
+            >
+              Open Source
+            </a>
+          </div>
         </div>
       </div>
     </motion.div>
