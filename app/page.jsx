@@ -1035,9 +1035,9 @@ function VideoSourceCard({ item, category, index }) {
       initial={{ opacity: 0, x: 18 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1], delay: index * 0.03 }}
-      className="relative mx-auto w-full max-w-[350px] overflow-hidden rounded-[22px] border border-white/35 bg-zinc-950 p-2 shadow-[0_18px_36px_rgba(15,23,42,0.22)]"
+      className="relative mx-auto w-full max-w-[220px] overflow-hidden rounded-[18px] border border-white/35 bg-zinc-950 p-1.5 shadow-[0_12px_24px_rgba(15,23,42,0.22)] md:max-w-[240px]"
     >
-      <div className="relative aspect-[9/16] overflow-hidden rounded-[18px] bg-zinc-900">
+      <div className="relative aspect-[9/16] overflow-hidden rounded-[14px] bg-zinc-900">
         {gifPreviewSrc ? (
           <img
             src={gifPreviewSrc}
@@ -1068,16 +1068,16 @@ function VideoSourceCard({ item, category, index }) {
         />
         <div className="pointer-events-none absolute inset-0 flex flex-col justify-between p-3">
           <div className="flex items-center justify-between">
-            <span className="rounded-full bg-black/55 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-white backdrop-blur">
+            <span className="rounded-full bg-black/55 px-2 py-0.5 text-[9px] font-semibold uppercase tracking-[0.16em] text-white backdrop-blur">
               {category.platform}
             </span>
-            <span className="rounded-full bg-black/45 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-white backdrop-blur">
+            <span className="rounded-full bg-black/45 px-2 py-0.5 text-[9px] font-semibold uppercase tracking-[0.14em] text-white backdrop-blur">
               Auto Preview
             </span>
           </div>
-          <div className="rounded-2xl bg-black/45 p-3 backdrop-blur">
-            <p className="text-sm font-semibold text-white">{item.title}</p>
-            <p className="mt-2 inline-flex rounded-full border border-white/40 bg-white/15 px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.14em] text-white">
+          <div className="rounded-xl bg-black/45 p-2.5 backdrop-blur">
+            <p className="text-xs font-semibold text-white">{item.title}</p>
+            <p className="mt-1.5 inline-flex rounded-full border border-white/40 bg-white/15 px-2.5 py-1 text-[9px] font-semibold uppercase tracking-[0.12em] text-white">
               Click Video To Open Source
             </p>
           </div>
@@ -1104,29 +1104,29 @@ function VideoCategorySlider({ category }) {
   return (
     <motion.div
       variants={staggerItem}
-      className="relative overflow-hidden rounded-[30px] border border-white/45 bg-white/62 p-5 glass-soft"
+      className="relative overflow-hidden rounded-[22px] border border-white/45 bg-white/62 p-3 glass-soft"
     >
-      <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
+      <div className="mb-3 flex items-start justify-between gap-2">
         <div>
           <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-zinc-500">{category.platform}</p>
-          <h3 className="font-display mt-1 text-2xl font-semibold tracking-[-0.05em] text-ink">{category.title}</h3>
-          <p className="mt-2 text-sm text-zinc-600">{category.description}</p>
+          <h3 className="font-display mt-1 text-[1.05rem] font-semibold tracking-[-0.04em] leading-tight text-ink">{category.title}</h3>
+          <p className="mt-1 text-[11px] leading-5 text-zinc-600 line-clamp-2">{category.description}</p>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1">
           <button
             type="button"
             onClick={goPrevious}
-            className="rounded-full border border-zinc-300 bg-white px-3 py-2 text-xs font-semibold uppercase tracking-[0.12em] text-zinc-700"
+            className="rounded-full border border-zinc-300 bg-white px-2.5 py-1.5 text-[10px] font-semibold uppercase tracking-[0.1em] text-zinc-700"
           >
             Prev
           </button>
-          <span className="min-w-[88px] text-center text-[10px] font-semibold uppercase tracking-[0.2em] text-zinc-500">
+          <span className="min-w-[60px] text-center text-[9px] font-semibold uppercase tracking-[0.16em] text-zinc-500">
             {activeIndex + 1} / {totalItems}
           </span>
           <button
             type="button"
             onClick={goNext}
-            className="rounded-full border border-zinc-300 bg-white px-3 py-2 text-xs font-semibold uppercase tracking-[0.12em] text-zinc-700"
+            className="rounded-full border border-zinc-300 bg-white px-2.5 py-1.5 text-[10px] font-semibold uppercase tracking-[0.1em] text-zinc-700"
           >
             Next
           </button>
@@ -1574,7 +1574,7 @@ export default function HomePage() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.1 }}
-            className="relative z-10 mt-10 grid gap-5 lg:grid-cols-2"
+            className="relative z-10 mt-10 grid gap-4 sm:grid-cols-2 xl:grid-cols-4"
           >
             {videoShowcaseGroups.map((category) => (
               <VideoCategorySlider
