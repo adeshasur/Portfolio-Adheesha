@@ -1181,7 +1181,7 @@ function JourneyCard({ item, index, onOpen, label, reduceMotion }) {
         <div className="relative mx-auto mb-3 w-full overflow-hidden rounded-[20px] bg-white p-1.5 shadow-[0_10px_24px_rgba(15,23,42,0.07)] [transform:translateZ(40px)]">
           <motion.div 
             style={{ x: parallaxX, y: parallaxY }}
-            className="relative flex aspect-[5/3] items-center justify-center overflow-hidden rounded-[16px] bg-zinc-50 border border-black/5"
+            className="relative flex aspect-square items-center justify-center overflow-hidden rounded-[16px] bg-zinc-50 border border-black/5"
           >
             {item.image ? (
               <Image 
