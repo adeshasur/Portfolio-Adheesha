@@ -1028,6 +1028,7 @@ function GalleryCard({ item, index, onOpen, reduceMotion }) {
 function VideoSourceCard({ item, category, index }) {
   const embedUrl = getVideoEmbedUrl(item.href);
   const gifPreviewSrc = item.previewGif?.src || item.previewGif || null;
+  const [iframeError, setIframeError] = useState(false);
 
   return (
     <motion.div
@@ -1044,8 +1045,9 @@ function VideoSourceCard({ item, category, index }) {
             alt={`${item.title} preview`}
             className="h-full w-full object-cover"
             loading="lazy"
+            onError={() => setIframeError(true)}
           />
-        ) : embedUrl ? (
+        ) : embedUrl && !iframeError ? (
           <iframe
             key={item.id}
             src={embedUrl}
@@ -1054,6 +1056,8 @@ function VideoSourceCard({ item, category, index }) {
             allow="autoplay; encrypted-media; picture-in-picture; clipboard-write; web-share"
             allowFullScreen
             loading="lazy"
+            onError={() => setIframeError(true)}
+            sandbox="allow-scripts allow-same-origin allow-popups allow-forms"
           />
         ) : (
           <div className="flex h-full w-full items-end bg-gradient-to-br from-zinc-950 via-zinc-900 to-zinc-800 p-4 text-white">
