@@ -1879,12 +1879,12 @@ export default function HomePage() {
       </SectionReveal>
 
       <SectionReveal id="contact" className="scroll-mt-28 px-4 pt-20 md:px-6 md:pt-24" delay={0.2}>
-        <div className="relative mx-auto max-w-[1240px] overflow-hidden rounded-[42px] px-6 py-8 md:px-10 md:py-12">
+        <div className="relative mx-auto max-w-[1440px] overflow-hidden rounded-[42px] px-6 py-8 md:px-10 md:py-12">
           <div className="absolute inset-0 rounded-[42px] bg-gradient-to-br from-zinc-950 via-zinc-900 to-black" />
           <div className="absolute right-10 top-10 h-64 w-64 rounded-full bg-gold/15 blur-3xl" />
           <div className="absolute left-10 bottom-10 h-56 w-56 rounded-full bg-white/10 blur-3xl" />
           
-          <div className="relative z-10 grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
+          <div className="relative z-10 grid gap-16 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
             <div className="flex flex-col gap-10">
               <div>
                 <SectionIntro
