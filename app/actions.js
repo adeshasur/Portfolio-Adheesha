@@ -29,7 +29,7 @@ export async function sendEmail(formData) {
   try {
     const { data, error } = await resend.emails.send({
       from: "Portfolio Contact Form <onboarding@resend.dev>",
-      to: [process.env.CONTACT_EMAIL || "your.email@example.com"],
+      to: [process.env.CONTACT_EMAIL || "info-adheesha@proton.me"],
       subject: `New Message from ${name}`,
       reply_to: email,
       text: `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,
