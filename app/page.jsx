@@ -2,8 +2,9 @@
 
 import { Suspense, createContext, forwardRef, useContext, useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import * as THREE from "three";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { Environment, Float, MeshTransmissionMaterial, RoundedBox } from "@react-three/drei";
+import { Environment, Float, MeshTransmissionMaterial, RoundedBox, Line, Text } from "@react-three/drei";
 import { AnimatePresence, motion, useAnimationFrame, useMotionValue, useReducedMotion, useScroll, useSpring, useTransform } from "framer-motion";
 import { ArrowUpRight, Calculator, Coffee, Facebook, FileCode, Github, IdCard, Image as ImageIcon, Instagram, Linkedin, Mail, MapPin, MessageSquare, Palette, QrCode, RotateCw, Send, ShieldCheck, Sparkles, Type, User, WandSparkles, X } from "lucide-react";
 import { useForm } from "react-hook-form";
@@ -20,6 +21,8 @@ import {
   galleryItems,
   heroContent,
   navItems,
+  roleItems,
+  skillsData,
   socialLinks,
   softwareProjects,
   toolkitGroups,
@@ -1430,6 +1433,146 @@ function ContactForm({ reduceMotion }) {
   );
 }
 
+function SkillsRadarScene({ data, reduceMotion }) {
+  const points = data.map((d, i) => {
+    const angle = (i / data.length) * Math.PI * 2;
+    const r = (d.A / 100) * 4;
+    return [Math.cos(angle) * r, Math.sin(angle) * r, 0];
+  });
+
+  const gridPoints = [0.2, 0.4, 0.6, 0.8, 1].map((scale) => 
+    data.map((_, i) => {
+      const angle = (i / data.length) * Math.PI * 2;
+      const r = scale * 4;
+      return [Math.cos(angle) * r, Math.sin(angle) * r, 0];
+    })
+  );
+
+  return (
+    <group rotation={[-Math.PI / 8, 0, 0]}>
+      {/* Grid Lines */}
+      {gridPoints.map((gp, idx) => (
+        <group key={idx}>
+          <Line
+            points={[...gp, gp[0]]}
+            color="rgba(17, 17, 17, 0.1)"
+            lineWidth={1}
+            transparent
+            opacity={0.3}
+          />
+        </group>
+      ))}
+      
+      {/* Axis Lines */}
+      {data.map((_, i) => {
+        const angle = (i / data.length) * Math.PI * 2;
+        return (
+          <Line
+            key={i}
+            points={[[0, 0, 0], [Math.cos(angle) * 4, Math.sin(angle) * 4, 0]]}
+            color="rgba(17, 17, 17, 0.1)"
+            lineWidth={1}
+            transparent
+            opacity={0.3}
+          />
+        );
+      })}
+
+      {/* Skills Shape */}
+      <mesh>
+        <shapeGeometry args={[new THREE.Shape(points.map(p => new THREE.Vector2(p[0], p[1])))]} />
+        <meshBasicMaterial color="#FFB11B" transparent opacity={0.3} side={THREE.DoubleSide} />
+      </mesh>
+      
+      <Line
+        points={[...points, points[0]]}
+        color="#FFB11B"
+        lineWidth={2}
+        transparent
+        opacity={0.8}
+      />
+
+      {/* Labels */}
+      {data.map((d, i) => {
+        const angle = (i / data.length) * Math.PI * 2;
+        const x = Math.cos(angle) * 5;
+        const y = Math.sin(angle) * 5;
+        return (
+          <Float key={d.subject} speed={2} rotationIntensity={0.2} floatIntensity={0.5}>
+            <Text
+              position={[x, y, 0]}
+              fontSize={0.3}
+              color="#111111"
+              font="https://fonts.gstatic.com/s/outfit/v11/Q_3_u5MuV9zALH9fS9-K_dz0.woff2"
+              anchorX="center"
+              anchorY="middle"
+            >
+              {d.subject}
+            </Text>
+          </Float>
+        );
+      })}
+    </group>
+  );
+}
+
+function SkillsRadarSection({ reduceMotion }) {
+  return (
+    <SectionReveal id="expertise" className="scroll-mt-28 px-4 pt-20 md:px-6 md:pt-24">
+      <div className="relative mx-auto max-w-[1380px] overflow-hidden rounded-[42px] bg-white px-6 py-12 md:px-10 md:py-20 shadow-[0_32px_80px_rgba(15,23,42,0.06)] border border-black/5">
+        <div className="absolute inset-0 bg-gradient-to-br from-zinc-50 via-white to-amber-50/30 opacity-50" />
+        
+        <div className="relative z-10 grid gap-12 lg:grid-cols-[1fr_1.2fr] lg:items-center">
+          <div>
+            <SectionIntro
+              eyebrow="Expertise"
+              title="A multi-dimensional view of my core skill sets."
+              text="Balancing software engineering rigor with creative design thinking to build products that are both technically sound and visually premium."
+            />
+            
+            <div className="mt-12 grid gap-6">
+              {skillsData.map((skill, index) => (
+                <motion.div
+                  key={skill.subject}
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                  className="space-y-2"
+                >
+                  <div className="flex justify-between text-xs font-bold uppercase tracking-wider text-zinc-500">
+                    <span>{skill.subject}</span>
+                    <span className="text-gold">{skill.A}%</span>
+                  </div>
+                  <div className="h-1.5 w-full overflow-hidden rounded-full bg-zinc-100">
+                    <motion.div
+                      initial={{ width: 0 }}
+                      whileInView={{ width: `${skill.A}%` }}
+                      transition={{ duration: 1, delay: 0.5 + index * 0.1 }}
+                      className="h-full bg-gradient-to-r from-zinc-900 to-gold"
+                    />
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+
+          <div className="relative aspect-square w-full max-w-xl mx-auto lg:mx-0 h-[400px] md:h-[500px]">
+            <div className="absolute inset-0 rounded-full bg-gold/5 blur-[120px]" />
+            <Canvas camera={{ position: [0, 0, 12], fov: 45 }}>
+              <ambientLight intensity={1} />
+              <pointLight position={[10, 10, 10]} />
+              <Float speed={1.5} rotationIntensity={0.5} floatIntensity={0.5}>
+                <SkillsRadarScene data={skillsData} reduceMotion={reduceMotion} />
+              </Float>
+              <Environment preset="city" />
+            </Canvas>
+          </div>
+        </div>
+      </div>
+    </SectionReveal>
+  );
+}
+
 export default function HomePage() {
   useEffect(() => {
     // Scroll to top on mount/refresh
@@ -1665,6 +1808,7 @@ export default function HomePage() {
       </a>
 
       <ToolkitHeroCard reduceMotion={reduceMotion} />
+      <SkillsRadarSection reduceMotion={reduceMotion} />
 
       <SectionReveal id="projects" className="scroll-mt-28 px-4 pt-20 md:px-6 md:pt-24" delay={0.04}>
         <div className="relative mx-auto max-w-[1380px] px-6 py-8 md:px-10 md:py-10">
