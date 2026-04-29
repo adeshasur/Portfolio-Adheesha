@@ -1397,8 +1397,8 @@ export default function HomePage() {
                   </MagneticWrapper>
                   <MagneticWrapper reduceMotion={reduceMotion}>
                     <a
-                      href="/CV.pdf"
-                      target="_blank"
+                      href="/cv/CV%20ADHEESHA%20SOORIYAARACHCHI.pdf"
+                      download
                       className="hidden rounded-full border border-ink/15 bg-white/45 px-6 py-3.5 text-sm font-semibold text-ink glass-soft sm:inline-flex"
                     >
                       Download CV
