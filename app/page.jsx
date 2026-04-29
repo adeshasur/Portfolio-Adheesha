@@ -1053,6 +1053,7 @@ function VideoSourceCard({ item, category, index }) {
             className="h-full w-full"
             allow="autoplay; encrypted-media; picture-in-picture; clipboard-write; web-share"
             allowFullScreen
+            loading="lazy"
           />
         ) : (
           <div className="flex h-full w-full items-end bg-gradient-to-br from-zinc-950 via-zinc-900 to-zinc-800 p-4 text-white">
