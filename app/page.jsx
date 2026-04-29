@@ -5,7 +5,11 @@ import Image from "next/image";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Environment, Float, MeshTransmissionMaterial, RoundedBox } from "@react-three/drei";
 import { AnimatePresence, motion, useAnimationFrame, useMotionValue, useReducedMotion, useScroll, useSpring, useTransform } from "framer-motion";
-import { ArrowUpRight, Calculator, Coffee, Facebook, FileCode, Github, IdCard, Image as ImageIcon, Instagram, Linkedin, MapPin, Palette, QrCode, RotateCw, ShieldCheck, Sparkles, WandSparkles, X } from "lucide-react";
+import { ArrowUpRight, Calculator, Coffee, Facebook, FileCode, Github, IdCard, Image as ImageIcon, Instagram, Linkedin, Mail, MapPin, MessageSquare, Palette, QrCode, RotateCw, Send, ShieldCheck, Sparkles, Type, User, WandSparkles, X } from "lucide-react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { sendEmail } from "./actions";
 import {
   achievementItems,
   bookshelfItems,
@@ -1229,27 +1233,176 @@ function JourneyCard({ item, index, onOpen, label, reduceMotion }) {
   );
 }
 
-function BookSpine({ item, index }) {
+const contactSchema = z.object({
+  name: z.string().min(2, "Name is required (min 2 chars)"),
+  email: z.string().email("Please enter a valid email"),
+  message: z.string().min(10, "Message must be at least 10 characters"),
+});
+
+function ContactForm({ reduceMotion }) {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [error, setError] = useState(null);
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(contactSchema),
+  });
+
+  async function onSubmit(data) {
+    setIsSubmitting(true);
+    setError(null);
+
+    const formData = new FormData();
+    formData.append("name", data.name);
+    formData.append("email", data.email);
+    formData.append("message", data.message);
+
+    const result = await sendEmail(formData);
+
+    if (result.success) {
+      setIsSuccess(true);
+      reset();
+      setTimeout(() => setIsSuccess(false), 5000);
+    } else {
+      setError(result.error || "Something went wrong.");
+    }
+    setIsSubmitting(false);
+  }
+
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.72, delay: index * 0.07, ease: [0.22, 1, 0.36, 1] }}
-      whileHover={{ y: -8, rotateY: -10, rotateX: 6 }}
-      className={`group relative flex w-full max-w-[120px] flex-col justify-between rounded-t-[24px] px-4 pb-5 pt-6 shadow-2xl shadow-black/10 ${item.height}`}
-      style={{ transformStyle: "preserve-3d" }}
-    >
-      <div className={`absolute inset-0 rounded-t-[24px] bg-gradient-to-b ${item.color}`} />
-      <div className="absolute inset-y-0 right-0 w-3 rounded-r-[18px] bg-black/12" />
-      <div className="absolute inset-[1px] rounded-t-[23px] border border-white/35" />
-      <div className="relative z-10 flex h-full flex-col justify-between text-white">
-        <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-white/80">{item.tone}</p>
-        <h3 className="font-display text-lg font-semibold tracking-[-0.05em] [writing-mode:vertical-rl] rotate-180 md:text-xl">
-          {item.title}
-        </h3>
-      </div>
-    </motion.div>
+    <div className="relative">
+      <AnimatePresence mode="wait">
+        {isSuccess ? (
+          <motion.div
+            key="success"
+            initial={{ opacity: 0, scale: 0.9, y: 10 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 1.1 }}
+            className="flex flex-col items-center justify-center py-12 text-center"
+          >
+            <div className="relative mb-6">
+              <motion.div
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                transition={{ type: "spring", damping: 12, stiffness: 200, delay: 0.1 }}
+                className="flex h-20 w-20 items-center justify-center rounded-full bg-emerald-500 text-white shadow-lg shadow-emerald-500/20"
+              >
+                <Send className="h-8 w-8" />
+              </motion.div>
+              {/* Confetti-like particles */}
+              {[...Array(6)].map((_, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, scale: 0 }}
+                  animate={{ 
+                    opacity: [0, 1, 0], 
+                    scale: [0, 1, 0],
+                    x: Math.cos(i * 60 * (Math.PI / 180)) * 60,
+                    y: Math.sin(i * 60 * (Math.PI / 180)) * 60,
+                  }}
+                  transition={{ duration: 0.8, delay: 0.2 + (i * 0.05) }}
+                  className="absolute left-1/2 top-1/2 h-2 w-2 rounded-full bg-gold"
+                />
+              ))}
+            </div>
+            <h3 className="font-display text-2xl font-semibold text-white">Message Sent!</h3>
+            <p className="mt-2 text-zinc-400">Thanks for reaching out. I&apos;ll get back to you soon.</p>
+            <button
+              type="button"
+              onClick={() => setIsSuccess(false)}
+              className="mt-8 text-xs font-bold uppercase tracking-[0.2em] text-gold hover:text-white transition-colors"
+            >
+              Send Another Message
+            </button>
+          </motion.div>
+        ) : (
+          <motion.form
+            key="form"
+            onSubmit={handleSubmit(onSubmit)}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="space-y-5"
+          >
+            <div className="grid gap-5 md:grid-cols-2">
+              <div className="space-y-2">
+                <label className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-500 px-1">
+                  <User className="h-3 w-3" /> Name
+                </label>
+                <div className="relative">
+                  <input
+                    {...register("name")}
+                    type="text"
+                    placeholder="Your Name"
+                    className={`w-full rounded-[18px] border bg-white/5 px-5 py-4 text-sm text-white outline-none transition-all focus:bg-white/10 ${errors.name ? "border-rose-500/50" : "border-white/10 focus:border-gold/50"}`}
+                  />
+                  {errors.name && <p className="mt-1.5 px-2 text-[10px] font-medium text-rose-400">{errors.name.message}</p>}
+                </div>
+              </div>
+              <div className="space-y-2">
+                <label className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-500 px-1">
+                  <Mail className="h-3 w-3" /> Email
+                </label>
+                <div className="relative">
+                  <input
+                    {...register("email")}
+                    type="email"
+                    placeholder="hello@example.com"
+                    className={`w-full rounded-[18px] border bg-white/5 px-5 py-4 text-sm text-white outline-none transition-all focus:bg-white/10 ${errors.email ? "border-rose-500/50" : "border-white/10 focus:border-gold/50"}`}
+                  />
+                  {errors.email && <p className="mt-1.5 px-2 text-[10px] font-medium text-rose-400">{errors.email.message}</p>}
+                </div>
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              <label className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-500 px-1">
+                <Type className="h-3 w-3" /> Message
+              </label>
+              <div className="relative">
+                <textarea
+                  {...register("message")}
+                  rows={4}
+                  placeholder="How can I help you?"
+                  className={`w-full resize-none rounded-[22px] border bg-white/5 px-5 py-4 text-sm text-white outline-none transition-all focus:bg-white/10 ${errors.message ? "border-rose-500/50" : "border-white/10 focus:border-gold/50"}`}
+                />
+                {errors.message && <p className="mt-1.5 px-2 text-[10px] font-medium text-rose-400">{errors.message.message}</p>}
+              </div>
+            </div>
+
+            {error && (
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="rounded-xl bg-rose-500/10 p-4 text-[12px] font-medium text-rose-400"
+              >
+                {error}
+              </motion.div>
+            )}
+
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className="group relative flex w-full items-center justify-center gap-3 overflow-hidden rounded-full bg-white py-4 text-sm font-bold text-ink transition-all hover:bg-gold hover:text-white disabled:opacity-50"
+            >
+              {isSubmitting ? (
+                <RotateCw className="h-4 w-4 animate-spin" />
+              ) : (
+                <>
+                  Send Message
+                  <Send className="h-4 w-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
+                </>
+              )}
+            </button>
+          </motion.form>
+        )}
+      </AnimatePresence>
+    </div>
   );
 }
 
@@ -1702,47 +1855,65 @@ export default function HomePage() {
       </SectionReveal>
 
       <SectionReveal id="contact" className="scroll-mt-28 px-4 pt-20 md:px-6 md:pt-24" delay={0.2}>
-        <div className="relative mx-auto max-w-[1380px] overflow-hidden rounded-[42px] px-6 py-8 md:px-10 md:py-10">
+        <div className="relative mx-auto max-w-[1380px] overflow-hidden rounded-[42px] px-6 py-10 md:px-10 md:py-14">
           <div className="absolute inset-0 rounded-[42px] bg-gradient-to-br from-zinc-950 via-zinc-900 to-black" />
           <div className="absolute right-10 top-10 h-64 w-64 rounded-full bg-gold/15 blur-3xl" />
           <div className="absolute left-10 bottom-10 h-56 w-56 rounded-full bg-white/10 blur-3xl" />
-          <div className="relative z-10 grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-end">
-            <div>
-              <SectionIntro
-                eyebrow="Contact"
-                title={contactContent.title}
-                text={contactContent.body}
-                theme="dark"
-              />
-            </div>
-            <div className="rounded-[32px] border border-white/10 bg-white/8 p-6 backdrop-blur-2xl md:p-8">
-              <div className="grid gap-4">
-                {contactContent.bullets.map((bullet) => (
-                  <div key={bullet} className="flex items-start gap-3 rounded-[22px] bg-white/10 px-4 py-4 text-zinc-100/90">
-                    <WandSparkles className="mt-0.5 h-4 w-4 shrink-0 text-gold" />
-                    <p className="text-sm leading-7 md:text-[15px]">{bullet}</p>
-                  </div>
-                ))}
+          
+          <div className="relative z-10 grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
+            <div className="flex flex-col h-full justify-between">
+              <div>
+                <SectionIntro
+                  eyebrow="Contact"
+                  title={contactContent.title}
+                  text={contactContent.body}
+                  theme="dark"
+                />
+                
+                <div className="mt-12 grid gap-4 max-w-md">
+                  {contactContent.bullets.map((bullet) => (
+                    <div key={bullet} className="flex items-start gap-4 rounded-[22px] bg-white/5 border border-white/5 px-5 py-4 text-zinc-300/90 transition-colors hover:bg-white/10">
+                      <WandSparkles className="mt-1 h-4 w-4 shrink-0 text-gold" />
+                      <p className="text-sm leading-7 md:text-[15px]">{bullet}</p>
+                    </div>
+                  ))}
+                </div>
               </div>
 
-              <div className="mt-14 flex flex-wrap gap-3">
-                <MagneticWrapper reduceMotion={reduceMotion} intensity={0.25}>
-                  <button
-                    type="button"
-                    onClick={() => smoothScrollTo("hero")}
-                    className="rounded-full bg-white px-5 py-3 text-sm font-semibold text-ink transition duration-300 hover:bg-zinc-100"
-                  >
-                    Back to Top
-                  </button>
-                </MagneticWrapper>
-                <MagneticWrapper reduceMotion={reduceMotion} intensity={0.25}>
-                  <a
-                    href="https://github.com/adeshasur/Portfolio-Adheesha"
-                    className="rounded-full border border-white/20 bg-white/10 px-5 py-3 text-sm font-semibold text-white transition duration-300 hover:bg-white/15"
-                  >
-                    View Repository
-                  </a>
-                </MagneticWrapper>
+              <div className="mt-16 pt-10 border-t border-white/5">
+                <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-zinc-500 mb-6">Quick Connect</p>
+                <div className="flex flex-wrap gap-4">
+                  <MagneticWrapper reduceMotion={reduceMotion} intensity={0.3}>
+                    <a
+                      href={`https://wa.me/${contactContent.phone}?text=${encodeURIComponent(contactContent.whatsappMessage)}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group flex items-center gap-3 rounded-full bg-[#25D366]/10 border border-[#25D366]/20 px-6 py-4 text-sm font-bold text-[#25D366] transition-all hover:bg-[#25D366] hover:text-white"
+                    >
+                      <MessageSquare className="h-5 w-5" />
+                      WhatsApp
+                    </a>
+                  </MagneticWrapper>
+                  <MagneticWrapper reduceMotion={reduceMotion} intensity={0.3}>
+                    <a
+                      href={`mailto:${contactContent.email}?subject=${encodeURIComponent("Portfolio Inquiry")}`}
+                      className="group flex items-center gap-3 rounded-full bg-white/5 border border-white/10 px-6 py-4 text-sm font-bold text-white transition-all hover:bg-white hover:text-ink"
+                    >
+                      <Mail className="h-5 w-5" />
+                      Email Direct
+                    </a>
+                  </MagneticWrapper>
+                </div>
+              </div>
+            </div>
+
+            <div className="rounded-[40px] border border-white/10 bg-white/5 p-1 backdrop-blur-3xl">
+              <div className="rounded-[38px] bg-zinc-950/40 p-6 md:p-10">
+                <div className="mb-10">
+                  <h3 className="font-display text-2xl font-semibold text-white">Send a Message</h3>
+                  <p className="mt-2 text-sm text-zinc-500">I usually respond within 24 hours.</p>
+                </div>
+                <ContactForm reduceMotion={reduceMotion} />
               </div>
             </div>
           </div>

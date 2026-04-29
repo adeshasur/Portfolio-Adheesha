@@ -9,6 +9,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "@hookform/resolvers": "^5.2.2",
     "@react-three/drei": "^9.120.4",
     "@react-three/fiber": "^8.17.10",
     "framer-motion": "^12.38.0",
@@ -16,8 +17,11 @@
     "next": "^14.2.33",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-hook-form": "^7.74.0",
+    "resend": "^6.12.2",
     "sharp": "^0.34.5",
-    "three": "^0.169.0"
+    "three": "^0.169.0",
+    "zod": "^4.3.6"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.21",
