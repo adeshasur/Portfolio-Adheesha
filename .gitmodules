@@ -1,0 +1,3 @@
+[submodule "resources/Tools/qr-generator"]
+	path = resources/Tools/qr-generator
+	url = https://github.com/adeshasur/Tools-QR-Generator.git
