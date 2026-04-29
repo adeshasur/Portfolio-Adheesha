@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://info-adheesha.vercel.app/sitemap.xml
+
+# Prevent crawling of unnecessary pages
+Disallow: /api/
+Disallow: /_next/
+Disallow: /*.json$
