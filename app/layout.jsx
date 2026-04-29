@@ -1,4 +1,4 @@
-﻿import Script from "next/script";
+import Script from "next/script";
 import { Inter, Poppins } from "next/font/google";
 import "./globals.css";
 
@@ -104,7 +104,7 @@ export default function RootLayout({ children }) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
         />
       </head>
-      <body className={`${inter.variable} ${poppins.variable}`}>
+      <body className={`${inter.variable} ${poppins.variable} overflow-x-hidden`}>
         {children}
         <Script id="chatway-widget" src="https://cdn.chatway.app/widget.js?id=dqkNTqEXV67t" strategy="afterInteractive" />
       </body>
