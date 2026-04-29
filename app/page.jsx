@@ -73,7 +73,9 @@ function getVideoEmbedUrl(url) {
   const isTikTokUrl = normalizedUrl.includes("tiktok.com");
 
   if (isFacebookUrl) {
-    return `https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(normalizedUrl)}&show_text=false&width=560&autoplay=1&mute=1`;
+    // Normalize web.facebook.com to www.facebook.com
+    const cleanUrl = normalizedUrl.replace("web.facebook.com", "www.facebook.com");
+    return `https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(cleanUrl)}&show_text=false&width=560&autoplay=1&mute=1`;
   }
 
   if (isTikTokUrl) {
