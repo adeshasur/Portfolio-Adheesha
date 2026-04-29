@@ -420,7 +420,7 @@ function TiltCard({ children, className = "", reduceMotion }) {
   );
 }
 
-function MagneticWrapper({ children, intensity = 0.35, reduceMotion }) {
+function MagneticWrapper({ children, intensity = 0.15, reduceMotion }) {
   const x = useMotionValue(0);
   const y = useMotionValue(0);
   const springX = useSpring(x, { stiffness: 150, damping: 15 });
@@ -1475,7 +1475,7 @@ export default function HomePage() {
           <nav className="flex items-center gap-1 rounded-full bg-white/45 p-1.5 glass-panel">
             {navItems.map((item) => (
               "id" in item ? (
-                <MagneticWrapper key={item.id} reduceMotion={reduceMotion} intensity={0.2}>
+                <MagneticWrapper key={item.id} reduceMotion={reduceMotion} intensity={0.1}>
                   <button
                     type="button"
                     onClick={() => smoothScrollTo(item.id)}
@@ -1485,7 +1485,7 @@ export default function HomePage() {
                   </button>
                 </MagneticWrapper>
               ) : (
-                <MagneticWrapper key={item.href} reduceMotion={reduceMotion} intensity={0.2}>
+                <MagneticWrapper key={item.href} reduceMotion={reduceMotion} intensity={0.1}>
                   <a
                     href={item.href}
                     className="rounded-full px-4 py-2 text-xs font-semibold text-ink transition duration-300 hover:bg-white/60"
@@ -1497,7 +1497,7 @@ export default function HomePage() {
             ))}
           </nav>
 
-          <MagneticWrapper reduceMotion={reduceMotion} intensity={0.25}>
+          <MagneticWrapper reduceMotion={reduceMotion} intensity={0.12}>
             <button
               type="button"
               onClick={() => smoothScrollTo("contact")}
@@ -1591,7 +1591,7 @@ export default function HomePage() {
                   {socialLinks.map((item) => {
                     const Icon = socialIconMap[item.icon];
                     return (
-                      <MagneticWrapper key={item.label} reduceMotion={reduceMotion} intensity={0.4}>
+                      <MagneticWrapper key={item.label} reduceMotion={reduceMotion} intensity={0.2}>
                         <a
                           href={item.href}
                           aria-label={item.label}
@@ -1907,7 +1907,7 @@ export default function HomePage() {
               <div className="mt-16 pt-10 border-t border-white/5">
                 <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-zinc-500 mb-6">Quick Connect</p>
                 <div className="flex flex-wrap gap-4">
-                  <MagneticWrapper reduceMotion={reduceMotion} intensity={0.3}>
+                  <MagneticWrapper reduceMotion={reduceMotion} intensity={0.15}>
                     <a
                       href={`https://wa.me/${contactContent.phone}?text=${encodeURIComponent(contactContent.whatsappMessage)}`}
                       target="_blank"
@@ -1918,7 +1918,7 @@ export default function HomePage() {
                       WhatsApp
                     </a>
                   </MagneticWrapper>
-                  <MagneticWrapper reduceMotion={reduceMotion} intensity={0.3}>
+                  <MagneticWrapper reduceMotion={reduceMotion} intensity={0.15}>
                     <a
                       href={`mailto:${contactContent.email}?subject=${encodeURIComponent("Portfolio Inquiry")}`}
                       className="group flex items-center gap-3 rounded-full bg-white/5 border border-white/10 px-6 py-4 text-sm font-bold text-white transition-all hover:bg-white hover:text-ink"
