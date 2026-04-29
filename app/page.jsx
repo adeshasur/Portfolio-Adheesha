@@ -1286,16 +1286,22 @@ function ContactForm({ reduceMotion }) {
     formData.append("email", data.email);
     formData.append("message", data.message);
 
-    const result = await sendEmail(formData);
+    try {
+      const result = await sendEmail(formData);
 
-    if (result.success) {
-      setIsSuccess(true);
-      reset();
-      setTimeout(() => setIsSuccess(false), 5000);
-    } else {
-      setError(result.error || "Something went wrong.");
+      if (result.success) {
+        setIsSuccess(true);
+        reset();
+        setTimeout(() => setIsSuccess(false), 5000);
+      } else {
+        setError(result.error || "Something went wrong.");
+      }
+    } catch (err) {
+      console.error("Submission error:", err);
+      setError("Connection failed. Please check your internet or try again later.");
+    } finally {
+      setIsSubmitting(false);
     }
-    setIsSubmitting(false);
   }
 
   return (

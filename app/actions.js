@@ -12,6 +12,11 @@ const contactSchema = z.object({
 });
 
 export async function sendEmail(formData) {
+  if (!process.env.RESEND_API_KEY) {
+    console.error("Missing RESEND_API_KEY");
+    return { error: "Email service is not configured. Please add RESEND_API_KEY to your environment variables." };
+  }
+
   const validatedFields = contactSchema.safeParse({
     name: formData.get("name"),
     email: formData.get("email"),
