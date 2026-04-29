@@ -1233,6 +1233,30 @@ function JourneyCard({ item, index, onOpen, label, reduceMotion }) {
   );
 }
 
+function BookSpine({ item, index }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.72, delay: index * 0.07, ease: [0.22, 1, 0.36, 1] }}
+      whileHover={{ y: -8, rotateY: -10, rotateX: 6 }}
+      className={`group relative flex w-full max-w-[120px] flex-col justify-between rounded-t-[24px] px-4 pb-5 pt-6 shadow-2xl shadow-black/10 ${item.height}`}
+      style={{ transformStyle: "preserve-3d" }}
+    >
+      <div className={`absolute inset-0 rounded-t-[24px] bg-gradient-to-b ${item.color}`} />
+      <div className="absolute inset-y-0 right-0 w-3 rounded-r-[18px] bg-black/12" />
+      <div className="absolute inset-[1px] rounded-t-[23px] border border-white/35" />
+      <div className="relative z-10 flex h-full flex-col justify-between text-white">
+        <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-white/80">{item.tone}</p>
+        <h3 className="font-display text-lg font-semibold tracking-[-0.05em] [writing-mode:vertical-rl] rotate-180 md:text-xl">
+          {item.title}
+        </h3>
+      </div>
+    </motion.div>
+  );
+}
+
 const contactSchema = z.object({
   name: z.string().min(2, "Name is required (min 2 chars)"),
   email: z.string().email("Please enter a valid email"),
