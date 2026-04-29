@@ -1363,7 +1363,7 @@ function ContactForm({ reduceMotion }) {
                     {...register("name")}
                     type="text"
                     placeholder="Your Name"
-                    className={`w-full rounded-[18px] border bg-white/5 px-5 py-4 text-sm text-white outline-none transition-all focus:bg-white/10 ${errors.name ? "border-rose-500/50" : "border-white/10 focus:border-gold/50"}`}
+                    className={`w-full rounded-[18px] border bg-white/5 px-5 py-3.5 text-sm text-white outline-none transition-all focus:bg-white/10 ${errors.name ? "border-rose-500/50" : "border-white/10 focus:border-gold/50"}`}
                   />
                   {errors.name && <p className="mt-1.5 px-2 text-[10px] font-medium text-rose-400">{errors.name.message}</p>}
                 </div>
@@ -1377,7 +1377,7 @@ function ContactForm({ reduceMotion }) {
                     {...register("email")}
                     type="email"
                     placeholder="hello@example.com"
-                    className={`w-full rounded-[18px] border bg-white/5 px-5 py-4 text-sm text-white outline-none transition-all focus:bg-white/10 ${errors.email ? "border-rose-500/50" : "border-white/10 focus:border-gold/50"}`}
+                    className={`w-full rounded-[18px] border bg-white/5 px-5 py-3.5 text-sm text-white outline-none transition-all focus:bg-white/10 ${errors.email ? "border-rose-500/50" : "border-white/10 focus:border-gold/50"}`}
                   />
                   {errors.email && <p className="mt-1.5 px-2 text-[10px] font-medium text-rose-400">{errors.email.message}</p>}
                 </div>
@@ -1391,9 +1391,9 @@ function ContactForm({ reduceMotion }) {
               <div className="relative">
                 <textarea
                   {...register("message")}
-                  rows={4}
+                  rows={3}
                   placeholder="How can I help you?"
-                  className={`w-full resize-none rounded-[22px] border bg-white/5 px-5 py-4 text-sm text-white outline-none transition-all focus:bg-white/10 ${errors.message ? "border-rose-500/50" : "border-white/10 focus:border-gold/50"}`}
+                  className={`w-full resize-none rounded-[22px] border bg-white/5 px-5 py-3.5 text-sm text-white outline-none transition-all focus:bg-white/10 ${errors.message ? "border-rose-500/50" : "border-white/10 focus:border-gold/50"}`}
                 />
                 {errors.message && <p className="mt-1.5 px-2 text-[10px] font-medium text-rose-400">{errors.message.message}</p>}
               </div>
@@ -1412,7 +1412,7 @@ function ContactForm({ reduceMotion }) {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="group relative flex w-full items-center justify-center gap-3 overflow-hidden rounded-full bg-white py-4 text-sm font-bold text-ink transition-all hover:bg-gold hover:text-white disabled:opacity-50"
+              className="group relative flex w-full items-center justify-center gap-3 overflow-hidden rounded-full bg-white py-3.5 text-sm font-bold text-ink transition-all hover:bg-gold hover:text-white disabled:opacity-50"
             >
               {isSubmitting ? (
                 <RotateCw className="h-4 w-4 animate-spin" />
@@ -1879,12 +1879,12 @@ export default function HomePage() {
       </SectionReveal>
 
       <SectionReveal id="contact" className="scroll-mt-28 px-4 pt-20 md:px-6 md:pt-24" delay={0.2}>
-        <div className="relative mx-auto max-w-[1380px] overflow-hidden rounded-[42px] px-6 py-10 md:px-10 md:py-14">
+        <div className="relative mx-auto max-w-[1240px] overflow-hidden rounded-[42px] px-6 py-8 md:px-10 md:py-12">
           <div className="absolute inset-0 rounded-[42px] bg-gradient-to-br from-zinc-950 via-zinc-900 to-black" />
           <div className="absolute right-10 top-10 h-64 w-64 rounded-full bg-gold/15 blur-3xl" />
           <div className="absolute left-10 bottom-10 h-56 w-56 rounded-full bg-white/10 blur-3xl" />
           
-          <div className="relative z-10 grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
+          <div className="relative z-10 grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
             <div className="flex flex-col h-full justify-between">
               <div>
                 <SectionIntro
@@ -1932,7 +1932,7 @@ export default function HomePage() {
             </div>
 
             <div className="rounded-[40px] border border-white/10 bg-white/5 p-1 backdrop-blur-3xl">
-              <div className="rounded-[38px] bg-zinc-950/40 p-6 md:p-10">
+              <div className="rounded-[38px] bg-zinc-950/40 p-5 md:p-8">
                 <div className="mb-10">
                   <h3 className="font-display text-2xl font-semibold text-white">Send a Message</h3>
                   <p className="mt-2 text-sm text-zinc-500">I usually respond within 24 hours.</p>
