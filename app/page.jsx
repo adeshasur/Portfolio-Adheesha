@@ -1904,31 +1904,6 @@ export default function HomePage() {
                 </div>
               </div>
 
-              <div className="mt-8 pt-8 border-t border-white/5">
-                <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-zinc-500 mb-6">Quick Connect</p>
-                <div className="flex flex-wrap gap-4">
-                  <MagneticWrapper reduceMotion={reduceMotion} intensity={0.15}>
-                    <a
-                      href={`https://wa.me/${contactContent.phone}?text=${encodeURIComponent(contactContent.whatsappMessage)}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="group flex items-center gap-3 rounded-full bg-[#25D366]/10 border border-[#25D366]/20 px-6 py-4 text-sm font-bold text-[#25D366] transition-all hover:bg-[#25D366] hover:text-white"
-                    >
-                      <MessageSquare className="h-5 w-5" />
-                      WhatsApp
-                    </a>
-                  </MagneticWrapper>
-                  <MagneticWrapper reduceMotion={reduceMotion} intensity={0.15}>
-                    <a
-                      href={`mailto:${contactContent.email}?subject=${encodeURIComponent("Portfolio Inquiry")}`}
-                      className="group flex items-center gap-3 rounded-full bg-white/5 border border-white/10 px-6 py-4 text-sm font-bold text-white transition-all hover:bg-white hover:text-ink"
-                    >
-                      <Mail className="h-5 w-5" />
-                      Email Direct
-                    </a>
-                  </MagneticWrapper>
-                </div>
-              </div>
             </div>
 
             <div className="rounded-[40px] border border-white/10 bg-white/5 p-1 backdrop-blur-3xl">
@@ -1938,6 +1913,32 @@ export default function HomePage() {
                   <p className="mt-2 text-sm text-zinc-500">I usually respond within 24 hours.</p>
                 </div>
                 <ContactForm reduceMotion={reduceMotion} />
+
+                <div className="mt-10 pt-8 border-t border-white/5">
+                  <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-zinc-500 mb-6">Or connect via</p>
+                  <div className="flex flex-wrap gap-3">
+                    <MagneticWrapper reduceMotion={reduceMotion} intensity={0.15}>
+                      <a
+                        href={`https://wa.me/${contactContent.phone}?text=${encodeURIComponent(contactContent.whatsappMessage)}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="group flex items-center gap-3 rounded-full bg-[#25D366]/10 border border-[#25D366]/20 px-5 py-3 text-xs font-bold text-[#25D366] transition-all hover:bg-[#25D366] hover:text-white"
+                      >
+                        <MessageSquare className="h-4 w-4" />
+                        WhatsApp
+                      </a>
+                    </MagneticWrapper>
+                    <MagneticWrapper reduceMotion={reduceMotion} intensity={0.15}>
+                      <a
+                        href={`mailto:${contactContent.email}?subject=${encodeURIComponent("Portfolio Inquiry")}`}
+                        className="group flex items-center gap-3 rounded-full bg-white/5 border border-white/10 px-5 py-3 text-xs font-bold text-white transition-all hover:bg-white hover:text-ink"
+                      >
+                        <Mail className="h-4 w-4" />
+                        Email Direct
+                      </a>
+                    </MagneticWrapper>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
